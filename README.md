@@ -1,8 +1,8 @@
 # 42
 
-Project | :heavy_check_mark: | Mark |
+Project | :eggplant: | Mark |
 ----------  | ------------- | -------- |
-**libft**   | :heavy_check_mark: | **116**/116 |
-**fillit**  | :heavy_check_mark:| **100**/100|
+**libft**   | :eggplant: | **116**/116 |
+**fillit**  | :eggplant:| **100**/100|
 **get_next_line** | | |
 
