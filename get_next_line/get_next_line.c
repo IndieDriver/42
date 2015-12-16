@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/10 17:35:35 by amathias          #+#    #+#             */
-/*   Updated: 2015/12/15 18:37:44 by amathias         ###   ########.fr       */
+/*   Updated: 2015/12/16 17:17:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 char	*strjoinfree(char *str, char *buf, int size)
 {
 	char *tmp;
-	//printf("STRJOIN BEFORE:\n%s|%s|%d\n",str,buf,size);
+
 	tmp = NULL;
 	if (str)
 	{
@@ -34,8 +34,22 @@ char	*strjoinfree(char *str, char *buf, int size)
 	ft_strncat(tmp, buf, size);
 	free(str);
 	str = NULL;	
-	//printf("STRJOIN AFTER:\n%s|%d\n",tmp,size);
 	return (tmp);
+}
+
+char 	*shift_buf(char *buf, int start)
+{
+	int i;
+
+	i = 0;
+	while (buf[start])
+	{
+		buf[i] = buf[start];
+		i++;
+		start++;
+	}
+	buf[i] = '\0';
+	return (buf);
 }
 
 int		containeof(char *buf)
@@ -52,57 +66,42 @@ int		containeof(char *buf)
 	return (-1);
 }
 
-char 	*shuffle_buf(char *buf, int start)
+t_buf	read_line(int const fd)
 {
-	int i;
+	static t_buf	sbuf;
+	char			*tmp;
 
-	i = 0;
-	//printf("BUFFER:\n%s\n",buf);
-	while (buf[start])
-	{
-		buf[i] = buf[start];
-		i++;
-		start++;
-	}
-	buf[i] = '\0';
-	//printf("SHUFFLED BUF:\n%s\n",buf);
-	return (buf);
-}
-int		get_next_line(int const fd, char **line)
-{
-	char *tmp;
-	static t_buf sbuf;
-
-	tmp = NULL;
 	while (1)
 	{
-		//printf("while(1)\n");
-		if(!ft_strlen(sbuf.buf))
+		if (!ft_strlen(sbuf.buf))
 		{
-			//printf("ft_strlen(sbuf.buf)\n");
 			sbuf.ret = read(fd, sbuf.buf, BUFF_SIZE);
-			sbuf.buf[sbuf.ret] = '\0';
-			printf("%s\n",sbuf.buf);
+			sbuf.buf[0] = '\0';
 		}
 		else
 		{
 			if (containeof(sbuf.buf) != -1)
 			{
-				//printf("containeof(sbuf.buf)\n");
 				tmp = strjoinfree(tmp, sbuf.buf, containeof(sbuf.buf));
-				shuffle_buf(sbuf.buf, containeof(sbuf.buf) + 1);
+				shift_buf(sbuf.buf, containeof(sbuf.buf) + 1);
 				break ;
 			}
 			else
 			{
-				ft_strlen(sbuf.buf) < BUFF_SIZE ? sbuf.end = 0 : sbuf.end = 1;
-				tmp = strjoinfree(tmp, sbuf.buf, BUFF_SIZE);
+				tmp = strjoinfree(tmp, sbuf.buf, containeof(sbuf.buf));
 				sbuf.buf[0] = '\0';
 			}
 		}
 	}
-	*line = tmp;
-	return (sbuf.end);
+	return (tmp);
+}
+
+
+int		get_next_line(int const fd, char **line)
+{
+	*line = read_line;
+	if (read_line
+	return (0);
 }
 
 #include <fcntl.h>
