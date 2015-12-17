@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/10 17:37:21 by amathias          #+#    #+#             */
-/*   Updated: 2015/12/17 14:31:56 by amathias         ###   ########.fr       */
+/*   Updated: 2015/12/17 17:13:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@
 
 typedef struct	s_buf
 {
-	char	buf[BUFF_SIZE + 1];
-	int		ret;
+	char		buf[BUFF_SIZE + 1];
+	int			ret;
 }				t_buf;
 
-int		get_next_line(int const fd, char **line);
+int				get_next_line(int const fd, char **line);
 
 #endif
