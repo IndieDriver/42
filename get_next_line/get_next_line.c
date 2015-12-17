@@ -6,12 +6,12 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/10 17:35:35 by amathias          #+#    #+#             */
-/*   Updated: 2015/12/16 17:17:36 by amathias         ###   ########.fr       */
+/*   Updated: 2015/12/17 14:49:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
+
 char	*strjoinfree(char *str, char *buf, int size)
 {
 	char *tmp;
@@ -33,11 +33,25 @@ char	*strjoinfree(char *str, char *buf, int size)
 		tmp = ft_strcpy(tmp, str);
 	ft_strncat(tmp, buf, size);
 	free(str);
-	str = NULL;	
+	str = NULL;
 	return (tmp);
 }
 
-char 	*shift_buf(char *buf, int start)
+int		containeof(char *buf)
+{
+	int i;
+
+	i = 0;
+	while (buf[i])
+	{
+		if (buf[i] == '\n')
+			return (i);
+		i++;
+	}
+	return (-1);
+}
+
+char	*shift_buf(char *buf, int start)
 {
 	int i;
 
@@ -52,73 +66,38 @@ char 	*shift_buf(char *buf, int start)
 	return (buf);
 }
 
-int		containeof(char *buf)
-{
-	int i;
-
-	i = 0;
-	while(buf[i])
-	{
-		if (buf[i] == '\n')
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-
-t_buf	read_line(int const fd)
+int		get_next_line(int const fd, char **line)
 {
 	static t_buf	sbuf;
 	char			*tmp;
 
+	tmp = NULL;
 	while (1)
 	{
 		if (!ft_strlen(sbuf.buf))
 		{
-			sbuf.ret = read(fd, sbuf.buf, BUFF_SIZE);
-			sbuf.buf[0] = '\0';
+			if ((sbuf.ret = read(fd, sbuf.buf, BUFF_SIZE)) == -1)
+				return (-1);
+			sbuf.buf[sbuf.ret] = '\0';
+			if (!sbuf.ret)
+				break ;
 		}
 		else
 		{
 			if (containeof(sbuf.buf) != -1)
 			{
-				tmp = strjoinfree(tmp, sbuf.buf, containeof(sbuf.buf));
+				if (!(tmp = strjoinfree(tmp, sbuf.buf, containeof(sbuf.buf))))
+					return (-1);
 				shift_buf(sbuf.buf, containeof(sbuf.buf) + 1);
 				break ;
 			}
 			else
 			{
-				tmp = strjoinfree(tmp, sbuf.buf, containeof(sbuf.buf));
+				if (!(tmp = strjoinfree(tmp, sbuf.buf, BUFF_SIZE)))
+					return (-1);
 				sbuf.buf[0] = '\0';
 			}
 		}
 	}
-	return (tmp);
-}
-
-
-int		get_next_line(int const fd, char **line)
-{
-	*line = read_line;
-	if (read_line
-	return (0);
-}
-
-#include <fcntl.h>
-
-int		main(int argc, char **argv)
-{
-	int fd;
-	char *line;
-
-	if (argc == 2)
-	{
-		fd = open(argv[1], O_RDONLY);
-		while (get_next_line(fd, &line) == 1)
-		{
-			write(1, line, ft_strlen(line));
-			write(1, "\n", 1);
-			free(line);
-		}
-	}
+	return ((*line = tmp) && sbuf.ret != 0);
 }
