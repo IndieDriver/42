@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 16:43:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/04 14:00:41 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/04 14:21:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int		**read_file(char *file_name)
 		return (NULL);
 	while (get_next_line(fd, &line) == 1)
 	{
-		
+			
 		free(line);
 	}
 	if (close(fd) == -1)
