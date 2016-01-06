@@ -6,13 +6,14 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2015/12/20 16:20:34 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/06 15:05:45 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
 SRC =	main.c			\
+		isometric.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf

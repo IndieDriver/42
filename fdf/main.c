@@ -6,33 +6,50 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/04 13:45:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/06 18:16:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
+/*
 void	draw(void *mlx, void *win)
 {
 	int x;
 	int y;
+	t_point point;
 
-	y = 100;
-	while (y < 200)
+	y = 50;
+	while (y < 300)
 	{
-		x = 100;
-		while (x < 200)
+		x = 50;
+		while (x < 300)
 		{
-			mlx_pixel_put(mlx, win, x, y, 0xFF0000);
-			x++;
+			point = convertcord(x, y);
+			mlx_pixel_put(mlx, win, point.x, point.y, 0xFF0000);
+			x += 10;
 		}
 		y++;
 	}
+	x = 50;
+	while (x < 300)
+	{
+		y = 50;
+		while (y < 300)
+		{
+			point = convertcord(x, y);
+			mlx_pixel_put(mlx, win, point.x, point.y, 0x0033FF);
+			y += 10;
+		}
+		x++;
+	}
 }
+*/
 
 int		expose_hook(t_env *e)
 {
-	draw(e->mlx,e->win);
+	int grid[4][4] = { {0,0,0,0} , {0,0,0,0} , {0,0,0,0} , {0,0,0,0} };
+	draw_iso(*e, grid, 4, 4);
 	return (0);
 }
 
@@ -41,8 +58,7 @@ int		main(int argc, char **argv)
 	t_env e;
 
 	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, 420, 420, "42");
-	mlx_key_hook(e.win, key_hook, &e);
+	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "42");
 	mlx_expose_hook(e.win, expose_hook, &e);
 	mlx_loop(e.mlx);
 	sleep(5);
