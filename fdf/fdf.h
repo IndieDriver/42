@@ -6,13 +6,14 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/06 17:24:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/08 15:36:33 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 # include <mlx.h>
+# include <math.h>
 # include "libft.h"
 # define HEIGHT 680
 # define WIDTH	480
@@ -27,6 +28,7 @@ typedef struct	s_point
 {
 	int			x;
 	int			y;
+	int			value;
 }				t_point;
 
 t_point			convertcord(int x, int y);
