@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/08 15:36:33 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/09 10:00:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,5 +32,6 @@ typedef struct	s_point
 }				t_point;
 
 t_point			convertcord(int x, int y);
-void			draw_iso(t_env env, int grid[4][4], int row, int col);
+void			draw_iso(t_env env, t_point **grid, int row, int col);
+t_point			**init_grid(int grid[4][4], int row, int col, int offset);
 #endif
