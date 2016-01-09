@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/08 16:28:56 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/09 10:37:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,8 @@ void		draw_line(t_env env, t_point from, t_point to, t_point tmp)
 	int dy;
 	int p;
 	int xend;
-	
-	from = convertcord(from.x, from.y);
-	to = convertcord(to.x, to.y);
+
+	printf("from.x: %d, from.y: %d\nto.x: %d, to.y: %d\n",from.x,from.y,to.x,to.y);	
 	dx = abs(to.x - from.x);
 	dy = abs(to.y - from.y);
 	p = 2 * (dx - dy);
@@ -62,11 +61,10 @@ void		draw_line(t_env env, t_point from, t_point to, t_point tmp)
 	}
 }
 
-void		draw_iso(t_env env, int grid[4][4], int row, int col)
+void		draw_iso(t_env env, t_point **grid, int row, int col)
 {
 	int i;
 	int j;
-	t_point point;
 	t_point from;
 	t_point to;
 
@@ -74,17 +72,53 @@ void		draw_iso(t_env env, int grid[4][4], int row, int col)
 	while (i < row)
 	{
 		j = 0;
-		from = setpoint(i*50 - grid[i][j], j*50 - grid[i][j]);
+		from = grid[i][j];
 		while (j < col)
 		{
-			point = convertcord(i*50 - grid[i][j],j*50 - grid[i][j]);
-			to = setpoint(i*50 - grid[i][j], j*50 - grid[i][j]);
-			draw_line(env, from, to, setpoint(0,0));
-			mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + point.x,
-					(HEIGHT / 2) + point.y, 0xFF0000);
+			to = grid[i][j];
+			printf("i: %d,j: %d\n",i,j);
+			draw_line(env, setpoint(0,0), setpoint(0,50), setpoint(0,0));
+			draw_line(env, setpoint(0,0), setpoint(50,50), setpoint(0,0));
+			draw_line(env, setpoint(0,0), setpoint(50,0), setpoint(0,0));
+			draw_line(env, setpoint(0,0), setpoint(50,50), setpoint(0,0));
+			/*
+			if (i + 1 != row)
+				draw_line(env, from, grid[i + 1][j], setpoint(0,0));
+			if (j + 1 != col)
+				draw_line(env, from, grid[i][j + 1], setpoint(0,0)); 
+			mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + grid[i][j].x,
+					(HEIGHT / 2) + grid[i][j].y, 0xFF0000); */
 			from = to;
 			j++;
 		}
 		i++;
 	}
+}
+
+t_point		**init_grid(int grid[4][4], int row, int col, int offset)
+{
+	int i;
+	int j;
+	t_point **pointgrid;
+	t_point tmp;	
+
+	i = 0;
+	if (!(pointgrid = (t_point **)malloc(sizeof(t_point*) * row)))
+		return (NULL);
+	while (i < row)
+	{
+		if (!(pointgrid[i] = (t_point*)malloc(sizeof(t_point) * col)))
+			return (NULL);
+		j = 0;
+		while (j < col)
+		{
+			tmp = setpoint(i*offset - grid[i][j],
+					j*offset - grid[i][j]);
+			//pointgrid[i][j] = tmp;
+			pointgrid[i][j] = convertcord(tmp.x,tmp.y);
+			j++;
+		}
+		i++;
+	}
+	return (pointgrid);
 }
