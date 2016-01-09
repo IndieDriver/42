@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/09 10:06:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/09 16:10:50 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	draw(void *mlx, void *win)
 
 int		expose_hook(t_env *e)
 {
-	int grid[4][4] = { {0,42,42,0} , {0,0,0,0} , {0,0,0,0} , {0,0,0,0} };
+	int grid[4][4] = { {0,0,0,0} , {0,42,42,0} , {0,42,42,0} , {0,0,0,0} };
 	t_point **pointgrid = init_grid(grid, 4, 4, 50);
 	draw_iso(*e, pointgrid, 4, 4);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/09 10:37:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/09 16:09:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_point		setpoint(int x, int y)
 t_point		convertcord(int x, int y)
 {
 	t_point point;
-	
+
 	point.x = x - y;
 	point.y = (x + y) / 2;
 	return (point);
@@ -34,31 +34,64 @@ void		draw_line(t_env env, t_point from, t_point to, t_point tmp)
 {
 	int dx;
 	int dy;
-	int p;
-	int xend;
+	int error;
+	int sx;
+	int sy;
 
-	printf("from.x: %d, from.y: %d\nto.x: %d, to.y: %d\n",from.x,from.y,to.x,to.y);	
 	dx = abs(to.x - from.x);
 	dy = abs(to.y - from.y);
-	p = 2 * (dx - dy);
-	xend = from.x > to.x ? from.x : to.x;
-	if (from.x > to.x)
-		tmp = setpoint(to.x, to.y);
+	sx =  from.x < to.x ? 1 : -1;
+	sy = from.y < to.y ? 1 : -1;
+
+	tmp = from;
+	if (dx >= dy)
+	{
+		dy *= 2;
+		error = dy - dx;
+		dx *= 2;
+		while (from.x != to.x)
+		{
+			mlx_pixel_put(env.mlx, env.win, from.x + (WIDTH/2),
+					from.y + (HEIGHT/2), 0x0000FF);
+			if (error >= 0)
+			{
+				from.y += sy;
+				error -= dx;
+			}
+			error += dy;
+			from.x += sx;
+		}
+	}
 	else
-		tmp = setpoint(from.x, from.y);
+	{
+		dx *= 2;
+		error = dx - dy;
+		dy *= 2;
+		while (from.y != from.y)
+		{
+			mlx_pixel_put(env.mlx, env.win, from.x + (WIDTH/2),
+				from.y + (HEIGHT/2), 0x0000FF);
+			if (error >= 0)
+			{
+				from.x += sx;
+				error -= dy;
+			}
+			error += dx;
+			from.y += sy;
+		}
+	}
+	/*
 	while (tmp.x <= xend)
 	{
 		tmp.x++;
-		if (p < 0)
-			p = p + 2 * (dy);
-		else
+		if ((error = error + (dy * 2)) >= 0)
 		{
 			tmp.y++;
-			p = p + (2 * dy) - (2 * dx);
+			error = error + ((-dx) * 2);
 		}
 		mlx_pixel_put(env.mlx, env.win, tmp.x + (WIDTH/2),
 				tmp.y + (HEIGHT/2), 0x0000FF);
-	}
+	} */
 }
 
 void		draw_iso(t_env env, t_point **grid, int row, int col)
@@ -77,18 +110,21 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 		{
 			to = grid[i][j];
 			printf("i: %d,j: %d\n",i,j);
+/*
 			draw_line(env, setpoint(0,0), setpoint(0,50), setpoint(0,0));
-			draw_line(env, setpoint(0,0), setpoint(50,50), setpoint(0,0));
 			draw_line(env, setpoint(0,0), setpoint(50,0), setpoint(0,0));
 			draw_line(env, setpoint(0,0), setpoint(50,50), setpoint(0,0));
-			/*
+			draw_line(env, setpoint(0,0), setpoint(0,-50), setpoint(0,0));
+			draw_line(env, setpoint(0,0), setpoint(-50,0), setpoint(0,0));
+			draw_line(env, setpoint(0,0), setpoint(-50,-50), setpoint(0,0));
+*/
 			if (i + 1 != row)
-				draw_line(env, from, grid[i + 1][j], setpoint(0,0));
+			  draw_line(env, grid[i][j], grid[i + 1][j], setpoint(0,0));
 			if (j + 1 != col)
-				draw_line(env, from, grid[i][j + 1], setpoint(0,0)); 
-			mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + grid[i][j].x,
-					(HEIGHT / 2) + grid[i][j].y, 0xFF0000); */
-			from = to;
+			  draw_line(env, grid[i][j], grid[i][j + 1], setpoint(0,0));
+			  mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + grid[i][j].x,
+			  (HEIGHT / 2) + grid[i][j].y, 0xFF0000);
+			from = grid[i][j];
 			j++;
 		}
 		i++;
