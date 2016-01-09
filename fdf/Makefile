@@ -13,7 +13,8 @@
 INC = /
 
 SRC =	main.c			\
-		isometric.c		\
+	isometric.c		\
+	draw_line.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf

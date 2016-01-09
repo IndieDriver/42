@@ -31,7 +31,16 @@ typedef struct	s_point
 	int			value;
 }				t_point;
 
+typedef struct	s_line
+{
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+}		t_line;
 t_point			convertcord(int x, int y);
 void			draw_iso(t_env env, t_point **grid, int row, int col);
 t_point			**init_grid(int grid[4][4], int row, int col, int offset);
+void			draw_line(t_env env, t_point from, t_point to);
 #endif
