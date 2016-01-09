@@ -30,6 +30,7 @@ t_point		convertcord(int x, int y)
 	point.y = (x + y) / 2;
 	return (point);
 }
+/*
 void		draw_line(t_env env, t_point from, t_point to, t_point tmp)
 {
 	int dx;
@@ -80,7 +81,7 @@ void		draw_line(t_env env, t_point from, t_point to, t_point tmp)
 			from.y += sy;
 		}
 	}
-	/*
+	
 	while (tmp.x <= xend)
 	{
 		tmp.x++;
@@ -91,8 +92,8 @@ void		draw_line(t_env env, t_point from, t_point to, t_point tmp)
 		}
 		mlx_pixel_put(env.mlx, env.win, tmp.x + (WIDTH/2),
 				tmp.y + (HEIGHT/2), 0x0000FF);
-	} */
-}
+	} 
+} */
 
 void		draw_iso(t_env env, t_point **grid, int row, int col)
 {
@@ -119,9 +120,9 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 			draw_line(env, setpoint(0,0), setpoint(-50,-50), setpoint(0,0));
 */
 			if (i + 1 != row)
-			  draw_line(env, grid[i][j], grid[i + 1][j], setpoint(0,0));
+			  draw_line(env, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
-			  draw_line(env, grid[i][j], grid[i][j + 1], setpoint(0,0));
+			  draw_line(env, grid[i][j], grid[i][j + 1]);
 			  mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + grid[i][j].x,
 			  (HEIGHT / 2) + grid[i][j].y, 0xFF0000);
 			from = grid[i][j];
