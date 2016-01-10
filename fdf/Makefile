@@ -13,9 +13,9 @@
 INC = /
 
 SRC =	main.c		\
-	isometric.c		\
-	draw_line.c		\
-	get_grid.c		\
+	io.c		\
+	isometric.c	\
+	draw_line.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf

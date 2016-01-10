@@ -13,12 +13,14 @@
 #include "fdf.h"
 #include <math.h>
 
-t_point		setpoint(int x, int y)
+t_point		setpoint(int x, int y, int z, char color[10])
 {
 	t_point point;
 
 	point.x = x;
 	point.y = y;
+	point.z = z;
+	ft_strcpy(point.color,color);
 	return (point);
 }
 
@@ -52,15 +54,14 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 				draw_line(env, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
 				draw_line(env, grid[i][j], grid[i][j + 1]);
-			mlx_image_put_pixel(env.mlx, env.img, (WIDTH /2) + grid[i][j].x,
-					(HEIGHT / 2) + grid[i][j].y, 0xFF0000);
+			mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + grid[i][j].x,(HEIGHT / 2) + grid[i][j].y, 0xFF0000);
 			from = grid[i][j];
 			j++;
 		}
 		i++;
 	}
 }
-
+/*
 t_point		**init_grid(int grid[11][19], int row, int col, int offset)
 {
 	int i;
@@ -86,4 +87,4 @@ t_point		**init_grid(int grid[11][19], int row, int col, int offset)
 		i++;
 	}
 	return (pointgrid);
-}
+} */
