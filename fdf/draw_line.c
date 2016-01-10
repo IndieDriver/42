@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 12:02:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/10 14:20:18 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/10 16:31:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	bresenham(t_env env, t_point from, t_point to, t_line value)
 	value.err = 2 * (value.dy - value.dx);
 	while ((from.x <= to.x && value.sx == 1) || (from.x >= to.x && value.sx == -1))
 	{
-		mlx_pixel_put(env.mlx, env.win, from.x + (WIDTH / 2),
+		mlx_image_put_pixel(env.mlx, env.img, from.x + (WIDTH / 2),
 		from.y + (HEIGHT / 2), 0x0000FF);
 		if (value.err >= 0)
 		{
@@ -43,7 +43,7 @@ void	bresenham_inverse(t_env env, t_point from, t_point to, t_line value)
 	value.err = 2 * (value.dx - value.dy);
 	while ((from.y <= to.y && value.sy == 1) || (from.y >= to.y && value.sy == -1))
 	{
-		mlx_pixel_put(env.mlx, env.win, from.x + (WIDTH/2),
+		mlx_image_put_pixel(env.mlx, env.img, from.x + (WIDTH/2),
 		from.y + (HEIGHT/2), 0x0000FF);
 		if (value.err >= 0)
 		{
