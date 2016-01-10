@@ -6,15 +6,16 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/01/06 15:05:45 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/10 14:30:39 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
-SRC =	main.c			\
+SRC =	main.c		\
 	isometric.c		\
 	draw_line.c		\
+	get_grid.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf
