@@ -6,12 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/09 16:09:39 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/10 14:02:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 t_point		setpoint(int x, int y)
 {
@@ -103,6 +104,7 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 	t_point to;
 
 	i = 0;
+	//draw_line(env, setpoint(0,0), setpoint(120,12));
 	while (i < row)
 	{
 		j = 0;
@@ -111,14 +113,22 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 		{
 			to = grid[i][j];
 			printf("i: %d,j: %d\n",i,j);
-/*
-			draw_line(env, setpoint(0,0), setpoint(0,50), setpoint(0,0));
-			draw_line(env, setpoint(0,0), setpoint(50,0), setpoint(0,0));
-			draw_line(env, setpoint(0,0), setpoint(50,50), setpoint(0,0));
-			draw_line(env, setpoint(0,0), setpoint(0,-50), setpoint(0,0));
-			draw_line(env, setpoint(0,0), setpoint(-50,0), setpoint(0,0));
-			draw_line(env, setpoint(0,0), setpoint(-50,-50), setpoint(0,0));
-*/
+			/*
+			int k = 0;
+			while (k != 50000)
+			{
+				draw_line(env, setpoint(50,50, setpoint(rand()%(
+			} */
+			/*draw_line(env, setpoint(50,50), setpoint(50,75));
+			draw_line(env, setpoint(50,50), setpoint(50,25));
+			draw_line(env, setpoint(50,50), setpoint(75,50));
+			draw_line(env, setpoint(50,50), setpoint(25,50));
+			draw_line(env, setpoint(50,50), setpoint(75,75));
+			draw_line(env, setpoint(50,50), setpoint(25,25));
+			draw_line(env, setpoint(50,50), setpoint(75,25));
+			draw_line(env, setpoint(50,50), setpoint(25,75));*/
+			//draw_line(env, setpoint(50,50), setpoint(12,41));
+
 			if (i + 1 != row)
 			  draw_line(env, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
