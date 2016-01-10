@@ -12,85 +12,81 @@
 
 #include "fdf.h"
 
-int		**ft_initgrid(int row, int column)
-{
-	int i;
-	int j;
-	int **grid;
-
-	i = 0;
-	if(!(grid = (int**)malloc(sizeof(int*) * size)))
-		return (NULL);
-	while (i < row)
-	{
-		if (!(grid[i] = (int*)malloc(sizeof(int) * column)))
-			return (NULL);
-		j = 0;
-		while (j < column)
-		{
-			grid[i][j] = -1;
-			j++;
-		}
-		i++;
-	}
-	return (grid);
-}
-
 int		get_number_of_row(char *file_name)
 {
 	int fd;
-	char *line;
+	char buf[2];
 	int lnb;
 
 	lnb = 0;
-	if ((fd = open(filename, O_RDONLY)))
+	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (-1);
-	while (get_next_line(fd, &line) == 1)
+	while (read(fd,&buf,1))
 	{
-		free(line);
-		lnb++;
+		if (buf[0] == '\n')
+			lnb++;
 	}
-	if (clode(fd) == -1)
+	if (close(fd) == -1)
 		return (-1);
 	return (lnb);
 }
 
-int		get_number_of_col(char *file_name)
+t_point	*parse_line(char **line_split, int row, int offset, int *col)
+{
+	t_point *tmp;
+	int	i;
+
+	i = 0;
+	while (line_split[i] != 0)
+		i++;
+	if (!(tmp = (t_point*)malloc(sizeof(t_point) * i)))
+		return (NULL);
+	i = 0;
+	while (line_split[i] != 0)
+	{
+		tmp[i] = setpoint(i*offset, row*offset,ft_atoi(line_split[i]),"");
+		i++;
+	}
+	*col = i;
+	free (line_split);
+	return (tmp);
+}
+
+t_point	**read_file(char *file_name, int *row, int *col)
 {
 	int fd;
 	char *line;
-	int lcol;
-
-	lcol = 0;
-	if ((fd = open(filename, O_RDONLY)))
-		return (-1);
-	get_next_line(fd, &line);
-	ft_strplit(line, ' ');
-	free(line);
-}
-
-void	add_line(int **grid)
-{
-	int i;
-	
-}
-
-int		**read_file(char *file_name)
-{
-	int fd;
-	char *line;
-	int **grid;
+	t_point **grid;
 	int i;
 
 	i = 0;
-	grid = ft_initgrid(get_number_of_line(file_name));
-	if ((fd = open(filename, O_RDONLY)))
+	*row = get_number_of_row(file_name);
+	if (!(grid = (t_point **)malloc(sizeof(t_point*) * (*row))))
+		return (NULL);
+	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (NULL);
 	while (get_next_line(fd, &line) == 1)
 	{
-			
+		grid[i] = parse_line(ft_strsplit(line, ' '), (*row), 20, col);
 		free(line);
+		i++;
 	}
 	if (close(fd) == -1)
 		return (NULL);
+	return (grid);
+}
+
+t_map	*get_map(char *file_name)
+{
+	t_map	*map;
+	int	height;
+	int	width;
+
+	if (!(map = (t_map*)malloc(sizeof(t_map))))
+		return (NULL);
+	if (!(map->grid = read_file(file_name, &height, &width)))
+		return (NULL);
+	map->height = height;
+	map->width = width;
+	return (map);
 }
