@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 14:46:57 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/11 16:17:25 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/11 16:40:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	fill_rect(t_env env, t_rect rect)
 {
 	printf("fill_rect\n");
-	t_point *plist;
 
 	rect.tl.x++;
 	rect.tl.y++;
