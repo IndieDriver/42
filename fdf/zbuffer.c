@@ -16,20 +16,20 @@ void	fill_rect(t_env env, t_rect rect)
 {
 	printf("fill_rect\n");
 
-	rect.tl.x++;
-	rect.tl.y++;
-
-	rect.tr.x--;
-	rect.tr.y++;
-
-	rect.bl.x++;
-	rect.bl.y--;
-
-	rect.br.x--;
-	rect.br.y--;
-	while (rect.tl.x != rect.tr.x)
+	while (rect.tl.x != rect.tr.x && rect.tl.y != rect.tr.y)
 	{
-		draw_line(env, rect.tl, rect.bl);
 		rect.tl.x++;
+		rect.tl.y++;
+		rect.tr.x--;
+		rect.tr.y++;
+		rect.bl.x++;
+		rect.bl.y--;
+		rect.br.x--;
+		rect.br.y--;
+
+		draw_line(env, rect.tl, rect.tr);
+		draw_line(env, rect.tr, rect.br);
+		draw_line(env, rect.br, rect.bl);
+		draw_line(env, rect.bl, rect.tl);
 	}
 }

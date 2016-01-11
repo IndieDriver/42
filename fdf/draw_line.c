@@ -46,7 +46,7 @@ void	bresenham_inverse(t_env env, t_point from, t_point to, t_line value)
 			|| (from.y >= to.y && value.sy == -1))
 	{
 		mlx_pixel_put(env.mlx, env.win, from.x + (WIDTH/2),
-			from.y + (HEIGHT/2), 0x0000FF);
+			from.y + (HEIGHT/2), 0x00FF00);
 		if (value.err >= 0)
 		{
 			from.x += value.sx;
