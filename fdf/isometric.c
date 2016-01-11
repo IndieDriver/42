@@ -54,7 +54,7 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 				draw_line(env, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
 				draw_line(env, grid[i][j], grid[i][j + 1]);
-		/*	if (i + 1 != row && j + 1 != col)
+			/*if (i + 1 != row && j + 1 != col)
 			{
 				rect.tl = grid[i][j];
 				rect.tr = grid[i][j + 1];
