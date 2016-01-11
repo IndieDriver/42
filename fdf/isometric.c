@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/10 16:41:47 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/11 15:55:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,21 @@ t_point		setpoint(int x, int y, int z, char color[10])
 {
 	t_point point;
 
-	point.x = x;
-	point.y = y;
+	point.x = x - (z);
+	point.y = y - (z);
 	point.z = z;
 	ft_strcpy(point.color,color);
 	return (point);
 }
 
-t_point		convertcord(int x, int y)
+t_point		convertcord(t_point point)
 {
-	t_point point;
+	t_point tmp;
 
-	/*point.x = x - y;
-	point.y = (x + y) / 2;*/
-	point.x = (x * cos(45)) - (y * sin(45));
-	point.y = (x * sin(45)) + (y * cos(45));
-	return (point);
+	tmp = setpoint(point.x, point.y, point.z, point.color);
+	tmp.x = point.x - point.y;
+	tmp.y = (point.x + point.y) / 2;
+	return (tmp);
 }
 
 void		draw_iso(t_env env, t_point **grid, int row, int col)
@@ -41,6 +40,7 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 	int j;
 	t_point from;
 	t_point to;
+	//t_rect rect;
 
 	i = 0;
 	while (i < row)
@@ -54,37 +54,64 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 				draw_line(env, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
 				draw_line(env, grid[i][j], grid[i][j + 1]);
-			mlx_pixel_put(env.mlx, env.win, (WIDTH /2) + grid[i][j].x,(HEIGHT / 2) + grid[i][j].y, 0xFF0000);
+		/*	if (i + 1 != row && j + 1 != col)
+			{
+				rect.tl = grid[i][j];
+				rect.tr = grid[i][j + 1];
+				rect.bl = grid[i + 1][j];
+				rect.br = grid[i + 1][j + 1];	
+				fill_rect(env, rect);
+			} */
+
 			from = grid[i][j];
 			j++;
 		}
 		i++;
 	}
 }
-/*
-t_point		**init_grid(int grid[11][19], int row, int col, int offset)
+
+int		is_cord_valid(t_map *map)
 {
 	int i;
 	int j;
-	t_point **pointgrid;
-	t_point tmp;	
 
 	i = 0;
-	if (!(pointgrid = (t_point **)malloc(sizeof(t_point*) * row)))
-		return (NULL);
-	while (i < row)
+	while (i < map->height)
 	{
-		if (!(pointgrid[i] = (t_point*)malloc(sizeof(t_point) * col)))
-			return (NULL);
 		j = 0;
-		while (j < col)
+		while (j < map->width)
 		{
-			tmp = setpoint(i*offset - grid[i][j],
-					j*offset - grid[i][j]);
-			pointgrid[i][j] = convertcord(tmp.x,tmp.y);
+			if (map->grid[i][j].x + (WIDTH / 2) >= WIDTH
+					|| map->grid[i][j].x + (WIDTH / 2) <= 0
+					|| map->grid[i][j].y + (HEIGHT / 2) <= 0
+					|| map->grid[i][j].y + (HEIGHT / 2) >= HEIGHT)
+				return (0);
 			j++;
 		}
 		i++;
 	}
-	return (pointgrid);
-} */
+	return (1);
+}
+
+t_map	*adapt_grid(t_map *map)
+{
+	int i;
+	int j;
+
+	while (!is_cord_valid(map))
+	{
+		i = 0;
+		while (i < map->height)
+		{
+			j = 0;
+			while (j < map->width)
+			{
+				map->grid[i][j].x /= 2;
+				map->grid[i][j].y /= 2;
+				j++;
+			}
+			i++;
+		}
+	}
+	return (map);
+}

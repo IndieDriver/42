@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/01/10 14:30:39 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/11 15:08:04 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC =	main.c		\
 	io.c		\
 	isometric.c	\
 	draw_line.c	\
+	zbuffer.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf
