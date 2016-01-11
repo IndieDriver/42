@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 16:43:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/04 14:21:00 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/11 14:45:57 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		get_number_of_row(char *file_name)
 	return (lnb);
 }
 
-t_point	*parse_line(char **line_split, int row, int offset, int *col)
+t_point	*parse_line(char **line_split, int row, int *col)
 {
 	t_point *tmp;
 	int	i;
@@ -44,7 +44,7 @@ t_point	*parse_line(char **line_split, int row, int offset, int *col)
 	i = 0;
 	while (line_split[i] != 0)
 	{
-		tmp[i] = setpoint(i*offset, row*offset,ft_atoi(line_split[i]),"");
+		tmp[i] = setpoint(i, row, ft_atoi(line_split[i]),"");
 		i++;
 	}
 	*col = i;
@@ -67,7 +67,7 @@ t_point	**read_file(char *file_name, int *row, int *col)
 		return (NULL);
 	while (get_next_line(fd, &line) == 1)
 	{
-		grid[i] = parse_line(ft_strsplit(line, ' '), (*row), 20, col);
+		grid[i] = parse_line(ft_strsplit(line, ' '), i, col);
 		free(line);
 		i++;
 	}
