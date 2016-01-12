@@ -12,9 +12,21 @@
 
 #include "fdf.h"
 
+int	get_pixel_color(t_map *map, int x, int y)
+{
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+	
+	red = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8];
+	green = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1];
+	blue = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2];
+	return ((red << 16) + (green << 8) + blue);
+}
+
 void	fill_rect(t_map *map, int x,int y,int color)
 {
-	if (mlx_image_get_pixel(map->env.mlx, map->img.img, x, y) == color)
+	if (get_pixel_color(map, x, y) == color)
 		return ;
 	if (color == 0x6F6F6F)
 		return ;
@@ -25,6 +37,7 @@ void	fill_rect(t_map *map, int x,int y,int color)
 	fill_rect(map, x + 1, y, color);
 	return ;
 }
+
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 {

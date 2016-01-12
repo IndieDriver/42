@@ -40,7 +40,6 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 	int j;
 	t_point from;
 	t_point to;
-	t_rect rect;
 
 	i = 0;
 	while (i < row)
@@ -54,13 +53,11 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 				draw_line(map, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
 				draw_line(map, grid[i][j], grid[i][j + 1]);
-			if (i + 1 != row && j + 1 != col)
+			if (j + 1 != col && i + 1 != row)
 			{
-				rect.tl = grid[i][j];
-				rect.tr = grid[i][j + 1];
-				rect.bl = grid[i + 1][j];
-				rect.br = grid[i + 1][j + 1];	
-				save_rect(map, rect);
+				draw_line(map, grid[i + 1][j], grid[i + 1][j + 1]);
+				draw_line(map, grid[i][j + 1], grid[i + 1][j + 1]);
+				fill_rect(map, i, j, 0xFFFFFF);
 			}
 			from = grid[i][j];
 			j++;
