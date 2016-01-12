@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 16:43:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/11 14:45:57 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/12 16:31:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ t_point	*parse_line(char **line_split, int row, int *col)
 	i = 0;
 	while (line_split[i] != 0)
 	{
-		tmp[i] = setpoint(i, row, ft_atoi(line_split[i]),"");
+		tmp[i] = setpoint(i, row, ft_atoi(line_split[i]), 0x0000FF);
 		i++;
 	}
 	*col = i;
