@@ -86,5 +86,7 @@ void			ft_error(void);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
+void			fill_rect(t_map *map, int x, int y, int color);
+t_rect			*init_rectlist(t_map *map);
 void			save_rect(t_map *map, t_rect rect);
 #endif

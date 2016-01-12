@@ -18,9 +18,10 @@ int		expose_hook(t_map *map)
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
 	init_image(map, 0x000000);
+	map->rect = init_rectlist(map);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
-	sleep(5);
-	draw_iso(map, map->grid, map->height, map->width);
+	draw_iso(map, map->grid, map->height, map->width);	
+	printf("rect[0]: %d\n", map->rect[3].br.x);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
 	mlx_destroy_image(map->env.mlx,map->img.img);
 	return (0);
