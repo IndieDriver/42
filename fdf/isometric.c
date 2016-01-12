@@ -57,7 +57,8 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 			{
 				draw_line(map, grid[i + 1][j], grid[i + 1][j + 1]);
 				draw_line(map, grid[i][j + 1], grid[i + 1][j + 1]);
-				fill_rect(map, i, j, 0xFFFFFF);
+				fill_rect(map, (grid[i][j].x + 1) + (WIDTH / 2),
+				(grid[i][j].y + 1) + (HEIGHT / 2), 0x0000FF);
 			}
 			from = grid[i][j];
 			j++;
