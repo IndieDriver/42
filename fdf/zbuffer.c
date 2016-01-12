@@ -6,30 +6,43 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 14:46:57 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/11 16:40:20 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/12 16:43:03 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	fill_rect(t_env env, t_rect rect)
+t_rect	*init_rectlist(t_map *map)
 {
-	printf("fill_rect\n");
+	t_rect *grid;
+	t_rect tmp;
+	int i;
 
-	while (rect.tl.x != rect.tr.x && rect.tl.y != rect.tr.y)
+	i = 0;
+	if (!(grid = (t_rect*)malloc(sizeof(t_rect) * (map->width * map->height))))
+		return (NULL);
+	while (i < map->width * map->height)
 	{
-		rect.tl.x++;
-		rect.tl.y++;
-		rect.tr.x--;
-		rect.tr.y++;
-		rect.bl.x++;
-		rect.bl.y--;
-		rect.br.x--;
-		rect.br.y--;
-
-		draw_line(env, rect.tl, rect.tr);
-		draw_line(env, rect.tr, rect.br);
-		draw_line(env, rect.br, rect.bl);
-		draw_line(env, rect.bl, rect.tl);
+		tmp.tl.x = 0;
+		tmp.tl.y = 0;
+		tmp.tr.x = 0;
+		tmp.tr.y = 0;
+		tmp.bl.x = 0;
+		tmp.bl.y = 0;
+		tmp.br.x = 0;
+		tmp.br.y = 0;
+		grid[i] = tmp;
+		i++;	
 	}
+	return (grid);
+}
+
+void	save_rect(t_map *map, t_rect rect)
+{
+	int cursor;
+
+	cursor = 0;
+	while (map->rect[cursor].tl.x == map->rect[cursor].tr.y)
+		cursor++;
+	map->rect[cursor] = rect;
 }

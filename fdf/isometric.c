@@ -6,21 +6,21 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/11 15:55:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/12 16:34:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 #include <math.h>
 
-t_point		setpoint(int x, int y, int z, char color[10])
+t_point		setpoint(int x, int y, int z, int color)
 {
 	t_point point;
 
 	point.x = x - (z);
 	point.y = y - (z);
 	point.z = z;
-	ft_strcpy(point.color,color);
+	point.color = color;
 	return (point);
 }
 
@@ -34,13 +34,13 @@ t_point		convertcord(t_point point)
 	return (tmp);
 }
 
-void		draw_iso(t_env env, t_point **grid, int row, int col)
+void		draw_iso(t_map *map, t_point **grid, int row, int col)
 {
 	int i;
 	int j;
 	t_point from;
 	t_point to;
-	//t_rect rect;
+	t_rect rect;
 
 	i = 0;
 	while (i < row)
@@ -51,18 +51,17 @@ void		draw_iso(t_env env, t_point **grid, int row, int col)
 		{
 			to = grid[i][j];
 			if (i + 1 != row)
-				draw_line(env, grid[i][j], grid[i + 1][j]);
+				draw_line(map, grid[i][j], grid[i + 1][j]);
 			if (j + 1 != col)
-				draw_line(env, grid[i][j], grid[i][j + 1]);
-			/*if (i + 1 != row && j + 1 != col)
+				draw_line(map, grid[i][j], grid[i][j + 1]);
+			if (i + 1 != row && j + 1 != col)
 			{
 				rect.tl = grid[i][j];
 				rect.tr = grid[i][j + 1];
 				rect.bl = grid[i + 1][j];
 				rect.br = grid[i + 1][j + 1];	
-				fill_rect(env, rect);
-			} */
-
+				save_rect(map, rect);
+			}
 			from = grid[i][j];
 			j++;
 		}

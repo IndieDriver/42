@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/11 15:39:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/12 16:33:12 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 int		expose_hook(t_map *map)
 {
-	//map->env.img = mlx_new_image(map->env.mlx, 640, 480);
-	draw_iso(map->env, map->grid, map->height, map->width);
+	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
+	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
+			&(map->img.size_line), &(map->img.endian));
+	init_image(map, 0x000000);
+	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	sleep(5);
+	draw_iso(map, map->grid, map->height, map->width);
+	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	mlx_destroy_image(map->env.mlx,map->img.img);
 	return (0);
 }
 
