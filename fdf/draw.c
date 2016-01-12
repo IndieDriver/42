@@ -26,10 +26,15 @@ int	get_pixel_color(t_map *map, int x, int y)
 
 void	fill_rect(t_map *map, int x,int y,int color)
 {
+	//printf("x: %d, y: %d color: %#08x,get_pixel_color: %#08x\n",x,y,color,
+	printf("x: %d, y: %d color: %d,get_pixel_color: %d\n",x,y,color,
+	get_pixel_color(map,x,y));
 	if (get_pixel_color(map, x, y) == color)
 		return ;
-	if (color == 0x6F6F6F)
+	printf("get_pixel_color = color\n");
+	if (color != 0x0000ff || color != 0xff0000)
 		return ;
+	printf("draw_pixel\n");
 	draw_pixel_to_image(map, x, y, color);
 	fill_rect(map, x, y + 1, color);
 	fill_rect(map, x, y - 1, color);
