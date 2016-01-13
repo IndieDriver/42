@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 12:02:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/12 16:17:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/13 14:00:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,13 +58,14 @@ void	bresenham_inverse(t_map *map, t_point from, t_point to, t_line value)
 	}
 }
 
-void	draw_line(t_map *map, t_point from, t_point to)
+void	draw_line(t_map *map, t_point from, t_point to, int color)
 {
 	t_line value;
 
 	value.dx = to.x - from.x;
 	value.dy = to.y - from.y;
 	convert_octan(&value.dx, &value.dy, &value.sx, &value.sy);
+	from.color = color;
 	if (value.dx > value.dy)
 		bresenham(map, from, to, value);
 	else

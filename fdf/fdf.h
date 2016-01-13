@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/12 16:43:06 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/13 14:00:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,12 @@ typedef struct	s_line
 	int			err;
 }				t_line;
 
+typedef struct s_rgb
+{
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+}				t_rgb;
 
 t_map			*get_map(char *filename);
 
@@ -78,7 +84,7 @@ t_point			convertcord(t_point point);
 void			draw_iso(t_map *map, t_point **grid, int row, int col);
 t_map			*adapt_grid(t_map *map);
 
-void			draw_line(t_map *map, t_point from, t_point to);
+void			draw_line(t_map *map, t_point from, t_point to, int color);
 
 void			print_grid(t_map *map);
 void			ft_error(void);
