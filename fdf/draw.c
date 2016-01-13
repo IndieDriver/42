@@ -6,41 +6,72 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/12 11:19:00 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/12 15:55:11 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/13 15:13:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	get_pixel_color(t_map *map, int x, int y)
+int		is_rgb_equal(t_rgb color1, t_rgb color2)
 {
-	unsigned char red;
-	unsigned char green;
-	unsigned char blue;
+	/*printf("color1: red %x green %x blue %x\ncolor2: red %x green %x blue %x\n",
+		color1.red, color1.green, color1.blue, color2.red, color2.green, color2.blue); */
+	if (color1.red != color2.red)
+		return (0);
+	if (color1.green != color2.green)
+		return (0);
+	if (color1.blue != color2.blue)
+		return (0);
+	//printf("return (1)\n");
+	return (1);
+}
+
+t_rgb	convert_to_rgb(t_map *map, int color)
+{
+	unsigned int color_value;
+	t_rgb rgb;
+
+	color_value = mlx_get_color_value(map->env.mlx, color);
+	rgb.red = (color_value & 0xFF0000) >> 16;
+	rgb.green = (color_value & 0xFF00) >> 8;
+	rgb.blue = (color_value & 0xFF);
+	return (rgb);
+}
+
+t_rgb	get_pixel_color(t_map *map, int x, int y)
+{
+	t_rgb rgb;
 	
-	red = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8];
-	green = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1];
-	blue = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2];
-	return ((red << 16) + (green << 8) + blue);
+	rgb.red = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8];
+	rgb.green = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1];
+	rgb.blue = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2];
+	return (rgb);
 }
 
 void	fill_rect(t_map *map, int x,int y,int color)
 {
-	//printf("x: %d, y: %d color: %#08x,get_pixel_color: %#08x\n",x,y,color,
-	printf("x: %d, y: %d color: %d,get_pixel_color: %d\n",x,y,color,
-	get_pixel_color(map,x,y));
-	if (get_pixel_color(map, x, y) == color)
+	/*printf("x: %d, y: %d color: %#08x,get_pixel_color: %#08x, unsigned color: %#08x,unsigned get_pixelcolor: %#08x\n",x,y,color,
+	get_pixel_color(map,x,y),mlx_get_color_value(map->env.mlx, color),
+	mlx_get_color_value(map->env.mlx, get_pixel_color(map, x, y))); */
+	//if	(is_rgb_equal(get_pixel_color(map, x, y), convert_to_rgb(map, color)))
+		//return ;
+	//printf("get_pixel_color = color\n");
+	printf("x: %d, y: %d\n",x, y);
+
+	if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT)
 		return ;
-	printf("get_pixel_color = color\n");
-	if (color != 0x0000ff || color != 0xff0000)
-		return ;
-	printf("draw_pixel\n");
-	draw_pixel_to_image(map, x, y, color);
-	fill_rect(map, x, y + 1, color);
-	fill_rect(map, x, y - 1, color);
-	fill_rect(map, x - 1, y, color);
-	fill_rect(map, x + 1, y, color);
-	return ;
+	//printf("in map\n");
+	if (!is_rgb_equal(get_pixel_color(map, x, y), convert_to_rgb(map, 0x0000FF))
+		&& !is_rgb_equal(get_pixel_color(map, x, y), convert_to_rgb(map,color)))
+	{
+		//printf("draw_pixel\n");
+		draw_pixel_to_image(map, x, y, color);
+		mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0,0);
+		fill_rect(map, x + 1, y, color);
+		fill_rect(map, x, y + 1, color);
+		fill_rect(map, x - 1, y, color);
+		fill_rect(map, x, y - 1, color);
+	}
 }
 
 
