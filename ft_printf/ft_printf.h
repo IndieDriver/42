@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:07:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/14 13:28:12 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/14 15:20:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 # include <stdlib.h>
 # include <stdarg.h>
 
-void	ft_printf(char *str, ...);
+void	ft_printf(const char * restrict format, ...);
 
 #endif
