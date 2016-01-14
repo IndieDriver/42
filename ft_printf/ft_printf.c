@@ -6,11 +6,17 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:05:01 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/14 13:07:47 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/14 15:09:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-void	ft_printf(char *str, ...)
+void	ft_printf(const char * restrict format, ...)
 {
+	int i;
+	va_list args;
 
+	i = 0;
+	
+	va_start(args, format);
+	
 }
