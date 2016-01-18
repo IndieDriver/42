@@ -6,13 +6,14 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/14 13:12:05 by amathias          #+#    #+#              #
-#    Updated: 2016/01/14 13:14:50 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/18 15:50:10 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
 SRC_NAME =  ft_printf.c		\
+			utils.c			\
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 NAME = libftprintf.a
