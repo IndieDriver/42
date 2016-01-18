@@ -6,35 +6,31 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/14 13:05:01 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/14 15:46:12 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/18 16:38:15 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "ft_printf.h"
 
-void  lol(void *c)
+void	get_type(char type, void *arg)
 {
-	printf("%c", (char)c);
-}
 
-void	*get_function()
-{
-	return (&lol);
 }
-
 void	ft_printf(const char * restrict format, ...)
 {
 	int i;
+	int perc;
+	t_type type;
 	va_list args;
-	void	(*f)(void *);
 
-	i = 0;	
+	i = 0;
+	perc = 0;
 	va_start(args, format);
-	f = get_function();
 	while (format[i] != '\0')
 	{
-		(*f)format[i]);
+		if (perc && ft_strchr("sSpdDioOuUxXcC",format[i]) != NULL)
+			to_rename(format[i], va_arg());
+		format[i];
 		i++;
 	}
 	
