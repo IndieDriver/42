@@ -1,0 +1,35 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
+/*   Updated: 2016/01/19 14:56:52 by amathias         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef FRACTOL_H
+# define FRACTOL_H
+# include <mlx.h>
+# include <math.h>
+# include "libft.h"
+
+typedef struct 	s_env
+{
+	void		*mlx;
+	void		*win
+}				t_env;
+
+typedef struct	s_img
+{
+	void		*img;
+	char		*data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_img;
+
+typedef struct	s_point
+#endif
