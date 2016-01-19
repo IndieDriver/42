@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/01/14 13:12:05 by amathias          #+#    #+#              #
-#    Updated: 2016/01/18 15:50:10 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/19 10:38:46 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,14 +23,22 @@ RAN = ranlib
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
+LIB_PATH = ./lib/
+LIB_NAME = -lft
+LIB = $(addprefix -L,$(LIB_PATH))
+LFLAGS = $(LIB) $(LIB_NAME)
+
+INC_PATH = ./includes/
+INC = $(addprefix -I,$(INC_PATH))
+
 all: $(NAME)
 
 $(NAME): $(OBJ_NAME)
-	$(AR) $(NAME) $(OBJ_NAME)
+	$(AR) $(NAME) $(LFAGS) $(OBJ_NAME)
 	$(RAN) $(NAME)
 
 %.o: %.c
-	$(CC) $(CFLAGS) -o $@ -c $<
+	$(CC) $(CFLAGS) $(INC) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ_NAME)

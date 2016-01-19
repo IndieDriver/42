@@ -6,9 +6,41 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 13:20:36 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/18 17:07:03 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/19 11:17:09 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "ft_printf.h"
+
+int			ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while(str[i])
+		i++;
+	return (i);
+}
+
+void		ft_putstr(char *str)
+{
+	write(1, str, ft_strlen(str));
+}
+char		*ft_strchr(const char *str, int c)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+			return ((char*)&str[i]);
+		i++;
+	}
+	if (str[i] == c)
+		return ((char*)&str[i]);
+	return (NULL);
+}
 
 static int	ft_intlen_base(long n, int base)
 {
