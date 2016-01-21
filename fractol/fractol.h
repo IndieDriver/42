@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/19 14:56:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/21 13:58:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,15 @@
 # define FRACTOL_H
 # include <mlx.h>
 # include <math.h>
+#include <stdio.h>
 # include "libft.h"
+# define WIDTH 1000
+# define HEIGHT 1000
 
 typedef struct 	s_env
 {
 	void		*mlx;
-	void		*win
+	void		*win;
 }				t_env;
 
 typedef struct	s_img
@@ -31,5 +34,20 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_point
+typedef struct	s_map
+{
+	t_env		env;
+	t_img		img;
+}				t_map;
+
+typedef struct	s_complex
+{
+	double		real;
+	double		ima;
+}				t_complex;
+
+void			draw_pixel_to_image(t_map *map, int x, int y, int color);
+void			init_image(t_map *map, int color);
+
+void			draw_julia(t_map *map, int max_iter);
 #endif
