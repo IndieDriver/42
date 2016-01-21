@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/21 13:58:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/21 16:47:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,13 @@
 # include "libft.h"
 # define WIDTH 1000
 # define HEIGHT 1000
+# include "libft.h"
 
 typedef struct 	s_env
 {
 	void		*mlx;
 	void		*win;
+	void		*win
 }				t_env;
 
 typedef struct	s_img

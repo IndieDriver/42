@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/21 14:51:58 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/21 16:47:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,18 @@ int		main(int argc, char **argv)
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
 	mlx_expose_hook(e.win, expose_hook, map);
+	if (argc != 2)
+		ft_error();
+	else
+	{
+		if (!(map = get_map(argv[1])))
+			ft_error();
+		map->env = e;
+		printf("\n");
+		print_grid(map);
+		adapt_grid(map);
+		mlx_expose_hook(e.win, expose_hook, map);
+	}
 	mlx_loop(e.mlx);
 	sleep(5);
 	if (argc == 1)
