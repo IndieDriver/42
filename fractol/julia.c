@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 11:17:47 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/21 16:44:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/22 14:30:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-void	draw_julia(t_map *map, int max_iter)
+void	draw_julia(t_map *map, int max_iter, double zoom)
 {
 	int x;
 	int y;
@@ -29,8 +29,9 @@ void	draw_julia(t_map *map, int max_iter)
 		x = 0;
 		while (x < WIDTH)
 		{
-			z.real = 1.5 * (x - (WIDTH / 2)) / (WIDTH / 2);
-			z.ima = 1.5 * (y - (HEIGHT / 2)) / (HEIGHT / 2);
+			z.real = 1.5 * (x - (WIDTH / 2)) / (WIDTH * zoom / 2);
+			z.ima = 1.5 * (y - (HEIGHT / 2)) / (HEIGHT * zoom / 2);
+			//printf("z.real: %f, z.ima: %f\n", z.real, z.ima);
 			i = 0;
 			while (i < max_iter)
 			{
@@ -41,9 +42,10 @@ void	draw_julia(t_map *map, int max_iter)
 				if (z.real * z.real + z.ima * z.ima > 4)
 					break;
 			}
-			draw_pixel_to_image(map, x, y, 256 * 256 * (256 - (i*10))
-					+ 256 + 256
-					+ 256);
+			draw_pixel_to_image(map, x, y, 256 * 256 * (256 - i * 10)
+					+ 256 + (256 - i)
+					+ (256 - i));
+			//draw_pixel_to_image(map, x, y, 0xFFFFFF + (i * 1000) );
 			x++;
 		}
 		y++;
