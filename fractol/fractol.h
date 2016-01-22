@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/21 16:47:11 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/22 11:24:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct 	s_env
 {
 	void		*mlx;
 	void		*win;
-	void		*win
 }				t_env;
 
 typedef struct	s_img
@@ -52,4 +51,5 @@ void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
 void			draw_julia(t_map *map, int max_iter);
+void			draw_mandelbrot(t_map *map, int max_iter);
 #endif

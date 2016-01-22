@@ -6,16 +6,17 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/01/21 16:46:36 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/22 11:23:31 by amathias         ###   ########.fr        #
 #    Updated: 2016/01/19 13:06:57 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
-SRC =	main.c		\
-		draw.c		\
-		julia.c		\
+SRC =	main.c			\
+		draw.c			\
+		julia.c			\
+		mandelbrot.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = fractol
