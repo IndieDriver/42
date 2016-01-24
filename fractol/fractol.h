@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/24 10:38:11 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/24 14:21:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ typedef struct	s_map
 {
 	t_env		env;
 	t_img		img;
-	char		*type;
+	int			type;
 	double		zoom;
 	int			pow;
 	t_complex	c;
@@ -57,8 +57,10 @@ void			init_image(t_map *map, int color);
 
 int				expose_hook(t_map *map);
 int				motion_notify(int x, int y, t_map *map);
-int				key_hook(int x, int y, t_map *map);
+int				key_hook(int keycode, t_map *map);
 
 void			draw_julia(t_map *map, int max_iter);
 void			draw_mandelbrot(t_map *map, int max_iter);
+
+int				*init_mandelbrot_color(int max_iter);
 #endif

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 11:10:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/23 14:49:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/24 14:49:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	draw_mandelbrot(t_map *map, int max_iter)
 	int x;
 	int y;
 	int i;
+	int *color_array;
 	t_complex c;
 	t_complex z;
 	t_complex tmp;
 
+	color_array = init_mandelbrot_color(max_iter);
 	y = 0;
 	while (y < HEIGHT)
 	{
@@ -41,9 +43,7 @@ void	draw_mandelbrot(t_map *map, int max_iter)
 				if (z.real * z.real + z.ima * z.ima > 4)
 					break;
 			}
-			draw_pixel_to_image(map, x, y, 256 * 256 * (256 - i * 10)
-					+ 256 + (256 - i)
-					+ (256 - i));
+			draw_pixel_to_image(map, x, y, color_array[i]);
 			x++;
 		}
 		y++;
