@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/24 14:21:01 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/25 10:35:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,4 +63,5 @@ void			draw_julia(t_map *map, int max_iter);
 void			draw_mandelbrot(t_map *map, int max_iter);
 
 int				*init_mandelbrot_color(int max_iter);
+int 			*init_julia_color(int max_iter);
 #endif
