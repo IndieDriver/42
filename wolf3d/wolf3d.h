@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/27 10:40:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/27 13:25:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,21 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
+typedef struct	s_line
+{
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+}				t_line;
+
 typedef struct 	s_pos
 {
-	double		x;
-	double 		y;
+	int			x;
+	int			y;
 	int			r;
+	int			color;
 }				t_pos;
 
 typedef struct	s_map
@@ -59,7 +69,9 @@ void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
 int				expose_hook(t_map *map);
-int				motion_notify(int x, int y, t_map *map);
 int				key_hook(int keycode, t_map *map);
 
+void			ray(t_map *map);
+void			draw_wall_slice(t_map *map, int x, int height);
+void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 #endif

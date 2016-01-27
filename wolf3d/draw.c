@@ -6,11 +6,25 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/25 11:32:22 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/27 12:09:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "wold3d.h"
+#include "wolf3d.h"
+
+void	draw_wall_slice(t_map *map, int x, int height)
+{
+	t_pos to;
+	t_pos from;
+
+	to.x = x;
+	from.x = x;
+	from.y = (HEIGHT / 2) - height;
+	to.y = (HEIGHT / 2) + height;
+	printf("to.x: %d, to.y: %d, from.x: %d, from.y: %d\n", 
+			to.x, to.y, from.x, from.y);
+	draw_line(map, from, to, 0x0000FF);
+}
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 {

@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/01/25 11:42:52 by amathias         ###   ########.fr        #
+#    Updated: 2016/01/27 11:00:10 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC =	main.c			\
 		draw.c			\
 		hook.c			\
 		ray.c			\
+		draw_line.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
