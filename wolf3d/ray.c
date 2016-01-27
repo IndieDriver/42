@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/25 15:55:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/27 10:42:15 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,17 +66,37 @@ t_pos	get_vertical(t_map *map, int angle)
 	return (p2);
 }
 
+double	get_distance(t_map *map, double angle)
+{
+	t_pos	hor;
+	t_pos	ver;
+	double	distance1;
+	double	distance2;
 
+	hor = get_horizontal(map, angle).x;
+	ver = get_vertical(map, angle).y;
+	distance1 = fabs(map->cpos.x - hor.x) / cos(60);
+	distance2 = fabs(map->cpos.x - ver.x) / cos(60);
+	if (distance1 < distance2)
+		return (distance1);
+	else
+		return (distance2);
+
+}
 void	ray(t_map *map)
 {
-	int angle;
+	t_pos wallpos;
+	t_pos distance;
+	double angle;
 	int i;
 	
 	angle = map->cpos.r - 30;
 	while (i < map->width)
 	{
-		
+		wallpos.x = get_horizontal(map, angle).x;
+		wallpos.y = get_vertial(map, angle).y;
+		distance.x = ()
 		i++;
-	}
+	}r
 
 }
