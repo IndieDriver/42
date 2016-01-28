@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/27 15:52:30 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:52:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,24 @@ void	draw(t_map *map)
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
 	mlx_destroy_image(map->env.mlx,map->img.img);
 }
+void	print_grid(t_map *map)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			printf(" %d",map->grid[i][j]);
+			j++;
+		}
+		printf("\n");
+		i++;
+	}
+}
 
 int		main(int argc, char **argv)
 {
@@ -59,12 +77,13 @@ int		main(int argc, char **argv)
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "Wolf3d");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
-	map->height = 4;
-	map->width = 4;
-	map->grid = init_grid(4, 4);
-	map->cpos.x = 96;
-	map->cpos.y = 96;
+	map->height = 10;
+	map->width = 10;
+	map->grid = init_grid(10, 10);
+	map->cpos.x = 352;
+	map->cpos.y = 352;
 	map->cpos.r = 91;
+	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_expose_hook(e.win, expose_hook, map);
 	mlx_loop(e.mlx);

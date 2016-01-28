@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/27 12:09:41 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:34:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void	draw_wall_slice(t_map *map, int x, int height)
 	from.x = x;
 	from.y = (HEIGHT / 2) - height;
 	to.y = (HEIGHT / 2) + height;
-	printf("to.x: %d, to.y: %d, from.x: %d, from.y: %d\n", 
-			to.x, to.y, from.x, from.y);
+	//	printf("to.x: %d, to.y: %d, from.x: %d, from.y: %d\n", 
+	//		to.x, to.y, from.x, from.y);
 	draw_line(map, from, to, 0x0000FF);
 }
 

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/27 15:52:28 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:52:53 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,65 +15,59 @@
 t_pos	get_horizontal(t_map *map, double angle)
 {
 	t_pos p1;
-	t_pos p2;
-	int xa;
+	int	xa;
 	int ya;
-
-	if (angle > 180 && angle < 360)
+	
+	if (angle >= 0.0 && angle <= 180.0)
 	{
-		p1.y = floor(map->cpos.y / 64) * 64 - 1;
+		p1.y = (map->cpos.y / 64) * (64) - 1;
 		ya = -64;
 	}
-	else if (angle > 0 && angle < 180)
+	else
 	{
-		p1.y = floor(map->cpos.y / 64) * 64 + 64;
+		p1.y = (map->cpos.y / 64) * (64) + 64;
 		ya = 64;
 	}
-	p1.x = map->cpos.x + (map->cpos.y - p1.y) / tan(angle);
-	xa = 64 / tan(60);
-	p2 = p1;
-	printf("while\n");
-	printf("p2.y / 64: %d p2.x / 64: %d\n",p2.y/64, p2.x / 64);
-	while (p2.y / 64 < map->height && p2.x / 64 < map->width
-			&& map->grid[p2.y / 64][p2.x / 64] == 0)
+	p1.x = map->cpos.x + (map->cpos.y - p1.y) / tan(angle * M_PI / 180.0);
+	xa = 64 / tan(angle * M_PI / 180.0);
+	//printf("horizontal\n" );
+	//printf("p1.y / 64: %d, p1.x / 64: %d\n", p1.y / 64, p1.x / 64);
+	while (map->grid[p1.y / 64][p1.x / 64] == 0)
 	{
-		printf("p2.y / 64: %d p2.x / 64: %d\n",p2.y/64, p2.x / 64);
-		p2.y = p2.y + ya;
-		p2.x = p2.x + xa;
+		//printf("p1.y / 64: %d, p1.x / 64: %d\n", p1.y / 64, p1.x / 64);
+		p1.x += xa;
+		p1.y += ya;
 	}
-	return (p2);
+	return (p1);
 }
 
 t_pos	get_vertical(t_map *map, double angle)
 {
 	t_pos p1;
-	t_pos p2;
 	int xa;
 	int ya;
-
-	if ((angle > 270 && angle < 360) || (angle > 0 && angle < 90))
+	
+	if ((angle >= 0.0 && angle <= 90.0) || (angle >= 270.0 && angle <= 360.0))
 	{
-		p1.x = (floor(map->cpos.x / 64) * 64) - 1;
+		p1.x = (map->cpos.x / 64) * 64 + 64;
 		xa = 64;
 	}
-	else if (angle > 90 && angle < 270)
+	else
 	{
-		p1.x = (floor(map->cpos.x / 64) * 64) + 64;
+		p1.x = (map->cpos.x / 64) * 64 - 1;
 		xa = -64;
 	}
-	p1.y = map->cpos.y + (map->cpos.x - p1.x) / tan(angle);
-	ya = 64 / tan(60);
-	p2 = p1;
-	printf("while\n");
-	printf("p2.y / 64: %d p2.x / 64: %d\n",p2.y/64, p2.x / 64);
-	while (p2.y / 64 < map->height &&
-			p2.x / 64 < map->width && map->grid[p2.y / 64][p2.x / 64] == 0)
+	p1.y = map->cpos.y + (map->cpos.x - p1.x) / tan(angle * M_PI / 180.0);
+	ya = 64 / tan(angle * M_PI / 180.0);
+	//printf("vertical\n" );
+	//printf("p1.y / 64: %d, p1.x / 64: %d\n", p1.y / 64, p1.x / 64);
+	while (map->grid[p1.y / 64][p1.x / 64] == 0)
 	{
-		printf("p2.y / 64: %d p2.x / 64: %d\n",p2.y/64, p2.x / 64);
-		p2.y = p2.y + ya;
-		p2.x = p2.x + xa;
+		//printf("p1.y / 64: %d, p1.x / 64: %d\n", p1.y / 64, p1.x / 64);
+		p1.x += xa;
+		p1.y += ya;
 	}
-	return (p2);
+	return (p1);
 }
 
 double	get_distance(t_map *map, double angle)
@@ -85,9 +79,9 @@ double	get_distance(t_map *map, double angle)
 
 	hor = get_horizontal(map, angle);
 	ver = get_vertical(map, angle);
-	printf("hor| x: %d, y: %d\nver| x: %d, y: %d\n",hor.x,hor.y,ver.x,ver.y);
-	distance1 = abs(map->cpos.x - hor.x) / cos(60.0);
-	distance2 = abs(map->cpos.x - ver.x) / cos(60.0);
+	//printf("hor| x: %d, y: %d\nver| x: %d, y: %d\n",hor.x,hor.y,ver.x,ver.y);
+	distance1 = abs(map->cpos.x - hor.x) / cos(angle * M_PI / 180.0);
+	distance2 = abs(map->cpos.x - ver.x) / cos(angle * M_PI / 180.0);
 	if (distance1 < distance2)
 		return (distance1);
 	else
@@ -99,17 +93,21 @@ void	ray(t_map *map)
 	double distance;
 	double height;
 	double angle;
+	double beta;
 	int i;
 
 	i = 0;	
 	angle = map->cpos.r - 30;
+	beta = -30.0;
 	while (i < WIDTH)
 	{
 		printf("angle: %f\n", angle);
-		distance = get_distance(map, angle);
-		height = (64 / distance) * ((WIDTH / 2) / tan(30.0));
+		distance = get_distance(map, angle) * cos(beta * M_PI / 180.0);
+		printf("distance: %f\n", distance);
+		height = (64 / distance) * ((WIDTH / 2) / tan(30.0 * M_PI / 180.0));
 		draw_wall_slice(map, i, height);
 		angle += (60.0 / WIDTH);
+		beta += (60.0 / WIDTH);
 		i++;
 	}
 }

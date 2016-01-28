@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/27 13:25:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/28 15:26:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <math.h>
 #include <stdio.h>
 # include "libft.h"
-# define WIDTH 640
+# define WIDTH 680
 # define HEIGHT 420
 # include "libft.h"
 
