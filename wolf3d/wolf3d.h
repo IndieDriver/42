@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/28 15:26:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/29 14:38:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <math.h>
 #include <stdio.h>
 # include "libft.h"
-# define WIDTH 680
-# define HEIGHT 420
+# define WIDTH 320
+# define HEIGHT 200
 # include "libft.h"
 
 typedef struct 	s_env

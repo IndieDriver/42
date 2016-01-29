@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/28 15:34:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/29 14:41:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,14 @@ void	draw_wall_slice(t_map *map, int x, int height)
 
 	to.x = x;
 	from.x = x;
-	from.y = (HEIGHT / 2) - height;
-	to.y = (HEIGHT / 2) + height;
-	//	printf("to.x: %d, to.y: %d, from.x: %d, from.y: %d\n", 
-	//		to.x, to.y, from.x, from.y);
+	from.y = (HEIGHT / 2) - (height / 2);
+	to.y = (HEIGHT / 2) + (height / 2);
+	if (from.y < 0 || from.y > HEIGHT)
+		from.y = 0;
+	if (to.y > HEIGHT || to.y < 0)
+		to.y = HEIGHT - 2;
+	printf("to.x: %d, to.y: %d, from.x: %d, from.y: %d\n",
+			to.x, to.y, from.x, from.y);
 	draw_line(map, from, to, 0x0000FF);
 }
 
@@ -32,7 +36,6 @@ void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
-
 	color_value = mlx_get_color_value(map->env.mlx, color);
 	red = (color_value & 0xFF0000) >> 16;
 	green = (color_value & 0xFF00) >> 8;
