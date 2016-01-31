@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/29 14:38:14 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/30 14:13:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,12 @@
 # include <math.h>
 #include <stdio.h>
 # include "libft.h"
-# define WIDTH 320
-# define HEIGHT 200
+# define WIDTH 480
+# define HEIGHT 300
 # include "libft.h"
-
+# define RED  "\x1B[31m"
+# define WHT  "\x1B[37m"
+# define RST "\033[0m"
 typedef struct 	s_env
 {
 	void		*mlx;

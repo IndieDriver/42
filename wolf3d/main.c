@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/29 14:24:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/30 14:10:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		main(int argc, char **argv)
 	map->grid = init_grid(map->height, map->width);
 	map->cpos.x = 160;
 	map->cpos.y = 160;
-	map->cpos.r = 90;
+	map->cpos.r = 180;
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_expose_hook(e.win, expose_hook, map);
