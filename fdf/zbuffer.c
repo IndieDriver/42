@@ -6,51 +6,79 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/11 14:46:57 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/12 16:43:03 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/31 16:34:50 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_rect	init_rect()
+int		get_min(t_rect rect)
 {
-	t_rect tmp;
-	
-	tmp.tl.x = 0;
-	tmp.tl.y = 0;
-	tmp.tr.x = 0;
-	tmp.tr.y = 0;
-	tmp.bl.x = 0;
-	tmp.bl.y = 0;
-	tmp.br.x = 0;
-	tmp.br.y = 0;
-	return (tmp);	
+	if (rect.tl.y < rect.tr.y && rect.tl.y < rect.br.y && rect.tl.y < rect.bl.y)
+		return (rect.tl.y);
+	if (rect.tr.y < rect.tl.y && rect.tr.y < rect.br.y && rect.tr.y < rect.bl.y)
+		return (rect.tr.y);
+	if (rect.br.y < rect.tr.y && rect.br.y < rect.tl.y && rect.br.y < rect.bl.y)
+		return (rect.br.y);
+	if (rect.bl.y < rect.tl.y && rect.bl.y < rect.tr.y && rect.bl.y < rect.br.y)
+		return (rect.bl.y);
+	printf("fail\n");
+	return (-1);
 }
 
-t_rect	*init_rectlist(t_map *map)
+int		get_max(t_rect rect)
 {
-	t_rect *grid;
-	int i;
+	if (rect.tl.y > rect.tr.y && rect.tl.y > rect.br.y && rect.tl.y > rect.bl.y)
+		return (rect.tl.y);
+	if (rect.tr.y > rect.tl.y && rect.tr.y > rect.br.y && rect.tr.y > rect.bl.y)
+		return (rect.tr.y);
+	if (rect.br.y > rect.tr.y && rect.br.y > rect.tl.y && rect.br.y > rect.bl.y)
+		return (rect.br.y);
+	if (rect.bl.y > rect.tl.y && rect.bl.y > rect.tr.y && rect.bl.y > rect.br.y)
+		return (rect.bl.y);
+	printf("fail\n");
+	return (-1);
+}
 
-	i = 0;
-	if (!(grid = (t_rect*)malloc(sizeof(t_rect) * (map->width * map->height))))
-		return (NULL);
-	while (i < map->width * map->height)
+t_point	get_point(t_map *map, t_rect rect)
+{
+	int ymin;
+	int ymax;
+	int x;
+	int line;
+	t_point point;
+
+	line = 0;
+	ymin = get_min(rect);
+	ymin = 0;
+	ymax = get_max(rect);
+	ymax = HEIGHT;
+	while (ymin < ymax)
 	{
-		grid[i] = init_rect();
-		i++;	
+		x = 0;
+		line = 0;
+		point.x = -1;
+		while (x < WIDTH)
+		{
+			if (get_hex_color(map, x, ymin) == 0x0000FF)
+			{
+				line++;
+			}
+			if (line == 1 && get_hex_color(map, x, ymin) != 0x0000FF
+					&& point.x == -1)
+			{
+				point.x = x;
+				point.y = ymin;
+			}
+			if (line == 2 && point.x != -1)
+			{
+				draw_pixel_to_image(map, point.x, point.y, 0xFFFF00);
+				return (point);
+			}
+			x++;
+		}
+		ymin++;
 	}
-	printf("end init\n");
-	return (grid);
-}
-
-void	save_rect(t_map *map, t_rect rect)
-{
-	int cursor;
-
-	cursor = 0;
-	while (map->rect[cursor].tl.x != 0 && map->rect[cursor].tr.x != 0)
-		cursor++;
-	map->rect[cursor] = rect;
-	printf("cursor: %d\n",cursor);
+	printf("line not found\n");
+	return (setpoint(0,0,0,0x0000FF));
 }

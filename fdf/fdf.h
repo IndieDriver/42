@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/13 14:00:24 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/31 15:33:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ typedef struct	s_map
 	int			height;
 	t_env		env;
 	t_img		img;
-	t_rect		*rect;
 	t_point		**grid;
 }				t_map;
 
@@ -89,10 +88,10 @@ void			draw_line(t_map *map, t_point from, t_point to, int color);
 void			print_grid(t_map *map);
 void			ft_error(void);
 
+int				get_hex_color(t_map *map, int x, int y);
+void			fill_rect(t_map *map, int x, int y, int color);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
-void			fill_rect(t_map *map, int x, int y, int color);
-t_rect			*init_rectlist(t_map *map);
-void			save_rect(t_map *map, t_rect rect);
+t_point			get_point(t_map *map, t_rect rect);
 #endif
