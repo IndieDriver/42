@@ -91,10 +91,10 @@ int		main(int argc, char **argv)
 		if (!(map = get_map(argv[1])))
 			ft_error();
 		map->env = e;
-		print_grid(map);
+		//print_grid(map);
 		shift_grid(map);
 		printf("\n");
-		print_grid(map);
+		//print_grid(map);
 		adapt_grid(map);
 		mlx_expose_hook(e.win, expose_hook, map);
 	}

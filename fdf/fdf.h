@@ -88,10 +88,11 @@ void			draw_line(t_map *map, t_point from, t_point to, int color);
 void			print_grid(t_map *map);
 void			ft_error(void);
 
-int				get_hex_color(t_map *map, int x, int y);
+void			fill_polygon(t_map *map);
+int			get_hex_color(t_map *map, int x, int y);
 void			fill_rect(t_map *map, int x, int y, int color);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
-t_point			get_point(t_map *map, t_rect rect);
+t_point			get_point(t_map *map);
 #endif

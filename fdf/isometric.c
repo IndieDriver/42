@@ -37,10 +37,8 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 {
 	int i;
 	int j;
-	t_rect rect;
 	t_point from;
 	t_point to;
-	t_point tmp;
 
 	i = 0;
 	while (i < row)
@@ -50,22 +48,14 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 		while (j < col)
 		{
 			to = grid[i][j];
-			if (i + 1 != row)
-				draw_line(map, grid[i][j], grid[i + 1][j], 0x0000FF);
-			if (j + 1 != col)
-				draw_line(map, grid[i][j], grid[i][j + 1], 0x0000FF);
 			if (j + 1 != col && i + 1 != row)
-			{
+			{	
+				draw_line(map, grid[i][j], grid[i + 1][j], 0x0000FF);
+				draw_line(map, grid[i][j], grid[i][j + 1], 0x0000FF);
 				draw_line(map, grid[i + 1][j], grid[i + 1][j + 1], 0x0000FF);
 				draw_line(map, grid[i][j + 1], grid[i + 1][j + 1], 0x0000FF);
-				rect.tl = grid[i][j];
-				rect.tr = grid[i][j + 1];
-				rect.br = grid[i + 1][j + 1];
-				rect.bl = grid[i + 1][j];
-				tmp = get_point(map, rect);
-				if (tmp.x != 0)
-					fill_rect(map, tmp.x, tmp.y, 0x00FF00);
-			}	
+				fill_polygon(map);
+			}
 			if (i + 1 != row)
 				draw_line(map, grid[i][j], grid[i + 1][j], 0xFF0000);
 			if (j + 1 != col)

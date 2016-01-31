@@ -49,6 +49,9 @@ void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 	unsigned char	green;
 	unsigned char	blue;
 
+	//printf("x: %d| y: %d| color: %#08x\n",x,y,color);
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+		return ;
 	color_value = mlx_get_color_value(map->env.mlx, color);
 	red = (color_value & 0xFF0000) >> 16;
 	green = (color_value & 0xFF00) >> 8;
