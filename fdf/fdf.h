@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/01 12:35:24 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/01 16:07:09 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct	s_map
 	t_env		env;
 	t_img		img;
 	t_point		**grid;
+	t_point		**cart;
 }				t_map;
 
 typedef struct	s_line
@@ -72,12 +73,13 @@ t_map			*get_map(char *filename);
 void			free_map(t_map *map);
 
 t_point			setpoint(int x, int y, int z, int color);
-t_point			convertcord(t_point point);
+t_point			convertcord(t_point point, double angle);
 void			draw_iso(t_map *map, t_point **grid, int row, int col);
 t_map			*adapt_grid(t_map *map);
 
 void			draw_line(t_map *map, t_point from, t_point to, int color);
 
+void			shift_grid(t_map *map);
 void			print_grid(t_map *map);
 void			ft_error(void);
 

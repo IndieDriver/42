@@ -6,22 +6,31 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/01 14:12:04 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/01 16:09:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int		expose_hook(t_map *map)
+void	draw(t_map *map)
 {
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
 	init_image(map, 0x000000);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	//map->grid = map->cart;
+	//shift_grid(map);
+	adapt_grid(map);
 	draw_iso(map, map->grid, map->height, map->width);	
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
 	mlx_destroy_image(map->env.mlx,map->img.img);
+
+}
+
+int		expose_hook(t_map *map)
+{
+	draw(map);
 	return (0);
 }
 
@@ -70,7 +79,7 @@ void	shift_grid(t_map *map)
 			map->grid[i][j].y *= WIDTH;
 			map->grid[i][j].x -= map->grid[i][j].z;
 			map->grid[i][j].y -= map->grid[i][j].z;
-			map->grid[i][j] = convertcord(map->grid[i][j]);
+			map->grid[i][j] = convertcord(map->grid[i][j], 70);
 			j++;
 		}
 	i++;
@@ -91,6 +100,7 @@ int		main(int argc, char **argv)
 		if (!(map = get_map(argv[1])))
 			ft_error();
 		map->env = e;
+		map->cart = map->grid;
 		shift_grid(map);
 		adapt_grid(map);
 		mlx_expose_hook(e.win, expose_hook, map);
