@@ -6,11 +6,25 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 16:43:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/12 16:31:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/01 12:41:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
+
+void	free_map(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (i < map->height)
+	{
+		free(map->grid[i]);
+		i++;
+	}
+	free(map->grid);
+	free(map);
+}
 
 int		get_number_of_row(char *file_name)
 {
@@ -45,6 +59,7 @@ t_point	*parse_line(char **line_split, int row, int *col)
 	while (line_split[i] != 0)
 	{
 		tmp[i] = setpoint(i, row, ft_atoi(line_split[i]), 0x0000FF);
+		free(line_split[i]);
 		i++;
 	}
 	*col = i;

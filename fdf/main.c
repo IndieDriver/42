@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/31 15:34:20 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/01 14:12:04 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,15 +91,12 @@ int		main(int argc, char **argv)
 		if (!(map = get_map(argv[1])))
 			ft_error();
 		map->env = e;
-		//print_grid(map);
 		shift_grid(map);
-		printf("\n");
-		//print_grid(map);
 		adapt_grid(map);
 		mlx_expose_hook(e.win, expose_hook, map);
+		mlx_loop(e.mlx);
+		free_map(map);
 	}
-	mlx_loop(e.mlx);
-	sleep(5);
 	if (argc == 1)
 		argv[0] = NULL;
 	return (0);

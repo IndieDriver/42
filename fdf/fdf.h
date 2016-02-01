@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/31 15:33:18 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/01 12:35:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,6 @@ typedef struct	s_point
 	int			color;
 }				t_point;
 
-typedef struct	s_rect
-{
-	t_point 	tl;
-	t_point 	tr;
-	t_point 	bl;
-	t_point 	br;
-}				t_rect;
-
 typedef struct	s_map
 {
 	int			width;
@@ -77,6 +69,7 @@ typedef struct s_rgb
 }				t_rgb;
 
 t_map			*get_map(char *filename);
+void			free_map(t_map *map);
 
 t_point			setpoint(int x, int y, int z, int color);
 t_point			convertcord(t_point point);
@@ -88,11 +81,8 @@ void			draw_line(t_map *map, t_point from, t_point to, int color);
 void			print_grid(t_map *map);
 void			ft_error(void);
 
-void			fill_polygon(t_map *map);
-int			get_hex_color(t_map *map, int x, int y);
-void			fill_rect(t_map *map, int x, int y, int color);
+int				get_hex_color(t_map *map, int x, int y);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
-t_point			get_point(t_map *map);
 #endif

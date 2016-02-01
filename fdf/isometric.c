@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/31 16:34:54 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/01 12:13:42 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,35 +37,17 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 {
 	int i;
 	int j;
-	t_point from;
-	t_point to;
 
 	i = 0;
 	while (i < row)
 	{
 		j = 0;
-		from = grid[i][j];
 		while (j < col)
 		{
-			to = grid[i][j];
-			if (j + 1 != col && i + 1 != row)
-			{	
-				draw_line(map, grid[i][j], grid[i + 1][j], 0x0000FF);
-				draw_line(map, grid[i][j], grid[i][j + 1], 0x0000FF);
-				draw_line(map, grid[i + 1][j], grid[i + 1][j + 1], 0x0000FF);
-				draw_line(map, grid[i][j + 1], grid[i + 1][j + 1], 0x0000FF);
-				fill_polygon(map);
-			}
 			if (i + 1 != row)
 				draw_line(map, grid[i][j], grid[i + 1][j], 0xFF0000);
 			if (j + 1 != col)
 				draw_line(map, grid[i][j], grid[i][j + 1], 0xFF0000);
-			if (j + 1 != col && i + 1 != row)
-			{
-				draw_line(map, grid[i + 1][j], grid[i + 1][j + 1], 0xFF0000);
-				draw_line(map, grid[i][j + 1], grid[i + 1][j + 1], 0xFF0000);
-			}
-			from = grid[i][j];
 			j++;
 		}
 		i++;
