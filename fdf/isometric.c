@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/01 16:09:29 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/02 15:20:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@ t_point		setpoint(int x, int y, int z, int color)
 {
 	t_point point;
 
-	point.x = x - (z);
-	point.y = y - (z);
+	point.x = x;
+	point.y = y;
 	point.z = z;
 	point.color = color;
 	return (point);
 }
 
-t_point		convertcord(t_point point, double angle)
+t_point		convertcord(t_point point)
 {
 	t_point tmp;
 
 	tmp = setpoint(point.x, point.y, point.z, point.color);
-	tmp.x = (point.x * cos(angle * M_PI / 180.0)) -
+	/*tmp.x = (point.x * cos(angle * M_PI / 180.0)) -
 			(point.y * cos(angle * M_PI / 180.0));
-	//tmp.y = (point.x * sin(angle * M_PI / 180.0)) +
-	//		(point.y * cos(angle * M_PI / 180.0));
+	tmp.y = (point.x * sin(angle * M_PI / 180.0)) +
+			(point.y * cos(angle * M_PI / 180.0)); */
+	//printf("iso|tmp.x: %d | tmp.y: %d\n", tmp.x, tmp.y);
+	tmp.x = point.x - point.y;
 	tmp.y = (point.x + point.y) / 2;
-	printf("iso|tmp.x: %d | tmp.y: %d\n", tmp.x, tmp.y);
-	//tmp.x = point.x - point.y;
-	//tmp.y = (point.x + point.y) / 2;
+	printf("point.x: %d, point.y: %d\n", point.x, point.y);
 	printf("old|tmp.x: %d | tmp.y: %d\n", tmp.x, tmp.y);
 	return (tmp);
 }
@@ -52,9 +52,9 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 		while (j < col)
 		{
 			if (i + 1 != row)
-				draw_line(map, grid[i][j], grid[i + 1][j], 0xFF0000);
+				draw_line(map, grid[i][j], grid[i + 1][j], get_color(grid[i][j].z));
 			if (j + 1 != col)
-				draw_line(map, grid[i][j], grid[i][j + 1], 0xFF0000);
+				draw_line(map, grid[i][j], grid[i][j + 1], get_color(grid[i][j].z));
 			j++;
 		}
 		i++;
@@ -97,8 +97,8 @@ t_map	*adapt_grid(t_map *map)
 			j = 0;
 			while (j < map->width)
 			{
-				map->grid[i][j].x /= 2;
-				map->grid[i][j].y /= 2;
+				map->grid[i][j].x /= 1.5;
+				map->grid[i][j].y /= 1.5;
 				j++;
 			}
 			i++;

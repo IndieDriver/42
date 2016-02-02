@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/01 12:42:36 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/02 10:58:53 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC =	main.c		\
 		isometric.c	\
 		draw_line.c	\
 		draw.c		\
+		grid.c		\
+		hook.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf

@@ -6,39 +6,11 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/01 16:09:25 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/02 15:16:50 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-void	draw(t_map *map)
-{
-	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
-	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
-			&(map->img.size_line), &(map->img.endian));
-	init_image(map, 0x000000);
-	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
-	//map->grid = map->cart;
-	//shift_grid(map);
-	adapt_grid(map);
-	draw_iso(map, map->grid, map->height, map->width);	
-	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
-	mlx_destroy_image(map->env.mlx,map->img.img);
-
-}
-
-int		expose_hook(t_map *map)
-{
-	draw(map);
-	return (0);
-}
-
-void	ft_error(void)
-{
-	ft_putstr("error\n");
-	exit(0);
-}
 
 void	print_grid(t_map *map)
 {
@@ -57,9 +29,30 @@ void	print_grid(t_map *map)
 				printf("  %d",map->grid[i][j].x);
 			j++;
 		}
-	printf("\n");
-	i++;
+		printf("\n");
+		i++;
 	}
+}
+
+void	draw(t_map *map)
+{
+	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
+	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
+			&(map->img.size_line), &(map->img.endian));
+	init_image(map, 0x000000);
+	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	//map->grid = copy_grid(map, map->cart);
+	//shift_grid(map);
+	//adapt_grid(map);
+	draw_iso(map, map->grid, map->height, map->width);	
+	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	mlx_destroy_image(map->env.mlx,map->img.img);
+}
+
+void	ft_error(void)
+{
+	ft_putstr("error\n");
+	exit(0);
 }
 
 void	shift_grid(t_map *map)
@@ -73,16 +66,17 @@ void	shift_grid(t_map *map)
 		j = 0;
 		while (j < map->width)
 		{
+
 			map->grid[i][j].x -= (map->width / 2);
 			map->grid[i][j].y -= (map->height / 2);
-			map->grid[i][j].x *= WIDTH;
-			map->grid[i][j].y *= WIDTH;
 			map->grid[i][j].x -= map->grid[i][j].z;
 			map->grid[i][j].y -= map->grid[i][j].z;
-			map->grid[i][j] = convertcord(map->grid[i][j], 70);
+			map->grid[i][j].x *= WIDTH / 4;
+			map->grid[i][j].y *= WIDTH / 4;
+			map->grid[i][j] = convertcord(map->grid[i][j]);
 			j++;
 		}
-	i++;
+		i++;
 	}
 }
 
@@ -100,14 +94,16 @@ int		main(int argc, char **argv)
 		if (!(map = get_map(argv[1])))
 			ft_error();
 		map->env = e;
-		map->cart = map->grid;
+		//map->cart = copy_grid(map, map->grid);
+		print_grid(map);
 		shift_grid(map);
+		printf("\n");
+		print_grid(map);
 		adapt_grid(map);
+		mlx_key_hook(e.win, key_hook, map);
 		mlx_expose_hook(e.win, expose_hook, map);
 		mlx_loop(e.mlx);
 		free_map(map);
 	}
-	if (argc == 1)
-		argv[0] = NULL;
 	return (0);
 }

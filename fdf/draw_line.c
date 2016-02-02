@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 12:02:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/13 14:00:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/02 14:38:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,15 @@ void	convert_octan(int *dx, int *dy, int *sx, int *sy)
 
 void	bresenham(t_map *map, t_point from, t_point to, t_line value)
 {
+	int dif;
+
+	dif = from.z != to.z ? abs(to.z - from.z) / 2 : from.z;
 	value.err = 2 * (value.dy - value.dx);
 	while ((from.x <= to.x && value.sx == 1)
 			|| (from.x >= to.x && value.sx == -1))
 	{
 		draw_pixel_to_image(map, from.x + (WIDTH / 2),
-				from.y + (HEIGHT / 2), from.color);
+				from.y + (HEIGHT / 2), get_color(dif));
 		if (value.err >= 0)
 		{
 			from.y += value.sy;
@@ -41,12 +44,15 @@ void	bresenham(t_map *map, t_point from, t_point to, t_line value)
 
 void	bresenham_inverse(t_map *map, t_point from, t_point to, t_line value)
 {
+	int dif;
+
+	dif = from.z != to.z ? abs(to.z - from.z) / 2 : from.z;
 	value.err = 2 * (value.dx - value.dy);
 	while ((from.y <= to.y && value.sy == 1)
 			|| (from.y >= to.y && value.sy == -1))
 	{
 		draw_pixel_to_image(map, from.x + (WIDTH/2),
-			from.y + (HEIGHT/2), from.color);
+			from.y + (HEIGHT/2),get_color(dif));
 		if (value.err >= 0)
 		{
 			from.x += value.sx;
