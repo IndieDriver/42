@@ -51,6 +51,7 @@ typedef struct	s_map
 	t_img		img;
 	t_point		**grid;
 	t_point		**cart;
+	int		zoffset;
 }				t_map;
 
 typedef struct	s_line

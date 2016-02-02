@@ -34,7 +34,35 @@ void	print_grid(t_map *map)
 	}
 }
 
+int	get_z_offset(t_map *map)
+{
+	int zmin;
+	int zmax;
+	int i;
+	int j;
+	int rst;
+
+	i = 0;
+	zmin = 0;
+	zmax = 0;
+	while (i < map->height)
+	{
+		j = 0;
+		while (j < map->width)
+		{
+			zmin = map->grid[i][j].z < zmin ? map->grid[i][j].z : zmin;
+			zmax = map->grid[i][j].z > zmax ? map->grid[i][j].z : zmax;
+			j++;
+		}
+		i++;
+	}
+	//printf("zmax: %d, zmin: %d\n",zmax, zmin);
+	rst = 42 - abs(zmax - zmin);
+	return (rst = rst <= 0 ? 1 : rst);
+	
+}
 void	draw(t_map *map)
+
 {
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
@@ -69,10 +97,10 @@ void	shift_grid(t_map *map)
 
 			map->grid[i][j].x -= (map->width / 2);
 			map->grid[i][j].y -= (map->height / 2);
-			map->grid[i][j].x -= map->grid[i][j].z;
-			map->grid[i][j].y -= map->grid[i][j].z;
-			map->grid[i][j].x *= WIDTH / 4;
-			map->grid[i][j].y *= WIDTH / 4;
+			map->grid[i][j].x *= WIDTH / 10;
+			map->grid[i][j].y *= WIDTH / 10;
+			map->grid[i][j].x -= map->grid[i][j].z * get_z_offset(map);
+			map->grid[i][j].y -= map->grid[i][j].z * get_z_offset(map);;
 			map->grid[i][j] = convertcord(map->grid[i][j]);
 			j++;
 		}
@@ -95,10 +123,11 @@ int		main(int argc, char **argv)
 			ft_error();
 		map->env = e;
 		//map->cart = copy_grid(map, map->grid);
-		print_grid(map);
+		//print_grid(map);
 		shift_grid(map);
-		printf("\n");
-		print_grid(map);
+		//printf("\n");
+		//print_grid(map);
+		printf("z:%d\n", get_z_offset(map));
 		adapt_grid(map);
 		mlx_key_hook(e.win, key_hook, map);
 		mlx_expose_hook(e.win, expose_hook, map);

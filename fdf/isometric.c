@@ -28,15 +28,8 @@ t_point		convertcord(t_point point)
 	t_point tmp;
 
 	tmp = setpoint(point.x, point.y, point.z, point.color);
-	/*tmp.x = (point.x * cos(angle * M_PI / 180.0)) -
-			(point.y * cos(angle * M_PI / 180.0));
-	tmp.y = (point.x * sin(angle * M_PI / 180.0)) +
-			(point.y * cos(angle * M_PI / 180.0)); */
-	//printf("iso|tmp.x: %d | tmp.y: %d\n", tmp.x, tmp.y);
 	tmp.x = point.x - point.y;
 	tmp.y = (point.x + point.y) / 2;
-	printf("point.x: %d, point.y: %d\n", point.x, point.y);
-	printf("old|tmp.x: %d | tmp.y: %d\n", tmp.x, tmp.y);
 	return (tmp);
 }
 

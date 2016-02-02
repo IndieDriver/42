@@ -14,8 +14,11 @@
 
 int		get_color(int i)
 {
-	//printf("i: %d\n",i);
-	return (256 * 256 * (175 - sin(i)) + 256 * (175 - cos(i)) + (175 - sin(i)));
+	int 	color;
+
+	color = 256 * 256 * (175 - sin(i)) + 256 * (150 - cos(i)) + (175 - sin(i));
+	//printf("%#08x\n",color);
+	return (color);
 }
 
 int		get_hex_color(t_map *map, int x, int y)

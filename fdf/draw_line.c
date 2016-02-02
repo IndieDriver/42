@@ -23,8 +23,10 @@ void	convert_octan(int *dx, int *dy, int *sx, int *sy)
 void	bresenham(t_map *map, t_point from, t_point to, t_line value)
 {
 	int dif;
+	int z;
 
-	dif = from.z != to.z ? abs(to.z - from.z) / 2 : from.z;
+	z = from.z < to.z ? from.z : to.z;
+	dif = from.z != to.z ? (abs(to.z - from.z) / 2) + z: abs(from.z);
 	value.err = 2 * (value.dy - value.dx);
 	while ((from.x <= to.x && value.sx == 1)
 			|| (from.x >= to.x && value.sx == -1))
@@ -45,8 +47,10 @@ void	bresenham(t_map *map, t_point from, t_point to, t_line value)
 void	bresenham_inverse(t_map *map, t_point from, t_point to, t_line value)
 {
 	int dif;
+	int z;
 
-	dif = from.z != to.z ? abs(to.z - from.z) / 2 : from.z;
+	z = from.z < to.z ? from.z : to.z;
+	dif = from.z != to.z ? (abs(to.z - from.z) / 2) + z: abs(from.z);
 	value.err = 2 * (value.dx - value.dy);
 	while ((from.y <= to.y && value.sy == 1)
 			|| (from.y >= to.y && value.sy == -1))
