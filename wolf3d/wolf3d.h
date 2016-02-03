@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/30 14:13:56 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 12:09:08 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define RED  "\x1B[31m"
 # define WHT  "\x1B[37m"
 # define RST "\033[0m"
+
 typedef struct 	s_env
 {
 	void		*mlx;
@@ -46,11 +47,25 @@ typedef struct	s_line
 	int			err;
 }				t_line;
 
+typedef struct	s_dda
+{
+	double		dx;
+	double		dy;
+	int			sx;
+	int			sy;
+	int			side;
+}				t_dda;
+
+typedef struct	s_vec
+{
+	double		x;
+	double		y;
+}				t_vec;
+
 typedef struct 	s_pos
 {
 	int			x;
 	int			y;
-	int			r;
 	int			color;
 }				t_pos;
 
@@ -62,8 +77,9 @@ typedef struct	s_map
 	int			**grid;
 	int			height;
 	int			width;
-	t_pos		cpos;
-
+	t_vec		pos;
+	t_vec		dirvec;
+	t_vec		cvec;
 }				t_map;
 
 void			draw(t_map *map);

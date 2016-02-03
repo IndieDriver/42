@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/30 14:10:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 16:04:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,9 @@ int		**init_grid(int row, int col)
 		}
 		i++;
 	}
+	grid[2][1] = 0;
+	grid[1][1] = 0;
+	grid[3][2] = 1;
 	return (grid);
 }
 
@@ -77,12 +80,15 @@ int		main(int argc, char **argv)
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "Wolf3d");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
-	map->height = 5;
-	map->width = 5;
+	map->height = 10;
+	map->width = 10;
 	map->grid = init_grid(map->height, map->width);
-	map->cpos.x = 160;
-	map->cpos.y = 160;
-	map->cpos.r = 180;
+	map->pos.x = 7.1;
+	map->pos.y = 2.1;
+	map->cvec.x = 0;
+	map->cvec.y = 0.66;
+	map->dirvec.x = -1;
+	map->dirvec.y = 0;
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_expose_hook(e.win, expose_hook, map);

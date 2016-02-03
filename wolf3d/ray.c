@@ -6,135 +6,91 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/30 16:37:12 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 16:04:53 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int		is_inside_grid(t_map *map, int x, int y)
+t_dda	init_dda(t_dda value, t_vec delta, t_vec raypos, t_vec raydir)
 {
-	if ((y / 64 >= 0 && y / 64 < map->height)
-			&& (x / 64 >= 0 && x / 64 < map->height))
-		return (1);
-	return (0);
-}
-
-t_pos	get_horizontal(t_map *map, double angle)
-{
-	t_pos p1;
-	int	xa;
-	int ya;
-
-	if (angle >= 0.0 && angle < 180.0)
+	if (raydir.x < 0)
 	{
-		p1.y = floor(map->cpos.y / 64) * (64);
-		ya = -64;
+		value.sx = -1;
+		value.dx = (raypos.x - floor(raypos.x)) * delta.x;
 	}
 	else
 	{
-		p1.y = floor(map->cpos.y / 64) * (64) + 64;
-		ya = 64;
+		value.sx = 1;
+		value.dx = (floor(raypos.x) + 1.0 - raypos.x) * delta.x;
 	}
-	p1.x = map->cpos.x + (map->cpos.y - p1.y) / tan(angle * M_PI / 180.0);
-	xa = 64 / tan(angle * M_PI / 180.0);
-	//printf("horizontal\n" );
-	//printf("p1.y / 64: %d, p1.x / 64: %d\n", p1.y / 64, p1.x / 64);
-	printf("xa: %d|ya: %d\n",xa,ya);
-	while (is_inside_grid(map, p1.x, p1.y))
+	if (raydir.y < 0)
 	{
-		if (is_inside_grid(map, p1.x, p1.y - 32)
-				&& map->grid[(p1.y - 32) / 64][(p1.x) / 64] == 0)
-			break ;
-		if (is_inside_grid(map, p1.x, p1.y + 32)
-				&& map->grid[(p1.y + 32) / 64][(p1.x) / 64] == 0)
-			break ;
-		p1.x += xa;
-		p1.y += ya;
-	}
-	printf("p1.y: %d, p1.x: %d\n", p1.y / 64, p1.x / 64);
-	return (p1);
-}
-
-
-t_pos	get_vertical(t_map *map, double angle)
-{
-	t_pos p1;
-	int xa;
-	int ya;
-
-	if ((angle >= 0.0 && angle < 90.0) || (angle >= 270.0 && angle <= 360.0))
-	{
-		p1.x = (map->cpos.x / 64) * (64) + 64;
-		xa = 64;
+		value.sy = -1;
+		value.dy = (raypos.y - floor(raypos.y)) * delta.y;
 	}
 	else
 	{
-		p1.x = (map->cpos.x / 64) * (64);
-		xa = -64;
+		value.sy = 1;
+		value.dy = (floor(raypos.y) + 1.0 - raypos.y) * delta.y;
 	}
-	p1.y = map->cpos.y + (map->cpos.x - p1.x) / tan(angle * M_PI / 180.0);
-	ya = 64 / tan(angle * M_PI / 180.0);	
-	printf("xa: %d|ya: %d\n",xa,ya);
-	while (is_inside_grid(map, p1.x, p1.y))
-	{
-		
-		if (is_inside_grid(map, p1.x - 32, p1.y)
-				&& map->grid[(p1.y) / 64][(p1.x - 32) / 64] == 0)
-			break ;
-		if (is_inside_grid(map, p1.x + 32, p1.y)
-				&& map->grid[(p1.y) / 64][(p1.x + 32) / 64] == 0)
-			break ;
-		p1.x += xa;
-		p1.y += ya;
-	}
-	printf("p1.y: %d, p1.x: %d\n", p1.y / 64, p1.x / 64);
-	return (p1);
+	return (value);
 }
 
-double	get_distance(t_map *map, double angle)
+double	dda(t_map *map, t_vec raypos, t_vec raydir)
 {
-	t_pos	hor;
-	t_pos	ver;
-	double	distance1;
-	double	distance2;
+	t_dda value;
+	t_vec delta;
+	t_pos pos;
 
-	hor = get_horizontal(map, angle);
-	ver = get_vertical(map, angle);
-	printf("hor| x: %d, y: %d\nver| x: %d, y: %d\n",hor.x,hor.y,ver.x,ver.y);
-	distance1 = abs(hor.y - map->cpos.y) / sin(angle * M_PI / 180.0);
-	distance2 = abs(ver.y - map->cpos.y) / sin(angle * M_PI / 180.0);
-	//distance1 = abs(hor.x - map->cpos.x) / cos(angle * M_PI / 180.0);
-	//distance2 = abs(ver.x - map->cpos.x) / cos(angle * M_PI / 180.0);
-	printf("distance1: %f| distance2: %f\n", distance1, distance2);
-	if (fabs(distance1) < fabs(distance2))
-		return (distance1);
-	else
-		return (distance2);
-
+	pos.x = floor(raypos.x);
+	pos.y = floor(raypos.y);
+	delta.x = sqrt(1 + (raydir.y * raydir.y) / (raydir.x * raydir.x));
+	delta.y = sqrt(1 + (raydir.x * raydir.x) / (raydir.y * raydir.y));
+	value = init_dda(value, delta, raypos, raydir);
+	while (pos.x > -1 && pos.x < map->width
+			&& pos.y > -1 && pos.y < map->height)
+	{
+		if (value.dx < value.dy)
+		{
+			value.dx += delta.x;
+			pos.x += value.sx;
+			value.side = 0;
+		}
+		else
+		{
+			value.dy += delta.y;
+			pos.y += value.sy;
+			value.side = 1;
+		}
+		printf("pos.x: %d|pos.y: %d\n",pos.x, pos.y);
+		if (map->grid[pos.y][pos.x] != 0)
+			break ;
+	}
+	printf("pos.x: %d, pos.y: %d, raypos.x: %f, raypos.y: %f, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n",pos.x, pos.y,raypos.x, raypos.y, value.sx, value.sy, raydir.x, raydir.y);
+	return (value.side == 0 ?
+			fabs((pos.x - raypos.x + (1.0 - value.sx) / 2.0) / raydir.x) :
+			fabs((pos.y - raypos.y + (1.0 - value.sy) / 2.0) / raydir.y));
 }
+
 void	ray(t_map *map)
 {
-	double distance;
-	int height;
-	double angle;
-	double beta;
 	int i;
+	double height;
+
+	t_vec raypos;
+	t_vec raydir;
 
 	i = 0;
-	angle = map->cpos.r - 30;
-	beta = -30.0;
 	while (i < WIDTH)
 	{
-		printf("angle: %f beta: %f\n", angle, beta);
-		distance = get_distance(map, angle) * cos(beta * M_PI / 180.0);
-		printf("distance: %f\n", distance);
-		height = (64 / distance) * (255);
-		printf("%sheight: %d%s\n",RED, height, RST);
-		draw_wall_slice(map, i, height);
-		printf("draw_wall_slice()\n");
-		angle += (60.0 / WIDTH);
-		beta += (60.0 / WIDTH);
+		raypos.x = map->pos.x;
+		raypos.y = map->pos.y;
+		raydir.x = map->dirvec.x + map->cvec.x * (2 * i / WIDTH - 1);
+		raydir.y = map->dirvec.y + map->cvec.y * (2 * i / WIDTH - 1);
+		height = dda(map, raypos, raydir);
+		printf(RED"i: %d|height: %f\n"RST, i,height);
+		draw_wall_slice(map, i, (int)fabs(HEIGHT / height));
 		i++;
 	}
 }
