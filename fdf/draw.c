@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/12 11:19:00 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/02 14:21:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 10:21:29 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 int		get_color(int i)
 {
-	int 	color;
+	int	color;
 
 	color = 256 * 256 * (175 - sin(i)) + 256 * (150 - cos(i)) + (175 - sin(i));
-	//printf("%#08x\n",color);
 	return (color);
 }
 
 int		get_hex_color(t_map *map, int x, int y)
 {
 	t_rgb rgb;
-	
+
 	rgb.red = map->img.data[y * map->img.size_line +
 		(x * map->img.bpp) / 8];
 	rgb.green = map->img.data[y * map->img.size_line +

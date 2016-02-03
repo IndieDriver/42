@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/02 14:29:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 10:34:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
-#include <stdio.h>
 # include "libft.h"
 # define HEIGHT 1000
 # define WIDTH	1000
@@ -51,7 +50,7 @@ typedef struct	s_map
 	t_img		img;
 	t_point		**grid;
 	t_point		**cart;
-	int		zoffset;
+	int			zoffset;
 }				t_map;
 
 typedef struct	s_line
@@ -63,7 +62,7 @@ typedef struct	s_line
 	int			err;
 }				t_line;
 
-typedef struct s_rgb
+typedef struct	s_rgb
 {
 	unsigned char red;
 	unsigned char green;

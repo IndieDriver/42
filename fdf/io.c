@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 16:43:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/02 10:49:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 10:25:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void	free_map(t_map *map)
 
 int		get_number_of_row(char *file_name)
 {
-	int fd;
-	char buf[2];
-	int lnb;
+	int		fd;
+	char	buf[2];
+	int		lnb;
 
 	lnb = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (-1);
-	while (read(fd,&buf,1))
+	while (read(fd, &buf, 1))
 	{
 		if (buf[0] == '\n')
 			lnb++;
@@ -47,8 +47,8 @@ int		get_number_of_row(char *file_name)
 
 t_point	*parse_line(char **line_split, int row, int *col)
 {
-	t_point *tmp;
-	int	i;
+	t_point	*tmp;
+	int		i;
 
 	i = 0;
 	while (line_split[i] != 0)
@@ -63,16 +63,16 @@ t_point	*parse_line(char **line_split, int row, int *col)
 		i++;
 	}
 	*col = i;
-	free (line_split);
+	free(line_split);
 	return (tmp);
 }
 
 t_point	**read_file(char *file_name, int *row, int *col)
 {
-	int fd;
-	char *line;
-	t_point **grid;
-	int i;
+	int		fd;
+	char	*line;
+	t_point	**grid;
+	int		i;
 
 	i = 0;
 	*row = get_number_of_row(file_name);
@@ -94,8 +94,8 @@ t_point	**read_file(char *file_name, int *row, int *col)
 t_map	*get_map(char *file_name)
 {
 	t_map	*map;
-	int	height;
-	int	width;
+	int		height;
+	int		width;
 
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		return (NULL);

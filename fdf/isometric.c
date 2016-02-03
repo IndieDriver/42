@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/06 15:01:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/02 15:20:02 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 10:26:58 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-t_point		setpoint(int x, int y, int z, int color)
+t_point	setpoint(int x, int y, int z, int color)
 {
 	t_point point;
 
@@ -23,7 +23,7 @@ t_point		setpoint(int x, int y, int z, int color)
 	return (point);
 }
 
-t_point		convertcord(t_point point)
+t_point	convertcord(t_point point)
 {
 	t_point tmp;
 
@@ -33,7 +33,7 @@ t_point		convertcord(t_point point)
 	return (tmp);
 }
 
-void		draw_iso(t_map *map, t_point **grid, int row, int col)
+void	draw_iso(t_map *map, t_point **grid, int row, int col)
 {
 	int i;
 	int j;
@@ -45,9 +45,11 @@ void		draw_iso(t_map *map, t_point **grid, int row, int col)
 		while (j < col)
 		{
 			if (i + 1 != row)
-				draw_line(map, grid[i][j], grid[i + 1][j], get_color(grid[i][j].z));
+				draw_line(map, grid[i][j], grid[i + 1][j],
+						get_color(grid[i][j].z));
 			if (j + 1 != col)
-				draw_line(map, grid[i][j], grid[i][j + 1], get_color(grid[i][j].z));
+				draw_line(map, grid[i][j], grid[i][j + 1],
+						get_color(grid[i][j].z));
 			j++;
 		}
 		i++;

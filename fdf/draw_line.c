@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 12:02:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/02 14:38:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 10:21:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	bresenham(t_map *map, t_point from, t_point to, t_line value)
 	int z;
 
 	z = from.z < to.z ? from.z : to.z;
-	dif = from.z != to.z ? (abs(to.z - from.z) / 2) + z: abs(from.z);
+	dif = from.z != to.z ? (abs(to.z - from.z) / 2) + z : abs(from.z);
 	value.err = 2 * (value.dy - value.dx);
 	while ((from.x <= to.x && value.sx == 1)
 			|| (from.x >= to.x && value.sx == -1))
@@ -50,13 +50,13 @@ void	bresenham_inverse(t_map *map, t_point from, t_point to, t_line value)
 	int z;
 
 	z = from.z < to.z ? from.z : to.z;
-	dif = from.z != to.z ? (abs(to.z - from.z) / 2) + z: abs(from.z);
+	dif = from.z != to.z ? (abs(to.z - from.z) / 2) + z : abs(from.z);
 	value.err = 2 * (value.dx - value.dy);
 	while ((from.y <= to.y && value.sy == 1)
 			|| (from.y >= to.y && value.sy == -1))
 	{
-		draw_pixel_to_image(map, from.x + (WIDTH/2),
-			from.y + (HEIGHT/2),get_color(dif));
+		draw_pixel_to_image(map, from.x + (WIDTH / 2),
+			from.y + (HEIGHT / 2), get_color(dif));
 		if (value.err >= 0)
 		{
 			from.x += value.sx;

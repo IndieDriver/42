@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/02 10:58:53 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/03 10:35:33 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,6 @@ SRC =	main.c		\
 		isometric.c	\
 		draw_line.c	\
 		draw.c		\
-		grid.c		\
 		hook.c		\
 
 OBJ = $(SRC:.c=.o)
@@ -26,7 +25,7 @@ CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
-LIB_PATH = ./libft/ /usr/X11/lib/ /usr/local/lib/
+LIB_PATH = ./libft/ /usr/local/lib/
 LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)
