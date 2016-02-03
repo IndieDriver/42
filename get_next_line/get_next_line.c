@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/10 17:35:35 by amathias          #+#    #+#             */
-/*   Updated: 2015/12/17 17:13:28 by amathias         ###   ########.fr       */
+/*   Updated: 2016/01/24 10:15:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		get_next_line(int const fd, char **line)
 			if ((sbuf.ret = read(fd, sbuf.buf, BUFF_SIZE)) == -1)
 				return (-1);
 			sbuf.buf[sbuf.ret] = '\0';
-			if (!sbuf.ret)
+			if (!sbuf.ret && !ft_strlen(sbuf.buf))
 				break ;
 		}
 		if (!(tmp = strjoinfree(tmp, sbuf.buf,
@@ -92,5 +92,5 @@ int		get_next_line(int const fd, char **line)
 		if (end)
 			break ;
 	}
-	return ((*line = tmp) && sbuf.ret != 0);
+	return ((*line = tmp) && (sbuf.ret != 0 || ft_strlen(tmp)));
 }
