@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/03 16:04:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/04 18:12:44 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ int		**init_grid(int row, int col)
 		}
 		i++;
 	}
-	grid[2][1] = 0;
-	grid[1][1] = 0;
-	grid[3][2] = 1;
+	//grid[2][1] = 0;
+	grid[1][7] = 1;
+	grid[1][5] = 1;
+	grid[2][3] = 1;
 	return (grid);
 }
 
@@ -83,12 +84,12 @@ int		main(int argc, char **argv)
 	map->height = 10;
 	map->width = 10;
 	map->grid = init_grid(map->height, map->width);
-	map->pos.x = 7.1;
-	map->pos.y = 2.1;
-	map->cvec.x = 0;
+	map->pos.x = 6.0;
+	map->pos.y = 6.0;
+	map->cvec.x = 0.0;
 	map->cvec.y = 0.66;
-	map->dirvec.x = -1;
-	map->dirvec.y = 0;
+	map->dirvec.x = -1.0;
+	map->dirvec.y = 0.0;
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_expose_hook(e.win, expose_hook, map);
