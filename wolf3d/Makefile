@@ -18,6 +18,7 @@ SRC =	main.c			\
 		ray.c			\
 		draw_line.c		\
 		move.c			\
+		ppmreader.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
@@ -25,7 +26,7 @@ CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
-LIB_PATH = ./libft/ /usr/local/lib/
+LIB_PATH = ./libft/ /usr/X11/lib/ /usr/local/lib/
 LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)

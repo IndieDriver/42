@@ -71,6 +71,7 @@ void	print_grid(t_map *map)
 		i++;
 	}
 }
+
 int		loop_hook(t_map *map)
 {
 	move(map);
@@ -97,6 +98,8 @@ int		main(int argc, char **argv)
 	map->dirvec.x = -1.0;
 	map->dirvec.y = 0.0;
 	init_key(map);
+	map->tex = get_texture("assets/greystone.ppm", 64);
+	printf("tex[0][0]: %#08x\n", map->tex[0][0]);
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_hook(e.win, 2, (1L<<0), key_press, map);

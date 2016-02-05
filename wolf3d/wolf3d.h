@@ -14,6 +14,7 @@
 # define WOLD3D_H
 # include <mlx.h>
 # include <math.h>
+# include <fcntl.h>
 #include <stdio.h>
 # include "libft.h"
 # define WIDTH 720
@@ -62,6 +63,13 @@ typedef struct	s_vec
 	double		y;
 }				t_vec;
 
+typedef struct	s_tex
+{
+	int id;
+	int tex_iter;
+
+
+}		t_tex;
 typedef struct	s_key
 {
 	int			up;
@@ -87,6 +95,7 @@ typedef struct	s_map
 	int			**grid;
 	int			height;
 	int			width;
+	int		**tex;
 	t_key		key;
 	t_vec		pos;
 	t_vec		dirvec;
@@ -94,18 +103,20 @@ typedef struct	s_map
 }				t_map;
 
 void			draw(t_map *map);
+t_pos			get_pos(int x, int y);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
-int				expose_hook(t_map *map);
-int				key_press(int keycode, t_map *map);
-int				key_hook(int keycode, t_map *map);
+int			expose_hook(t_map *map);
+int			key_press(int keycode, t_map *map);
+int			key_hook(int keycode, t_map *map);
 void			init_key(t_map *map);
 
 void			rotate(t_map *map);
 void			move(t_map *map);
 
 void			ray(t_map *map);
-void			draw_wall_slice(t_map *map, int x, int height, int color);
+void			draw_wall_slice(t_map *map, t_pos pos, int tex_iter);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
+int			**get_texture(char *file_name, int size);
 #endif

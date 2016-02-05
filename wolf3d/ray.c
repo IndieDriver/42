@@ -101,20 +101,28 @@ void	ray(t_map *map)
 	int		i;
 	double	height;
 	int		color;
+	int		oldcolor;
 	t_vec	raypos;
 	t_vec	raydir;
+	int	tex_iter;
 
 	i = 0;
+	tex_iter = 0;
 	while (i < WIDTH)
 	{
+		oldcolor = color;
 		raypos.x = map->pos.x;
 		raypos.y = map->pos.y;
 		raydir.x = map->dirvec.x + map->cvec.x * (double)(2.0 * i / WIDTH - 1);
 		raydir.y = map->dirvec.y + map->cvec.y * (double)(2.0 * i / WIDTH - 1);
-		//printf("raydir.x: %f, raydir.y: %f\n", raydir.x, raydir.y);
 		height = dda(map, raypos, raydir, &color);
+		if (color == oldcolor && tex_iter < 64)
+			tex_iter++;
+		else
+			tex_iter = 0;
+		//printf("tex %d\n", tex_iter);
 		//printf(RED"i: %d|height: %f\n"RST, i,height);
-		draw_wall_slice(map, i, fabs(HEIGHT / height), color);
+		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)), tex_iter);
 		i++;
 	}
 }
