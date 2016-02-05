@@ -6,11 +6,21 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/04 18:12:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 12:55:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+void	init_key(t_map *map)
+{
+	map->key.up = 0;
+	map->key.down = 0;
+	map->key.left = 0;
+	map->key.right = 0;
+	map->key.mleft = 0;
+	map->key.mright = 0;
+}
 
 int		expose_hook(t_map *map)
 {
@@ -18,6 +28,22 @@ int		expose_hook(t_map *map)
 	return (0);
 }
 
+int		key_press(int keycode, t_map *map)
+{
+	if (keycode == 124)
+		map->key.mleft = 1;
+	if (keycode == 123)
+		map->key.mright = 1;
+	if (keycode == 13)
+		map->key.up = 1;
+	if (keycode == 1)
+		map->key.down = 1;
+	if (keycode == 0)
+		map->key.right = 1;
+	if (keycode == 2)
+		map->key.left = 1;
+	return (0);
+}
 int		key_hook(int keycode, t_map *map)
 {
 	if (keycode == 53)
@@ -25,28 +51,19 @@ int		key_hook(int keycode, t_map *map)
 		mlx_destroy_window(map->env.mlx, map->env.win);
 		exit(0);
 	}
+	if (keycode == 124)
+		map->key.mleft = 0;
+	if (keycode == 123)
+		map->key.mright = 0;
 	if (keycode == 13)
-	{
-		map->pos.x += map->dirvec.x * 0.1;
-		map->pos.y += map->dirvec.y * 0.1;
-		draw(map);
-	}
+		map->key.up = 0;
 	if (keycode == 1)
-	{	
-		map->pos.x -= map->dirvec.x * 0.1;
-		map->pos.y -= map->dirvec.y * 0.1;
-		draw(map);
-	}
-	/*if (keycode == 0)
-	{
-		map->cpos.y--;
-		draw(map);
-	}
+		map->key.down = 0;
+	if (keycode == 0)
+		map->key.right = 0;
 	if (keycode == 2)
-	{
-		map->cpos.y++;
-		draw(map);
-	} */
-
+		map->key.left = 0;
+	//move(keycode, map);
+	//rotate(keycode, map);
 	return (0);
 }

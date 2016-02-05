@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/04 18:02:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 13:04:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir)
 	delta.x = sqrt(1.0 + (raydir.y * raydir.y) / (raydir.x * raydir.x));
 	delta.y = sqrt(1.0 + (raydir.x * raydir.x) / (raydir.y * raydir.y));
 	value = init_dda(pos, delta, raypos, raydir);
-	printf("delta.x: %f, delta.y: %f\n", delta.x, delta.y);
+	//printf("delta.x: %f, delta.y: %f\n", delta.x, delta.y);
 	while (pos.x > -1 && pos.x < map->width
 			&& pos.y > -1 && pos.y < map->height)
 	{
@@ -66,14 +66,14 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir)
 			pos.y += value.sy;
 			value.side = 1;
 		}
-		printf("pos.x: %d|pos.y: %d\n",pos.x, pos.y);
+		//printf("pos.x: %d|pos.y: %d\n",pos.x, pos.y);
 		if (map->grid[pos.x][pos.y] != 0)
 			break ;
 	}
-	printf("pos.x: %d, pos.y: %d, raypos.x: %f, raypos.y: %f, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n",pos.x, pos.y,raypos.x, raypos.y, value.sx, value.sy, raydir.x, raydir.y);
-	printf("result: %f| %f\n",
-			fabs((pos.x - raypos.x + (double)(1 - value.sx) / 2) / raydir.x),
-		fabs((pos.y - raypos.y + (double)(1 - value.sy) / 2) / raydir.y));
+	//printf("pos.x: %d, pos.y: %d, raypos.x: %f, raypos.y: %f, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n",pos.x, pos.y,raypos.x, raypos.y, value.sx, value.sy, raydir.x, raydir.y);
+	//printf("result: %f| %f\n",
+	//		fabs((pos.x - raypos.x + (double)(1 - value.sx) / 2) / raydir.x),
+	//	fabs((pos.y - raypos.y + (double)(1 - value.sy) / 2) / raydir.y));
 	return (value.side == 0 ?
 			fabs((pos.x - raypos.x + (1 - value.sx) / 2) / raydir.x) :
 			fabs((pos.y - raypos.y + (1 - value.sy) / 2) / raydir.y));
@@ -94,9 +94,9 @@ void	ray(t_map *map)
 		raypos.y = map->pos.y;
 		raydir.x = map->dirvec.x + map->cvec.x * (double)(2.0 * i / WIDTH - 1);
 		raydir.y = map->dirvec.y + map->cvec.y * (double)(2.0 * i / WIDTH - 1);
-		printf("raydir.x: %f, raydir.y: %f\n", raydir.x, raydir.y);
+		//printf("raydir.x: %f, raydir.y: %f\n", raydir.x, raydir.y);
 		height = dda(map, raypos, raydir);
-		printf(RED"i: %d|height: %f\n"RST, i,height);
+		//printf(RED"i: %d|height: %f\n"RST, i,height);
 		draw_wall_slice(map, i, fabs(HEIGHT / height)/*1.0 / height * 255 */);
 		i++;
 	}

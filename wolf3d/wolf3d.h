@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/04 17:17:17 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 13:03:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <math.h>
 #include <stdio.h>
 # include "libft.h"
-# define WIDTH 480
-# define HEIGHT 300
+# define WIDTH 720
+# define HEIGHT 480
 # include "libft.h"
 # define RED  "\x1B[31m"
 # define WHT  "\x1B[37m"
@@ -62,6 +62,16 @@ typedef struct	s_vec
 	double		y;
 }				t_vec;
 
+typedef struct	s_key
+{
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+	int			mleft;
+	int			mright;
+}				t_key;
+
 typedef struct 	s_pos
 {
 	int			x;
@@ -77,6 +87,7 @@ typedef struct	s_map
 	int			**grid;
 	int			height;
 	int			width;
+	t_key		key;
 	t_vec		pos;
 	t_vec		dirvec;
 	t_vec		cvec;
@@ -87,7 +98,12 @@ void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
 int				expose_hook(t_map *map);
+int				key_press(int keycode, t_map *map);
 int				key_hook(int keycode, t_map *map);
+void			init_key(t_map *map);
+
+void			rotate(t_map *map);
+void			move(t_map *map);
 
 void			ray(t_map *map);
 void			draw_wall_slice(t_map *map, int x, int height);

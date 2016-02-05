@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/04 18:12:44 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 12:57:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,12 @@ void	print_grid(t_map *map)
 		i++;
 	}
 }
+int		loop_hook(t_map *map)
+{
+	move(map);
+	rotate(map);	
+	return (0);	
+}
 
 int		main(int argc, char **argv)
 {
@@ -90,8 +96,11 @@ int		main(int argc, char **argv)
 	map->cvec.y = 0.66;
 	map->dirvec.x = -1.0;
 	map->dirvec.y = 0.0;
+	init_key(map);
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
+	mlx_hook(e.win, 2, (1L<<0), key_press, map);
+	mlx_loop_hook(e.mlx, loop_hook, map);
 	mlx_expose_hook(e.win, expose_hook, map);
 	mlx_loop(e.mlx);
 	if (argc == 2)
