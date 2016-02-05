@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 13:03:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 13:19:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,6 @@ void			rotate(t_map *map);
 void			move(t_map *map);
 
 void			ray(t_map *map);
-void			draw_wall_slice(t_map *map, int x, int height);
+void			draw_wall_slice(t_map *map, int x, int height, int color);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 #endif

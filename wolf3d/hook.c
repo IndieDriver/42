@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 12:55:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 13:11:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,5 @@ int		key_hook(int keycode, t_map *map)
 		map->key.right = 0;
 	if (keycode == 2)
 		map->key.left = 0;
-	//move(keycode, map);
-	//rotate(keycode, map);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 13:04:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 13:50:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,23 @@ t_dda	init_dda(t_pos pos, t_vec delta, t_vec raypos, t_vec raydir)
 	return (value);
 }
 
-double	dda(t_map *map, t_vec raypos, t_vec raydir)
+int		get_wall_color(int sx, int sy, int side)
+{
+	int color;
+
+	color = 0xFFFFF;
+	if (side == 0 && sx > 0)
+		color = 0xFF0000;
+	else if (side == 0 && sx < 0)
+		color = 0x0000FF;
+	else if (side == 1 && sy > 0)
+		color = 0x00FF00;
+	else if (side == 1 && sy < 0)
+		color = 0xFFFF00;
+	return (color);
+}
+
+double	dda(t_map *map, t_vec raypos, t_vec raydir, int *color)
 {
 	t_dda value;
 	t_vec delta;
@@ -70,6 +86,7 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir)
 		if (map->grid[pos.x][pos.y] != 0)
 			break ;
 	}
+	*color = get_wall_color(value.sx, value.sy, value.side);
 	//printf("pos.x: %d, pos.y: %d, raypos.x: %f, raypos.y: %f, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n",pos.x, pos.y,raypos.x, raypos.y, value.sx, value.sy, raydir.x, raydir.y);
 	//printf("result: %f| %f\n",
 	//		fabs((pos.x - raypos.x + (double)(1 - value.sx) / 2) / raydir.x),
@@ -81,11 +98,11 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir)
 
 void	ray(t_map *map)
 {
-	int i;
-	double height;
-
-	t_vec raypos;
-	t_vec raydir;
+	int		i;
+	double	height;
+	int		color;
+	t_vec	raypos;
+	t_vec	raydir;
 
 	i = 0;
 	while (i < WIDTH)
@@ -95,9 +112,9 @@ void	ray(t_map *map)
 		raydir.x = map->dirvec.x + map->cvec.x * (double)(2.0 * i / WIDTH - 1);
 		raydir.y = map->dirvec.y + map->cvec.y * (double)(2.0 * i / WIDTH - 1);
 		//printf("raydir.x: %f, raydir.y: %f\n", raydir.x, raydir.y);
-		height = dda(map, raypos, raydir);
+		height = dda(map, raypos, raydir, &color);
 		//printf(RED"i: %d|height: %f\n"RST, i,height);
-		draw_wall_slice(map, i, fabs(HEIGHT / height)/*1.0 / height * 255 */);
+		draw_wall_slice(map, i, fabs(HEIGHT / height), color);
 		i++;
 	}
 }
