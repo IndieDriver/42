@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 11:28:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 14:22:47 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/05 14:24:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		colide(t_map *map, int signe, int lat)
 		return (1);
 	return (0);
 }
+
 void	rotate(t_map *map)
 {
 	t_vec tmp;

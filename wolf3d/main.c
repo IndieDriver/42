@@ -6,11 +6,12 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 12:57:01 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/06 15:00:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+#include <stdlib.h>
 
 int		**init_grid(int row, int col)
 {
@@ -36,7 +37,13 @@ int		**init_grid(int row, int col)
 		}
 		i++;
 	}
-	//grid[2][1] = 0;
+	/*i = 0;
+	while (i < 400)
+	{
+		grid[rand() % 99][rand () % 99] = 1;
+		i++;
+	} */
+	grid[2][1] = 0;
 	grid[1][7] = 1;
 	grid[1][5] = 1;
 	grid[2][3] = 1;
@@ -98,7 +105,7 @@ int		main(int argc, char **argv)
 	map->dirvec.x = -1.0;
 	map->dirvec.y = 0.0;
 	init_key(map);
-	map->tex = get_texture("assets/greystone.ppm", 64);
+	map->tex = get_texture("assets/eagle.ppm", 64);
 	printf("tex[0][0]: %#08x\n", map->tex[0][0]);
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);

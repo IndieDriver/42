@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 13:19:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/06 14:01:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,11 +65,9 @@ typedef struct	s_vec
 
 typedef struct	s_tex
 {
-	int id;
-	int tex_iter;
-
-
-}		t_tex;
+	int			id;
+	double		tex_iter;
+}				t_tex;
 typedef struct	s_key
 {
 	int			up;
@@ -95,7 +93,8 @@ typedef struct	s_map
 	int			**grid;
 	int			height;
 	int			width;
-	int		**tex;
+	t_tex		texvalue;
+	int			**tex;
 	t_key		key;
 	t_vec		pos;
 	t_vec		dirvec;
@@ -107,16 +106,20 @@ t_pos			get_pos(int x, int y);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 
-int			expose_hook(t_map *map);
-int			key_press(int keycode, t_map *map);
-int			key_hook(int keycode, t_map *map);
+int				expose_hook(t_map *map);
+int				key_press(int keycode, t_map *map);
+int				key_hook(int keycode, t_map *map);
 void			init_key(t_map *map);
 
 void			rotate(t_map *map);
 void			move(t_map *map);
-
+	
 void			ray(t_map *map);
-void			draw_wall_slice(t_map *map, t_pos pos, int tex_iter);
+void			draw_wall_slice(t_map *map, t_pos pos, double tex_iter);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
-int			**get_texture(char *file_name, int size);
+int				**get_texture(char *file_name, int size);
+
+void			init_tex(t_map *map);
+void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
+
 #endif

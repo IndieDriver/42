@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 14:02:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/06 14:07:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,23 @@ t_pos	get_pos(int x, int y)
 	tmp.y = y;
 	return (tmp);
 }
-void	draw_slice(t_map *map, t_pos from, t_pos to, int tex_iter)
+void	draw_slice(t_map *map, t_pos from, t_pos to, int color)
 {
-	int i;
-	int j;
-
-	i = from.y;
-	j = 0;
-	while (i < to.y && j < 64)
+	while (from.y < to.y)
 	{
-		printf("tex\n");
-		draw_pixel_to_image(map, from.x, i, map->tex[j][tex_iter]);
-		i++;
-		j++;
+		draw_pixel_to_image(map, from.x, from.y, color);
+		from.y++;
 	}
 }
 
-void	draw_wall_slice(t_map *map, t_pos pos, int tex_iter)
+void	draw_wall_slice(t_map *map, t_pos pos, double tex_iter)
 {
 	t_pos to;
 	t_pos from;
+	t_tex tex;
 
+	tex.id = 1;
+	tex.tex_iter = tex_iter;
 	to.x = pos.x;
 	from.x = pos.x;
 	from.y = (HEIGHT / 2) - (pos.y / 2);
@@ -49,9 +45,9 @@ void	draw_wall_slice(t_map *map, t_pos pos, int tex_iter)
 		from.y = 0;
 	if (to.y > HEIGHT || to.y < 0)
 		to.y = HEIGHT - 1;
-	draw_line(map, get_pos(pos.x, 0), from, 0x00b2ee);
-	draw_line(map, get_pos(pos.x,to.y), get_pos(pos.x, HEIGHT - 1), 0x003547);
-	draw_slice(map, from, to, tex_iter);
+	draw_slice(map, get_pos(pos.x, 0), from, 0x00b2ee);
+	draw_slice(map, get_pos(pos.x,to.y), get_pos(pos.x, HEIGHT - 1), 0x003547);
+	draw_tex(map, from, to, tex);
 }
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)

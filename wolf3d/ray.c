@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 13:50:30 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/06 15:00:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,29 @@ t_dda	init_dda(t_pos pos, t_vec delta, t_vec raypos, t_vec raydir)
 	return (value);
 }
 
-int		get_wall_color(int sx, int sy, int side)
+double	get_tex_iter(t_dda value, t_vec raydir, t_pos pos, t_map *map)
 {
-	int color;
+	double tex_iter;
 
-	color = 0xFFFFF;
-	if (side == 0 && sx > 0)
-		color = 0xFF0000;
-	else if (side == 0 && sx < 0)
-		color = 0x0000FF;
-	else if (side == 1 && sy > 0)
-		color = 0x00FF00;
-	else if (side == 1 && sy < 0)
-		color = 0xFFFF00;
-	return (color);
+	(void)raydir;
+	tex_iter = 0.0;
+	printf("value.dx: %f\n", value.dx);
+	if (value.side == 1)
+		tex_iter = fmod(map->dirvec.x + ((pos.y - map->dirvec.y +
+				(1.0 - value.sy) / 2) / raydir.y) * raydir.x, 1);
+	else
+		tex_iter = fmod(map->dirvec.y + ((pos.x - map->dirvec.x +
+				(1.0 - value.sx) / 2) / raydir.x) * raydir.y, 1);
+	/*else if (value.side == 0 && value.sx < 0)
+		//tex_iter = 1.0 - fmod(value.dx, 1);
+	else if (value.side == 1 && value.sy > 0)
+		//tex_iter = fmod(value.dy, 1);
+	else if (value.side == 1 && value.sy < 0)
+		//tex_iter = 1.0 - fmod(value.dy, 1); */
+	return (fabs(tex_iter));
 }
 
-double	dda(t_map *map, t_vec raypos, t_vec raydir, int *color)
+double	dda(t_map *map, t_vec raypos, t_vec raydir, double *tex_iter)
 {
 	t_dda value;
 	t_vec delta;
@@ -66,7 +72,6 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, int *color)
 	delta.x = sqrt(1.0 + (raydir.y * raydir.y) / (raydir.x * raydir.x));
 	delta.y = sqrt(1.0 + (raydir.x * raydir.x) / (raydir.y * raydir.y));
 	value = init_dda(pos, delta, raypos, raydir);
-	//printf("delta.x: %f, delta.y: %f\n", delta.x, delta.y);
 	while (pos.x > -1 && pos.x < map->width
 			&& pos.y > -1 && pos.y < map->height)
 	{
@@ -82,15 +87,14 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, int *color)
 			pos.y += value.sy;
 			value.side = 1;
 		}
-		//printf("pos.x: %d|pos.y: %d\n",pos.x, pos.y);
 		if (map->grid[pos.x][pos.y] != 0)
 			break ;
 	}
-	*color = get_wall_color(value.sx, value.sy, value.side);
+	*tex_iter = get_tex_iter(value, raydir, pos, map);
 	//printf("pos.x: %d, pos.y: %d, raypos.x: %f, raypos.y: %f, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n",pos.x, pos.y,raypos.x, raypos.y, value.sx, value.sy, raydir.x, raydir.y);
-	//printf("result: %f| %f\n",
-	//		fabs((pos.x - raypos.x + (double)(1 - value.sx) / 2) / raydir.x),
-	//	fabs((pos.y - raypos.y + (double)(1 - value.sy) / 2) / raydir.y));
+	/*printf("result: %f| %f\n",
+			fabs((pos.x - raypos.x + (double)(1 - value.sx) / 2) / raydir.x),
+		fabs((pos.y - raypos.y + (double)(1 - value.sy) / 2) / raydir.y)); */
 	return (value.side == 0 ?
 			fabs((pos.x - raypos.x + (1 - value.sx) / 2) / raydir.x) :
 			fabs((pos.y - raypos.y + (1 - value.sy) / 2) / raydir.y));
@@ -100,29 +104,23 @@ void	ray(t_map *map)
 {
 	int		i;
 	double	height;
-	int		color;
-	int		oldcolor;
 	t_vec	raypos;
 	t_vec	raydir;
-	int	tex_iter;
+	double	tex_iter;
 
 	i = 0;
 	tex_iter = 0;
 	while (i < WIDTH)
 	{
-		oldcolor = color;
 		raypos.x = map->pos.x;
 		raypos.y = map->pos.y;
 		raydir.x = map->dirvec.x + map->cvec.x * (double)(2.0 * i / WIDTH - 1);
 		raydir.y = map->dirvec.y + map->cvec.y * (double)(2.0 * i / WIDTH - 1);
-		height = dda(map, raypos, raydir, &color);
-		if (color == oldcolor && tex_iter < 64)
-			tex_iter++;
-		else
-			tex_iter = 0;
-		//printf("tex %d\n", tex_iter);
+		height = dda(map, raypos, raydir, &tex_iter);
+		printf("tex %f\n", tex_iter);
 		//printf(RED"i: %d|height: %f\n"RST, i,height);
-		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)), tex_iter);
+		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)),
+				(double)(tex_iter * 64));
 		i++;
 	}
 }
