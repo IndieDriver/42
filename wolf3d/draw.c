@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/06 14:07:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/07 14:31:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,14 +29,14 @@ void	draw_slice(t_map *map, t_pos from, t_pos to, int color)
 	}
 }
 
-void	draw_wall_slice(t_map *map, t_pos pos, double tex_iter)
+void	draw_wall_slice(t_map *map, t_pos pos, int tex_iter)
 {
 	t_pos to;
 	t_pos from;
 	t_tex tex;
 
 	tex.id = 1;
-	tex.tex_iter = tex_iter;
+	tex.x = tex_iter;
 	to.x = pos.x;
 	from.x = pos.x;
 	from.y = (HEIGHT / 2) - (pos.y / 2);

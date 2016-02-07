@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/06 14:01:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/07 14:39:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ typedef struct	s_vec
 typedef struct	s_tex
 {
 	int			id;
-	double		tex_iter;
+	double		wallcord;
+	int			x;
 }				t_tex;
 typedef struct	s_key
 {
@@ -115,7 +116,7 @@ void			rotate(t_map *map);
 void			move(t_map *map);
 	
 void			ray(t_map *map);
-void			draw_wall_slice(t_map *map, t_pos pos, double tex_iter);
+void			draw_wall_slice(t_map *map, t_pos pos, int texx);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 int				**get_texture(char *file_name, int size);
 

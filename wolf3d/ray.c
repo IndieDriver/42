@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/06 15:00:30 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/07 14:58:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,29 +39,40 @@ t_dda	init_dda(t_pos pos, t_vec delta, t_vec raypos, t_vec raydir)
 	return (value);
 }
 
-double	get_tex_iter(t_dda value, t_vec raydir, t_pos pos, t_map *map)
+int		get_tex_iter(t_dda value, t_vec raydir, t_pos pos, t_vec raypos)
 {
-	double tex_iter;
+	t_tex	tex;
 
-	(void)raydir;
-	tex_iter = 0.0;
-	printf("value.dx: %f\n", value.dx);
+	//printf("value.dx: %f\n", value.dx);
 	if (value.side == 1)
-		tex_iter = fmod(map->dirvec.x + ((pos.y - map->dirvec.y +
-				(1.0 - value.sy) / 2) / raydir.y) * raydir.x, 1);
+		tex.wallcord = raypos.x + ((pos.y - raypos.y +
+				(1 - value.sy) / 2) / raydir.y) * raydir.x;
 	else
-		tex_iter = fmod(map->dirvec.y + ((pos.x - map->dirvec.x +
-				(1.0 - value.sx) / 2) / raydir.x) * raydir.y, 1);
+		tex.wallcord = raypos.y + ((pos.x - raypos.x +
+				(1 - value.sx) / 2) / raydir.x) * raydir.y;
+	printf("tex.wallcord: %f\n", tex.wallcord);
+	tex.wallcord -= floor(tex.wallcord);
+	tex.x = (int)(tex.wallcord * 64.0);
+	if (value.side == 0 && raydir.x > 0)
+		tex.x = 64 - tex.x - 1;
+	if (value.side == 1 && raydir.y < 0)
+		tex.x = 64 - tex.x - 1;
+	//printf("tex_iter: %f\n", tex_iter);
+	/*if (value.side == 1 && raydir.y < 0)
+		tex_iter = 64 - tex_iter;
+	else if (value.side == 0 && raydir.x > 0)
+		tex_iter = 64 - tex_iter; */
 	/*else if (value.side == 0 && value.sx < 0)
 		//tex_iter = 1.0 - fmod(value.dx, 1);
 	else if (value.side == 1 && value.sy > 0)
 		//tex_iter = fmod(value.dy, 1);
 	else if (value.side == 1 && value.sy < 0)
 		//tex_iter = 1.0 - fmod(value.dy, 1); */
-	return (fabs(tex_iter));
+	printf("tex3: %d\n", tex.x);
+	return (tex.x);
 }
 
-double	dda(t_map *map, t_vec raypos, t_vec raydir, double *tex_iter)
+double	dda(t_map *map, t_vec raypos, t_vec raydir, int *tex_iter)
 {
 	t_dda value;
 	t_vec delta;
@@ -90,11 +101,7 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, double *tex_iter)
 		if (map->grid[pos.x][pos.y] != 0)
 			break ;
 	}
-	*tex_iter = get_tex_iter(value, raydir, pos, map);
-	//printf("pos.x: %d, pos.y: %d, raypos.x: %f, raypos.y: %f, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n",pos.x, pos.y,raypos.x, raypos.y, value.sx, value.sy, raydir.x, raydir.y);
-	/*printf("result: %f| %f\n",
-			fabs((pos.x - raypos.x + (double)(1 - value.sx) / 2) / raydir.x),
-		fabs((pos.y - raypos.y + (double)(1 - value.sy) / 2) / raydir.y)); */
+	*tex_iter = get_tex_iter(value, raydir, pos, raydir);
 	return (value.side == 0 ?
 			fabs((pos.x - raypos.x + (1 - value.sx) / 2) / raydir.x) :
 			fabs((pos.y - raypos.y + (1 - value.sy) / 2) / raydir.y));
@@ -106,21 +113,18 @@ void	ray(t_map *map)
 	double	height;
 	t_vec	raypos;
 	t_vec	raydir;
-	double	tex_iter;
+	int		texx;
 
 	i = 0;
-	tex_iter = 0;
 	while (i < WIDTH)
 	{
 		raypos.x = map->pos.x;
 		raypos.y = map->pos.y;
 		raydir.x = map->dirvec.x + map->cvec.x * (double)(2.0 * i / WIDTH - 1);
 		raydir.y = map->dirvec.y + map->cvec.y * (double)(2.0 * i / WIDTH - 1);
-		height = dda(map, raypos, raydir, &tex_iter);
-		printf("tex %f\n", tex_iter);
+		height = dda(map, raypos, raydir, &texx);
 		//printf(RED"i: %d|height: %f\n"RST, i,height);
-		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)),
-				(double)(tex_iter * 64));
+		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)), texx);
 		i++;
 	}
 }
