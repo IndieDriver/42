@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/07 13:27:49 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/09 15:28:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ int		**init_grid(int row, int col)
 		grid[rand() % 99][rand () % 99] = 1;
 		i++;
 	} */
-	grid[2][1] = 0;
+	/*grid[2][1] = 0;
 	grid[1][7] = 1;
 	grid[1][5] = 1;
-	grid[2][3] = 1;
+	grid[2][3] = 1; */
 	return (grid);
 }
 
@@ -95,11 +95,11 @@ int		main(int argc, char **argv)
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "Wolf3d");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
-	map->height = 10;
-	map->width = 10;
+	map->height = 5;
+	map->width = 5;
 	map->grid = init_grid(map->height, map->width);
-	map->pos.x = 6.0;
-	map->pos.y = 6.0;
+	map->pos.x = 2.5;
+	map->pos.y = 2.5;
 	map->cvec.x = 0.0;
 	map->cvec.y = 0.66;
 	map->dirvec.x = -1.0;
