@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/25 10:35:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/10 16:07:03 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # define HEIGHT 1000
 # include "libft.h"
 
-typedef struct 	s_env
+typedef struct	s_env
 {
 	void		*mlx;
 	void		*win;
@@ -60,8 +60,8 @@ int				motion_notify(int x, int y, t_map *map);
 int				key_hook(int keycode, t_map *map);
 
 void			draw_julia(t_map *map, int max_iter);
-void			draw_mandelbrot(t_map *map, int max_iter);
+void			draw_mandelbrot(t_map *map, int max_iter, int *color_array);
 
 int				*init_mandelbrot_color(int max_iter);
-int 			*init_julia_color(int max_iter);
+int				*init_julia_color(int max_iter);
 #endif

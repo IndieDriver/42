@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/24 14:20:01 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/10 16:07:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 
 void	draw(t_map *map)
 {
+	int *color_array;
+
+	color_array = NULL;
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
@@ -21,9 +24,9 @@ void	draw(t_map *map)
 	if (map->type == 1)
 		draw_julia(map, 60);
 	else if (map->type == 2)
-		draw_mandelbrot(map, 60);
+		draw_mandelbrot(map, 60, color_array);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
-	mlx_destroy_image(map->env.mlx,map->img.img);
+	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
 int		init_map(t_map *map, char *line)
@@ -34,12 +37,13 @@ int		init_map(t_map *map, char *line)
 	map->c.real = 0.0;
 	if (!ft_strcmp("julia", line))
 		map->type = 1;
-	else if (!ft_strcmp("mandelbrot",line))
+	else if (!ft_strcmp("mandelbrot", line))
 		map->type = 2;
 	else
 		return (0);
 	return (1);
 }
+
 int		main(int argc, char **argv)
 {
 	t_env e;
@@ -57,7 +61,7 @@ int		main(int argc, char **argv)
 			exit(0);
 		}
 		mlx_key_hook(e.win, key_hook, map);
-		mlx_hook(e.win, 6, (1L<<6), motion_notify, map);
+		mlx_hook(e.win, 6, (1L << 6), motion_notify, map);
 		mlx_expose_hook(e.win, expose_hook, map);
 		mlx_loop(e.mlx);
 	}
