@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/12 11:19:00 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/03 15:47:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/10 14:01:48 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,6 @@ int		get_color(int i)
 
 	color = 256 * 256 * (175 - cos(i)) + 256 * (175 - sin(i)) + (175 - cos(i));
 	return (color);
-}
-
-int		get_hex_color(t_map *map, int x, int y)
-{
-	t_rgb rgb;
-
-	rgb.red = map->img.data[y * map->img.size_line +
-		(x * map->img.bpp) / 8];
-	rgb.green = map->img.data[y * map->img.size_line +
-		(x * map->img.bpp) / 8 + 1];
-	rgb.blue = map->img.data[y * map->img.size_line +
-		(x * map->img.bpp) / 8 + 2];
-	return (rgb.blue << 16 | rgb.green << 8 | rgb.red);
 }
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)

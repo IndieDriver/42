@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/03 12:45:49 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/10 13:59:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,22 @@ int		main(int argc, char **argv)
 	t_env e;
 	t_map *map;
 
-	e.mlx = mlx_init();
-	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "42");
 	if (argc != 2)
 		ft_error();
 	else
 	{
 		if (!(map = get_map(argv[1])))
 			ft_error();
+		e.mlx = mlx_init();
+		e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "FdF");
+		init_key(map);
 		map->env = e;
 		map->zoffset = get_z_offset(map);
 		shift_grid(map);
 		adapt_grid(map);
 		mlx_key_hook(e.win, key_hook, map);
+		mlx_hook(e.win, 2, (1L << 0), key_press, map);
+		mlx_loop_hook(e.mlx, loop_hook, map);
 		mlx_expose_hook(e.win, expose_hook, map);
 		mlx_loop(e.mlx);
 		free_map(map);

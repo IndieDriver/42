@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:24:11 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/03 10:34:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/10 14:06:33 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
+typedef struct	s_key
+{
+	int			up;
+	int			down;
+	int			left;
+	int			right;
+}				t_key;
+
 typedef struct	s_point
 {
 	int			x;
@@ -51,6 +59,7 @@ typedef struct	s_map
 	t_point		**grid;
 	t_point		**cart;
 	int			zoffset;
+	t_key		key;
 }				t_map;
 
 typedef struct	s_line
@@ -90,6 +99,13 @@ void			init_image(t_map *map, int color);
 
 t_point			**copy_grid(t_map *map, t_point **src);
 
+void			get_move(t_map *map);
+void			move(t_map *map, int sx, int sy);
+void			zoom(t_map *map, int zoom);
+
+void			init_key(t_map *map);
+int				loop_hook(t_map *map);
 int				expose_hook(t_map *map);
 int				key_hook(int keycode, t_map *map);
+int				key_press(int keycode, t_map *map);
 #endif

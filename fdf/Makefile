@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/03 10:35:33 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/10 13:18:41 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC =	main.c		\
 		draw_line.c	\
 		draw.c		\
 		hook.c		\
+		move.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fdf
