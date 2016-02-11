@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 11:17:47 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 14:12:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 17:45:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,32 @@ int		get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
 	return (i);
 }
 
-void	draw_julia(t_map *map, int max_iter)
+void	draw_julia(t_map *map, int max_iter, int t)
 {
-	int			x;
-	int			y;
+	t_point		p;
 	int			*color_array;
 	t_complex	z;
 	t_complex	old;
 
 	color_array = init_julia_color(max_iter);
-	y = 0;
-	while (y < HEIGHT)
+	p.y = 0;
+	while (p.y < HEIGHT)
 	{
-		x = 0;
-		while (x < WIDTH)
+		p.x = 0;
+		while (p.x < WIDTH)
 		{
-			z.real = 1.5 * (x - (WIDTH / 2)) / (WIDTH * map->zoom / 2) + map->mx;
-			z.ima = 1.5 * (y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->my;
-			draw_pixel_to_image(map, x, y,
-					color_array[get_iter(map, &z, &old, max_iter)]);
-			x++;
+			z.real = 1.5 * (p.x - (WIDTH / 2)) / (WIDTH * map->zoom / 2) + map->mx;
+			z.ima = 1.5 * (p.y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->my;
+			p.color = get_iter(map, &z, &old, max_iter);
+			if (t != 0)
+			{
+				map->grid[p.y][p.x].z = p.color;
+				map->grid[p.y][p.x].color = color_array[p.color];
+			}
+			else
+				draw_pixel_to_image(map, p.x, p.y, color_array[p.color]);
+			p.x++;
 		}
-		y++;
+		p.y++;
 	}
 }

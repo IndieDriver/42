@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/11 13:24:57 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/11 17:13:50 by amathias         ###   ########.fr        #
 #    Updated: 2016/01/19 13:06:57 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -21,6 +21,10 @@ SRC =	main.c			\
 		hook.c			\
 		color.c			\
 		move.c			\
+		grid.c			\
+		fdf/draw_line.c	\
+		fdf/isometric.c	\
+		fdf/main.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = fractol
@@ -33,7 +37,7 @@ LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)
 
-INC_PATH = ./libft/ /usr/local/include/ /usr/X11/lib
+INC_PATH = ./libft/ ./fdf/ /usr/local/include/ /usr/X11/lib
 INC = $(addprefix -I,$(INC_PATH))
 
 all: lib $(NAME)

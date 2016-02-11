@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 10:28:15 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 15:01:22 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 17:40:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,29 +31,35 @@ int		get_iterat(t_complex *z, t_complex *c, t_complex *tmp, int max_iter)
 	return (i);
 }
 
-void	draw_burning(t_map *map, int max_iter, int *color_array)
+void	draw_burning(t_map *map, int max_iter, int *color_array, int t)
 {
-	int			x;
-	int			y;
+	t_point		p;
 	t_complex	c;
 	t_complex	z;
 	t_complex	tmp;
 
 	color_array = init_burning_color(max_iter);
-	y = 0;
-	while (y < HEIGHT)
+	p.y = 0;
+	while (p.y < HEIGHT)
 	{
-		x = 0;
-		while (x < WIDTH)
+		p.x = 0;
+		while (p.x < WIDTH)
 		{
-			c.real = 2.5 * (x - (WIDTH / 2)) / (WIDTH * map->zoom / 2) + map->mx;
-			c.ima = 2 * (y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->my;
+			c.real = 2.5 * (p.x - (WIDTH / 2)) / (WIDTH * map->zoom / 2)
+				+ map->mx;
+			c.ima = 2 * (p.y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->my;
 			z.real = 0.0;
 			z.ima = 0.0;
-			draw_pixel_to_image(map, x, y,
-					color_array[get_iterat(&z, &c, &tmp, max_iter)]);
-			x++;
+			p.color = get_iterat(&z, &c, &tmp, max_iter);
+			if (t != 0)
+			{
+				map->grid[p.y][p.x].z = p.color;
+				map->grid[p.y][p.x].color = color_array[p.color];
+			}
+			else
+				draw_pixel_to_image(map, p.x, p.y, color_array[p.color]);
+			p.x++;
 		}
-		y++;
+		p.y++;
 	}
 }

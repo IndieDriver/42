@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 11:10:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 14:11:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 16:55:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int		get_itera(t_complex *z, t_complex *c, t_complex *tmp, int max_iter)
 	return (i);
 }
 
-void	draw_mandelbrot(t_map *map, int max_iter, int *color_array)
+void	draw_mandelbrot(t_map *map, int max_iter, int *color_array, int t)
 {
 	int			x;
 	int			y;
@@ -48,8 +48,10 @@ void	draw_mandelbrot(t_map *map, int max_iter, int *color_array)
 			c.ima = 2.5 * (y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->mx;
 			z.real = 0.0;
 			z.ima = 0.0;
-			draw_pixel_to_image(map, x, y,
-					color_array[get_itera(&z, &c, &tmp, max_iter)]);
+			t == 1 ? draw_pixel_to_image(map, x, y,
+					color_array[get_itera(&z, &c, &tmp, max_iter)]) :
+				(map->grid[y][x].z = get_itera(&z, &c, &tmp, max_iter));
+
 			x++;
 		}
 		y++;

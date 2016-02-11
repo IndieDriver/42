@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 10:19:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 17:30:13 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 	unsigned char	green;
 	unsigned char	blue;
 
+	if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT)
+		return ;
 	color_value = mlx_get_color_value(map->env.mlx, color);
 	red = (color_value & 0xFF0000) >> 16;
 	green = (color_value & 0xFF00) >> 8;

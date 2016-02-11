@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 14:12:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 17:03:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@ typedef struct	s_complex
 	double		ima;
 }				t_complex;
 
+typedef struct	s_line
+{
+	int			dx;
+	int			dy;
+	int			sx;
+	int			sy;
+	int			err;
+}				t_line;
+
+typedef struct	s_point
+{
+	int			x;
+	int			y;
+	int			z;
+	int			color;
+}				t_point;
+
 typedef struct	s_map
 {
 	t_env		env;
@@ -61,6 +78,9 @@ typedef struct	s_map
 	double		mx;
 	double		my;
 	t_complex	c;
+	t_point		**grid;
+	int			zoffset;
+	int			iso;
 	t_key		key;
 }				t_map;
 
@@ -74,9 +94,9 @@ int				key_press(int keycode, t_map *map);
 int				loop_hook(t_map *map);
 int				key_hook(int keycode, t_map *map);
 
-void			draw_julia(t_map *map, int max_iter);
-void			draw_mandelbrot(t_map *map, int max_iter, int *color_array);
-void			draw_burning(t_map *map, int max_iter, int *color_array);
+void			draw_julia(t_map *map, int max_iter, int t);
+void			draw_mandelbrot(t_map *map, int max_iter, int *color_array, int t);
+void			draw_burning(t_map *map, int max_iter, int *color_array, int t);
 
 int				*init_mandelbrot_color(int max_iter);
 int				*init_julia_color(int max_iter);
@@ -84,4 +104,16 @@ int				*init_burning_color(int max_iter);
 
 void			zoom(t_map *map);
 void			move(t_map *map);
+
+
+void			init_grid(t_map *map);
+int				fdf_init(t_map *map);
+t_point			setpoint(int x, int y, int z, int color);
+t_point			convertcord(t_point point);
+void			draw_iso(t_map *map, t_point **grid, int row, int col);
+t_map			*adapt_grid(t_map *map);
+void			draw_line(t_map *map, t_point from, t_point to, int color);
+int				get_color(int i);
+
+
 #endif
