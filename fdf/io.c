@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 16:43:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/03 10:25:24 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 15:43:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ t_point	*parse_line(char **line_split, int row, int *col)
 		free(line_split[i]);
 		i++;
 	}
+	if (i != *col && *col != 0)
+		return (NULL);
 	*col = i;
 	free(line_split);
 	return (tmp);
@@ -76,13 +78,15 @@ t_point	**read_file(char *file_name, int *row, int *col)
 
 	i = 0;
 	*row = get_number_of_row(file_name);
+	*col = 0;
 	if (!(grid = (t_point **)malloc(sizeof(t_point*) * (*row))))
 		return (NULL);
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (NULL);
 	while (get_next_line(fd, &line) == 1)
 	{
-		grid[i] = parse_line(ft_strsplit(line, ' '), i, col);
+		if (!(grid[i] = parse_line(ft_strsplit(line, ' '), i, col)))
+			return (NULL);
 		free(line);
 		i++;
 	}
