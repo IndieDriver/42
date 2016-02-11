@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 11:17:47 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/10 16:08:34 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 14:12:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	draw_julia(t_map *map, int max_iter)
 		x = 0;
 		while (x < WIDTH)
 		{
-			z.real = 1.5 * (x - (WIDTH / 2)) / (WIDTH * map->zoom / 2);
-			z.ima = 1.5 * (y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2);
+			z.real = 1.5 * (x - (WIDTH / 2)) / (WIDTH * map->zoom / 2) + map->mx;
+			z.ima = 1.5 * (y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->my;
 			draw_pixel_to_image(map, x, y,
 					color_array[get_iter(map, &z, &old, max_iter)]);
 			x++;

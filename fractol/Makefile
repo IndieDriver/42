@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/01/24 14:21:12 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/11 13:24:57 by amathias         ###   ########.fr        #
 #    Updated: 2016/01/19 13:06:57 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
@@ -17,8 +17,10 @@ SRC =	main.c			\
 		draw.c			\
 		julia.c			\
 		mandelbrot.c	\
+		burning.c		\
 		hook.c			\
 		color.c			\
+		move.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = fractol

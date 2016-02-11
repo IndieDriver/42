@@ -6,11 +6,18 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/24 14:50:33 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/11 14:47:53 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+int		loop_hook(t_map *map)
+{
+	zoom(map);
+	move(map);
+	return (0);
+}
 
 int		expose_hook(t_map *map)
 {
@@ -28,25 +35,40 @@ int		motion_notify(int x, int y, t_map *map)
 	}
 	return (0);
 }
-
+int		key_press(int keycode, t_map *map)
+{
+	if (keycode == 0)
+		map->key.left = 1;
+	if (keycode == 1)
+		map->key.down = 1;
+	if (keycode == 2)
+		map->key.right = 1;
+	if (keycode == 13)
+		map->key.up = 1;
+	if (keycode == 24)
+		map->key.mup = 1;
+	if (keycode == 27)
+		map->key.mdown = 1;
+	return (0);
+}
 int		key_hook(int keycode, t_map *map)
 {
-	if (keycode == 24)
-	{
-		map->pow++;
-		map->zoom *= pow(1.001, map->pow);
-		draw(map);
-	}
-	if (keycode == 27)
-	{
-		map->pow = map->pow < 1 ? 1 : map->pow - 1;
-		map->zoom = map->zoom < 1 ? 1 : map->zoom / pow(1.001, map->pow);
-		draw(map);
-	}
 	if (keycode == 53)
 	{
 		mlx_destroy_window(map->env.mlx, map->env.win);
 		exit(0);
 	}
+	if (keycode == 0)
+		map->key.left = 0;
+	if (keycode == 1)
+		map->key.down = 0;
+	if (keycode == 2)
+		map->key.right = 0;
+	if (keycode == 13)
+		map->key.up = 0;
+	if (keycode == 24)
+		map->key.mup = 0;
+	if (keycode == 27)
+		map->key.mdown = 0;
 	return (0);
 }
