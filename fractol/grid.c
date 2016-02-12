@@ -6,11 +6,24 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 16:40:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 17:20:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 09:25:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	free_grid(t_map *map)
+{
+	int i;
+
+	i = 0;
+	while (i < HEIGHT)
+	{
+		free(map->grid[i]);
+		i++;
+	}
+	free(map->grid);
+}
 
 void	init_grid(t_map *map)
 {

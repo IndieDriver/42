@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 14:47:53 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 09:29:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,10 @@ int		key_hook(int keycode, t_map *map)
 		map->key.mup = 0;
 	if (keycode == 27)
 		map->key.mdown = 0;
+	if (keycode == 49)
+	{
+		map->iso = map->iso == 1 ? 0 : 1;
+		draw(map);
+	}
 	return (0);
 }

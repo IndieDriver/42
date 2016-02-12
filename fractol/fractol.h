@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 17:03:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 09:26:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,13 +107,13 @@ void			move(t_map *map);
 
 
 void			init_grid(t_map *map);
+void			free_grid(t_map *map);
+
 int				fdf_init(t_map *map);
 t_point			setpoint(int x, int y, int z, int color);
 t_point			convertcord(t_point point);
 void			draw_iso(t_map *map, t_point **grid, int row, int col);
-t_map			*adapt_grid(t_map *map);
 void			draw_line(t_map *map, t_point from, t_point to, int color);
-int				get_color(int i);
 
 
 #endif

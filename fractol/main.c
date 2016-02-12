@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 17:15:49 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 09:33:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,31 +16,32 @@ void	draw(t_map *map)
 {
 	int *color_array;
 
-	init_grid(map);
+	if (map->iso)
+		init_grid(map);
 	color_array = NULL;
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
 	init_image(map, 0x000000);
 	if (map->type == 1)
-		draw_julia(map, 60, 2);
+		draw_julia(map, 60, map->iso);
 	else if (map->type == 2)
-		draw_mandelbrot(map, 60, color_array, 2);
+		draw_mandelbrot(map, 60, color_array, map->iso);
 	else if (map->type == 3)
-		draw_burning(map, 60, color_array, 2);
+		draw_burning(map, 60, color_array, map->iso);
 	if (map->iso)
-		fdf_init(map);
-	else
 	{
-		mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
-		mlx_destroy_image(map->env.mlx, map->img.img);
+		fdf_init(map);
+		free_grid(map);
 	}
+	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
 int		init_map(t_map *map, char *line)
 {
 	map->zoom = 1.0;
-	map->iso = 1;
+	map->iso = 0;
 	map->pow = 1;
 	map->mx = 0.0;
 	map->my = 0.0;
