@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/09 15:28:39 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 13:47:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,11 @@ void	draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex)
 {
 	double	i;
 	double	step;
-	double	y;
 	int		lheight;
 
 	i = 0;
 	step =  64.0 / (double)(to.y - from.y);
 	lheight = (to.y - from.y);
-	//printf("step: %f\n", step);
-	y = tex.x;
-	printf("iter: %d\n", tex.x);
 	while (from.y < to.y)
 	{
    		//y = (from.y * 2 - HEIGHT + lheight) * (64 / 2) / lheight;

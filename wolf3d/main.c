@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/09 15:28:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 11:11:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int		main(int argc, char **argv)
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "Wolf3d");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
-	map->height = 5;
-	map->width = 5;
+	map->height = 11;
+	map->width = 16;
 	map->grid = init_grid(map->height, map->width);
 	map->pos.x = 2.5;
 	map->pos.y = 2.5;

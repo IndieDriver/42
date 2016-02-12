@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/09 15:28:41 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 13:27:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,18 @@ int		get_tex_iter(t_dda value, t_vec raydir, t_pos pos, t_vec raypos)
 {
 	t_tex	tex;
 
+	(void)value;
+	(void)raydir;
+	(void)pos;
+	(void)raypos;
 	//printf("value.dx: %f\n", value.dx);
-	printf("value.side: %d, raypos.x %f, raypos.y: %f, pos.x: %d, pos.y: %d, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n", value.side, raypos.x, raypos.y,pos.x, pos.y, value.sx, value.sy, raydir.x, raydir.y);
-	tex.wallcord = value.side == 0 ?
-		raypos.y + (((double)pos.x - raypos.x + (double)(1 - value.sx) / 2) /
-			raydir.x) * raydir.y :
-		raypos.x + (((double)pos.y - raypos.y + (double)(1 - value.sy) / 2) /
-			raydir.y) * raydir.x;
-	tex.wallcord = value.side == 0 ? tex.wallcord + pos.x : tex.wallcord + pos.y;
-	printf("tex.wallcord: %f\n", tex.wallcord);
+	/*printf("value.side: %d, raypos.x %f, raypos.y: %f, pos.x: %d, pos.y: %d, value.sx: %d, value.sy: %d, raydir.x: %f, raydir.y: %f\n", value.side, raypos.x, raypos.y,pos.x, pos.y, value.sx, value.sy, raydir.x, raydir.y); */
+	/*tex.wallcord = value.side == 0 ?
+		raypos.y + ((pos.x - raypos.x + (1 - value.sx) / 2) / raydir.x) *
+		raydir.y :
+		raypos.x + ((pos.y - raypos.y + (1 - value.sy) / 2) / raydir.y) *
+		raydir.x;
+	//printf("tex.wallcord: %f\n", tex.wallcord);
 	tex.wallcord -= floor(tex.wallcord);
 	printf("tex.wallcord: %f\n", tex.wallcord);
 	tex.x = (int)(tex.wallcord * 64.0);
@@ -60,7 +63,8 @@ int		get_tex_iter(t_dda value, t_vec raydir, t_pos pos, t_vec raypos)
 		tex.x = 64 - tex.x - 1;
 	if (value.side == 1 && raydir.y < 0)
 		tex.x = 64 - tex.x - 1;
-	printf("tex3: %d\n", tex.x);
+	printf("tex3: %d\n", tex.x); */
+	tex.x = 0;
 	return (tex.x);
 }
 

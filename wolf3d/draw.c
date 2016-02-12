@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: amathias <amathias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/07 14:31:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/12 15:28:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_pos	get_pos(int x, int y)
 {
 	t_pos tmp;
-	
+
 	tmp.x = x;
 	tmp.y = y;
 	return (tmp);
@@ -47,7 +47,8 @@ void	draw_wall_slice(t_map *map, t_pos pos, int tex_iter)
 		to.y = HEIGHT - 1;
 	draw_slice(map, get_pos(pos.x, 0), from, 0x00b2ee);
 	draw_slice(map, get_pos(pos.x,to.y), get_pos(pos.x, HEIGHT - 1), 0x003547);
-	draw_tex(map, from, to, tex);
+	draw_slice(map, from, to, tex_iter);
+	//draw_tex(map, from, to, tex);
 }
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)
