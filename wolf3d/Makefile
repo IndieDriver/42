@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/06 10:50:33 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/14 12:15:11 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRC =	main.c			\
 		move.c			\
 		ppmreader.c		\
 		texture.c		\
+		mmap.c			\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d

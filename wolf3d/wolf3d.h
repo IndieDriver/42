@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/07 14:39:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/14 12:31:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef struct	s_map
 {
 	t_env		env;
 	t_img		img;
+	t_img		mmap;
 	int			type;
 	int			**grid;
 	int			height;
@@ -103,6 +104,7 @@ typedef struct	s_map
 }				t_map;
 
 void			draw(t_map *map);
+int				get_hex_color(t_map *map, int x, int y);
 t_pos			get_pos(int x, int y);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
@@ -123,4 +125,5 @@ int				**get_texture(char *file_name, int size);
 void			init_tex(t_map *map);
 void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
+void			draw_mmap(t_map *map);
 #endif

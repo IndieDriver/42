@@ -6,11 +6,27 @@
 /*   By: amathias <amathias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/12 15:28:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/14 12:30:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+
+int		get_hex_color(t_map *map, int x, int y)
+{
+	unsigned char red;
+	unsigned char green;
+	unsigned char blue;
+
+	red = map->img.data[y * map->img.size_line +
+		(x * map->img.bpp) / 8];
+	green = map->img.data[y * map->img.size_line +
+		(x * map->img.bpp) / 8 + 1];
+	blue = map->img.data[y * map->img.size_line +
+		(x * map->img.bpp) / 8 + 2];
+	return (blue << 16 | green << 8 | red);
+}
 
 t_pos	get_pos(int x, int y)
 {
@@ -57,6 +73,7 @@ void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 	unsigned char	red;
 	unsigned char	green;
 	unsigned char	blue;
+
 	if (x < 0 || x > WIDTH || y < 0 || y > HEIGHT)
 		return ;
 	color_value = mlx_get_color_value(map->env.mlx, color);
