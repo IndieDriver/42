@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/14 11:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/14 16:26:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/15 11:51:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	draw_pixel_to_mmap(t_map *map, int x, int y, int color)
 	unsigned char	red;
 	unsigned char 	blue;
 	unsigned char	green;
-	//printf("x: %d, y: %d\n", x, y);
+	
 	if (x < 0 || y < 0 || x > 99 || y > 99)
 		return ;	
 	color_value = mlx_get_color_value(map->env.mlx, color);
@@ -44,14 +44,8 @@ void	init_mmap(t_map *map)
 		j = 0;
 		while (j < 100)
 		{
-			/*if (i == 0 || i == 99 || j == 0 || j == 99)
-				draw_pixel_to_mmap(map, j, i, 0xFF0000);
-			else
-			{ */
-				color = get_hex_color(map, (WIDTH - 125) + j,
-						(HEIGHT - 125) + i);
-				draw_pixel_to_mmap(map, j, i, color / 2);
-			//}
+			color = get_hex_color(map, (WIDTH - 125) + j, (HEIGHT - 125) + i);
+			draw_pixel_to_mmap(map, j, i, color / 2);
 			j++;
 		}
 		i++;
@@ -100,19 +94,19 @@ void	print_map(t_map *map)
 	t_pos end;
 
 	init_pos(map, &start, &end);
-	printf("start.x: %d|start.y: %d\n",start.x,start.y);
-	printf("end.x: %d|end.y: %d\n",end.x,end.y);
 	j = 10 - (end.y - start.y);
+	j = end.y == map->width ? 0 : 10 - (end.y - start.y);
 	while (start.y < end.y)
 	{
 		tmp = start.x;
 		i = 10 - (end.x - tmp);
+		i = end.x == map->height ? 0 : 10 - (end.x - start.x);
 		while (tmp < end.x)
 		{
-			printf("i: %d|j: %d\n", i, j);
 			color = map->grid[tmp][start.y] == 0 ? 0x010101 : 0xFF0000;
 			if (map->grid[tmp][start.y] != 0)
-				draw_square(map, j * 10, i * 10, color);
+				draw_square(map, (j * 10) - (fmod(map->pos.y, 1) * 10 ),
+						(i * 10) - (fmod(map->pos.x, 1) * 10), color);
 			tmp++;
 			i++;
 		}
