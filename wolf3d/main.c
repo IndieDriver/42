@@ -6,12 +6,11 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/15 11:51:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/15 14:43:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-#include <stdlib.h>
 
 int		**init_grid(int row, int col)
 {
@@ -37,13 +36,19 @@ int		**init_grid(int row, int col)
 		}
 		i++;
 	}
-	i = 0;
+	/*i = 0;
 	while (i < 400)
 	{
 		grid[rand() % 99][rand () % 99] = 1;
 		i++;
-	}
-	grid[2][1] = 0;
+	} */
+	grid[1][1] = 0;
+	grid[3][3] = 1;
+	grid[4][4] = 1;
+	grid[5][5] = 1;
+	grid[6][6] = 1;
+	grid[7][7] = 1;
+	grid[8][8] = 1;
 	grid[1][7] = 1;
 	grid[1][5] = 1;
 	grid[2][3] = 1;
@@ -58,7 +63,6 @@ void	draw(t_map *map)
 	init_image(map, 0x000000);
 	ray(map);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);	
-	///printf("%#08x\n",get_hex_color(map, 0, 0));
 	draw_mmap(map);
 	mlx_destroy_image(map->env.mlx,map->img.img);
 }
@@ -81,13 +85,6 @@ void	print_grid(t_map *map)
 	}
 }
 
-int		loop_hook(t_map *map)
-{
-	move(map);
-	rotate(map);	
-	return (0);	
-}
-
 int		main(int argc, char **argv)
 {
 	t_env e;
@@ -97,8 +94,8 @@ int		main(int argc, char **argv)
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "Wolf3d");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
-	map->height = 100;
-	map->width = 100;
+	map->height = 15;
+	map->width = 15;
 	map->grid = init_grid(map->height, map->width);
 	map->pos.x = 2.5;
 	map->pos.y = 2.5;

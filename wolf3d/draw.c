@@ -6,7 +6,7 @@
 /*   By: amathias <amathias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/14 12:30:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/15 13:24:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,9 @@ int		get_hex_color(t_map *map, int x, int y)
 	unsigned char green;
 	unsigned char blue;
 
-	red = map->img.data[y * map->img.size_line +
-		(x * map->img.bpp) / 8];
-	green = map->img.data[y * map->img.size_line +
-		(x * map->img.bpp) / 8 + 1];
-	blue = map->img.data[y * map->img.size_line +
-		(x * map->img.bpp) / 8 + 2];
+	red = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8];
+	green = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1];
+	blue = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2];
 	return (blue << 16 | green << 8 | red);
 }
 
@@ -36,6 +33,7 @@ t_pos	get_pos(int x, int y)
 	tmp.y = y;
 	return (tmp);
 }
+
 void	draw_slice(t_map *map, t_pos from, t_pos to, int color)
 {
 	while (from.y < to.y)

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/14 12:31:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/15 14:43:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define WOLD3D_H
 # include <mlx.h>
 # include <math.h>
+# include <time.h>
 # include <fcntl.h>
 #include <stdio.h>
 # include "libft.h"
@@ -29,6 +30,13 @@ typedef struct 	s_env
 	void		*mlx;
 	void		*win;
 }				t_env;
+
+typedef struct	s_time
+{
+	time_t		start;
+	time_t		end;
+	long		frame;
+}				t_time;
 
 typedef struct	s_img
 {
@@ -113,6 +121,7 @@ int				expose_hook(t_map *map);
 int				key_press(int keycode, t_map *map);
 int				key_hook(int keycode, t_map *map);
 void			init_key(t_map *map);
+int				loop_hook(t_map *map);
 
 void			rotate(t_map *map);
 void			move(t_map *map);
