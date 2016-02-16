@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 12:09:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 14:34:33 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/15 12:01:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	zoom(t_map *map)
 	if (map->key.mup == 1)
 	{
 		map->pow++;
-		map->zoom *= pow(1.001, map->pow);
+		map->zoom *= pow(1.01, map->pow);
 		draw(map);
 	}
 	if (map->key.mdown == 1)
 	{
 		map->pow = map->pow < 1 ? 1 : map->pow - 1;
-		map->zoom = map->zoom < 1 ? 1 : map->zoom / pow(1.001, map->pow);
+		map->zoom = map->zoom < 1 ? 1 : map->zoom / pow(1.01, map->pow);
 		draw(map);
 	}
 }
