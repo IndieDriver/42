@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/18 13:20:36 by amathias          #+#    #+#             */
-/*   Updated: 2016/01/19 11:17:09 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/03 11:52:06 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void		ft_putstr(char *str)
 {
 	write(1, str, ft_strlen(str));
 }
+
 char		*ft_strchr(const char *str, int c)
 {
 	int i;
@@ -60,7 +61,7 @@ static int	ft_intlen_base(long n, int base)
 char	*ft_itoa_base(long n, int base)
 {
 	char	*tmp;
-	int		ntmp;
+	long	ntmp;
 	int		len;
 	int		i;
 
