@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 11:17:47 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/12 09:58:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 13:21:15 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int		get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
+int			get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
 {
 	int i;
 
@@ -29,7 +29,18 @@ int		get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
 	return (i);
 }
 
-void	draw_julia(t_map *map, int max_iter, int t)
+static void	print_point(t_map *map, int iter, t_point p, int *color_array)
+{
+	if (map->iso != 0)
+	{
+		map->grid[p.y][p.x].z = iter;
+		map->grid[p.y][p.x].color = color_array[iter];
+	}
+	else
+		draw_pixel_to_image(map, p.x, p.y, color_array[iter]);
+}
+
+void		draw_julia(t_map *map, int max_iter)
 {
 	t_point		p;
 	int			*color_array;
@@ -43,16 +54,12 @@ void	draw_julia(t_map *map, int max_iter, int t)
 		p.x = 0;
 		while (p.x < WIDTH)
 		{
-			z.real = 1.5 * (p.x - (WIDTH / 2)) / (WIDTH * map->zoom / 2) + map->mx;
-			z.ima = 1.5 * (p.y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2) + map->my;
-			p.color = get_iter(map, &z, &old, max_iter);
-			if (t != 0)
-			{
-				map->grid[p.y][p.x].z = p.color;
-				map->grid[p.y][p.x].color = color_array[p.color];
-			}
-			else
-				draw_pixel_to_image(map, p.x, p.y, color_array[p.color]);
+			z.real = 1.5 * (p.x - (WIDTH / 2)) / (WIDTH * map->zoom / 2)
+				+ map->mx;
+			z.ima = 1.5 * (p.y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2)
+				+ map->my;
+			print_point(map, get_iter(map, &z, &old, max_iter), p,
+					color_array);
 			p.x++;
 		}
 		p.y++;

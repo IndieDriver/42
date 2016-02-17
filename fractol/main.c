@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/12 09:33:18 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 13:09:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ void	draw(t_map *map)
 			&(map->img.size_line), &(map->img.endian));
 	init_image(map, 0x000000);
 	if (map->type == 1)
-		draw_julia(map, 60, map->iso);
+		draw_julia(map, 60);
 	else if (map->type == 2)
-		draw_mandelbrot(map, 60, color_array, map->iso);
+		draw_mandelbrot(map, 60, color_array);
 	else if (map->type == 3)
-		draw_burning(map, 60, color_array, map->iso);
+		draw_burning(map, 60, color_array);
 	if (map->iso)
 	{
 		fdf_init(map);

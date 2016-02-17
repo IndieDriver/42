@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/15 12:13:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 13:23:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 # define FRACTOL_H
 # include <mlx.h>
 # include <math.h>
-#include <stdio.h>
 # include "libft.h"
 # define WIDTH 1000
 # define HEIGHT 1000
-# include "libft.h"
 
 typedef struct	s_env
 {
@@ -94,9 +92,9 @@ int				key_press(int keycode, t_map *map);
 int				loop_hook(t_map *map);
 int				key_hook(int keycode, t_map *map);
 
-void			draw_julia(t_map *map, int max_iter, int t);
-void			draw_mandelbrot(t_map *map, int max_iter, int *color_array, int t);
-void			draw_burning(t_map *map, int max_iter, int *color_array, int t);
+void			draw_julia(t_map *map, int max_iter);
+void			draw_mandelbrot(t_map *map, int max_iter, int *color_array);
+void			draw_burning(t_map *map, int max_iter, int *color_array);
 
 int				*init_mandelbrot_color(int max_iter);
 int				*init_julia_color(int max_iter);
@@ -104,7 +102,6 @@ int				*init_burning_color(int max_iter);
 
 void			zoom(t_map *map);
 void			move(t_map *map);
-
 
 void			init_grid(t_map *map);
 void			free_grid(t_map *map);
@@ -114,6 +111,4 @@ t_point			setpoint(int x, int y, int z, int color);
 t_point			convertcord(t_point point);
 void			draw_iso(t_map *map, t_point **grid, int row, int col);
 void			draw_line(t_map *map, t_point from, t_point to, int color);
-
-
 #endif

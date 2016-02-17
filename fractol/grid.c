@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 16:40:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/12 09:25:24 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 12:55:08 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	free_grid(t_map *map)
 
 void	init_grid(t_map *map)
 {
-	int i;
-	int j;
-	t_point **grid;
+	int		i;
+	int		j;
+	t_point	**grid;
 
 	i = 0;
 	if (!(grid = (t_point**)malloc(sizeof(t_point*) * HEIGHT)))

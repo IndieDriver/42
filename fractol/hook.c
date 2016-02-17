@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/15 12:13:35 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 12:54:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		motion_notify(int x, int y, t_map *map)
 	}
 	return (0);
 }
+
 int		key_press(int keycode, t_map *map)
 {
 	if (keycode == 0)
@@ -51,6 +52,7 @@ int		key_press(int keycode, t_map *map)
 		map->key.mdown = 1;
 	return (0);
 }
+
 int		key_hook(int keycode, t_map *map)
 {
 	if (keycode == 53)

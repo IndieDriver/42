@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/10 12:02:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/11 17:15:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 13:22:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	bresenham(t_map *map, t_point from, t_point to, t_line value)
 
 void	bresenham_inverse(t_map *map, t_point from, t_point to, t_line value)
 {
-
 	value.err = 2 * (value.dx - value.dy);
 	while ((from.y <= to.y && value.sy == 1)
 			|| (from.y >= to.y && value.sy == -1))
