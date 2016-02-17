@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/16 13:19:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 13:40:21 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void	draw(t_map *map)
 	if (map->pause)
 		mlx_string_put(map->env.mlx, map->env.win,
 				(WIDTH /2), (HEIGHT / 2), 0x010101, "PAUSE");
-	//draw_mmap(map);
+	draw_mmap(map);
 	mlx_destroy_image(map->env.mlx,map->img.img);
 }
 void	print_grid(t_map *map)
