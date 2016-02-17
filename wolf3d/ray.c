@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 16:11:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 17:22:34 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, t_dda *value)
 		if (map->grid[pos.x][pos.y] != 0)
 			break ;
 	}
+	value->pos = get_pos(pos.x, pos.y);
 	return (value->side == 0 ?
 			fabs((pos.x - raypos.x + (1 - value->sx) / 2) / raydir.x) :
 			fabs((pos.y - raypos.y + (1 - value->sy) / 2) / raydir.y));
@@ -98,7 +99,8 @@ void	ray(t_map *map)
 		tex.x = (int)(tex.wallcord * 64.0);
 		if ((value.side == 0 && raydir.x > 0) || (value.side && raydir.y < 0))
 			tex.x = 64 - tex.x - 1;
-		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)), tex.x);
+		tex.id = map->grid[value.pos.x][value.pos.y] - 1;
+		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)), tex);
 		i++;
 	}
 }

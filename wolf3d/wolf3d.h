@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 16:02:01 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 17:23:42 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ typedef struct	s_line
 	int			err;
 }				t_line;
 
+typedef struct 	s_pos
+{
+	int			x;
+	int			y;
+	int			color;
+}				t_pos;
+
 typedef struct	s_dda
 {
 	double		dx;
@@ -55,6 +62,7 @@ typedef struct	s_dda
 	int			sx;
 	int			sy;
 	int			side;
+	t_pos		pos;
 }				t_dda;
 
 typedef struct	s_vec
@@ -69,6 +77,7 @@ typedef struct	s_tex
 	double		wallcord;
 	int			x;
 }				t_tex;
+
 typedef struct	s_key
 {
 	int			up;
@@ -78,13 +87,6 @@ typedef struct	s_key
 	int			mleft;
 	int			mright;
 }				t_key;
-
-typedef struct 	s_pos
-{
-	int			x;
-	int			y;
-	int			color;
-}				t_pos;
 
 typedef struct	s_map
 {
@@ -97,7 +99,7 @@ typedef struct	s_map
 	int			height;
 	int			width;
 	t_tex		texvalue;
-	int			**tex;
+	int			***tex;
 	t_key		key;
 	t_vec		pos;
 	t_vec		dirvec;
@@ -120,11 +122,12 @@ void			rotate(t_map *map);
 void			move(t_map *map);
 	
 void			ray(t_map *map);
-void			draw_wall_slice(t_map *map, t_pos pos, int texx);
+void			draw_wall_slice(t_map *map, t_pos pos, t_tex tex);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 int				**get_texture(char *file_name, int size);
 
 void			init_tex(t_map *map);
+int				***init_tex_array(int nb);
 void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
 void			draw_mmap(t_map *map);

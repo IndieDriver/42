@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 11:28:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/05 14:22:47 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 16:29:29 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	get_color(int fd)
 	get_next_line(fd, &line);
 	blue = ft_atoi(line);
 	free(line);
-	return (256 * 256 * red + 256 * green + blue);
+	return (256 * 256 * blue + 256 * green + red);
 }
 
 int	*get_line(int fd, int size)

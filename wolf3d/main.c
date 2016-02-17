@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 13:40:21 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 17:17:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,15 @@ int		**init_grid(int row, int col)
 		i++;
 	} */
 	grid[1][1] = 0;
-	grid[3][3] = 1;
-	grid[4][4] = 1;
-	grid[5][5] = 1;
-	grid[6][6] = 1;
-	grid[7][7] = 1;
-	grid[8][8] = 1;
-	grid[1][7] = 1;
-	grid[1][5] = 1;
-	grid[2][3] = 1;
+	grid[3][3] = 2;
+	grid[4][4] = 2;
+	grid[5][5] = 2;
+	grid[6][6] = 2;
+	grid[7][7] = 2;
+	grid[8][8] = 2;
+	grid[1][7] = 2;
+	grid[1][5] = 2;
+	grid[2][3] = 2;
 	return (grid);
 }
 
@@ -109,9 +109,8 @@ int		main(int argc, char **argv)
 	map->cvec.y = 0.66;
 	map->dirvec.x = -1.0;
 	map->dirvec.y = 0.0;
-	init_key(map);
-	map->tex = get_texture("assets/eagle.ppm", 64);
-	printf("tex[0][0]: %#08x\n", map->tex[0][0]);
+	init_key(map);	
+	map->tex = init_tex_array(2);
 	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_hook(e.win, 2, (1L <<0), key_press, map);
