@@ -6,7 +6,7 @@
 /*   By: amathias <amathias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/15 13:24:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 15:38:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ void	draw_wall_slice(t_map *map, t_pos pos, int tex_iter)
 		to.y = HEIGHT - 1;
 	draw_slice(map, get_pos(pos.x, 0), from, 0x00b2ee);
 	draw_slice(map, get_pos(pos.x,to.y), get_pos(pos.x, HEIGHT - 1), 0x003547);
-	draw_slice(map, from, to, tex_iter);
-	//draw_tex(map, from, to, tex);
+	//draw_slice(map, from, to, tex_iter);
+	draw_tex(map, from, to, tex);
 }
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)
