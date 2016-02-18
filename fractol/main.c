@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 13:09:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 10:19:44 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,23 +24,26 @@ void	draw(t_map *map)
 			&(map->img.size_line), &(map->img.endian));
 	init_image(map, 0x000000);
 	if (map->type == 1)
-		draw_julia(map, 60);
+		draw_julia(map, map->max_iter);
 	else if (map->type == 2)
-		draw_mandelbrot(map, 60, color_array);
+		draw_mandelbrot(map, map->max_iter, color_array);
 	else if (map->type == 3)
-		draw_burning(map, 60, color_array);
+		draw_burning(map, map->max_iter, color_array);
 	if (map->iso)
 	{
 		fdf_init(map);
 		free_grid(map);
 	}
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
+	mlx_string_put(map->env.mlx, map->env.win, 10, 10, 0xFFFFFF,
+			ft_itoa(map->max_iter));
 	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
 int		init_map(t_map *map, char *line)
 {
 	map->zoom = 1.0;
+	map->max_iter = 60;
 	map->iso = 0;
 	map->pow = 1;
 	map->mx = 0.0;

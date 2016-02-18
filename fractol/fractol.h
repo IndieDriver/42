@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 13:23:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 10:07:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct	s_key
 	int			right;
 	int			mdown;
 	int			mup;
+	int			iterplus;
+	int			iterminus;
 }				t_key;
 
 typedef struct	s_complex
@@ -75,6 +77,7 @@ typedef struct	s_map
 	int			pow;
 	double		mx;
 	double		my;
+	int			max_iter;
 	t_complex	c;
 	t_point		**grid;
 	int			zoffset;
