@@ -6,17 +6,11 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 17:21:56 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 15:06:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-void	init_tex(t_map *map)
-{
-	map->texvalue.id = -1;
-	map->texvalue.x = 0;
-}
 
 int		***init_tex_array(int nb)
 {
@@ -28,6 +22,13 @@ int		***init_tex_array(int nb)
 		return (NULL);
 	tex_array[0] = get_texture("assets/mossy.ppm", 64);
 	tex_array[1] = get_texture("assets/greystone.ppm", 64);
+	tex_array[2] = get_texture("assets/purplestone.ppm", 64);
+	tex_array[3] = get_texture("assets/colorstone.ppm", 64);
+	tex_array[4] = get_texture("assets/wood.ppm", 64);
+	tex_array[5] = get_texture("assets/bluestone.ppm", 64);
+	tex_array[6] = get_texture("assets/redbrick.ppm", 64);
+	tex_array[7] = get_texture("assets/eagle.ppm", 64);
+	tex_array[8] = get_texture("assets/barrel.ppm", 64);
 	return (tex_array);
 }
 

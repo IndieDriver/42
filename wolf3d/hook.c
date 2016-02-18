@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/16 13:13:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 12:59:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ int		loop_hook(t_map *map)
 {
 	move(map);
 	rotate(map);
-	if (map->pause)
-		draw(map);
 	return (0);
 }
 
@@ -58,6 +56,7 @@ int		key_press(int keycode, t_map *map)
 	{
 		map->pause = map->pause == 0 ? 1 : 0;
 		init_key(map);
+		draw(map);
 	}
 	return (0);
 }
