@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 10:07:51 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 16:09:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,14 @@ int				*init_mandelbrot_color(int max_iter);
 int				*init_julia_color(int max_iter);
 int				*init_burning_color(int max_iter);
 
+void			init_key(t_map *map);
 void			zoom(t_map *map);
 void			move(t_map *map);
 
 void			init_grid(t_map *map);
 void			free_grid(t_map *map);
+
+void			ft_error(int type);
 
 int				fdf_init(t_map *map);
 t_point			setpoint(int x, int y, int z, int color);

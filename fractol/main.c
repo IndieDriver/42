@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 10:19:44 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 16:09:54 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,16 +61,6 @@ int		init_map(t_map *map, char *line)
 	return (1);
 }
 
-void	init_key(t_map *map)
-{
-	map->key.up = 0;
-	map->key.down = 0;
-	map->key.left = 0;
-	map->key.right = 0;
-	map->key.mup = 0;
-	map->key.mdown = 0;
-}
-
 int		main(int argc, char **argv)
 {
 	t_env e;
@@ -84,10 +74,7 @@ int		main(int argc, char **argv)
 		map->env = e;
 		init_key(map);
 		if (!init_map(map, argv[1]))
-		{
-			ft_putstr("Invalid arg\n./fractol <julia|mandelbrot|burning>\n");
-			exit(0);
-		}
+			ft_error(2);
 		mlx_key_hook(e.win, key_hook, map);
 		mlx_hook(e.win, 6, (1L << 6), motion_notify, map);
 		mlx_hook(e.win, 2, (1L << 0), key_press, map);
@@ -96,6 +83,6 @@ int		main(int argc, char **argv)
 		mlx_loop(e.mlx);
 	}
 	else
-		ft_putstr("Invalid arg\n./fractol <julia|mandelbrot|burning>\n");
+		ft_error(2);
 	return (0);
 }

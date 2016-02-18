@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/20 15:17:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/12 09:15:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 16:11:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 void	draw_fdf(t_map *map)
 {
 	draw_iso(map, map->grid, HEIGHT, WIDTH);
-}
-
-void	ft_error(void)
-{
-	ft_putstr("error\n");
-	exit(0);
 }
 
 void	shift_grid(t_map *map)

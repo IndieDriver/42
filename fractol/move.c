@@ -6,11 +6,23 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 12:09:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 10:12:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/18 15:45:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
+
+void	init_key(t_map *map)
+{
+	map->key.up = 0;
+	map->key.down = 0;
+	map->key.left = 0;
+	map->key.right = 0;
+	map->key.mup = 0;
+	map->key.mdown = 0;
+	map->key.iterminus = 0;
+	map->key.iterplus = 0;
+}
 
 void	zoom(t_map *map)
 {

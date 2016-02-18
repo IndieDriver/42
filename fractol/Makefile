@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/12 09:41:16 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/18 15:53:40 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC =	main.c			\
 		color.c			\
 		move.c			\
 		grid.c			\
+		utils.c			\
 		fdf/draw_line.c	\
 		fdf/isometric.c	\
 		fdf/main.c		\
