@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 11:17:47 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 13:21:15 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:38:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fractol.h"
 
-int			get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
+static int	get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
 {
 	int i;
 
@@ -29,37 +29,37 @@ int			get_iter(t_map *map, t_complex *z, t_complex *old, int max_iter)
 	return (i);
 }
 
-static void	print_point(t_map *map, int iter, t_point p, int *color_array)
+static void	print_point(t_map *map, int iter, t_point p)
 {
 	if (map->iso != 0)
 	{
-		map->grid[p.y][p.x].z = iter;
-		map->grid[p.y][p.x].color = color_array[iter];
+		map->grid[p.y][p.x].z = -iter;
+		map->grid[p.y][p.x].color = get_color(iter);
 	}
 	else
-		draw_pixel_to_image(map, p.x, p.y, color_array[iter]);
+		draw_pixel_to_image(map, p.x, p.y, get_color(iter));
 }
 
-void		draw_julia(t_map *map, int max_iter)
+void		draw_julia(void	*args)
 {
 	t_point		p;
-	int			*color_array;
 	t_complex	z;
 	t_complex	old;
+	t_args		*arg;
 
-	color_array = init_julia_color(max_iter);
-	p.y = 0;
-	while (p.y < HEIGHT)
+	arg = args;
+	p.y = arg->min.y;
+	while (p.y < arg->max.y)
 	{
-		p.x = 0;
-		while (p.x < WIDTH)
+		p.x = arg->min.x;
+		while (p.x < arg->max.x)
 		{
-			z.real = 1.5 * (p.x - (WIDTH / 2)) / (WIDTH * map->zoom / 2)
-				+ map->mx;
-			z.ima = 1.5 * (p.y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2)
-				+ map->my;
-			print_point(map, get_iter(map, &z, &old, max_iter), p,
-					color_array);
+			z.real = 1.5 * (p.x - (WIDTH / 2)) / (WIDTH * arg->map->zoom / 2)
+				+ arg->map->mx;
+			z.ima = 1.5 * (p.y - (HEIGHT / 2)) / (HEIGHT * arg->map->zoom / 2)
+				+ arg->map->my;
+			print_point(arg->map, get_iter(arg->map, &z, &old,
+						arg->map->max_iter), p);
 			p.x++;
 		}
 		p.y++;

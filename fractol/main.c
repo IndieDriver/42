@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 16:09:54 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:37:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void	draw(t_map *map)
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
-	init_image(map, 0x000000);
 	if (map->type == 1)
-		draw_julia(map, map->max_iter);
+		multi_thread(map, &draw_julia);
 	else if (map->type == 2)
-		draw_mandelbrot(map, map->max_iter, color_array);
+		multi_thread(map, &draw_mandelbrot);
 	else if (map->type == 3)
-		draw_burning(map, map->max_iter, color_array);
+		multi_thread(map, &draw_burning);
 	if (map->iso)
 	{
 		fdf_init(map);
@@ -76,8 +75,8 @@ int		main(int argc, char **argv)
 		if (!init_map(map, argv[1]))
 			ft_error(2);
 		mlx_key_hook(e.win, key_hook, map);
-		mlx_hook(e.win, 6, (1L << 6), motion_notify, map);
 		mlx_hook(e.win, 2, (1L << 0), key_press, map);
+		mlx_hook(e.win, 6, (1L << 6), motion_notify, map);
 		mlx_loop_hook(e.mlx, loop_hook, map);
 		mlx_expose_hook(e.win, expose_hook, map);
 		mlx_loop(e.mlx);

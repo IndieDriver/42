@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 10:28:15 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 13:20:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:39:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,39 +31,39 @@ int			get_iterat(t_complex *z, t_complex *c, t_complex *tmp, int max_iter)
 	return (i);
 }
 
-static void	print_point(t_map *map, int iter, t_point p, int *color_array)
+static void	print_point(t_map *map, int iter, t_point p)
 {
 	if (map->iso != 0)
 	{
-		map->grid[p.y][p.x].z = iter;
-		map->grid[p.y][p.x].color = color_array[iter];
+		map->grid[p.y][p.x].z = -iter;
+		map->grid[p.y][p.x].color = get_color(iter);
 	}
 	else
-		draw_pixel_to_image(map, p.x, p.y, color_array[iter]);
+		draw_pixel_to_image(map, p.x, p.y, get_color(iter));
 }
 
-void		draw_burning(t_map *map, int max_iter, int *color_array)
+void		draw_burning(void *args)
 {
 	t_point		p;
 	t_complex	c;
 	t_complex	z;
 	t_complex	tmp;
+	t_args		*arg;
 
-	color_array = init_burning_color(max_iter);
-	p.y = 0;
-	while (p.y < HEIGHT)
+	arg = args;
+	p.y = arg->min.y;
+	while (p.y < arg->max.y)
 	{
-		p.x = 0;
-		while (p.x < WIDTH)
+		p.x = arg->min.x;
+		while (p.x < arg->max.x)
 		{
-			c.real = 2.5 * (p.x - (WIDTH / 2)) / (WIDTH * map->zoom / 2)
-				+ map->mx;
-			c.ima = 2 * (p.y - (HEIGHT / 2)) / (HEIGHT * map->zoom / 2)
-				+ map->my;
+			c.real = 2.5 * (p.x - (WIDTH / 2)) / (WIDTH * arg->map->zoom / 2)
+				+ arg->map->mx;
+			c.ima = 2 * (p.y - (HEIGHT / 2)) / (HEIGHT * arg->map->zoom / 2)
+				+ arg->map->my;
 			z.real = 0.0;
 			z.ima = 0.0;
-			print_point(map, get_iterat(&z, &c, &tmp, max_iter), p,
-					color_array);
+			print_point(arg->map, get_iterat(&z, &c, &tmp, arg->map->max_iter), p);
 			p.x++;
 		}
 		p.y++;

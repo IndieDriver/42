@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 10:09:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 11:44:09 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int		key_press(int keycode, t_map *map)
 		map->key.iterplus = 1;
 	if (keycode == 27)
 		map->key.iterminus = 1;
+	if (keycode == 30)
+		map->key.mdown = 1;
+	if (keycode == 42)
+		map->key.mup = 1;
+
 	return (0);
 }
 
@@ -77,5 +82,9 @@ int		key_hook(int keycode, t_map *map)
 		map->iso = map->iso == 1 ? 0 : 1;
 		draw(map);
 	}
+	if (keycode == 30)
+		map->key.mdown = 0;
+	if (keycode == 42)
+		map->key.mup = 0;
 	return (0);
 }

@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/18 15:53:40 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/19 15:35:44 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,7 @@ RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
 LIB_PATH = ./libft/ /usr/local/lib/
-LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit
+LIB_NAME = -lft -lmlx -lpthread -framework OpenGL -framework AppKit
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)
 

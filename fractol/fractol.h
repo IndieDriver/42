@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 16:09:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:36:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FRACTOL_H
 # include <mlx.h>
 # include <math.h>
+# include <pthread.h>
 # include "libft.h"
 # define WIDTH 1000
 # define HEIGHT 1000
@@ -85,6 +86,13 @@ typedef struct	s_map
 	t_key		key;
 }				t_map;
 
+typedef struct	s_args
+{
+	t_map		*map;
+	t_point		min;
+	t_point		max;
+}				t_args;
+
 void			draw(t_map *map);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
@@ -95,9 +103,9 @@ int				key_press(int keycode, t_map *map);
 int				loop_hook(t_map *map);
 int				key_hook(int keycode, t_map *map);
 
-void			draw_julia(t_map *map, int max_iter);
-void			draw_mandelbrot(t_map *map, int max_iter, int *color_array);
-void			draw_burning(t_map *map, int max_iter, int *color_array);
+void			draw_julia(void	*args);
+void			draw_mandelbrot(void *args);
+void			draw_burning(void *args);
 
 int				*init_mandelbrot_color(int max_iter);
 int				*init_julia_color(int max_iter);
@@ -106,6 +114,9 @@ int				*init_burning_color(int max_iter);
 void			init_key(t_map *map);
 void			zoom(t_map *map);
 void			move(t_map *map);
+
+void			multi_thread(t_map *map, void *function);
+int				get_color(int iter);
 
 void			init_grid(t_map *map);
 void			free_grid(t_map *map);
