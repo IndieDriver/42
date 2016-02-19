@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:36:37 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:45:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct	s_args
 }				t_args;
 
 void			draw(t_map *map);
+void			draw_fractal(t_map *map);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 

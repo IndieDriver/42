@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:37:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/19 15:54:04 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,30 @@
 
 void	draw(t_map *map)
 {
-	int *color_array;
+	char *str;
 
 	if (map->iso)
 		init_grid(map);
-	color_array = NULL;
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
-	if (map->type == 1)
-		multi_thread(map, &draw_julia);
-	else if (map->type == 2)
-		multi_thread(map, &draw_mandelbrot);
-	else if (map->type == 3)
-		multi_thread(map, &draw_burning);
+	draw_fractal(map);
 	if (map->iso)
 	{
 		fdf_init(map);
 		free_grid(map);
 	}
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
-	mlx_string_put(map->env.mlx, map->env.win, 10, 10, 0xFFFFFF,
-			ft_itoa(map->max_iter));
+	str = ft_itoa(map->max_iter);
+	mlx_string_put(map->env.mlx, map->env.win, 10, 10, 0xFFFFFF, str);
+	free(str);
 	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
 int		init_map(t_map *map, char *line)
 {
 	map->zoom = 1.0;
-	map->max_iter = 60;
+	map->max_iter = 120;
 	map->iso = 0;
 	map->pow = 1;
 	map->mx = 0.0;
