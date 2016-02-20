@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 12:09:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 13:29:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 11:04:26 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	zoom(t_map *map)
 	}
 	if (map->key.iterminus == 1)
 	{
-		map->max_iter = map->max_iter - 1 > -1 ? map->max_iter - 1: 0;
+		map->max_iter = map->max_iter - 1 > -1 ? map->max_iter - 1 : 0;
 		draw(map);
 	}
 }

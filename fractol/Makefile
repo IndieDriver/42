@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/19 15:35:44 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/20 13:31:52 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,8 @@ SRC =	main.c			\
 		julia.c			\
 		mandelbrot.c	\
 		burning.c		\
+		rabbit.c		\
+		siegel.c		\
 		hook.c			\
 		color.c			\
 		move.c			\

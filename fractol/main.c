@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:54:04 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 13:31:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,23 @@ void	draw(t_map *map)
 	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
+int		get_type(char *line)
+{
+	if (!ft_strcmp("julia", line))
+		return (1);
+	else if (!ft_strcmp("mandelbrot", line))
+		return (2);
+	else if (!ft_strcmp("burning", line))
+		return (3);
+	else if (!ft_strcmp("rabbit", line))
+		return (4);
+	else if (!ft_strcmp("siegel", line))
+		return (5);
+	else
+		return (0);
+
+}
+
 int		init_map(t_map *map, char *line)
 {
 	map->zoom = 1.0;
@@ -44,13 +61,7 @@ int		init_map(t_map *map, char *line)
 	map->my = 0.0;
 	map->c.ima = 0.0;
 	map->c.real = 0.0;
-	if (!ft_strcmp("julia", line))
-		map->type = 1;
-	else if (!ft_strcmp("mandelbrot", line))
-		map->type = 2;
-	else if (!ft_strcmp("burning", line))
-		map->type = 3;
-	else
+	if (!(map->type = get_type(line)))
 		return (0);
 	return (1);
 }

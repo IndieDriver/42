@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:45:37 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 13:01:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,9 @@ int				key_hook(int keycode, t_map *map);
 void			draw_julia(void	*args);
 void			draw_mandelbrot(void *args);
 void			draw_burning(void *args);
+void			draw_rabbit(void *args);
+void			draw_siegel(void *args);
+void			draw_amathias(void *args);
 
 int				*init_mandelbrot_color(int max_iter);
 int				*init_julia_color(int max_iter);

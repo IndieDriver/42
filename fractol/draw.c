@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:45:39 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 13:32:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void	draw_fractal(t_map *map)
 		multi_thread(map, &draw_mandelbrot);
 	else if (map->type == 3)
 		multi_thread(map, &draw_burning);
+	else if (map->type == 4)
+		multi_thread(map, &draw_rabbit);
+	else if (map->type == 5)
+		multi_thread(map, &draw_siegel);
 }
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)
