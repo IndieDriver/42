@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/18 15:49:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/20 13:34:31 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:42:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,17 @@ void	ft_error(int type)
 	if (type == 1)
 		ft_putstr("malloc error");
 	if (type == 2)
-		ft_putstr(
-				"Invalid arg\n./fractol <julia|mandelbrot|burning|rabbit|siegel>\n");
+	{
+		ft_putstr("Invalid arg\n");
+		ft_putstr("./fractol <julia|mandelbrot|burning|rabbit|siegel>\n");
+	}
 	exit(0);
 }
 
 int		get_color(int iter)
 {
-	return (256 * 256 * (256 - sin(iter) * 10) +
-			256 + (256 - cos(iter)) + (256 - cos(iter)));
+	return (256 * 256 * (242 - sin(iter)) +
+			242 + (175 - cos(iter)) + (242 - cos(iter)));
 }
 
 void	free_args(t_args *arg1, t_args *arg2, t_args *arg3, t_args *arg4)

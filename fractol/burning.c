@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 10:28:15 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:39:30 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:39:54 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,8 @@ void		draw_burning(void *args)
 				+ arg->map->my;
 			z.real = 0.0;
 			z.ima = 0.0;
-			print_point(arg->map, get_iterat(&z, &c, &tmp, arg->map->max_iter), p);
+			print_point(arg->map,
+					get_iterat(&z, &c, &tmp, arg->map->max_iter), p);
 			p.x++;
 		}
 		p.y++;

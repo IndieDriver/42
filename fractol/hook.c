@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 11:44:09 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:40:04 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,18 @@ int		motion_notify(int x, int y, t_map *map)
 
 int		key_press(int keycode, t_map *map)
 {
-	if (keycode == 0)
+	if (keycode == 53)
+	{
+		mlx_destroy_window(map->env.mlx, map->env.win);
+		exit(0);
+	}
+	if (keycode == 123)
 		map->key.left = 1;
-	if (keycode == 1)
+	if (keycode == 125)
 		map->key.down = 1;
-	if (keycode == 2)
+	if (keycode == 124)
 		map->key.right = 1;
-	if (keycode == 13)
+	if (keycode == 126)
 		map->key.up = 1;
 	if (keycode == 24)
 		map->key.iterplus = 1;
@@ -54,24 +59,18 @@ int		key_press(int keycode, t_map *map)
 		map->key.mdown = 1;
 	if (keycode == 42)
 		map->key.mup = 1;
-
 	return (0);
 }
 
 int		key_hook(int keycode, t_map *map)
 {
-	if (keycode == 53)
-	{
-		mlx_destroy_window(map->env.mlx, map->env.win);
-		exit(0);
-	}
-	if (keycode == 0)
+	if (keycode == 123)
 		map->key.left = 0;
-	if (keycode == 1)
+	if (keycode == 125)
 		map->key.down = 0;
-	if (keycode == 2)
+	if (keycode == 124)
 		map->key.right = 0;
-	if (keycode == 13)
+	if (keycode == 126)
 		map->key.up = 0;
 	if (keycode == 24)
 		map->key.iterplus = 0;

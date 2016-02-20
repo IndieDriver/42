@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:59:32 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/20 13:01:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:33:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ typedef struct	s_map
 	t_img		img;
 	int			type;
 	double		zoom;
-	int			pow;
 	double		mx;
 	double		my;
 	int			max_iter;
@@ -103,6 +102,7 @@ int				motion_notify(int x, int y, t_map *map);
 int				key_press(int keycode, t_map *map);
 int				loop_hook(t_map *map);
 int				key_hook(int keycode, t_map *map);
+int				mouse_hook(int keycode, int x, int y, t_map *map);
 
 void			draw_julia(void	*args);
 void			draw_mandelbrot(void *args);

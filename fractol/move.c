@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/11 12:09:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/20 11:04:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:43:57 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,20 +24,21 @@ void	init_key(t_map *map)
 	map->key.iterplus = 0;
 }
 
+int		mouse_hook(int keycode, int x, int y, t_map *map)
+{
+	if (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT)
+	{
+		if (keycode == 5 || keycode == 1)
+			map->zoom *= 1.3;
+		if (keycode == 4 || keycode == 2)
+			map->zoom /= 1.3;
+		draw(map);
+	}
+	return (0);
+}
+
 void	zoom(t_map *map)
 {
-	if (map->key.mup == 1)
-	{
-		map->pow++;
-		map->zoom *= pow(1.01, map->pow);
-		draw(map);
-	}
-	if (map->key.mdown == 1)
-	{
-		map->pow = map->pow < 1 ? 1 : map->pow - 1;
-		map->zoom = map->zoom < 1 ? 1 : map->zoom / pow(1.01, map->pow);
-		draw(map);
-	}
 	if (map->key.iterplus == 1)
 	{
 		map->max_iter++;
@@ -58,13 +59,13 @@ void	move(t_map *map)
 	tmpx = map->mx;
 	tmpy = map->my;
 	if (map->key.up == 1)
-		map->my -= 0.1;
+		map->my -= 0.01;
 	if (map->key.down == 1)
-		map->my += 0.1;
+		map->my += 0.01;
 	if (map->key.left == 1)
-		map->mx -= 0.1;
+		map->mx -= 0.01;
 	if (map->key.right == 1)
-		map->mx += 0.1;
+		map->mx += 0.01;
 	if (tmpx != map->mx || tmpy != map->my)
 		draw(map);
 }

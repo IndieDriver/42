@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/22 11:10:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:39:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:41:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,8 @@ void		draw_mandelbrot(void *args)
 				+ arg->map->my;
 			z.real = 0.0;
 			z.ima = 0.0;
-			print_point(arg->map, get_itera(&z, &c, &tmp, arg->map->max_iter), p);
+			print_point(arg->map,
+					get_itera(&z, &c, &tmp, arg->map->max_iter), p);
 			p.x++;
 		}
 		p.y++;

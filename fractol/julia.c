@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 11:17:47 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/19 15:38:25 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:40:48 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void	print_point(t_map *map, int iter, t_point p)
 		draw_pixel_to_image(map, p.x, p.y, get_color(iter));
 }
 
-void		draw_julia(void	*args)
+void		draw_julia(void *args)
 {
 	t_point		p;
 	t_complex	z;

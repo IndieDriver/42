@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/20 13:31:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/20 16:43:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int		get_type(char *line)
 		return (5);
 	else
 		return (0);
-
 }
 
 int		init_map(t_map *map, char *line)
@@ -56,7 +55,6 @@ int		init_map(t_map *map, char *line)
 	map->zoom = 1.0;
 	map->max_iter = 120;
 	map->iso = 0;
-	map->pow = 1;
 	map->mx = 0.0;
 	map->my = 0.0;
 	map->c.ima = 0.0;
@@ -84,6 +82,7 @@ int		main(int argc, char **argv)
 		mlx_hook(e.win, 2, (1L << 0), key_press, map);
 		mlx_hook(e.win, 6, (1L << 6), motion_notify, map);
 		mlx_loop_hook(e.mlx, loop_hook, map);
+		mlx_mouse_hook(e.win, mouse_hook, map);
 		mlx_expose_hook(e.win, expose_hook, map);
 		mlx_loop(e.mlx);
 	}
