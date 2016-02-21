@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/21 13:36:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/21 14:38:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <pthread.h>
 #include <stdio.h>
 # include "libft.h"
-# define WIDTH 720
-# define HEIGHT 480
+# define WIDTH 1440
+# define HEIGHT 960
 # include "libft.h"
 # define RED  "\x1B[31m"
 # define WHT  "\x1B[37m"
@@ -94,6 +94,7 @@ typedef struct	s_map
 	t_env		env;
 	t_img		img;
 	t_img		mmap;
+	int			multithread;
 	int			type;
 	int			pause;
 	int			**grid;
@@ -138,6 +139,9 @@ int				***init_tex_array(int nb);
 void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
 void			draw_mmap(t_map *map);
+
+t_pos			getpos(int x, int y);
+t_args			*init_thread(t_map *map, t_pos min, t_pos max);
 void			multi_thread(t_map *map, void *function);
 
 void			pause_on(t_map *map);

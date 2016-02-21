@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/21 13:40:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/21 14:54:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,11 +57,21 @@ int		**init_grid(int row, int col)
 
 void	draw(t_map *map)
 {
+	t_args *arg;
+
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
 	//init_image(map, 0x000000);
-	multi_thread(map, ray);
+	if (map->multithread)
+		multi_thread(map, ray);
+	else
+	{
+		arg = init_thread(map, getpos(0,0), getpos(WIDTH, 0));
+		ray(arg);
+		//printf("singlethread\n");
+		free(arg);
+	}
 	if (map->pause)
 		pause_on(map);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);	
@@ -96,6 +106,7 @@ void	init_map(t_map *map)
 	map->width = 15;
 	map->grid = init_grid(map->height, map->width);
 	map->tex = init_tex_array(9);
+	map->multithread = 1;
 	map->pause = 0;
 	map->pos.x = 2.5;
 	map->pos.y = 2.5;
