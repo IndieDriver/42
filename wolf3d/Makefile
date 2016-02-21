@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/18 11:49:16 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/21 13:25:58 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,12 +16,12 @@ SRC =	main.c			\
 		draw.c			\
 		hook.c			\
 		ray.c			\
-		draw_line.c		\
 		move.c			\
 		ppmreader.c		\
 		texture.c		\
 		mmap.c			\
 		pause.c			\
+		thread.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
@@ -30,7 +30,7 @@ RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
 LIB_PATH = ./libft/ /usr/local/lib/
-LIB_NAME = -lft -lmlx -framework OpenGL -framework AppKit
+LIB_NAME = -lft -lpthread -lmlx -framework OpenGL -framework AppKit
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)
 

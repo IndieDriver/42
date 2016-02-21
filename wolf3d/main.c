@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 15:41:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/21 13:40:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int		**init_grid(int row, int col)
 	grid[8][8] = 6;
 	grid[1][7] = 6;
 	grid[1][5] = 7;
-	grid[2][3] = 9;
+	grid[2][3] = 1;
 	return (grid);
 }
 
@@ -61,14 +61,14 @@ void	draw(t_map *map)
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
 	//init_image(map, 0x000000);
-	ray(map);
+	multi_thread(map, ray);
 	if (map->pause)
 		pause_on(map);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);	
 	if (map->pause)
 		mlx_string_put(map->env.mlx, map->env.win,
 				(WIDTH /2) - 24, (HEIGHT / 2) - 10, 0xffffff, "PAUSE");
-	draw_mmap(map);
+	//draw_mmap(map);
 	mlx_destroy_image(map->env.mlx,map->img.img);
 }
 void	print_grid(t_map *map)

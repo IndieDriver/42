@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 11:51:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/21 13:36:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
+# include <pthread.h>
 #include <stdio.h>
 # include "libft.h"
 # define WIDTH 720
@@ -106,6 +107,13 @@ typedef struct	s_map
 	t_vec		cvec;
 }				t_map;
 
+typedef struct	s_args
+{
+	t_map		*m;
+	t_pos		min;
+	t_pos		max;
+}				t_args;
+
 void			draw(t_map *map);
 int				get_hex_color(t_map *map, int x, int y);
 t_pos			get_pos(int x, int y);
@@ -121,7 +129,7 @@ int				loop_hook(t_map *map);
 void			rotate(t_map *map);
 void			move(t_map *map);
 	
-void			ray(t_map *map);
+void			ray(void *args);
 void			draw_wall_slice(t_map *map, t_pos pos, t_tex tex);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 int				**get_texture(char *file_name, int size);
@@ -130,6 +138,7 @@ int				***init_tex_array(int nb);
 void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
 void			draw_mmap(t_map *map);
+void			multi_thread(t_map *map, void *function);
 
 void			pause_on(t_map *map);
 #endif

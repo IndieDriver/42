@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 17:22:34 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/21 13:37:16 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,33 +74,33 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, t_dda *value)
 			fabs((pos.y - raypos.y + (1 - value->sy) / 2) / raydir.y));
 }
 
-void	ray(t_map *map)
+void	ray(void *args)
 {
-	int		i;
 	double	height;
 	t_vec	raypos;
-	t_vec	raydir;
+	t_vec	rdir;
 	t_dda	value;
 	t_tex	tex;
+	t_args	*a;
 
-	i = 0;
-	while (i < WIDTH)
+	a = args;
+	while (a->min.x < a->max.x)
 	{
-		raypos.x = map->pos.x;
-		raypos.y = map->pos.y;
-		raydir.x = map->dirvec.x + map->cvec.x * (double)(2.0 * i / WIDTH - 1);
-		raydir.y = map->dirvec.y + map->cvec.y * (double)(2.0 * i / WIDTH - 1);
-		height = dda(map, raypos, raydir, &value);
+		raypos.x = a->m->pos.x;
+		raypos.y = a->m->pos.y;
+		rdir.x = a->m->dirvec.x + a->m->cvec.x * (double)(2.0 * a->min.x / WIDTH - 1);
+		rdir.y = a->m->dirvec.y + a->m->cvec.y * (double)(2.0 * a->min.x / WIDTH - 1);
+		height = dda(a->m, raypos, rdir, &value);
 		if (value.side == 0)
-			tex.wallcord = raypos.y + height * raydir.y;
+			tex.wallcord = raypos.y + height * rdir.y;
 		else
-			tex.wallcord = raypos.x + height * raydir.x;
+			tex.wallcord = raypos.x + height * rdir.x;
 		tex.wallcord -= floor(tex.wallcord);
 		tex.x = (int)(tex.wallcord * 64.0);
-		if ((value.side == 0 && raydir.x > 0) || (value.side && raydir.y < 0))
+		if ((value.side == 0 && rdir.x > 0) || (value.side && rdir.y < 0))
 			tex.x = 64 - tex.x - 1;
-		tex.id = map->grid[value.pos.x][value.pos.y] - 1;
-		draw_wall_slice(map, get_pos(i, fabs(HEIGHT / height)), tex);
-		i++;
+		tex.id = a->m->grid[value.pos.x][value.pos.y] - 1;
+		draw_wall_slice(a->m, get_pos(a->min.x, fabs(HEIGHT / height)), tex);
+		a->min.x++;
 	}
 }
