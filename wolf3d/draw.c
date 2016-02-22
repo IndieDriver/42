@@ -20,11 +20,11 @@ int		get_hex_color(t_map *map, int x, int y)
 	unsigned char blue;
 	
 	if (x < 0 || x > WIDTH - 1 || y < 0 || y > HEIGHT - 1)
-		return (0);
+		return (0xFFFFFF);
 	red = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8];
 	green = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1];
 	blue = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2];
-	return (red << 16 | green << 8 | blue);
+	return (blue << 16 | green << 8 | red);
 }
 
 t_pos	get_pos(int x, int y)
@@ -40,10 +40,7 @@ void	draw_slice(t_map *map, t_pos from, t_pos to, int color)
 {
 	while (from.y < to.y)
 	{
-		if (from.y == to.y - 1 && map->aa)
-			anti_aliasing(map, from, color, 1);
-		else
-			draw_pixel_to_image(map, from.x, from.y, color);
+		draw_pixel_to_image(map, from.x, from.y, color);
 		from.y++;
 	}
 }

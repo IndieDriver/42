@@ -29,6 +29,8 @@ void	draw(t_map *map)
 	}
 	if (map->pause)
 		pause_on(map);
+	if (map->aa)
+		anti_aliasing(map);
 	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);	
 	if (map->pause)
 		mlx_string_put(map->env.mlx, map->env.win,

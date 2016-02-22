@@ -143,7 +143,7 @@ void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
 void			draw_mmap(t_map *map);
 
-void			anti_aliasing(t_map *map, t_pos pos, int color, int side);
+void			anti_aliasing(t_map *map);
 
 t_args			*init_thread(t_map *map, t_pos min, t_pos max);
 void			multi_thread(t_map *map, void *function);
