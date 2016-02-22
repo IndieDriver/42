@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 14:24:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 15:32:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct	s_map
 	t_img		img;
 	t_img		mmap;
 	int			multithread;
+	int			aa;
 	int			type;
 	int			pause;
 	int			**grid;
@@ -142,7 +143,8 @@ void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
 void			draw_mmap(t_map *map);
 
-//t_pos			getpos(int x, int y);
+void			anti_aliasing(t_map *map, t_pos pos, int color, int side);
+
 t_args			*init_thread(t_map *map, t_pos min, t_pos max);
 void			multi_thread(t_map *map, void *function);
 

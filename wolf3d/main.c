@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 14:54:57 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 15:32:57 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	init_map(t_map *map)
 	map->grid = get_grid(map, "map");
 	map->tex = init_tex_array(9);
 	map->multithread = 1;
+	map->aa = 1;
 	map->pause = 0;
 	map->pos.x = 2.5;
 	map->pos.y = 2.5;

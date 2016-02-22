@@ -6,7 +6,7 @@
 /*   By: amathias <amathias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 13:28:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 17:00:58 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ int		get_hex_color(t_map *map, int x, int y)
 	unsigned char red;
 	unsigned char green;
 	unsigned char blue;
-
+	
+	if (x < 0 || x > WIDTH - 1 || y < 0 || y > HEIGHT - 1)
+		return (0);
 	red = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8];
 	green = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1];
 	blue = map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2];
@@ -38,7 +40,10 @@ void	draw_slice(t_map *map, t_pos from, t_pos to, int color)
 {
 	while (from.y < to.y)
 	{
-		draw_pixel_to_image(map, from.x, from.y, color);
+		if (from.y == to.y - 1 && map->aa)
+			anti_aliasing(map, from, color, 1);
+		else
+			draw_pixel_to_image(map, from.x, from.y, color);
 		from.y++;
 	}
 }
@@ -51,10 +56,10 @@ void	draw_wall_slice(t_map *map, t_pos pos, t_tex tex)
 	to.x = pos.x;
 	from.x = pos.x;
 	from.y = (HEIGHT / 2) - (pos.y / 2);
-	to.y = (HEIGHT / 2) + (pos.y / 2);
+	to.y = (HEIGHT / 2) + (pos.y / 2);	
+	draw_tex(map, from, to, tex);
 	draw_slice(map, get_pos(pos.x, 0), from, 0x00b2ee);
 	draw_slice(map, get_pos(pos.x,to.y), get_pos(pos.x, HEIGHT - 1), 0x003547);
-	draw_tex(map, from, to, tex);
 }
 
 void	draw_pixel_to_image(t_map *map, int x, int y, int color)

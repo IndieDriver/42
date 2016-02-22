@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/22 13:37:14 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/22 15:31:32 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC =	main.c			\
 		mmap.c			\
 		pause.c			\
 		thread.c		\
+		antialiasing.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = wolf3d
