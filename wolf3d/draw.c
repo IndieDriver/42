@@ -6,7 +6,7 @@
 /*   By: amathias <amathias@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/21 13:44:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/21 12:51:02 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 13:28:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,22 +73,4 @@ void	draw_pixel_to_image(t_map *map, int x, int y, int color)
 	map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8] = blue;
 	map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 1] = green;
 	map->img.data[y * map->img.size_line + (x * map->img.bpp) / 8 + 2] = red;
-}
-
-void	init_image(t_map *map, int color)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < HEIGHT)
-	{
-		j = 0;
-		while (j < WIDTH)
-		{
-			draw_pixel_to_image(map, j, i, color);
-			j++;
-		}
-		i++;
-	}
 }

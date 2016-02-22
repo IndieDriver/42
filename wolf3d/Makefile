@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/21 13:25:58 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/22 13:37:14 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRC =	main.c			\
 		draw.c			\
 		hook.c			\
 		ray.c			\
+		grid.c			\
 		move.c			\
 		ppmreader.c		\
 		texture.c		\

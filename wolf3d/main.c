@@ -6,54 +6,11 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/21 14:54:24 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 14:54:57 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
-
-int		**init_grid(int row, int col)
-{
-	int i;
-	int j;
-	int **grid;
-
-	i = 0;
-	if ((grid = (int**)malloc(sizeof(int*) * row)) == NULL)
-		return (NULL);
-	while (i < row)
-	{
-		if ((grid[i] = (int*)malloc(sizeof(int) * col)) == NULL)
-			return(NULL);
-		j = 0;
-		while (j < col)
-		{
-			if (j == 0 || j == col - 1 || i == 0 || i == row - 1)
-				grid[i][j] = 1;
-			else
-				grid[i][j] = 0;
-			j++;
-		}
-		i++;
-	}
-	/*i = 0;
-	while (i < 400)
-	{
-		grid[rand() % 99][rand () % 99] = 1;
-		i++;
-	} */
-	grid[1][1] = 0;
-	grid[3][3] = 2;
-	grid[4][4] = 3;
-	grid[5][5] = 4;
-	grid[6][6] = 5;
-	grid[7][7] = 5;
-	grid[8][8] = 6;
-	grid[1][7] = 6;
-	grid[1][5] = 7;
-	grid[2][3] = 1;
-	return (grid);
-}
 
 void	draw(t_map *map)
 {
@@ -62,14 +19,12 @@ void	draw(t_map *map)
 	map->img.img = mlx_new_image(map->env.mlx, WIDTH, HEIGHT);
 	map->img.data = mlx_get_data_addr(map->img.img, &(map->img.bpp),
 			&(map->img.size_line), &(map->img.endian));
-	//init_image(map, 0x000000);
 	if (map->multithread)
 		multi_thread(map, ray);
 	else
 	{
-		arg = init_thread(map, getpos(0,0), getpos(WIDTH, 0));
+		arg = init_thread(map, get_pos(0,0), get_pos(WIDTH, 0));
 		ray(arg);
-		//printf("singlethread\n");
 		free(arg);
 	}
 	if (map->pause)
@@ -81,6 +36,7 @@ void	draw(t_map *map)
 	//draw_mmap(map);
 	mlx_destroy_image(map->env.mlx,map->img.img);
 }
+
 void	print_grid(t_map *map)
 {
 	int i;
@@ -102,9 +58,9 @@ void	print_grid(t_map *map)
 
 void	init_map(t_map *map)
 {
-	map->height = 15;
-	map->width = 15;
-	map->grid = init_grid(map->height, map->width);
+	map->height = 32;
+	map->width = 16;
+	map->grid = get_grid(map, "map");
 	map->tex = init_tex_array(9);
 	map->multithread = 1;
 	map->pause = 0;

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/21 13:37:16 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 14:01:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, t_dda *value)
 	delta.x = sqrt(1.0 + (raydir.y * raydir.y) / (raydir.x * raydir.x));
 	delta.y = sqrt(1.0 + (raydir.x * raydir.x) / (raydir.y * raydir.y));
 	*value = init_dda(pos, delta, raypos, raydir);
-	while (pos.x > -1 && pos.x < map->width
-			  && pos.y > -1 && pos.y < map->height)
+	while (pos.x > -1 && pos.x < map->height
+			  && pos.y > -1 && pos.y < map->width)
 	{
 		if (value->dx < value->dy)
 		{

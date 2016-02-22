@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/21 14:38:17 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/22 14:24:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,12 +135,14 @@ void			draw_wall_slice(t_map *map, t_pos pos, t_tex tex);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 int				**get_texture(char *file_name, int size);
 
+int				**get_grid(t_map *map, char *file_name);
+
 int				***init_tex_array(int nb);
 void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
 
 void			draw_mmap(t_map *map);
 
-t_pos			getpos(int x, int y);
+//t_pos			getpos(int x, int y);
 t_args			*init_thread(t_map *map, t_pos min, t_pos max);
 void			multi_thread(t_map *map, void *function);
 
