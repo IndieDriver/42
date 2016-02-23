@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 15:37:04 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/23 11:14:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,6 @@ int		key_press(int keycode, t_map *map)
 			map->key.left = 1;
 		if (keycode == 36)
 			map->multithread = map->multithread == 0 ? 1 : 0;
-		if (keycode == 258)
-		{
-			map->aa = map->aa == 0 ? 1 : 0;
-			printf("aa %d\n", map->aa);
-			draw(map);
-		}
 
 	}
 	if (keycode == 35)

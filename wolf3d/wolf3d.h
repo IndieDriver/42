@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 15:32:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/23 11:13:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,6 @@ typedef struct	s_map
 	t_img		img;
 	t_img		mmap;
 	int			multithread;
-	int			aa;
 	int			type;
 	int			pause;
 	int			**grid;
