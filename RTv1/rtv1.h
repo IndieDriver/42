@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 13:29:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/23 15:31:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 # define RTV1_H
 # include <mlx.h>
 # include <math.h>
+# include <fcntl.h>
 #include <stdio.h>
+# include "shape.h"
 # include "libft.h"
 # define WIDTH 720
 # define HEIGHT 480
@@ -52,30 +54,13 @@ typedef struct 	s_pos
 	int			y;
 	int			color;
 }				t_pos;
-
-typedef struct	s_dda
-{
-	double		dx;
-	double		dy;
-	int			sx;
-	int			sy;
-	int			side;
-	t_pos		pos;
-}				t_dda;
-
+/*
 typedef struct	s_vec
 {
 	double		x;
 	double		y;
 }				t_vec;
-
-typedef struct	s_tex
-{
-	int			id;
-	double		wallcord;
-	int			x;
-}				t_tex;
-
+*/
 typedef struct	s_key
 {
 	int			up;
@@ -89,22 +74,13 @@ typedef struct	s_key
 typedef struct	s_map
 {
 	t_env		env;
+	t_scene		scene;
 	t_img		img;
-	int			**grid;
-	int			height;
-	int			width;
 	t_key		key;
 	t_vec		pos;
 	t_vec		dirvec;
 	t_vec		cvec;
 }				t_map;
-
-typedef struct	s_args
-{
-	t_map		*m;
-	t_pos		min;
-	t_pos		max;
-}				t_args;
 
 void			draw(t_map *map);
 int				get_hex_color(t_map *map, int x, int y);
@@ -116,4 +92,8 @@ int				key_press(int keycode, t_map *map);
 int				key_hook(int keycode, t_map *map);
 void			init_key(t_map *map);
 int				loop_hook(t_map *map);
+
+void			parse_file(t_map *map, char *file_name);
+double			ft_atoi_double(char *str);
+int				contain(char *str, char *str2);
 #endif

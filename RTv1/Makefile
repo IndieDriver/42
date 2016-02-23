@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/23 13:22:55 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/23 14:38:16 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,8 @@ INC = /
 SRC =	main.c			\
 		draw.c			\
 		hook.c			\
+		parser.c		\
+		parser_utils.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1
