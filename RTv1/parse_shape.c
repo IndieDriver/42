@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 17:08:17 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/24 18:05:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,13 @@ void	get_vec(char **line_split, int type, t_vec *vec)
 	free(line_split);
 }
 
-void	get_sphere(char **file, t_sphere *sph, int line)
+t_sphere	*get_sphere(char **file, int line)
 {
+	t_sphere *sph;
+
+	printf("sphere\n");
+	if (!(sph = (t_sphere*)malloc(sizeof(t_sphere))))
+		ft_parse_error(1);
 	line++;
 	while(file[line])
 	{
@@ -48,12 +53,16 @@ void	get_sphere(char **file, t_sphere *sph, int line)
 			break ;
 		line++;
 	}
+	return (sph);
 }
 
-void	get_plan(char **file, t_plan *plan, int line)
+t_plan		*get_plan(char **file, int line)
 {
+	t_plan *plan;
+
+	if (!(plan = (t_plan*)malloc(sizeof(t_plan))))
+		ft_parse_error(1);
 	line++;
-	(void)plan;
 	while (file[line])
 	{
 		if (contain(file[line], "rgb:"))
@@ -63,10 +72,15 @@ void	get_plan(char **file, t_plan *plan, int line)
 			break ;
 		line++;
 	}
+	return (plan);
 }
 
-void	get_cylinder(char **file, t_cylinder *cyl, int line)
+t_cylinder	*get_cylinder(char **file, int line)
 {
+	t_cylinder *cyl;
+
+	if (!(cyl = (t_cylinder*)malloc(sizeof(t_cylinder))))
+		ft_parse_error(1);
 	line++;
 	while (file[line])
 	{
@@ -80,10 +94,15 @@ void	get_cylinder(char **file, t_cylinder *cyl, int line)
 			break ;
 		line++;
 	}
+	return (cyl);
 }
 
-void	get_cone(char **file, t_cone *cone, int line)
+t_cone *get_cone(char **file, int line)
 {
+	t_cone *cone;
+
+	if (!(cone = (t_cone*)malloc(sizeof(t_cone))))
+		ft_parse_error(1);
 	line++;
 	while (file[line])
 	{
@@ -96,7 +115,6 @@ void	get_cone(char **file, t_cone *cone, int line)
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;
 		line++;
-
 	}
-
+	return (cone);
 }

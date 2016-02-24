@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:45:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 17:08:20 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/24 18:11:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	parse_file(t_map *map, char *file_name)
 			get_object(file, &scene, i);
 		i++;
 	}
-	printf("sphere pos: x: %f| y: %f| z: %f|color: %#08x\n", scene.sphere->pos.x,
-			scene.sphere->pos.y, scene.sphere->pos.z, scene.sphere->color);
+	printf("sphere pos: x: %f| y: %f| z: %f|color: %#08x\n", scene.sphere[0].pos.x,
+			scene.sphere[0].pos.y, scene.sphere[0].pos.z, scene.sphere[0].color);
 	map->scene = scene;
 }

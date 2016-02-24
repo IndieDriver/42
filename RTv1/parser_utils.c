@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 14:27:27 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 17:08:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/24 17:25:13 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int    ft_atoi_hex(char *line)
 	int    i;
 	int    add;
 
-	i = 0;
+	i = -1;
 	nbr = 0;
+	while (line[i++])
+		line[i] = ft_toupper(line[i]);
+	i = 0;
 	if (ft_strlen(line) == 0)
 		ft_parse_error(6);
 	while ((line[i] >= '0' && line[i] <= '9')
 			|| (line[i] >= 'A' && line[i] <= 'F'))
 	{
-		if (line[i] > '9')
-			add = 9 + line[i] - 'A' + 1;
-		else
-			add = line[i] - '0';
+		add = line[i] > '9' ? 9 + line[i] - 'A' + 1 : line[i] - '0';
 		nbr = nbr * 16 + add;
 		i++;
 	}

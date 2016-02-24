@@ -9,3 +9,7 @@ object:
 		pos: 0.0 100.0 30.0
 		rayon: 50.0
 		rgb: 0x00FF00
+	sphere:
+		pos: 12.0 42.0 22.0
+		rayon: 20.0
+		rgb: 0xff0000
