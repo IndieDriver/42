@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 16:44:54 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/24 17:03:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,6 @@ typedef struct	s_vec
 	double		z;
 	double		dir;
 }				t_vec;
-
-typedef struct	s_scene
-{
-	t_vec		pos;
-	int			w;
-	int			h;
-}				t_scene;
 
 typedef struct	s_plan
 {
@@ -56,4 +49,14 @@ typedef struct	s_cone
 	int			color;
 }				t_cone;
 
+typedef struct	s_scene
+{
+	t_vec		pos;
+	int			w;
+	int			h;
+	t_sphere	*sphere;
+	t_plan		*plan;
+	t_cylinder	*cylinder;
+	t_cone		*cone;
+}				t_scene;
 #endif

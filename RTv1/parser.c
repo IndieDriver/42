@@ -6,75 +6,88 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:45:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 16:45:06 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/24 17:08:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_object(int fd)
+void	ft_parse_error(int type)
 {
-	(void)fd;
-}
-
-t_vec	process_scene(char **line_split, int type)
-{
-	t_vec vec;
-	int i;
-
 	if (type == 1)
-	{
-		vec.x = ft_atoi_double(line_split[0]);
-		vec.y = ft_atoi_double(line_split[1]);
-		vec.z = ft_atoi_double(line_split[2]);
-		vec.dir = ft_atoi_double(line_split[3]);
-	}
-	else
-	{
-		
-	}
-	i = 0;
-	while (line_split[i])
-	{
-		free(line_split[i]);
-		i++;
-	}
-	free(line_split);
-	return (vec);
+		ft_putstr("malloc error\n");
+	if (type == 2)
+		ft_putstr("invalid file\n");
+	if (type == 3)
+		ft_putstr("camera need 4 args (e.g: camera: 0.0 0.0 0.0 0.0)\n");
+	if (type == 4)
+		ft_putstr("screen need 2 args (e.g: screen: 720 480)\n");
+	if (type == 5)
+		ft_putstr("invalid number of args\n");
+	if (type == 6)
+		ft_putstr("invalid color format (e.g: rgb: 0xFF0000)\n");
+	exit(0);
 }
 
-t_scene	get_scene(int fd)
+int		get_row_nb(char *file_name)
 {
-	t_scene scene;
-	char *line;
+	char	buf[2];
+	int		lnb;
+	int		fd;
 
+	lnb = 0;
+	if ((fd = open(file_name, O_RDONLY)) == -1)
+		return (-1);
+	while (read(fd, &buf, 1))
+	{
+		if (buf[0] == '\n')
+			lnb++;
+	}
+	if (close(fd) == -1)
+		return (-1);
+	return (lnb);
+}
+
+char	**get_file(char *file_name)
+{
+	char	**file;
+	char	*line;
+	int		fd;
+	int		i;
+
+	i = 0;
+	if (!(file = (char**)malloc(sizeof(char*) * get_row_nb(file_name) + 1)))
+		return (NULL);
+	if ((fd = open(file_name, O_RDONLY)) == -1)
+		return (NULL);
 	while (get_next_line(fd, &line) == 1)
 	{
-		if (contain(line, "camera:"))
-			scene.pos = process_scene(ft_strsplit(ft_strchr(line, ':') + 1, ' '));
-		if (contain(line, "screen:"))
-			scene.pos
-		free(line);
+		file[i] = line;
+		i++;
 	}
-
-	printf("camera| x: %f| y: %f| z: %f| dir: %f\n",scene.pos.x,
-			scene.pos.y, scene.pos.z, scene.pos.dir);
-	return (scene);
+	file[i] = NULL;
+	if (close(fd) == -1)
+		return (NULL);
+	return (file);
 }
 
 void	parse_file(t_map *map, char *file_name)
 {
-	char *line;
-	int fd;
+	char **file;
+	t_scene scene;
+	int i;
 
-	(void)map;
-	if ((fd = open(file_name, O_RDONLY)) == -1)
-		return ;
-	while (get_next_line(fd, &line) == 1)
+	i = 0;
+	file = get_file(file_name);
+	while (file[i] != NULL)
 	{
-		if (contain(line, "scene:"))
-			map->scene = get_scene(fd);
-		if (contain(line, "object:"))
-			get_object(fd);
+		if (contain(file[i], "scene:"))
+			get_scene(file, &scene, i);
+		if (contain(file[i], "object:"))
+			get_object(file, &scene, i);
+		i++;
 	}
+	printf("sphere pos: x: %f| y: %f| z: %f|color: %#08x\n", scene.sphere->pos.x,
+			scene.sphere->pos.y, scene.sphere->pos.z, scene.sphere->color);
+	map->scene = scene;
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 15:31:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/24 16:56:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,21 @@ void			init_key(t_map *map);
 int				loop_hook(t_map *map);
 
 void			parse_file(t_map *map, char *file_name);
+
+void			process_scene(char **line_split, int type, t_scene *scene);
+
+void			get_scene(char **file, t_scene *scene, int line);
+void			get_object(char **file, t_scene *scene, int line);
+
+void			get_sphere(char **file, t_sphere *sphere, int line);
+void			get_plan(char **file, t_plan *plan, int line);
+void			get_cone(char **file, t_cone *cone, int line);
+void			get_cylinder(char **file, t_cylinder *cyl, int line);
+
+char			**get_file(char *file_name);
+int				is_line_split_valid(char **line_split, int nb);
+int				ft_atoi_hex(char *line);
 double			ft_atoi_double(char *str);
 int				contain(char *str, char *str2);
+void			ft_parse_error(int type);
 #endif
