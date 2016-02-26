@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/24 16:30:29 by amathias         ###   ########.fr        #
+#    Updated: 2016/02/26 02:03:05 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ INC = /
 SRC =	main.c			\
 		draw.c			\
 		hook.c			\
+		raytracer.c		\
 		parser.c		\
 		parse_scene.c	\
 		parse_object.c	\

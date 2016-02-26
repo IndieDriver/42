@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 17:47:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/26 05:10:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ typedef struct	s_scene
 	t_vec		pos;
 	int			w;
 	int			h;
+	t_vec		raydir;
+	t_vec		rayvec;
 	t_sphere	*sphere;
 	t_plan		*plan;
 	t_cylinder	*cylinder;

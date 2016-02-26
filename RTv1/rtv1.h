@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 17:51:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/26 02:02:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int				key_press(int keycode, t_map *map);
 int				key_hook(int keycode, t_map *map);
 void			init_key(t_map *map);
 int				loop_hook(t_map *map);
+
+void			raytracer(t_map *map);
 
 void			parse_file(t_map *map, char *file_name);
 
