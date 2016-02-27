@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 13:46:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 17:26:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		expose_hook(t_map *map)
 int		loop_hook(t_map *map)
 {
 	(void)map;
+	//move(map);
 	return (0);
 }
 

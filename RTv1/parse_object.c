@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:13:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 14:11:01 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 15:22:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,21 @@ int 	count_w(char **file, int line, char *word)
 
 void	malloc_objects(char **file, t_scene *scene, int line)
 {
-	if (!(scene->sphere = (t_sphere*)malloc((sizeof(t_sphere)
-					* count_w(file, line, "sphere:")) + 1)))
+	scene->nb_sph = count_w(file, line, "sphere:");
+	scene->nb_plan = count_w(file, line, "plan:");
+	scene->nb_cone = count_w(file, line, "cylinder:");
+	scene->nb_cyl = count_w(file, line, "cone:");
+	if (!(scene->sphere = (t_sphere*)malloc(sizeof(t_sphere)
+					* scene->nb_sph)))
 		ft_parse_error(1);
-	if (!(scene->plan = (t_plan*)malloc((sizeof(t_plan)
-					* count_w(file, line, "plan:")) + 1)))
+	if (!(scene->plan = (t_plan*)malloc(sizeof(t_plan)
+					* scene->nb_plan)))
 		ft_parse_error(1);
-	if (!(scene->cylinder = (t_cylinder*)malloc((sizeof(t_cylinder)
-					* count_w(file, line, "cylinder:")) + 1)))
+	if (!(scene->cylinder = (t_cylinder*)malloc(sizeof(t_cylinder)
+					* scene->nb_cyl)))
 		ft_parse_error(1);
-	if (!(scene->cone = (t_cone*)malloc((sizeof(t_cone)
-					* count_w(file, line, "cone:")) + 1)))
+	if (!(scene->cone = (t_cone*)malloc(sizeof(t_cone)
+					* scene->nb_cone)))
 		ft_parse_error(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 13:54:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 17:09:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void			draw(t_map *map);
 int				get_hex_color(t_map *map, int x, int y);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
+void			move(t_map *map);
 
 int				expose_hook(t_map *map);
 int				key_press(int keycode, t_map *map);
@@ -94,6 +95,15 @@ void			init_key(t_map *map);
 int				loop_hook(t_map *map);
 
 void			raytracer(t_map *map);
+void			ray(t_map *map, int x, int y);
+
+double			getdist_sph(t_map *map, t_sphere s, t_vec ray);
+double			getdist_plan(t_map *map, t_plan p, t_vec ray);
+
+t_sphere		*iter_sph(t_map *map);
+t_plan			*iter_plan(t_map *map);
+
+void			iter(t_map *map, int x, int y);
 
 void			parse_file(t_map *map, char *file_name);
 

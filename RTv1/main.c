@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/26 03:52:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 17:11:53 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int		main(int arc, char **arv)
 	e.win = mlx_new_window(e.mlx, map->scene.w, map->scene.h, "RTv1");
 	map->env = e;
 	mlx_key_hook(e.win, key_hook, map);
-	//mlx_hook(e.win, 2, (1L << 0), key_press, map);
-	//mlx_loop_hook(e.mlx, loop_hook, map);
+	mlx_hook(e.win, 2, (1L << 0), key_press, map);
+	mlx_loop_hook(e.mlx, loop_hook, map);
 	mlx_expose_hook(e.win, expose_hook, map);
 	mlx_loop(e.mlx);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 14:08:04 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 16:14:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ typedef struct	s_vec
 
 typedef struct	s_plan
 {
+	double		t;
 	t_vec		pos;
 	int			color;
 }				t_plan;
 
 typedef struct	s_sphere
 {
+	double		t;
 	t_vec		pos;
 	double		radius;
 	int			color;
@@ -37,6 +39,7 @@ typedef struct	s_sphere
 
 typedef struct	s_cylinder
 {
+	double		t;
 	t_vec		pos;
 	double		radius;
 	int			color;
@@ -44,6 +47,7 @@ typedef struct	s_cylinder
 
 typedef struct	s_cone
 {
+	double		t;
 	t_vec		pos;
 	double		base_radius;
 	int			color;
@@ -54,6 +58,10 @@ typedef struct	s_scene
 	t_vec		pos;
 	int			w;
 	int			h;
+	int			nb_sph;
+	int			nb_plan;
+	int			nb_cone;
+	int			nb_cyl;
 	t_vec		raydir;
 	t_vec		rayvec;
 	t_sphere	*sphere;
