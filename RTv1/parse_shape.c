@@ -6,23 +6,24 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 18:05:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 14:34:11 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	get_vec(char **line_split, int type, t_vec *vec)
+t_vec	get_vec(char **line_split, int type)
 {
+	t_vec vec;
 	int i;
 
 	if (!is_line_split_valid(line_split, 3))
 		ft_parse_error(5);
 	if (type == 1)
 	{
-		vec->x = ft_atoi_double(line_split[0]);
-		vec->y = ft_atoi_double(line_split[1]);
-		vec->z = ft_atoi_double(line_split[2]);
+		vec.x = ft_atoi_double(line_split[0]);
+		vec.y = ft_atoi_double(line_split[1]);
+		vec.z = ft_atoi_double(line_split[2]);
 	}
 	i = 0;
 	while (line_split[i])
@@ -31,28 +32,28 @@ void	get_vec(char **line_split, int type, t_vec *vec)
 		i++;
 	}
 	free(line_split);
+	return (vec);
 }
 
-t_sphere	*get_sphere(char **file, int line)
+t_sphere	get_sphere(char **file, int line)
 {
-	t_sphere *sph;
+	t_sphere sph;
 
-	printf("sphere\n");
-	if (!(sph = (t_sphere*)malloc(sizeof(t_sphere))))
-		ft_parse_error(1);
+	//if (!(sph = (t_sphere*)malloc(sizeof(t_sphere))))
+	//	ft_parse_error(1);
 	line++;
 	while(file[line])
 	{
 		if (contain(file[line], "rgb:"))
-			sph->color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);		
+			sph.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);		
 		if (contain(file[line], "pos:"))
-			get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1,
-					&sph->pos);
+			sph.pos = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;
 		line++;
 	}
+	printf("pos.x: %f| y: %f|z: %f\n", sph.pos.x, sph.pos.y, sph.pos.z);
 	return (sph);
 }
 
@@ -85,8 +86,7 @@ t_cylinder	*get_cylinder(char **file, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "pos:"))
-			get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1,
-					&cyl->pos);
+			cyl->pos = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1);
 		if (contain(file[line], "rgb:"))
 			cyl->color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
@@ -107,8 +107,7 @@ t_cone *get_cone(char **file, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "pos:"))
-			get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1,
-					&cone->pos);
+			cone->pos = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1);
 		if (contain(file[line], "rgb:"))
 			cone->color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);	
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")

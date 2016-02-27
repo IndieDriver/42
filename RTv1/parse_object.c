@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:13:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 18:11:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/27 14:11:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	get_object(char **file, t_scene *scene, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "sphere:"))
-			scene->sphere[sphere++] = *get_sphere(file, line);	
+			scene->sphere[sphere++] = get_sphere(file, line);	
 		if (contain(file[line], "plan:"))
 			scene->plan[plan++] = *get_plan(file, line);	
 		if (contain(file[line], "cylinder:"))
