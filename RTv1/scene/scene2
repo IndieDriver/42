@@ -1,0 +1,15 @@
+scene:
+	camera: 0.0 -20.0 250.0 0.0
+	screen:	1000 800
+
+object:
+	plan:
+		rgb: 0xFF0000
+	sphere:
+		pos: 0.0 0.0 0.0
+		rayon: 75.0
+		rgb: 0x0000FF
+	sphere:
+		pos: 60.0 0.0 50.0
+		rayon: 75.0
+		rgb: 0x00FF00

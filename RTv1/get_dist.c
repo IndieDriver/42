@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:41:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 17:26:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/28 13:52:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,15 @@ double	getdist_plan(t_map *map, t_plan plan, t_vec ray)
 	
 	(void)plan;
 	(void)map;
-	nor.x = 1.0;
+	nor.x = 0.0;
 	nor.y = 1.0;
-	nor.z = 1.0;
-	t = -(((nor.x * 0.0) + (nor.y * 0.0) + (nor.z * 0.0))
+	nor.z = 0.0;
+	t = -(((nor.x * (map->scene.pos.x - 0.0)) +
+			(nor.y * (map->scene.pos.y - 0.0)) +
+			 (nor.z * (map->scene.pos.z - 0.0)))
 			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
-	if (t != 0.0)
-		return (-1);
+	if (t < 0.0)
+		return (-1.0);
 	//printf("t: %f\n", t);
 	return (t);
 }

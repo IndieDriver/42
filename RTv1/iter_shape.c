@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:22:34 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 17:04:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/28 13:32:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,24 @@ void	iter(t_map *map, int x, int y)
 {
 	t_sphere	*sph;
 	t_plan		*plan;
+	double		t;
 	//t_cylinder	*cyl;
 	//t_cone		*cone;
 
+	t = -1.0;
 	sph = iter_sph(map);
 	plan = iter_plan(map);
 	if (plan)
-		draw_pixel_to_image(map, x, y, plan->color);
-	if (sph)
+		t = plan->t;
+	if (t == -1 && sph)	
 		draw_pixel_to_image(map, x, y, sph->color);
+	if (plan && !sph)
+		draw_pixel_to_image(map, x, y, plan->color);
+	if (plan && sph)
+	{
+		if (plan->t < sph->t)
+			draw_pixel_to_image(map, x, y, plan->color);	
+		else
+			draw_pixel_to_image(map, x, y, sph->color);
+	}
 }
