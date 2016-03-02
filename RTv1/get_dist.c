@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:41:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/28 13:52:17 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/02 15:13:54 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double	getdist_sph(t_map *map, t_sphere s, t_vec ray)
+double	getdist_sph(t_sphere s, t_vec ray, t_vec opos)
 {
 	double a;
 	double b;
@@ -21,12 +21,12 @@ double	getdist_sph(t_map *map, t_sphere s, t_vec ray)
 	double t;
 
 	a = ray.x * ray.x + ray.y * ray.y + ray.z * ray.z;
-	b = 2.0 * (ray.x * (map->scene.pos.x - s.pos.x)
-		+ ray.y * (map->scene.pos.y - s.pos.y)
-		+ ray.z * (map->scene.pos.z - s.pos.z));
-	c = (map->scene.pos.x - s.pos.x) * (map->scene.pos.x - s.pos.x)
-		+ (map->scene.pos.y - s.pos.y) * (map->scene.pos.y - s.pos.y)
-		+ (map->scene.pos.z - s.pos.z) * (map->scene.pos.z - s.pos.z)
+	b = 2.0 * (ray.x * (opos.x - s.pos.x)
+		+ ray.y * (opos.y - s.pos.y)
+		+ ray.z * (opos.z - s.pos.z));
+	c = (opos.x - s.pos.x) * (opos.x - s.pos.x)
+		+ (opos.y - s.pos.y) * (opos.y - s.pos.y)
+		+ (opos.z - s.pos.z) * (opos.z - s.pos.z)
 		- s.radius * s.radius;
 	d = (b * b) - (4 * a * c);
 	if (d >= 0.0)
@@ -40,22 +40,20 @@ double	getdist_sph(t_map *map, t_sphere s, t_vec ray)
 	return (t);
 }
 
-double	getdist_plan(t_map *map, t_plan plan, t_vec ray)
+double	getdist_plan(t_plan plan, t_vec ray, t_vec opos)
 {
 	t_vec nor;
 	double t;
 	
 	(void)plan;
-	(void)map;
 	nor.x = 0.0;
 	nor.y = 1.0;
 	nor.z = 0.0;
-	t = -(((nor.x * (map->scene.pos.x - 0.0)) +
-			(nor.y * (map->scene.pos.y - 0.0)) +
-			 (nor.z * (map->scene.pos.z - 0.0)))
+	t = -(((nor.x * (opos.x - 0.0)) +
+			(nor.y * (opos.y - 0.0)) +
+			 (nor.z * (opos.z - 0.0)))
 			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
 	if (t < 0.0)
 		return (-1.0);
-	//printf("t: %f\n", t);
 	return (t);
 }

@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:22:34 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/28 13:32:37 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/02 16:31:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_sphere	*iter_sph(t_map *map)
+t_sphere	*iter_sph(t_map *map, t_vec ray, t_vec opos)
 {
 	int id;
 	int i;
@@ -21,8 +21,7 @@ t_sphere	*iter_sph(t_map *map)
 	id = -1;
 	while (i < map->scene.nb_sph)
 	{
-		map->scene.sphere[i].t =
-			getdist_sph(map, map->scene.sphere[i], map->scene.rayvec);
+		map->scene.sphere[i].t = getdist_sph(map->scene.sphere[i], ray, opos);
 		if (map->scene.sphere[i].t >= 0.0)
 		{
 			if (id == -1)
@@ -37,7 +36,7 @@ t_sphere	*iter_sph(t_map *map)
 	return (NULL);
 }
 
-t_plan	*iter_plan(t_map *map)
+t_plan	*iter_plan(t_map *map, t_vec ray, t_vec opos)
 {
 	int id;
 	int i;
@@ -46,8 +45,7 @@ t_plan	*iter_plan(t_map *map)
 	id = -1;
 	while (i < map->scene.nb_plan)
 	{
-		map->scene.plan[i].t =
-			getdist_plan(map, map->scene.plan[i], map->scene.rayvec);
+		map->scene.plan[i].t = getdist_plan(map->scene.plan[i], ray, opos);
 		if (map->scene.plan[i].t >= 0.0)
 		{
 			if (id == -1)
@@ -62,28 +60,16 @@ t_plan	*iter_plan(t_map *map)
 	return (NULL);
 }
 
-void	iter(t_map *map, int x, int y)
+void	*iter(t_map *map, t_vec ray, t_vec opos)
 {
 	t_sphere	*sph;
 	t_plan		*plan;
-	double		t;
-	//t_cylinder	*cyl;
-	//t_cone		*cone;
-
-	t = -1.0;
-	sph = iter_sph(map);
-	plan = iter_plan(map);
-	if (plan)
-		t = plan->t;
-	if (t == -1 && sph)	
-		draw_pixel_to_image(map, x, y, sph->color);
-	if (plan && !sph)
-		draw_pixel_to_image(map, x, y, plan->color);
-	if (plan && sph)
-	{
-		if (plan->t < sph->t)
-			draw_pixel_to_image(map, x, y, plan->color);	
-		else
-			draw_pixel_to_image(map, x, y, sph->color);
-	}
+	t_cylinder	*cyl;
+	t_cone		*cone;
+	
+	cyl = NULL;
+	cone = NULL;
+	sph = iter_sph(map, ray, opos);
+	plan = iter_plan(map, ray, opos);
+	return (get_nearest(sph, plan, cyl, cone));
 }

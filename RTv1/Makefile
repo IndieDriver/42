@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/02/27 17:11:45 by amathias         ###   ########.fr        #
+#    Updated: 2016/03/02 12:09:37 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRC =	main.c			\
 		hook.c			\
 		raytracer.c		\
 		iter_shape.c	\
+		iter_utils.c	\
 		get_dist.c		\
 		parser.c		\
 		move.c			\

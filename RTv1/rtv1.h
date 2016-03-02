@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 17:09:28 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/02 16:31:21 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,28 +39,13 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_line
-{
-	int			dx;
-	int			dy;
-	int			sx;
-	int			sy;
-	int			err;
-}				t_line;
-
 typedef struct 	s_pos
 {
 	int			x;
 	int			y;
 	int			color;
 }				t_pos;
-/*
-typedef struct	s_vec
-{
-	double		x;
-	double		y;
-}				t_vec;
-*/
+
 typedef struct	s_key
 {
 	int			up;
@@ -95,15 +80,15 @@ void			init_key(t_map *map);
 int				loop_hook(t_map *map);
 
 void			raytracer(t_map *map);
-void			ray(t_map *map, int x, int y);
+//void			ray(t_map *map, int x, int y);
 
-double			getdist_sph(t_map *map, t_sphere s, t_vec ray);
-double			getdist_plan(t_map *map, t_plan p, t_vec ray);
+double			getdist_sph(t_sphere s, t_vec ray, t_vec opos);
+double			getdist_plan(t_plan p, t_vec ray, t_vec opos);
 
-t_sphere		*iter_sph(t_map *map);
-t_plan			*iter_plan(t_map *map);
+void			*iter(t_map *map, t_vec ray, t_vec opos);
 
-void			iter(t_map *map, int x, int y);
+void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
+					t_cone *cone);
 
 void			parse_file(t_map *map, char *file_name);
 
