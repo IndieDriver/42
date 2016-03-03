@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/03 17:24:35 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/03 17:47:34 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,10 @@ void	raytrace(t_map *map, int x, int y)
 					get_color(shape,
 						inter, ray_light(map, inter), shape->color));
 			}
+			else
+			{
+				draw_pixel_to_image(map, x, y, 0x000000);
+			}
 		}
 	}
 }
@@ -69,7 +73,7 @@ void	raytracer(t_map *map)
 	y = 0;
 	map->scene.sphere[0].radius = 25.0;
 	map->scene.sphere[1].radius = 25.0;
-	map->scene.light.x = 20.0;
+	map->scene.light.x = 250.0;
 	map->scene.light.y = -20.0;
 	map->scene.light.z = 250.0;
 	while (y < map->scene.h)
