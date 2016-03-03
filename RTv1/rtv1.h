@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/02 16:31:21 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/03 15:38:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,18 +80,27 @@ void			init_key(t_map *map);
 int				loop_hook(t_map *map);
 
 void			raytracer(t_map *map);
-//void			ray(t_map *map, int x, int y);
 
 double			getdist_sph(t_sphere s, t_vec ray, t_vec opos);
 double			getdist_plan(t_plan p, t_vec ray, t_vec opos);
+
+t_vec			get_normal(void *shape, t_vec inter);
 
 void			*iter(t_map *map, t_vec ray, t_vec opos);
 
 void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
 					t_cone *cone);
 
-void			parse_file(t_map *map, char *file_name);
+int				get_color(void *shape, t_vec inter, t_vec light, int color);
 
+t_vec			ray_viewplane(t_map *map, int x, int y);
+t_vec			ray_light(t_map *map, t_vec inter);
+t_vec			ray_inter(t_map *map, t_vec ray, double t);
+
+void			vec_normalize(t_vec *vec);
+double			vec_dotproduct(t_vec v1, t_vec v2);
+
+void			parse_file(t_map *map, char *file_name);
 void			process_scene(char **line_split, int type, t_scene *scene);
 
 void			get_scene(char **file, t_scene *scene, int line);

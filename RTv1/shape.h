@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/02 15:42:51 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/03 13:18:33 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_plan
 {
 	double		t;
 	int			color;
+	int			type;
 	t_vec		pos;
 }				t_plan;
 
@@ -33,6 +34,7 @@ typedef struct	s_sphere
 {
 	double		t;
 	int			color;
+	int			type;
 	t_vec		pos;
 	double		radius;
 }				t_sphere;
@@ -41,6 +43,7 @@ typedef struct	s_cylinder
 {
 	double		t;
 	int			color;
+	int			type;
 	t_vec		pos;
 	double		radius;
 }				t_cylinder;
@@ -49,6 +52,7 @@ typedef struct	s_cone
 {
 	double		t;
 	int			color;
+	int			type;
 	t_vec		pos;
 	double		base_radius;
 }				t_cone;

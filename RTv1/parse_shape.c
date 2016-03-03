@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 14:34:11 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/03 13:19:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ t_sphere	get_sphere(char **file, int line)
 	//if (!(sph = (t_sphere*)malloc(sizeof(t_sphere))))
 	//	ft_parse_error(1);
 	line++;
+	sph.type = 1;
 	while(file[line])
 	{
 		if (contain(file[line], "rgb:"))
@@ -63,6 +64,7 @@ t_plan		*get_plan(char **file, int line)
 
 	if (!(plan = (t_plan*)malloc(sizeof(t_plan))))
 		ft_parse_error(1);
+	plan->type = 2;
 	line++;
 	while (file[line])
 	{
@@ -83,6 +85,7 @@ t_cylinder	*get_cylinder(char **file, int line)
 	if (!(cyl = (t_cylinder*)malloc(sizeof(t_cylinder))))
 		ft_parse_error(1);
 	line++;
+	cyl->type = 3;
 	while (file[line])
 	{
 		if (contain(file[line], "pos:"))
@@ -104,6 +107,7 @@ t_cone *get_cone(char **file, int line)
 	if (!(cone = (t_cone*)malloc(sizeof(t_cone))))
 		ft_parse_error(1);
 	line++;
+	cone->type = 4;
 	while (file[line])
 	{
 		if (contain(file[line], "pos:"))
