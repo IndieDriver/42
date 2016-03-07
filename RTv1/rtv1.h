@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/07 13:50:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/07 16:11:12 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,13 @@ t_vec			ray_shadow(t_map *map, t_vec inter, double offset_x,
 
 void			vec_normalize(t_vec *vec);
 double			vec_dotproduct(t_vec v1, t_vec v2);
+t_vec			vec_sub(t_vec v1, t_vec v2);
 
 int				get_shadow(t_map *map, void *shape, t_vec inter,
 					t_vec lightpos);
+
+int				get_reflection(t_map *map, t_vec normal, t_vec light,
+				int color, t_vec inter, double refl);
 
 void			parse_file(t_map *map, char *file_name);
 void			process_scene(char **line_split, int type, t_scene *scene);
