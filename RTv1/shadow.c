@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 10:23:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/07 15:21:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 11:53:49 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,12 @@ t_vec	get_lightpos(t_vec lightpos, double off_x, double off_y)
 
 int		get_shadow_color(int color, int nb)
 {
-	unsigned int red;
-	unsigned int green;
-	unsigned int blue;
-	double		div;
+	unsigned int	red;
+	unsigned int	green;
+	unsigned int	blue;
+	double			div;
 
-	printf("nb: %d\n",nb);
-	div = (((nb) * (1.0 - 0.1)) / 81.0) + 0.1;
-	printf("div: %f\n", div);
+	div = (((nb) * (1.4 - 0.4)) / 81.0) + 0.4;
 	red = (color & 0xFF0000) >> 16;
 	green = (color & 0xFF00) >> 8;
 	blue = color & 0xFF;
@@ -54,37 +52,34 @@ int		get_shadow_color(int color, int nb)
 	return (red << 16 | green << 8 | blue);
 }
 
+double	rand_double(void)
+{
+	return (rand() / (RAND_MAX / (2.0)));
+}
+
 int		get_shadow(t_map *map, void *shape, t_vec inter, t_vec lightpos)
 {
-	t_sphere *light;
-	int i;
-	int j;
-	double	off_x;
-	double	off_y;
-	int count;
-	t_sphere *sph;
+	t_sphere	*light;
+	t_pos		pos;
+	int			count;
+	t_sphere	*sph;
+	t_vec		offset;
 
 	sph = shape;
-	i = 0;
-	off_x = 2.0;
-	off_y = 2.0;
+	pos.y = -1;
 	count = 0;
-	while (i < 9)
+	while (++pos.y < 9 && (pos.x = -1))
 	{
-		j = 0;
-		while (j < 9)
+		while (++pos.x < 9)
 		{
+			offset.x = (pos.x * 2.0) + rand_double();
+			offset.y = (pos.y * 2.0) + rand_double();
 			light = (t_sphere*)iter(map,
-				ray_light(inter, get_lightpos(lightpos, j * off_x, i * off_y))
-				, get_lightpos(lightpos, j * off_x, i * off_y));
+				ray_light(inter, get_lightpos(lightpos, offset.x, offset.y))
+				, get_lightpos(lightpos, offset.x, offset.y));
 			if (shape == light)
 				count++;
-			j++;
 		}
-		i++;
 	}
-	//color = get_shadow_color(color, count);	
-	//color = 0x000000;
-	//printf("%#08x\n", color);
 	return (get_shadow_color(sph->color, count));
 }

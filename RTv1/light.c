@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 14:16:51 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/07 16:14:25 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 10:47:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,17 @@ int		get_color(void *shape, t_vec inter, t_vec light, int color)
 	t_vec	nor;
 	double	angle;
 	int		c;
+	t_sphere *sph;
 
+	sph = shape;
 	nor = get_normal(shape, inter);
 	angle = acos(vec_dotproduct(nor, light));	
-	printf("angle:%f\n", angle);
+	//printf("angle:%f\n", angle);
 	if (angle <= 0)
 		c = 0xFFFFFF;
 	else
 		c = light_rgb(color, angle * 0.8);
+	if (sph->type == 2)
+		return (sph->color);
 	return (c);
 }
