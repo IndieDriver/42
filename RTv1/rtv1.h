@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/07 16:11:12 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:29:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
 					t_cone *cone);
 
 int				get_color(void *shape, t_vec inter, t_vec light, int color);
+int				light_rgb(int rgb, double angle);
 
 t_vec			ray_viewplane(t_map *map, int x, int y);
 t_vec			ray_light(t_vec inter, t_vec light_pos);
@@ -102,12 +103,12 @@ t_vec			ray_shadow(t_map *map, t_vec inter, double offset_x,
 void			vec_normalize(t_vec *vec);
 double			vec_dotproduct(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
+t_vec			vec_multbyscalar(t_vec vec, double sca);
 
-int				get_shadow(t_map *map, void *shape, t_vec inter,
-					t_vec lightpos);
+int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
 
-int				get_reflection(t_map *map, t_vec normal, t_vec light,
-				int color, t_vec inter, double refl);
+int				get_reflection(t_map *map, void *shape, t_vec light,
+				t_vec inter, int color);
 
 void			parse_file(t_map *map, char *file_name);
 void			process_scene(char **line_split, int type, t_scene *scene);

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 14:16:51 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/09 10:47:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 18:05:44 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ int        light_rgb(int rgb, double angle)
 	red = red > 255 ? 255 : red;
 	blue = blue > 255 ? 255 : blue;
 	green = green > 255 ? 255 : green;
-	//printf("red: %#08x| green: %#08x| blue: %#08x\n", red, green, blue);
 	rgb = red << 16 | green << 8 | blue;
-	//printf("color after: %#08x\n", rgb);
 	return (rgb);
 }
 
@@ -43,11 +41,10 @@ int		get_color(void *shape, t_vec inter, t_vec light, int color)
 	sph = shape;
 	nor = get_normal(shape, inter);
 	angle = acos(vec_dotproduct(nor, light));	
-	//printf("angle:%f\n", angle);
 	if (angle <= 0)
-		c = 0xFFFFFF;
+		c = 0x000000;
 	else
-		c = light_rgb(color, angle * 0.8);
+		c = light_rgb(color, angle * 0.9);
 	if (sph->type == 2)
 		return (sph->color);
 	return (c);

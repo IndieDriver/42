@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 10:23:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/09 11:53:49 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:27:27 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_vec	init_lightpos(t_vec lightpos)
 {
 	t_vec light;
 
-	light.x = lightpos.x - 10.0;
+	light.x = lightpos.x - 20.0;
 	light.y = lightpos.y;
-	light.z = lightpos.z - 10.0;
+	light.z = lightpos.z - 20.0;
 	return (light);
 }
 
@@ -39,7 +39,7 @@ int		get_shadow_color(int color, int nb)
 	unsigned int	blue;
 	double			div;
 
-	div = (((nb) * (1.4 - 0.4)) / 81.0) + 0.4;
+	div = (((nb) * (1.7 - 0.4)) / 256.0) + 0.4;
 	red = (color & 0xFF0000) >> 16;
 	green = (color & 0xFF00) >> 8;
 	blue = color & 0xFF;
@@ -54,10 +54,10 @@ int		get_shadow_color(int color, int nb)
 
 double	rand_double(void)
 {
-	return (rand() / (RAND_MAX / (2.0)));
+	return (rand() / (RAND_MAX / (2.5)));
 }
 
-int		get_shadow(t_map *map, void *shape, t_vec inter, t_vec lightpos)
+int		get_shadow(t_map *map, void *shape, t_vec inter, int color)
 {
 	t_sphere	*light;
 	t_pos		pos;
@@ -68,18 +68,19 @@ int		get_shadow(t_map *map, void *shape, t_vec inter, t_vec lightpos)
 	sph = shape;
 	pos.y = -1;
 	count = 0;
-	while (++pos.y < 9 && (pos.x = -1))
+	while (++pos.y < 16 && (pos.x = -1))
 	{
-		while (++pos.x < 9)
+		while (++pos.x < 16)
 		{
-			offset.x = (pos.x * 2.0) + rand_double();
-			offset.y = (pos.y * 2.0) + rand_double();
+			offset.x = (pos.x * 2.5) + rand_double();
+			offset.y = (pos.y * 2.5) + rand_double();
 			light = (t_sphere*)iter(map,
-				ray_light(inter, get_lightpos(lightpos, offset.x, offset.y))
-				, get_lightpos(lightpos, offset.x, offset.y));
+				ray_light(inter, get_lightpos(map->scene.light, offset.x, offset.y))
+				, get_lightpos(map->scene.light, offset.x, offset.y));
 			if (shape == light)
 				count++;
 		}
 	}
-	return (get_shadow_color(sph->color, count));
+	return (get_shadow_color(get_color(shape, inter,
+					ray_light(inter, map->scene.light), color), count));
 }

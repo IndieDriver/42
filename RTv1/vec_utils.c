@@ -6,11 +6,22 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:15:30 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/07 16:11:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 15:09:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+t_vec	vec_multbyscalar(t_vec vec, double sca)
+{
+	t_vec mult;
+
+	mult.x = vec.x * sca;
+	mult.y = vec.y * sca;
+	mult.z = vec.z * sca;
+	vec_normalize(&mult);
+	return (mult);
+}
 
 void	vec_normalize(t_vec *vec)
 {
@@ -34,5 +45,6 @@ t_vec	vec_sub(t_vec v1, t_vec v2)
 	sub.x = v1.x - v2.x;
 	sub.y = v1.y - v2.y;
 	sub.z = v1.z - v2.z;
+	vec_normalize(&sub);
 	return (sub);
 }

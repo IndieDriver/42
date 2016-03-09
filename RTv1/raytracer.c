@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/07 16:15:02 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/09 18:05:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	raytrace(t_map *map, int x, int y)
 	t_sphere *light;
 	t_vec 		inter;
 	t_vec		ray;
+	int			color;
 
 	ray = ray_viewplane(map, x, y);
 	sh = (t_sphere*)iter(map, ray, map->scene.pos);
@@ -28,13 +29,19 @@ void	raytrace(t_map *map, int x, int y)
 				map->scene.light);
 		if (light)
 		{
+			color = sh->color;
+			//color = get_color(sh, inter, ray_light(inter,map->scene.light),
+			//		sh->color);
 			if (sh == light)
-				draw_pixel_to_image(map, x, y,
-					get_color(sh, inter, ray_light(inter, map->scene.light)
-					, sh->color));
-			else
-				draw_pixel_to_image(map, x, y,
-						get_shadow(map, sh, inter, map->scene.light));
+			{
+				color = get_color(sh, inter, ray_light(inter, map->scene.light),
+						sh->color);
+			}
+			else	
+				color = get_shadow(map, sh, inter, color);
+			color =	get_reflection(map, sh, ray_light(inter, map->scene.light),
+					inter, color);
+			draw_pixel_to_image(map, x, y, color);
 		}
 	}
 }
@@ -47,9 +54,9 @@ void	raytracer(t_map *map)
 	y = 0;
 	map->scene.sphere[0].radius = 25.0;
 	map->scene.sphere[1].radius = 25.0;
-	map->scene.light.x = -250.0;
-	map->scene.light.y = -100.0;
-	map->scene.light.z = -250.0;
+	map->scene.light.x = 250.0;
+	map->scene.light.y = -200.0;
+	map->scene.light.z = 250.0;
 	while (y < map->scene.h)
 	{
 		x = 0;
