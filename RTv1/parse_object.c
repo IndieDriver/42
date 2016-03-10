@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:13:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 15:22:11 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/10 16:39:27 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	malloc_objects(char **file, t_scene *scene, int line)
 {
 	scene->nb_sph = count_w(file, line, "sphere:");
 	scene->nb_plan = count_w(file, line, "plan:");
-	scene->nb_cone = count_w(file, line, "cylinder:");
-	scene->nb_cyl = count_w(file, line, "cone:");
+	scene->nb_cyl = count_w(file, line, "cylinder:");
+	scene->nb_cone = count_w(file, line, "cone:");
 	if (!(scene->sphere = (t_sphere*)malloc(sizeof(t_sphere)
 					* scene->nb_sph)))
 		ft_parse_error(1);

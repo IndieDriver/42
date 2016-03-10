@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/03 15:49:49 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/10 11:26:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_vec	get_normal_plan(void *shape)
 	vec_normalize(&nor);
 	return (nor);
 }
-
 
 t_vec	get_normal(void *shape, t_vec inter)
 {

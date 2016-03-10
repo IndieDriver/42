@@ -4,10 +4,6 @@ scene:
 
 object:
 	sphere:
-		pos: 0.0 -20.0 0.0
+		pos: 0.0 -40.0 0.0
 		rayon: 75.0
 		rgb: 0x0000FF
-	sphere:
-		pos: 60.0 -20.0 50.0
-		rayon: 75.0
-		rgb: 0x00FF00

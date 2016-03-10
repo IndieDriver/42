@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/09 18:05:41 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/10 15:21:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,14 @@ void	raytrace(t_map *map, int x, int y)
 		if (light)
 		{
 			color = sh->color;
-			//color = get_color(sh, inter, ray_light(inter,map->scene.light),
-			//		sh->color);
 			if (sh == light)
-			{
 				color = get_color(sh, inter, ray_light(inter, map->scene.light),
 						sh->color);
-			}
 			else	
 				color = get_shadow(map, sh, inter, color);
-			color =	get_reflection(map, sh, ray_light(inter, map->scene.light),
+			
+			if (sh->type == 1)
+				color =	get_reflection(map, sh, ray_light(inter, map->scene.light),
 					inter, color);
 			draw_pixel_to_image(map, x, y, color);
 		}
