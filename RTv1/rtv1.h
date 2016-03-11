@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/10 16:29:24 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/11 15:05:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ void			vec_normalize(t_vec *vec);
 double			vec_dotproduct(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_multbyscalar(t_vec vec, double sca);
+t_vec			vec_project(t_vec v1, t_vec v2);
 
 int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
 

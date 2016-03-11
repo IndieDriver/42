@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/03/09 14:21:42 by amathias         ###   ########.fr        #
+#    Updated: 2016/03/11 12:36:50 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRC =	main.c			\
 		iter_shape.c	\
 		iter_utils.c	\
 		get_dist.c		\
+		cylinder_dist.c	\
 		get_normal.c	\
 		get_ray.c		\
 		vec_utils.c		\
