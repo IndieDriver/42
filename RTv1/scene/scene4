@@ -4,6 +4,9 @@ scene:
 
 object:
 	cylinder:
-		pos: 0.0 0.0.0 0.0
+		pos: 0.00001 0.00001 0.00001
 		rayon: 75.0
 		rgb: 0x0000FF
+	sphere:
+		pos: 0.0 0.0 0.0
+		rgb: 0xFF0000

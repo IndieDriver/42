@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:15:30 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/11 15:51:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 15:03:37 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_vec	vec_multbyscalar(t_vec vec, double sca)
 	mult.x = vec.x * sca;
 	mult.y = vec.y * sca;
 	mult.z = vec.z * sca;
-	vec_normalize(&mult);
+	//vec_normalize(&mult);
 	return (mult);
 }
 
@@ -27,7 +27,7 @@ void	vec_normalize(t_vec *vec)
 {
 	double tmp;
 
-	tmp = 1.0 / sqrt((vec->x * vec->x) + (vec->y * vec->y) + (vec->z * vec->z));
+	tmp = 1.0 / sqrt(vec_dotproduct(*vec, *vec));
 	vec->x *= tmp;
 	vec->y *= tmp;
 	vec->z *= tmp;
@@ -44,9 +44,9 @@ t_vec	vec_project(t_vec v1, t_vec v2)
 	double tmp;
 
 	tmp = (vec_dotproduct(v1, v2) / vec_dotproduct(v2, v2));
-	pro.x = v2.x * tmp;
-	pro.y = v2.y * tmp;
-	pro.z = v2.z * tmp;
+	//printf("tmp: %f\n", tmp);
+	pro = vec_multbyscalar(v2, tmp);
+	//vec_normalize(&pro);
 	//printf("pro.x: %f|pro.y: %f|pro.z: %f\n", pro.x, pro.y, pro.z);
 	return (pro);
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/11 14:01:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 13:35:06 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	raytrace(t_map *map, int x, int y)
 		if (light)
 		{
 			color = sh->color;
-			if (sh == light)
-				color = get_color(sh, inter, ray_light(inter, map->scene.light),
-						sh->color);
-			else	
-				color = get_shadow(map, sh, inter, color);
+			//if (sh == light)
+			//	color = get_color(sh, inter, ray_light(inter, map->scene.light),
+			//			sh->color);
+			//else	
+			//	color = get_shadow(map, sh, inter, color);
 			
 			if (sh->type == 1)
 				color =	get_reflection(map, sh, ray_light(inter, map->scene.light),
@@ -63,6 +63,7 @@ void	raytracer(t_map *map)
 			raytrace(map, x, y);
 			x++;
 		}
+	//mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0,0);
 		y++;
 	}
 }
