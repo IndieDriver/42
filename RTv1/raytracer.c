@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/12 13:35:06 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 15:46:48 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,17 @@ void	raytrace(t_map *map, int x, int y)
 	sh = (t_sphere*)iter(map, ray, map->scene.pos);
 	if (sh)
 	{
-		inter = ray_inter(map, ray, sh->t);
+		inter = ray_inter(ray, map->scene.pos,sh->t);
 		light = (t_sphere*)iter(map, ray_light(inter, map->scene.light),
 				map->scene.light);
 		if (light)
 		{
 			color = sh->color;
-			//if (sh == light)
-			//	color = get_color(sh, inter, ray_light(inter, map->scene.light),
-			//			sh->color);
-			//else	
-			//	color = get_shadow(map, sh, inter, color);
+			if (sh == light)
+				color = get_color(sh, inter, ray_light(inter, map->scene.light),
+						sh->color);
+			else	
+				color = get_shadow(map, sh, inter, color);
 			
 			if (sh->type == 1)
 				color =	get_reflection(map, sh, ray_light(inter, map->scene.light),
@@ -51,10 +51,10 @@ void	raytracer(t_map *map)
 
 	y = 0;
 	map->scene.sphere[0].radius = 25.0;
-	//map->scene.sphere[1].radius = 25.0;
-	map->scene.light.x = 250.0;
+	map->scene.sphere[1].radius = 25.0;
+	map->scene.light.x = -250.0;
 	map->scene.light.y = -200.0;
-	map->scene.light.z = 250.0;
+	map->scene.light.z = -250.0;
 	while (y < map->scene.h)
 	{
 		x = 0;

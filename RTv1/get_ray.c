@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:18:33 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/11 15:20:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 15:41:49 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ t_vec	ray_shadow(t_map *map, t_vec inter, double offset_x, double offset_y)
 	return (sha);
 }
 
-t_vec	ray_inter(t_map *map, t_vec ray, double t)
+t_vec	ray_inter(t_vec ray, t_vec opos, double t)
 {
 	t_vec inter;
 
-	inter.x = map->scene.pos.x + ray.x * t;
-	inter.y = map->scene.pos.y + ray.y * t;
-	inter.z = map->scene.pos.z + ray.z * t;
+	inter.x = opos.x + ray.x * t;
+	inter.y = opos.y + ray.y * t;
+	inter.z = opos.z + ray.z * t;
 	return (inter);
 }
 

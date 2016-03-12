@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:22:34 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/12 12:45:12 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 15:52:16 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_cylinder	*iter_cyl(t_map *map, t_vec ray, t_vec opos)
 	id = -1;
 	while (i < map->scene.nb_cyl)
 	{
-		map->scene.cylinder[i].t = getdist_cyl(map->scene.cylinder[i], ray, opos);
+		map->scene.cylinder[i].t = getdist_cyl(&map->scene.cylinder[i], ray, opos);
 		if (map->scene.cylinder[i].t >= 0.0)
 		{
 			if (id == -1)

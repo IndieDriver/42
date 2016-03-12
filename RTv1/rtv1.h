@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/11 15:05:31 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 15:51:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void			raytracer(t_map *map);
 
 double			getdist_sph(t_sphere s, t_vec ray, t_vec opos);
 double			getdist_plan(t_plan p, t_vec ray, t_vec opos);
-double			getdist_cyl(t_cylinder cyl, t_vec ray, t_vec opos);
+double			getdist_cyl(t_cylinder *cyl, t_vec ray, t_vec opos);
 
 t_vec			get_normal(void *shape, t_vec inter);
 
@@ -97,7 +97,7 @@ int				light_rgb(int rgb, double angle);
 
 t_vec			ray_viewplane(t_map *map, int x, int y);
 t_vec			ray_light(t_vec inter, t_vec light_pos);
-t_vec			ray_inter(t_map *map, t_vec ray, double t);
+t_vec			ray_inter(t_vec ray, t_vec opos, double t);
 t_vec			ray_shadow(t_map *map, t_vec inter, double offset_x,
 				double offset_y);
 

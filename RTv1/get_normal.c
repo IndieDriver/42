@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/10 11:26:35 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/12 16:00:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,15 @@ t_vec	get_normal_sphere(void *shape, t_vec inter)
 	nor.z = inter.z - sph->pos.z;
 	vec_normalize(&nor);
 	return (nor);
+}
+
+t_vec	get_normal_cyl(void *shape)
+{
+	t_cylinder *cyl;
+
+	cyl = shape;
+	//printf("normal cyl\n");
+	return (cyl->nor);
 }
 
 t_vec	get_normal_plan(void *shape)
@@ -48,6 +57,8 @@ t_vec	get_normal(void *shape, t_vec inter)
 		return (get_normal_sphere(shape, inter));
 	else if (tmp->type == 2)
 		return (get_normal_plan(shape));
+	else if (tmp->type == 3)
+		return (get_normal_cyl(shape));
 	else
 		return (vec);
 }
