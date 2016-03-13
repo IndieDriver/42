@@ -1,5 +1,5 @@
 scene:
-	camera: 0.0 -20.0 400.0 0.0
+	camera: 0.0 -20.0 300.0 0.0
 	screen:	1000 800
 
 object:

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:34:45 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/10 16:01:57 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/13 14:49:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int        reflection(int rgb, double dot)
 	unsigned int    green;
 	unsigned int    blue;
 	
-	if (dot > 0.1)
-		return (rgb);
+	//if (dot > 0.1)
+	//	return (rgb);
 	red = (rgb & 0xFF0000) >> 16;
 	green = (rgb & 0xFF00) >> 8;
 	blue = rgb & 0xFF;
@@ -59,16 +59,16 @@ int		get_reflection(t_map *map, void *shape, t_vec light, t_vec inter, int color
 	(void)map;
 	sh = shape;
 	normal = get_normal(shape, inter);
-	if (vec_dotproduct(light, normal) < 0.0) //TODO: DEBUG THAT SHIT
-	{
+	//if (vec_dotproduct(light, normal) < 0.0) //TODO: DEBUG THAT SHIT
+	//{
 		r.x = light.x + normal.x;
 		r.y = light.y + normal.y;
 		r.z = light.z + normal.z;
 		vec_normalize(&r);
-		dot = fmax(vec_dotproduct(normal, r), 0.0);
+		dot = fmax(vec_dotproduct(r, normal), 0.0);
 		dot = pow(dot, 2.0);
 		return (reflection(color, dot));
 		
-	}
+	//}
 	return (color);
 }

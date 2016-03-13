@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/12 16:00:47 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/13 12:36:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_vec	get_normal_cyl(void *shape)
 	t_cylinder *cyl;
 
 	cyl = shape;
-	//printf("normal cyl\n");
+	//printf("cyl.x: %f|cyl.y: %f|cyl.z: %f\n", cyl->nor.x, cyl->nor.y, cyl->nor.z);
 	return (cyl->nor);
 }
 

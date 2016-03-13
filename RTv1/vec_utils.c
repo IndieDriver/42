@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:15:30 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/12 15:03:37 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/13 12:22:05 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_vec	vec_project(t_vec v1, t_vec v2)
 	tmp = (vec_dotproduct(v1, v2) / vec_dotproduct(v2, v2));
 	//printf("tmp: %f\n", tmp);
 	pro = vec_multbyscalar(v2, tmp);
-	//vec_normalize(&pro);
+	vec_normalize(&pro);
 	//printf("pro.x: %f|pro.y: %f|pro.z: %f\n", pro.x, pro.y, pro.z);
 	return (pro);
 }

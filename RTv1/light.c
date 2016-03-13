@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 14:16:51 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/12 16:00:51 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/13 13:56:58 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,12 @@ int		get_color(void *shape, t_vec inter, t_vec light, int color)
 
 	sph = shape;
 	nor = get_normal(shape, inter);
-	angle = acos(vec_dotproduct(nor, light));	
+	angle = acos(vec_dotproduct(nor, light));
 	if (angle <= 0)
 		c = 0x000000;
 	else
 		c = light_rgb(color, angle * 0.4);
-	//if (sph->type == 2)
-	//	return (sph->color);
+	if (sph->type == 2)
+		return (sph->color);
 	return (c);
 }
