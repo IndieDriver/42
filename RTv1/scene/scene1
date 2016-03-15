@@ -16,3 +16,6 @@ object:
 	cylinder:
 		pos: -50.0 0.0 -50.0
 		rgb: 0x0000FF
+	cone:
+		pos: 0.0 0.0 0.0
+		rgb: 0xFFFF00

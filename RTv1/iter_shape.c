@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:22:34 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/13 10:40:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/15 14:36:24 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,29 @@ t_cylinder	*iter_cyl(t_map *map, t_vec ray, t_vec opos)
 	return (NULL);
 }
 
+t_cone	*iter_cone(t_map *map, t_vec ray, t_vec opos)
+{
+	int id;
+	int i;
+
+	i = 0;
+	id = -1;
+	while (i < map->scene.nb_cone)
+	{
+		map->scene.cone[i].t = getdist_cone(&(map->scene.cone[i]), ray, opos);
+		if (map->scene.cone[i].t >= 0.0)
+		{
+			if (id == -1)
+				id = i;
+			if (map->scene.cone[i].t <= map->scene.cone[id].t)
+				id = i;
+		}
+		i++;
+	}
+	if (id != -1)
+		return (&(map->scene.cone[id]));
+	return (NULL);
+}
 
 void	*iter(t_map *map, t_vec ray, t_vec opos)
 {
@@ -93,7 +116,7 @@ void	*iter(t_map *map, t_vec ray, t_vec opos)
 	t_cone		*cone;
 	
 	cyl = iter_cyl(map, ray, opos);
-	cone = NULL;
+	cone = iter_cone(map, ray, opos);
 	sph = iter_sph(map, ray, opos);
 	plan = iter_plan(map, ray, opos);
 	return (get_nearest(sph, plan, cyl, cone));

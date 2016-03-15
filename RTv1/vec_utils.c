@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:15:30 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/13 12:22:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/15 11:16:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	vec_normalize(t_vec *vec)
 
 double	vec_dotproduct(t_vec v1, t_vec v2)
 {
-	return ((v1.x * v2.x) + (v1.y * v2.y) + (v1.z * v2.z));
+	return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z);
 }
 
 t_vec	vec_project(t_vec v1, t_vec v2)
@@ -58,6 +58,6 @@ t_vec	vec_sub(t_vec v1, t_vec v2)
 	sub.x = v1.x - v2.x;
 	sub.y = v1.y - v2.y;
 	sub.z = v1.z - v2.z;
-	vec_normalize(&sub);
+	//vec_normalize(&sub);
 	return (sub);
 }
