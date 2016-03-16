@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:04:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/15 14:36:26 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 12:29:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static t_vec	set_normal(t_cone s, t_vec ray, t_vec opos)
 
 	inter = ray_inter(ray, opos, s.t);
 	axis.x = 0.0;
-	axis.y = 1.0;
+	axis.y = -1.0;
 	axis.z = 0.0;	
 	vec_normalize(&axis);
 	m = ((ray.x * axis.x + ray.y * axis.y + ray.z * axis.z) * s.t)
@@ -43,26 +43,23 @@ double	getdist_cone(t_cone *s, t_vec ray, t_vec opos)
 	double c;
 	double d;
 	double t;
-	double k;
 	t_vec axis;
 
 	axis.x = 0.0;
-	axis.y = 1.0;
+	axis.y = -1.0;
 	axis.z = 0.0;
-	k = 1.0;
 	vec_normalize(&axis);
-	s->radius = 20.0;
-	a = vec_dotproduct(ray,ray) - (1 + (k * k)) *
+	s->k = 0.5;
+	a = vec_dotproduct(ray,ray) - (1.0 + (s->k * s->k)) *
 		(vec_dotproduct(ray, axis) * vec_dotproduct(ray, axis));
 	b = 2.0 * (vec_dotproduct(ray, vec_sub(opos, s->pos))
-			- (1 + (k * k))
+			- (1.0 + (s->k * s->k))
 			* (vec_dotproduct(ray, axis)
 			* vec_dotproduct(vec_sub(opos, s->pos), axis)));
 	c = vec_dotproduct(vec_sub(opos, s->pos), vec_sub(opos, s->pos))
-		- (1 + (k * k)) *
+		- (1.0 + (s->k * s->k)) *
 		(vec_dotproduct(vec_sub(opos, s->pos), axis)
-		* vec_dotproduct(vec_sub(opos, s->pos), axis))
-		- s->radius * s->radius;
+		* vec_dotproduct(vec_sub(opos, s->pos), axis));
 	d = (b * b) - (4 * a * c);
 	if (d >= 0.0)
 	{

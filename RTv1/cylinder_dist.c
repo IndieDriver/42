@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 12:31:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/15 14:04:29 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 12:29:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_vec	set_normal(t_cylinder s, t_vec ray, t_vec opos)
 
 	inter = ray_inter(ray, opos, s.t);
 	axis.x = 0.0;
-	axis.y = 1.0;
+	axis.y = -1.0;
 	axis.z = 0.0;	
 	vec_normalize(&axis);
 	m = ((ray.x * axis.x + ray.y * axis.y + ray.z * axis.z) * s.t)
@@ -47,7 +47,7 @@ double	getdist_cyl(t_cylinder *s, t_vec ray, t_vec opos)
 	t_vec axis;
 
 	axis.x = 0.0;
-	axis.y = 1.0;
+	axis.y = -1.0;
 	axis.z = 0.0;
 	vec_normalize(&axis);
 	s->radius = 20.0;

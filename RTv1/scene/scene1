@@ -10,12 +10,12 @@ object:
 		rayon: 50.0
 		rgb: 0x00FF00
 	sphere:
-		pos: 0.0 -30.0 -0.0
+		pos: 125.0 -30.0 -50.0
 		rayon: 50.0
 		rgb: 0x00FFFF
 	cylinder:
 		pos: -50.0 0.0 -50.0
 		rgb: 0x0000FF
 	cone:
-		pos: 0.0 0.0 0.0
+		pos: 0.0 -30.0 0.0
 		rgb: 0xFFFF00

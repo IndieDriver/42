@@ -3,10 +3,7 @@ scene:
 	screen:	1000 800
 
 object:
-	cylinder:
-		pos: 0.00001 0.00001 0.00001
-		rayon: 75.0
-		rgb: 0x0000FF
-	sphere:
+	cone:
 		pos: 0.0 0.0 0.0
-		rgb: 0xFF0000
+		rayon: 75.0
+		rgb: 0xFF

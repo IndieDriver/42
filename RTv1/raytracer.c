@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/13 14:49:29 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 12:29:54 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void	raytracer(t_map *map)
 		{
 			raytrace(map, x, y);
 			x++;
-		}
-	//mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0,0);
+		}	
+		//mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0,0);
 		y++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/15 14:06:34 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 11:02:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct	s_cone
 	int			color;
 	int			type;
 	t_vec		pos;
-	double		radius;
+	double		k;
 	t_vec		nor;
 }				t_cone;
 

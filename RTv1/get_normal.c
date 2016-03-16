@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/13 12:36:47 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 10:41:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ t_vec	get_normal_cyl(void *shape)
 	return (cyl->nor);
 }
 
+t_vec	get_normal_cone(void *shape)
+{
+	t_cone *cone;
+
+	cone = shape;
+	return (cone->nor);
+}
+
 t_vec	get_normal_plan(void *shape)
 {
 	t_plan *plan;
@@ -59,6 +67,8 @@ t_vec	get_normal(void *shape, t_vec inter)
 		return (get_normal_plan(shape));
 	else if (tmp->type == 3)
 		return (get_normal_cyl(shape));
+	else if (tmp->type == 4)
+		return (get_normal_cone(shape));
 	else
 		return (vec);
 }
