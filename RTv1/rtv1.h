@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/15 14:13:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 14:49:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,12 +118,14 @@ void			process_scene(char **line_split, int type, t_scene *scene);
 
 void			get_scene(char **file, t_scene *scene, int line);
 void			get_object(char **file, t_scene *scene, int line);
+void			get_vec_list(t_scene *scene, char **file, int line);
 
 t_sphere		get_sphere(char **file, int line);
 t_plan			*get_plan(char **file, int line);
 t_cone			*get_cone(char **file, int line);
 t_cylinder		*get_cylinder(char **file, int line);
 
+t_vec			get_vec(char **line_split, int type);
 char			**get_file(char *file_name);
 int				is_line_split_valid(char **line_split, int nb);
 int				ft_atoi_hex(char *line);

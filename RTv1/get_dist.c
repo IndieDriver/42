@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:41:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/15 14:13:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:42:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,17 +38,13 @@ double	getdist_sph(t_sphere s, t_vec ray, t_vec opos)
 
 double	getdist_plan(t_plan plan, t_vec ray, t_vec opos)
 {
-	t_vec	nor;
 	double	t;
 
-	(void)plan;
-	nor.x = 0.0;
-	nor.y = 1.0;
-	nor.z = 0.0;
-	t = -(((nor.x * (opos.x - 0.0)) +
-			(nor.y * (opos.y - 0.0)) +
-			(nor.z * (opos.z - 0.0)))
-			/ ((nor.x * ray.x) + (nor.y * ray.y) + (nor.z * ray.z)));
+	t = -(((plan.normal.x * (opos.x - plan.pos.x)) +
+			(plan.normal.y * (opos.y - plan.pos.y)) +
+			(plan.normal.z * (opos.z - plan.pos.z)))
+			/ ((plan.normal.x * ray.x) + (plan.normal.y * ray.y)
+				+ (plan.normal.z * ray.z)));
 	if (t < 0.0)
 		return (-1.0);
 	return (t);

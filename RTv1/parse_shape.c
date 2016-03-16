@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/03 13:19:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 16:00:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@ t_sphere	get_sphere(char **file, int line)
 			sph.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);		
 		if (contain(file[line], "pos:"))
 			sph.pos = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1);
+		if (contain(file[line], "radius"))
+			sph.radius = ft_atoi(ft_strchr(file[line], ':') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;
@@ -70,6 +72,12 @@ t_plan		*get_plan(char **file, int line)
 	{
 		if (contain(file[line], "rgb:"))
 			plan->color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);		
+		if (contain(file[line], "pos:"))
+			plan->pos = get_vec(ft_strsplit(ft_strchr(file[line], ':')
+			+ 1, ' '), 1);
+		if (contain(file[line], "normal:"))
+			plan->normal = get_vec(ft_strsplit(ft_strchr(file[line], ':')
+			+ 1, ' '), 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;
@@ -92,6 +100,8 @@ t_cylinder	*get_cylinder(char **file, int line)
 			cyl->pos = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1);
 		if (contain(file[line], "rgb:"))
 			cyl->color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
+		if (contain(file[line], "radius:"))
+			cyl->radius = ft_atoi(ft_strchr(file[line], ':') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;

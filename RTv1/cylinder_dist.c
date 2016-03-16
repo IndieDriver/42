@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 12:31:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 12:29:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 13:42:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ double	getdist_cyl(t_cylinder *s, t_vec ray, t_vec opos)
 	axis.y = -1.0;
 	axis.z = 0.0;
 	vec_normalize(&axis);
-	s->radius = 20.0;
 	a = vec_dotproduct(ray,ray) -
 		(vec_dotproduct(ray, axis) * vec_dotproduct(ray, axis));
 	b = 2.0 * (vec_dotproduct(ray, vec_sub(opos, s->pos))

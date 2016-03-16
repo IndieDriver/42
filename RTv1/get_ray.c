@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:18:33 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/12 15:41:49 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:14:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_vec	ray_shadow(t_map *map, t_vec inter, double offset_x, double offset_y)
 {
 	t_vec sha;
 
-	sha.x = (inter.x - map->scene.light.x) - offset_x;
-	sha.y = (inter.y - map->scene.light.y) - offset_y;
-	sha.z = (inter.z - map->scene.light.z);
+	sha.x = (inter.x - map->scene.light->x) - offset_x;
+	sha.y = (inter.y - map->scene.light->y) - offset_y;
+	sha.z = (inter.z - map->scene.light->z);
 	vec_normalize(&sha);
 	return (sha);
 }

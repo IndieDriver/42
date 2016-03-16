@@ -1,17 +1,27 @@
 scene:
 	camera: 0.0 -20.0 300.0 0.0
 	screen:	1000 800
-
+	spot: 0.0 -20.0 250.0
 object:
 	plan:
+		pos: 0.0 0.0 0.0
+		normal: 0.0 1.0 0.0
 		rgb: 0xFF0000
+	plan:
+		pos: 0.0 0.0 -200.0
+		normal: 0.0 0.0 1.0
+		rgb: 0xFFFFFF
+	plan:
+		pos: -100.0 0.0 0.0
+		normal: 1.0 0.0 0.0
+		rgb: 0xFFFFFF
 	sphere:
 		pos: 75.0 -40.0 50.0
-		rayon: 50.0
+		radius: 25.0
 		rgb: 0x00FF00
 	sphere:
 		pos: 125.0 -30.0 -50.0
-		rayon: 50.0
+		radius: 25.0
 		rgb: 0x00FFFF
 	cylinder:
 		pos: -50.0 0.0 -50.0

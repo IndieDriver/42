@@ -1,9 +1,67 @@
 scene:
-	camera: 0.0 -20.0 250.0 0.0
+	camera: 0.0 -50.0 250.0 0.0
 	screen:	1000 800
+	spot: 125.0 -50.0 200.0
+	spot: -125.0 -50.0 200.0
 
 object:
-	cone:
+	plan:
 		pos: 0.0 0.0 0.0
-		rayon: 75.0
-		rgb: 0xFF
+		normal: 0.0 1.0 0.0
+		rgb: 0xFFFFFF
+	plan:
+		pos: 0.0 0.0 -300.0
+		normal: 0.0 0.0 1.0
+		rgb: 0x0000FF
+	plan:
+		pos: 0.0 -100.0 0.0
+		normal: 0.0 1.0 0.0
+		rgb: 0xFFFFFF
+	cylinder:
+		pos: 50.0 0.0 50.0
+		radius: 10.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: 50.0 0.0 50.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: 50.0 -100.0 50.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	cylinder:
+		pos: -50.0 0.0 50.0
+		radius: 10.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: -50.0 0.0 50.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: -50.0 -100.0 50.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	cylinder:
+		pos: 50.0 0.0 -100.0
+		radius: 10.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: 50.0 0.0 -100.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: 50.0 -100.0 -100.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	cylinder:
+		pos: -50.0 0.0 -100.0
+		radius: 10.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: -50.0 0.0 -100.0
+		radius: 15.0
+		rgb: 0xFFFFFF
+	sphere:
+		pos: -50.0 -100.0 -100.0
+		radius: 15.0
+		rgb: 0xFFFFFF

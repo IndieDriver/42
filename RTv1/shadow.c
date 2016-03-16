@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 10:23:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/10 13:01:15 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:14:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		get_shadow(t_map *map, void *shape, t_vec inter, int color)
 	sph = shape;
 	pos.y = -1;
 	count = 0;
-	//printf("inter.x: %f| inter.y: %f| inter.z: %f\n", inter.z, inter.z, inter.z);
+	return (get_shadow_color(color, 0));
 	while (++pos.y < 16 && (pos.x = -1))
 	{
 		while (++pos.x < 16)
@@ -76,12 +76,12 @@ int		get_shadow(t_map *map, void *shape, t_vec inter, int color)
 			offset.x = (pos.x * 2.5) + rand_double();
 			offset.y = (pos.y * 2.5) + rand_double();
 			light = (t_sphere*)iter(map,
-				ray_light(inter, get_lightpos(map->scene.light, offset.x, offset.y))
-				, get_lightpos(map->scene.light, offset.x, offset.y));
+				ray_light(inter, get_lightpos(*map->scene.light, offset.x, offset.y))
+				, get_lightpos(*map->scene.light, offset.x, offset.y));
 			if (shape == light)
 				count++;
 		}
 	}
 	return (get_shadow_color(get_color(shape, inter,
-					ray_light(inter, map->scene.light), color), count));
+					ray_light(inter, *map->scene.light), color), count));
 }

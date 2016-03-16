@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:39:08 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/24 16:24:33 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/16 15:53:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,20 @@ void	get_scene(char **file, t_scene *sc, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "camera:"))
-			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1, sc);
+			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1,
+				sc);
 		if (contain(file[line], "screen:"))
 		{
-			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 0, sc);
-			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 0, sc);
+			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 0,
+				sc);
+			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 0,
+				sc);
 		}
 		if (sc->w != 0 && sc->h != 0)
 			break ;
 		line++;
 	}
+	get_vec_list(sc, file, 0);
 	printf("camera| x: %f| y: %f| z: %f| dir: %f\n",sc->pos.x,
 			sc->pos.y, sc->pos.z, sc->pos.dir);
 	printf("w: %d|h: %d\n", sc->w, sc->h);
