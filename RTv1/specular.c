@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:34:45 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 11:31:31 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/17 16:57:58 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,20 @@ int        reflection(int rgb, double dot)
 	unsigned int    red;
 	unsigned int    green;
 	unsigned int    blue;
+	double			div;
 	
-	//if (dot > 0.1)
-	//	return (rgb);
+	if (dot > 0.01)
+		return (rgb);
 	red = (rgb & 0xFF0000) >> 16;
 	green = (rgb & 0xFF00) >> 8;
 	blue = rgb & 0xFF;
-	dot = 1.0 - dot;
-	//red = (red + (0xFF) * dot) / 2;
-	//blue = (blue + (0xFF) * dot) / 2;
-	//green = (green + (0xFF) * dot) / 2;
-	red *= dot;
-	blue *= dot;
-	green *= dot;
+	div = ((dot * (2.0 - 0.0)) / 0.01) + 0.0;
+	red = (red + (0xFF / div)) / 2;
+	blue = (blue + (0xFF / div)) / 2;
+	green = (green + (0xFF / div)) / 2;
+	red = red < (rgb & 0xFF0000) >> 16 ? (rgb & 0xFF0000) >> 16 : red;
+	green = green < (rgb & 0xFF00) >> 8 ? (rgb & 0xFF00) >> 8 : green;
+	blue = blue < (rgb & 0xFF) ? (rgb & 0xFF) : blue;
 	red = red > 255 ? 255 : red;
 	blue = blue > 255 ? 255 : blue;
 	green = green > 255 ? 255 : green;
@@ -43,9 +44,7 @@ int		get_reflected_shape(t_map *map, t_vec ray, t_vec inter, int color)
 
 	sh = (t_sphere*)iter(map, ray, inter);
 	if (sh)
-	{
 		return (sh->color);
-	}
 	return (color);
 }	
 
@@ -59,16 +58,11 @@ int		get_reflection(t_map *map, void *shape, t_vec light, t_vec inter, int color
 	(void)map;
 	sh = shape;
 	normal = get_normal(shape, inter);
-	//if (vec_dotproduct(light, normal) < 0.0) //TODO: DEBUG THAT SHIT
-	//{
-		r.x = light.x + normal.x;
-		r.y = light.y + normal.y;
-		r.z = light.z + normal.z;
-		vec_normalize(&r);
-		dot = fmax(vec_dotproduct(r, normal), 0.0);
-		dot = pow(dot, 2.0);
-		return (reflection(get_color(shape, inter, light, color), dot));
-		
-	//}
-	return (color);
+	r.x = light.x + normal.x;
+	r.y = light.y + normal.y;
+	r.z = light.z + normal.z;
+	vec_normalize(&r);
+	dot = fmax(vec_dotproduct(r, normal), 0.0);
+	dot = pow(dot, 2.0);
+	return (reflection(get_color(shape, inter, light, color), dot));
 }

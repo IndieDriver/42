@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:18:33 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 15:14:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/17 10:44:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_vec	ray_viewplane(t_map *map, int x, int y)
 
 	ray.x = (x - (map->scene.w / 2));
 	ray.y = (y - (map->scene.h / 2));
-	ray.z = -(map->scene.w / (2 * tan((45 / 2) * M_PI / 180.0)));
+	ray.z = -(map->scene.w / (2 * tan((60 / 2) * M_PI / 180.0)));
 	vec_normalize(&ray);
 	return (ray);
 }

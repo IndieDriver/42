@@ -6,34 +6,31 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 12:31:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 13:42:28 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/17 14:24:31 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 
-t_vec	set_normal(t_cylinder s, t_vec ray, t_vec opos)
+t_vec	set_normal(t_cylinder s, t_vec ray, t_vec opos, double t)
 {
 	t_vec nor;
 	double m;
 	t_vec axis;
 	t_vec inter;
 
-	inter = ray_inter(ray, opos, s.t);
+	inter = ray_inter(ray, opos, t);
 	axis.x = 0.0;
-	axis.y = -1.0;
+	axis.y = 1.0;
 	axis.z = 0.0;	
 	vec_normalize(&axis);
-	m = ((ray.x * axis.x + ray.y * axis.y + ray.z * axis.z) * s.t)
-		+ ((opos.x - s.pos.x) * axis.x
-		+ (opos.y - s.pos.y) * axis.y
-		+ (opos.z - s.pos.z) * axis.z);
-	nor.x = ((ray.x * s.t) + (opos.x - s.pos.x)) - (axis.x * m);
-	nor.y = ((ray.y * s.t) + (opos.y - s.pos.y)) - (axis.y * m);
-	nor.z = ((ray.z * s.t) + (opos.z - s.pos.z)) - (axis.z * m);
+	m = (vec_dotproduct(ray, axis) * t)
+		+ vec_dotproduct(vec_sub(opos, s.pos), axis);
+	nor.x = (ray.x * t) + (opos.x - s.pos.x) - axis.x * m;
+	nor.y = (ray.y * t) + (opos.y - s.pos.y) - axis.y * m;
+	nor.z = (ray.z * t) + (opos.z - s.pos.z) - axis.z * m;
 	vec_normalize(&nor);
-	//printf("nor.x %f|nor.y %f|nor.z %f\n", nor.x, nor.y, nor.z);
 	return (nor);
 }
 
@@ -47,7 +44,7 @@ double	getdist_cyl(t_cylinder *s, t_vec ray, t_vec opos)
 	t_vec axis;
 
 	axis.x = 0.0;
-	axis.y = -1.0;
+	axis.y = 1.0;
 	axis.z = 0.0;
 	vec_normalize(&axis);
 	a = vec_dotproduct(ray,ray) -
@@ -66,7 +63,7 @@ double	getdist_cyl(t_cylinder *s, t_vec ray, t_vec opos)
 		if ((-b - sqrt(d)) / (2.0 * a) < t)
 			t = (-b - sqrt(d)) / (2.0 * a);
 		s->t = t;
-		s->nor = set_normal(*s, ray, opos);
+		s->nor = set_normal(*s, ray, opos, t);
 	}
 	else
 		return (-1.0);

@@ -8,7 +8,7 @@ object:
 	plan:
 		pos: 0.0 0.0 0.0
 		normal: 0.0 1.0 0.0
-		rgb: 0xFFFFFF
+		rgb: 0xFF0000
 	plan:
 		pos: 0.0 0.0 -300.0
 		normal: 0.0 0.0 1.0
@@ -16,52 +16,52 @@ object:
 	plan:
 		pos: 0.0 -100.0 0.0
 		normal: 0.0 1.0 0.0
-		rgb: 0xFFFFFF
+		rgb: 0xFF0000
 	cylinder:
 		pos: 50.0 0.0 50.0
 		radius: 10.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 0.0 50.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 -100.0 50.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	cylinder:
 		pos: -50.0 0.0 50.0
 		radius: 10.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 0.0 50.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 -100.0 50.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	cylinder:
 		pos: 50.0 0.0 -100.0
 		radius: 10.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 0.0 -100.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 -100.0 -100.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	cylinder:
 		pos: -50.0 0.0 -100.0
 		radius: 10.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 0.0 -100.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 -100.0 -100.0
 		radius: 15.0
-		rgb: 0xFFFFFF
+		rgb: 0x6e6e6e

@@ -6,20 +6,64 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 15:37:09 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/17 16:57:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+int     average(int *n, int len)
+{
+	int nb;
+	int i;
+
+	if (len == 0)
+		return (0);
+	i = 0;
+	nb = 0;
+	while (i < len)
+	{
+		nb += n[i];
+		i++;
+	}
+	nb /= len;
+	return (nb);
+}
+
+int	moy_rgb(int *rgb, int len)
+{
+	int	red[len];
+	int	green[len];
+	int	blue[len];
+	int i;
+
+	i = 0;
+	while (i < len)
+	{
+		red[i] = (rgb[i] & 0xFF0000) >> 16;
+		green[i] = (rgb[i] & 0xFF00) >> 8;
+		blue[i] = rgb[i] & 0xFF;
+		i++;
+	}
+	red[0] = average(red, len);
+	blue[0] = average(blue, len);
+	green[0] = average(green, len);
+	red[0] = red[0] > 255 ? 255 : red[0];
+	blue[0] = blue[0] > 255 ? 255 : blue[0];
+	green[0] = green[0] > 255 ? 255 : green[0];
+	i = red[0] << 16 | green[0] << 8 | blue[0];
+	return (i);
+}
+
 void	raytrace(t_map *map, int x, int y)
 {
-	t_sphere *sh;
-	t_sphere *light;
+	t_sphere	*sh;
+	t_sphere 	*light;
 	t_vec 		inter;
 	t_vec		ray;
 	int			color;
 	int			i;
+	int			acolor[map->scene.nb_spot];
 
 	i = 0;
 	ray = ray_viewplane(map, x, y);
@@ -27,27 +71,27 @@ void	raytrace(t_map *map, int x, int y)
 	if (sh)
 	{
 		inter = ray_inter(ray, map->scene.pos,sh->t);
-		color = sh->color;
 		while (i < map->scene.nb_spot)
 		{
+			
+			color = sh->color;
 			map->scene.light = &(map->scene.spot[i]);
-			//printf("x: %f|y: %f|z: %f\n", map->scene.spot[i].x, map->scene.spot[i].y, map->scene.spot[i].z);
 			light = (t_sphere*)iter(map, ray_light(inter, *map->scene.light),
-				*map->scene.light);
+					*map->scene.light);
 			if (light)
 			{
 				if (sh == light)
 					color = get_color(sh, inter,
-							ray_light(inter, *map->scene.light), sh->color);
+							ray_light(inter, *map->scene.light), color);
 				else	
 					color = get_shadow(map, sh, inter, color);
-			//if (sh->type == 1)
-			color =	get_reflection(map, sh, ray_light(inter, *map->scene.light),
-					inter, color);
+				color =	get_reflection(map, sh,
+						ray_light(inter, *map->scene.light), inter, color);
 			}
+			acolor[i] = color;
 			i++;
 		}
-		draw_pixel_to_image(map, x, y, color);
+		draw_pixel_to_image(map, x, y, moy_rgb(acolor, i));
 	}
 }
 
@@ -57,12 +101,6 @@ void	raytracer(t_map *map)
 	int y;
 
 	y = 0;
-	//map->scene.sphere[0].radius = 25.0;
-	//map->scene.sphere[1].radius = 25.0;
-	//map->scene.light.x = 125.0;
-	//map->scene.light.y = -50.0;
-	//map->scene.light.z = 200.0;
-	//printf("light.x: %f|light.y: %f|light.z: %f\n", map->scene)
 	while (y < map->scene.h)
 	{
 		x = 0;
@@ -71,7 +109,6 @@ void	raytracer(t_map *map)
 			raytrace(map, x, y);
 			x++;
 		}	
-		//mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0,0);
 		y++;
 	}
 }
