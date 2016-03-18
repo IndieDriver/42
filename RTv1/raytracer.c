@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/17 16:57:56 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:02:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,17 @@ int	moy_rgb(int *rgb, int len)
 	return (i);
 }
 
+int		is_equal(t_vec v1, t_vec v2)
+{
+	if (v1.x > v2.x - 0.25 && v1.x < v2.x + 0.25)
+		return (0);
+	if (v1.y > v2.y - 0.25 && v1.y < v2.y + 0.25)
+		return (0);
+	if (v1.z > v2.z - 0.25 && v1.z < v2.z + 0.25)
+		return (0);
+	return (1);
+}
+
 void	raytrace(t_map *map, int x, int y)
 {
 	t_sphere	*sh;
@@ -81,11 +92,14 @@ void	raytrace(t_map *map, int x, int y)
 			if (light)
 			{
 				if (sh == light)
+				{
 					color = get_color(sh, inter,
-							ray_light(inter, *map->scene.light), color);
+							ray_invlight(inter, *map->scene.light), color);
+				}
 				else	
 					color = get_shadow(map, sh, inter, color);
-				color =	get_reflection(map, sh,
+				if(sh->type != 2)
+					color =	get_reflection(map, sh,
 						ray_light(inter, *map->scene.light), inter, color);
 			}
 			acolor[i] = color;

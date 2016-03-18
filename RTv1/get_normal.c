@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/17 13:19:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 15:02:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_vec	get_normal_cyl(void *shape)
 	t_cylinder *cyl;
 
 	cyl = shape;
-	//printf("cyl.x: %f|cyl.y: %f|cyl.z: %f\n", cyl->nor.x, cyl->nor.y, cyl->nor.z);
-	return (cyl->nor);
+	vec_normalize(&cyl->normal);
+	return (cyl->normal);
 }
 
 t_vec	get_normal_cone(void *shape)
@@ -39,20 +39,17 @@ t_vec	get_normal_cone(void *shape)
 	t_cone *cone;
 
 	cone = shape;
-	return (cone->nor);
+	vec_normalize(&cone->normal);
+	return (cone->normal);
 }
 
 t_vec	get_normal_plan(void *shape)
 {
 	t_plan *plan;
-	t_vec nor;
 	
 	plan = shape;
-	nor.x = 0.0;
-	nor.y = 1.0;
-	nor.z = 0.0;
-	vec_normalize(&nor);
-	return (nor);
+	vec_normalize(&plan->normal);
+	return (plan->normal);
 }
 
 t_vec	get_normal(void *shape, t_vec inter)

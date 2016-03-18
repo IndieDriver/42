@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:34:45 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/17 16:57:58 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:32:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int		get_reflection(t_map *map, void *shape, t_vec light, t_vec inter, int color
 
 	(void)map;
 	sh = shape;
-	normal = get_normal(shape, inter);
+	normal = sh->normal;
 	r.x = light.x + normal.x;
 	r.y = light.y + normal.y;
 	r.z = light.z + normal.z;

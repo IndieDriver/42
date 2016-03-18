@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:04:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 12:29:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:16:22 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ double	getdist_cone(t_cone *s, t_vec ray, t_vec opos)
 		if ((-b - sqrt(d)) / (2.0 * a) < t)
 			t = (-b - sqrt(d)) / (2.0 * a);
 		s->t = t;
-		s->nor = set_normal(*s, ray, opos);
+		s->normal = set_normal(*s, ray, opos);
 	}
 	else
 		return (-1.0);

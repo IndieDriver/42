@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 14:49:01 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 15:45:53 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,7 @@ int				get_color(void *shape, t_vec inter, t_vec light, int color);
 int				light_rgb(int rgb, double angle);
 
 t_vec			ray_viewplane(t_map *map, int x, int y);
+t_vec			ray_invlight(t_vec inter, t_vec light_pos);
 t_vec			ray_light(t_vec inter, t_vec light_pos);
 t_vec			ray_inter(t_vec ray, t_vec opos, double t);
 t_vec			ray_shadow(t_map *map, t_vec inter, double offset_x,

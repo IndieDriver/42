@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:18:33 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/17 10:44:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 16:02:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,17 @@ t_vec	ray_inter(t_vec ray, t_vec opos, double t)
 	inter.y = opos.y + ray.y * t;
 	inter.z = opos.z + ray.z * t;
 	return (inter);
+}
+
+t_vec	ray_invlight(t_vec inter, t_vec light_pos)
+{
+	t_vec light;
+
+	light.x = light_pos.x - inter.x;
+	light.y = light_pos.y - inter.y;
+	light.z = light_pos.z - inter.z;
+	vec_normalize(&light);
+	return (light);
 }
 
 t_vec	ray_light(t_vec inter, t_vec light_pos)

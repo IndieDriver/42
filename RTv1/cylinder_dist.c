@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/11 12:31:39 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/17 14:24:31 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/18 12:16:07 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ double	getdist_cyl(t_cylinder *s, t_vec ray, t_vec opos)
 		if ((-b - sqrt(d)) / (2.0 * a) < t)
 			t = (-b - sqrt(d)) / (2.0 * a);
 		s->t = t;
-		s->nor = set_normal(*s, ray, opos, t);
+		s->normal = set_normal(*s, ray, opos, t);
 	}
 	else
 		return (-1.0);
