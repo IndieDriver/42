@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:22:34 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 12:27:17 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/19 13:34:10 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	*iter(t_map *map, t_vec ray, t_vec opos)
 	t_plan		*plan;
 	t_cylinder	*cyl;
 	t_cone		*cone;
-	void		*nearest;
+	t_plan		*nearest;
 	
 	cyl = iter_cyl(map, ray, opos);
 	cone = iter_cone(map, ray, opos);
@@ -123,7 +123,6 @@ void	*iter(t_map *map, t_vec ray, t_vec opos)
 	nearest = get_nearest(sph, plan, cyl, cone);
 	if (!nearest)
 		return (NULL);
-	sph = nearest;
-	sph->normal = get_normal(sph, ray_inter(ray, opos, sph->t));
-	return (sph);
+	nearest->normal = get_normal(nearest, ray_inter(ray, opos, nearest->t));
+	return (nearest);
 }

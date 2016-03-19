@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:34:45 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 12:32:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/19 14:59:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int        reflection(int rgb, double dot)
 	green = (rgb & 0xFF00) >> 8;
 	blue = rgb & 0xFF;
 	div = ((dot * (2.0 - 0.0)) / 0.01) + 0.0;
-	red = (red + (0xFF / div)) / 2;
+	red = (red  + (0xFF / div)) / 2;
 	blue = (blue + (0xFF / div)) / 2;
 	green = (green + (0xFF / div)) / 2;
 	red = red < (rgb & 0xFF0000) >> 16 ? (rgb & 0xFF0000) >> 16 : red;
@@ -56,6 +56,7 @@ int		get_reflection(t_map *map, void *shape, t_vec light, t_vec inter, int color
 	double	dot;
 
 	(void)map;
+	(void)inter;
 	sh = shape;
 	normal = sh->normal;
 	r.x = light.x + normal.x;
@@ -64,5 +65,5 @@ int		get_reflection(t_map *map, void *shape, t_vec light, t_vec inter, int color
 	vec_normalize(&r);
 	dot = fmax(vec_dotproduct(r, normal), 0.0);
 	dot = pow(dot, 2.0);
-	return (reflection(get_color(shape, inter, light, color), dot));
+	return (reflection(color, dot));
 }

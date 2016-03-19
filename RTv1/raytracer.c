@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 16:02:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/19 14:59:50 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,14 @@ int		is_equal(t_vec v1, t_vec v2)
 	return (1);
 }
 
+double	get_distance(t_vec p1, t_vec p2)
+{
+	double dist;
+
+	dist = sqrt(vec_dotproduct(vec_sub(p2, p1), vec_sub(p2, p1)));
+	return (dist);
+}
+
 void	raytrace(t_map *map, int x, int y)
 {
 	t_sphere	*sh;
@@ -93,15 +101,24 @@ void	raytrace(t_map *map, int x, int y)
 			{
 				if (sh == light)
 				{
-					color = get_color(sh, inter,
+					if (get_distance(inter, *map->scene.light) - 0.5 <
+						get_distance(ray_inter(
+						ray_light(inter, *map->scene.light), *map->scene.light,
+								light->t), *map->scene.light))
+					{
+						color = get_color(sh, inter,
 							ray_invlight(inter, *map->scene.light), color);
+						if(sh->type != 2)
+							color =	get_reflection(map, sh,
+							ray_light(inter, *map->scene.light), inter, color);
+
+					}
+					else
+						color = 0x000000;
 				}
 				else	
 					color = get_shadow(map, sh, inter, color);
-				if(sh->type != 2)
-					color =	get_reflection(map, sh,
-						ray_light(inter, *map->scene.light), inter, color);
-			}
+							}
 			acolor[i] = color;
 			i++;
 		}

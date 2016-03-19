@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 15:45:53 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/19 13:09:09 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,7 @@ t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_multbyscalar(t_vec vec, double sca);
 t_vec			vec_project(t_vec v1, t_vec v2);
 
+int				get_shadow_color(int color, int nb);
 int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
 
 int				get_reflection(t_map *map, void *shape, t_vec light,
