@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/20 13:10:27 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 16:09:15 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,8 @@ int		key_hook(int keycode, t_map *map)
 	if (keycode == 53)
 	{
 		mlx_destroy_window(map->env.mlx, map->env.win);
+		system("afplay assets/wolf2.mp3&");
+		system("killall afplay");
 		free_tex_array(map->tex, 9);
 		exit(0);
 	}

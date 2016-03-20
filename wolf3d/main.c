@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/20 13:18:56 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 16:09:13 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		main(void)
 	e.win = mlx_new_window(e.mlx, WIDTH, HEIGHT, "Wolf3d");
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
+	system("afplay assets/wolf.mp3&");
 	init_map(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_hook(e.win, 2, (1L << 0), key_press, map);
