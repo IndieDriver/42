@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/12/10 17:35:35 by amathias          #+#    #+#             */
-/*   Updated: 2015/12/20 16:48:00 by amathias         ###   ########.fr       */
+/*   Updated: 2016/02/17 12:53:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		get_next_line(int const fd, char **line)
 {
 	static t_buf	sbuf;
 	char			*tmp;
+	int				end;
 
 	tmp = NULL;
 	while (1)
@@ -79,25 +80,17 @@ int		get_next_line(int const fd, char **line)
 			if ((sbuf.ret = read(fd, sbuf.buf, BUFF_SIZE)) == -1)
 				return (-1);
 			sbuf.buf[sbuf.ret] = '\0';
-			if (!sbuf.ret)
+			if (!sbuf.ret && !ft_strlen(sbuf.buf))
 				break ;
 		}
-		else
-		{
-			if (containeof(sbuf.buf) != -1)
-			{
-				if (!(tmp = strjoinfree(tmp, sbuf.buf, containeof(sbuf.buf))))
-					return (-1);
-				shift_buf(sbuf.buf, containeof(sbuf.buf) + 1);
-				break ;
-			}
-			else
-			{
-				if (!(tmp = strjoinfree(tmp, sbuf.buf, BUFF_SIZE)))
-					return (-1);
-				sbuf.buf[0] = '\0';
-			}
-		}
+		if (!(tmp = strjoinfree(tmp, sbuf.buf,
+				containeof(sbuf.buf) != -1 ? containeof(sbuf.buf) : BUFF_SIZE)))
+			return (-1);
+		end = containeof(sbuf.buf) != -1 ? 1 : 0;
+		shift_buf(sbuf.buf, containeof(sbuf.buf) != -1 ?
+				containeof(sbuf.buf) + 1 : BUFF_SIZE);
+		if (end)
+			break ;
 	}
-	return ((*line = tmp) && sbuf.ret != 0);
+	return ((*line = tmp) && (sbuf.ret != 0 || ft_strlen(tmp)));
 }

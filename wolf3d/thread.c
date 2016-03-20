@@ -6,11 +6,12 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/21 12:53:27 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 13:32:06 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:15:03 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
 void	free_args(t_args *arg1, t_args *arg2, t_args *arg3, t_args *arg4)
 {
 	free(arg1);
@@ -38,7 +39,7 @@ void	multi_thread(t_map *map, void *function)
 	t_args		*a3;
 	t_args		*a4;
 
-	a1 = init_thread(map, get_pos(0,0), get_pos(WIDTH / 4,0));
+	a1 = init_thread(map, get_pos(0, 0), get_pos(WIDTH / 4, 0));
 	a2 = init_thread(map, get_pos(WIDTH / 4, 0), get_pos(WIDTH / 4 * 2, 0));
 	a3 = init_thread(map, get_pos(WIDTH / 4 * 2, 0), get_pos(WIDTH / 4 * 3, 0));
 	a4 = init_thread(map, get_pos(WIDTH / 4 * 3, 0), get_pos(WIDTH, 0));

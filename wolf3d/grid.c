@@ -6,18 +6,18 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/22 13:34:17 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 14:54:54 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:09:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int		get_number_of_row(char *file_name)
+int			get_number_of_row(char *file_name)
 {
-	int fd;
-	char buf[2];
-	int lnb;
-	
+	int		fd;
+	char	buf[2];
+	int		lnb;
+
 	lnb = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
 		return (-1);
@@ -53,13 +53,13 @@ static int	*get_line(t_map *map, char **line_split)
 	return (line);
 }
 
-int		**get_grid(t_map *map, char *file_name)
+int			**get_grid(t_map *map, char *file_name)
 {
-	int **grid;
-	char *line;
-	int fd;
-	int i;
-	
+	int		**grid;
+	char	*line;
+	int		fd;
+	int		i;
+
 	i = 0;
 	map->height = get_number_of_row(file_name);
 	if (!(grid = (int**)malloc(sizeof(int*) * map->height)))

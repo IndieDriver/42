@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 11:28:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/17 16:29:29 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:13:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int	get_color(int fd)
 {
 	char	*line;
-	int	red;
-	int	green;
-	int	blue;
-	
+	int		red;
+	int		green;
+	int		blue;
+
 	get_next_line(fd, &line);
 	red = ft_atoi(line);
 	free(line);
@@ -44,15 +44,15 @@ int	*get_line(int fd, int size)
 		line[i] = get_color(fd);
 		i++;
 	}
-	return (line);	
+	return (line);
 }
 
 int	**get_texture(char *file_name, int size)
 {
-	int i;
-	int fd;
-	int **tex;
-	char *tmp;
+	int		i;
+	int		fd;
+	int		**tex;
+	char	*tmp;
 
 	i = 0;
 	if ((fd = open(file_name, O_RDONLY)) == -1)
@@ -68,5 +68,5 @@ int	**get_texture(char *file_name, int size)
 		tex[i] = get_line(fd, size);
 		i++;
 	}
-	return (tex);	
+	return (tex);
 }

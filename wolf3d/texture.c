@@ -6,11 +6,31 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/18 15:06:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:13:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
+
+void	free_tex_array(int ***tex_array, int nb)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (i < nb)
+	{
+		j = 0;
+		while (j < 64)
+		{
+			free(tex_array[i][j]);
+			j++;
+		}
+		free(tex_array[i]);
+		i++;
+	}
+	free(tex_array);
+}
 
 int		***init_tex_array(int nb)
 {
@@ -36,11 +56,12 @@ void	draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex)
 {
 	double	i;
 	double	step;
-	int		lheight;
 
 	i = 0;
-	step =  64.0 / (double)(to.y - from.y);
-	lheight = (to.y - from.y);
+	step = 64.0 / (double)(to.y - from.y);
+	i = from.y < 0 ? (0 - from.y) * step : 0;
+	from.y = from.y < 0 ? 0 : from.y;
+	to.y = to.y > HEIGHT ? HEIGHT : to.y;
 	while (from.y < to.y)
 	{
 		draw_pixel_to_image(map, from.x, from.y,

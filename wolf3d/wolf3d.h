@@ -6,26 +6,22 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:28:49 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 11:13:51 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 15:57:53 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WOLD3D_H
-# define WOLD3D_H
+#ifndef WOLF3D_H
+# define WOLF3D_H
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
 # include <pthread.h>
-#include <stdio.h>
 # include "libft.h"
 # define WIDTH 1440
 # define HEIGHT 960
 # include "libft.h"
-# define RED  "\x1B[31m"
-# define WHT  "\x1B[37m"
-# define RST "\033[0m"
 
-typedef struct 	s_env
+typedef struct	s_env
 {
 	void		*mlx;
 	void		*win;
@@ -49,7 +45,7 @@ typedef struct	s_line
 	int			err;
 }				t_line;
 
-typedef struct 	s_pos
+typedef struct	s_pos
 {
 	int			x;
 	int			y;
@@ -129,8 +125,8 @@ int				loop_hook(t_map *map);
 
 void			rotate(t_map *map);
 void			move(t_map *map);
-	
-void			ray(void *args);
+
+void			ray(t_args *args);
 void			draw_wall_slice(t_map *map, t_pos pos, t_tex tex);
 void			draw_line(t_map *map, t_pos from, t_pos to, int color);
 int				**get_texture(char *file_name, int size);
@@ -138,11 +134,8 @@ int				**get_texture(char *file_name, int size);
 int				**get_grid(t_map *map, char *file_name);
 
 int				***init_tex_array(int nb);
+void			free_tex_array(int ***tex_array, int nb);
 void			draw_tex(t_map *map, t_pos from, t_pos to, t_tex tex);
-
-void			draw_mmap(t_map *map);
-
-void			anti_aliasing(t_map *map);
 
 t_args			*init_thread(t_map *map, t_pos min, t_pos max);
 void			multi_thread(t_map *map, void *function);

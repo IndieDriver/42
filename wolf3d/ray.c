@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/22 14:01:31 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 15:57:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,20 +51,13 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, t_dda *value)
 	delta.y = sqrt(1.0 + (raydir.x * raydir.x) / (raydir.y * raydir.y));
 	*value = init_dda(pos, delta, raypos, raydir);
 	while (pos.x > -1 && pos.x < map->height
-			  && pos.y > -1 && pos.y < map->width)
+		&& pos.y > -1 && pos.y < map->width)
 	{
-		if (value->dx < value->dy)
-		{
-			value->dx += delta.x;
-			pos.x += value->sx;
-			value->side = 0;
-		}
-		else
-		{
-			value->dy += delta.y;
-			pos.y += value->sy;
-			value->side = 1;
-		}
+		value->side = value->dx < value->dy ? 0 : 1;
+		value->dx = !value->side ? value->dx + delta.x : value->dx;
+		value->dy = !value->side ? value->dy : value->dy + delta.y;
+		pos.x = !value->side ? pos.x + value->sx : pos.x;
+		pos.y = !value->side ? pos.y : pos.y + value->sy;
 		if (map->grid[pos.x][pos.y] != 0)
 			break ;
 	}
@@ -74,29 +67,26 @@ double	dda(t_map *map, t_vec raypos, t_vec raydir, t_dda *value)
 			fabs((pos.y - raypos.y + (1 - value->sy) / 2) / raydir.y));
 }
 
-void	ray(void *args)
+void	ray(t_args *a)
 {
 	double	height;
 	t_vec	raypos;
 	t_vec	rdir;
 	t_dda	value;
 	t_tex	tex;
-	t_args	*a;
 
-	a = args;
 	while (a->min.x < a->max.x)
 	{
 		raypos.x = a->m->pos.x;
 		raypos.y = a->m->pos.y;
-		rdir.x = a->m->dirvec.x + a->m->cvec.x * (double)(2.0 * a->min.x / WIDTH - 1);
-		rdir.y = a->m->dirvec.y + a->m->cvec.y * (double)(2.0 * a->min.x / WIDTH - 1);
+		rdir.x = a->m->dirvec.x + a->m->cvec.x * (2.0 * a->min.x / WIDTH - 1);
+		rdir.y = a->m->dirvec.y + a->m->cvec.y * (2.0 * a->min.x / WIDTH - 1);
 		height = dda(a->m, raypos, rdir, &value);
 		if (value.side == 0)
 			tex.wallcord = raypos.y + height * rdir.y;
 		else
 			tex.wallcord = raypos.x + height * rdir.x;
-		tex.wallcord -= floor(tex.wallcord);
-		tex.x = (int)(tex.wallcord * 64.0);
+		tex.x = (int)((tex.wallcord - floor(tex.wallcord)) * 64.0);
 		if ((value.side == 0 && rdir.x > 0) || (value.side && rdir.y < 0))
 			tex.x = 64 - tex.x - 1;
 		tex.id = a->m->grid[value.pos.x][value.pos.y] - 1;

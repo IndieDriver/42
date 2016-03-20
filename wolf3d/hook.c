@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 11:14:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:10:27 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ int		key_press(int keycode, t_map *map)
 			map->key.left = 1;
 		if (keycode == 36)
 			map->multithread = map->multithread == 0 ? 1 : 0;
-
 	}
 	if (keycode == 35)
 	{
@@ -63,11 +62,13 @@ int		key_press(int keycode, t_map *map)
 	}
 	return (0);
 }
+
 int		key_hook(int keycode, t_map *map)
 {
 	if (keycode == 53)
 	{
 		mlx_destroy_window(map->env.mlx, map->env.win);
+		free_tex_array(map->tex, 9);
 		exit(0);
 	}
 	if (!map->pause)

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/23 11:14:22 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/20 13:18:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,37 +23,17 @@ void	draw(t_map *map)
 		multi_thread(map, ray);
 	else
 	{
-		arg = init_thread(map, get_pos(0,0), get_pos(WIDTH, 0));
+		arg = init_thread(map, get_pos(0, 0), get_pos(WIDTH, 0));
 		ray(arg);
 		free(arg);
 	}
 	if (map->pause)
 		pause_on(map);
-	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);	
+	mlx_put_image_to_window(map->env.mlx, map->env.win, map->img.img, 0, 0);
 	if (map->pause)
 		mlx_string_put(map->env.mlx, map->env.win,
-				(WIDTH /2) - 24, (HEIGHT / 2) - 10, 0xffffff, "PAUSE");
-	//draw_mmap(map);
-	mlx_destroy_image(map->env.mlx,map->img.img);
-}
-
-void	print_grid(t_map *map)
-{
-	int i;
-	int j;
-
-	i = 0;
-	while (i < map->height)
-	{
-		j = 0;
-		while (j < map->width)
-		{
-			printf(" %d",map->grid[i][j]);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
+				(WIDTH / 2) - 24, (HEIGHT / 2) - 10, 0xffffff, "PAUSE");
+	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
 void	init_map(t_map *map)
@@ -70,7 +50,7 @@ void	init_map(t_map *map)
 	map->cvec.y = 0.66;
 	map->dirvec.x = -1.0;
 	map->dirvec.y = 0.0;
-	init_key(map);	
+	init_key(map);
 }
 
 int		main(void)
@@ -83,7 +63,6 @@ int		main(void)
 	map = (t_map*)malloc(sizeof(t_map));
 	map->env = e;
 	init_map(map);
-	print_grid(map);
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_hook(e.win, 2, (1L << 0), key_press, map);
 	mlx_loop_hook(e.mlx, loop_hook, map);
