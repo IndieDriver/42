@@ -6,13 +6,13 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 11:28:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/20 13:13:30 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/21 12:14:34 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf3d.h"
 
-int	get_color(int fd)
+int		get_color(int fd)
 {
 	char	*line;
 	int		red;
@@ -28,10 +28,10 @@ int	get_color(int fd)
 	get_next_line(fd, &line);
 	blue = ft_atoi(line);
 	free(line);
-	return (256 * 256 * blue + 256 * green + red);
+	return (256 * 256 * green + 256 * blue + red);
 }
 
-int	*get_line(int fd, int size)
+int		*get_line(int fd, int size)
 {
 	int i;
 	int *line;
@@ -47,7 +47,7 @@ int	*get_line(int fd, int size)
 	return (line);
 }
 
-int	**get_texture(char *file_name, int size)
+int		**get_texture(char *file_name, int size)
 {
 	int		i;
 	int		fd;

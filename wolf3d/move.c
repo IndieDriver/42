@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 11:28:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/20 13:23:22 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/21 12:04:26 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,10 @@
 int		colide(t_map *map, int signe, int lat)
 {
 	if (!lat && map->grid[(int)(map->pos.x + (signe * map->dirvec.x) * 0.1)]
-		[(int)(map->pos.y + (signe * map->dirvec.y) * 0.1)] != 0)
+		[(int)(map->pos.y + (signe * map->dirvec.y) * 0.1)] > 0)
 		return (1);
 	if (lat && map->grid[(int)(map->pos.x - (signe * map->dirvec.y) * 0.1)]
-			[(int)(map->pos.y + (signe * map->dirvec.x) * 0.1)] != 0)
+			[(int)(map->pos.y + (signe * map->dirvec.x) * 0.1)] > 0)
 		return (1);
 	return (0);
 }
