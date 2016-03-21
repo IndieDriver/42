@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/21 11:55:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:18:56 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,6 @@ int		key_press(int keycode, t_map *map)
 			map->key.right = 1;
 		if (keycode == 2)
 			map->key.left = 1;
-		if (keycode == 36)
-			map->multithread = map->multithread == 0 ? 1 : 0;
 	}
 	if (keycode == 35)
 	{
@@ -70,7 +68,7 @@ int		key_hook(int keycode, t_map *map)
 		mlx_destroy_window(map->env.mlx, map->env.win);
 		system("afplay assets/wolf2.mp3&");
 		system("killall afplay");
-		free_tex_array(map->tex, 3);
+		free_tex_array(map->tex, 2);
 		exit(0);
 	}
 	if (!map->pause)

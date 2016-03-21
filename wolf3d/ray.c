@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/25 11:40:41 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/21 12:13:43 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/21 13:10:13 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	ray(t_args *a)
 		tex.x = (int)((tex.wallcord - floor(tex.wallcord)) * 64.0);
 		if ((value.side == 0 && rdir.x > 0) || (value.side && rdir.y < 0))
 			tex.x = 64 - tex.x - 1;
-		tex.id = tex.id == -2 ? 2 : tex.id;
+		tex.id = a->m->grid[value.pos.x][value.pos.y] - 1;
 		draw_wall_slice(a->m, get_pos(a->min.x, fabs(HEIGHT / height)), tex);
 		a->min.x++;
 	}
