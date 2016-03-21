@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 15:34:45 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/19 14:59:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/19 15:05:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,6 @@ int		get_reflection(t_map *map, void *shape, t_vec light, t_vec inter, int color
 	r.z = light.z + normal.z;
 	vec_normalize(&r);
 	dot = fmax(vec_dotproduct(r, normal), 0.0);
-	dot = pow(dot, 2.0);
+	dot = pow(dot, 1.8);
 	return (reflection(color, dot));
 }

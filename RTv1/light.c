@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 14:16:51 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/19 14:59:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/21 14:50:02 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int		get_color(void *shape, t_vec inter, t_vec light, int color)
 	angle = vec_dotproduct(nor, light);
 	//printf("dot: %f\n", vec_dotproduct(nor, light));
 	//printf("angle: %f\n", angle);
-	if (sph->type == 2)
-		angle *= 3.0;
-	if (angle < 0.0)
+	//if (sph->type == 2)
+	//	angle *= 3.0;
+	if (angle <= 0.0)
 		c = 0x000000;
 	else
 		c = light_rgb(color, angle);

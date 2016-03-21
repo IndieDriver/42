@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:04:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 12:16:22 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/21 15:00:29 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,12 @@ static t_vec	set_normal(t_cone s, t_vec ray, t_vec opos)
 		+ ((opos.x - s.pos.x) * axis.x
 		+ (opos.y - s.pos.y) * axis.y
 		+ (opos.z - s.pos.z) * axis.z);
-	nor.x = ((ray.x * s.t) + (opos.x - s.pos.x)) - (axis.x * m);
-	nor.y = ((ray.y * s.t) + (opos.y - s.pos.y)) - (axis.y * m);
-	nor.z = ((ray.z * s.t) + (opos.z - s.pos.z)) - (axis.z * m);
+	nor.x = ((ray.x * s.t) + (opos.x - s.pos.x)) -
+		((1.0 + (s.k * s.k)) * axis.x * m);
+	nor.y = ((ray.y * s.t) + (opos.y - s.pos.y)) -
+		((1.0 + (s.k * s.k)) * axis.y * m);
+	nor.z = ((ray.z * s.t) + (opos.z - s.pos.z)) -
+		((1.0 + (s.k * s.k)) * axis.z * m);
 	vec_normalize(&nor);
 	return (nor);
 }
