@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/02 12:03:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/02 13:33:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:04:26 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,4 @@ void	*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl, t_cone *cone)
 	shape = shape_cmp(shape, cyl);
 	shape = shape_cmp(shape, cone);
 	return (shape);
-}	
+}

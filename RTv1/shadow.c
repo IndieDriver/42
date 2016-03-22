@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 10:23:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/19 13:34:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 13:40:54 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,8 @@ int		get_shadow(t_map *map, void *shape, t_vec inter, int color)
 		{
 			offset.x = (pos.x * 2.5) + rand_double();
 			offset.y = (pos.y * 2.5) + rand_double();
-			light = (t_sphere*)iter(map,
-				ray_light(inter, get_lightpos(*map->scene.light, offset.x, offset.y))
+			light = (t_sphere*)iter(map, ray_light(inter,
+				get_lightpos(*map->scene.light, offset.x, offset.y))
 				, get_lightpos(*map->scene.light, offset.x, offset.y));
 			if (shape == light)
 				count++;

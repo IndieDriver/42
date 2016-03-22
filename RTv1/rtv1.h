@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 11:27:30 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:01:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define WHT  "\x1B[37m"
 # define RST "\033[0m"
 
-typedef struct 	s_env
+typedef struct	s_env
 {
 	void		*mlx;
 	void		*win;
@@ -39,7 +39,7 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct 	s_pos
+typedef struct	s_pos
 {
 	int			x;
 	int			y;
@@ -77,7 +77,7 @@ int				expose_hook(t_map *map);
 int				key_press(int keycode, t_map *map);
 int				key_hook(int keycode, t_map *map);
 void			init_key(t_map *map);
-int				loop_hook(t_map *map);
+int				red_cross(t_map *map);
 
 void			raytracer(t_map *map);
 
@@ -104,7 +104,7 @@ t_vec			ray_shadow(t_map *map, t_vec inter, double offset_x,
 				double offset_y);
 
 void			vec_normalize(t_vec *vec);
-double			vec_dotproduct(t_vec v1, t_vec v2);
+double			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_multbyscalar(t_vec vec, double sca);
 t_vec			vec_project(t_vec v1, t_vec v2);

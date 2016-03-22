@@ -6,16 +6,16 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/19 14:59:50 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:07:20 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int     average(int *n, int len)
+int		average(int *n, int len)
 {
-	int nb;
-	int i;
+	int	nb;
+	int	i;
 
 	if (len == 0)
 		return (0);
@@ -30,7 +30,7 @@ int     average(int *n, int len)
 	return (nb);
 }
 
-int	moy_rgb(int *rgb, int len)
+int		moy_rgb(int *rgb, int len)
 {
 	int	red[len];
 	int	green[len];
@@ -70,15 +70,15 @@ double	get_distance(t_vec p1, t_vec p2)
 {
 	double dist;
 
-	dist = sqrt(vec_dotproduct(vec_sub(p2, p1), vec_sub(p2, p1)));
+	dist = sqrt(vec_dot(vec_sub(p2, p1), vec_sub(p2, p1)));
 	return (dist);
 }
 
 void	raytrace(t_map *map, int x, int y)
 {
 	t_sphere	*sh;
-	t_sphere 	*light;
-	t_vec 		inter;
+	t_sphere	*light;
+	t_vec		inter;
 	t_vec		ray;
 	int			color;
 	int			i;
@@ -89,10 +89,9 @@ void	raytrace(t_map *map, int x, int y)
 	sh = (t_sphere*)iter(map, ray, map->scene.pos);
 	if (sh)
 	{
-		inter = ray_inter(ray, map->scene.pos,sh->t);
+		inter = ray_inter(ray, map->scene.pos, sh->t);
 		while (i < map->scene.nb_spot)
 		{
-			
 			color = sh->color;
 			map->scene.light = &(map->scene.spot[i]);
 			light = (t_sphere*)iter(map, ray_light(inter, *map->scene.light),
@@ -108,17 +107,16 @@ void	raytrace(t_map *map, int x, int y)
 					{
 						color = get_color(sh, inter,
 							ray_invlight(inter, *map->scene.light), color);
-						if(sh->type != 2)
-							color =	get_reflection(map, sh,
+						if (sh->type != 2)
+							color = get_reflection(map, sh,
 							ray_light(inter, *map->scene.light), inter, color);
-
 					}
 					else
 						color = 0x000000;
 				}
-				else	
+				else
 					color = get_shadow(map, sh, inter, color);
-							}
+			}
 			acolor[i] = color;
 			i++;
 		}
@@ -139,7 +137,7 @@ void	raytracer(t_map *map)
 		{
 			raytrace(map, x, y);
 			x++;
-		}	
+		}
 		y++;
 	}
 }

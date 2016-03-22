@@ -6,16 +6,16 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 11:23:41 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:56:50 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec	get_vec(char **line_split, int type, int line)
+t_vec		get_vec(char **line_split, int type, int line)
 {
-	t_vec vec;
-	int i;
+	t_vec	vec;
+	int		i;
 
 	if (!is_line_split_valid(line_split, 3))
 		ft_parse_error(5, line);
@@ -41,10 +41,10 @@ t_sphere	get_sphere(char **file, int line)
 
 	line++;
 	sph.type = 1;
-	while(file[line])
+	while (file[line])
 	{
 		if (contain(file[line], "rgb:"))
-			sph.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);		
+			sph.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
 		if (contain(file[line], "pos:"))
 			sph.pos = get_vec(ft_strsplit(
 						ft_strchr(file[line], ':') + 1, ' '), 1, line);
@@ -67,7 +67,7 @@ t_plan		get_plan(char **file, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "rgb:"))
-			plan.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);		
+			plan.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
 		if (contain(file[line], "pos:"))
 			plan.pos = get_vec(ft_strsplit(ft_strchr(file[line], ':')
 				+ 1, ' '), 1, line);
@@ -95,6 +95,9 @@ t_cylinder	get_cylinder(char **file, int line)
 					ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "rgb:"))
 			cyl.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
+		if (contain(file[line], "axis:"))
+			cyl.axis = get_vec(ft_strsplit(
+					ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "radius:"))
 			cyl.radius = ft_atoi(ft_strchr(file[line], ':') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
@@ -105,7 +108,7 @@ t_cylinder	get_cylinder(char **file, int line)
 	return (cyl);
 }
 
-t_cone get_cone(char **file, int line)
+t_cone		get_cone(char **file, int line)
 {
 	t_cone cone;
 
@@ -116,6 +119,9 @@ t_cone get_cone(char **file, int line)
 		if (contain(file[line], "pos:"))
 			cone.pos = get_vec(
 				ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1, line);
+		if (contain(file[line], "axis:"))
+			cone.axis = get_vec(ft_strsplit(
+					ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "rgb:"))
 			cone.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")

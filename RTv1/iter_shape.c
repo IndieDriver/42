@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:22:34 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/19 13:34:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:14:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_sphere	*iter_sph(t_map *map, t_vec ray, t_vec opos)
 	return (NULL);
 }
 
-t_plan	*iter_plan(t_map *map, t_vec ray, t_vec opos)
+t_plan		*iter_plan(t_map *map, t_vec ray, t_vec opos)
 {
 	int id;
 	int i;
@@ -69,7 +69,8 @@ t_cylinder	*iter_cyl(t_map *map, t_vec ray, t_vec opos)
 	id = -1;
 	while (i < map->scene.nb_cyl)
 	{
-		map->scene.cylinder[i].t = getdist_cyl(&(map->scene.cylinder[i]), ray, opos);
+		map->scene.cylinder[i].t = getdist_cyl(&(map->scene.cylinder[i]),
+				ray, opos);
 		if (map->scene.cylinder[i].t >= 0.0)
 		{
 			if (id == -1)
@@ -84,7 +85,7 @@ t_cylinder	*iter_cyl(t_map *map, t_vec ray, t_vec opos)
 	return (NULL);
 }
 
-t_cone	*iter_cone(t_map *map, t_vec ray, t_vec opos)
+t_cone		*iter_cone(t_map *map, t_vec ray, t_vec opos)
 {
 	int id;
 	int i;
@@ -108,14 +109,14 @@ t_cone	*iter_cone(t_map *map, t_vec ray, t_vec opos)
 	return (NULL);
 }
 
-void	*iter(t_map *map, t_vec ray, t_vec opos)
+void		*iter(t_map *map, t_vec ray, t_vec opos)
 {
 	t_sphere	*sph;
 	t_plan		*plan;
 	t_cylinder	*cyl;
 	t_cone		*cone;
 	t_plan		*nearest;
-	
+
 	cyl = iter_cyl(map, ray, opos);
 	cone = iter_cone(map, ray, opos);
 	sph = iter_sph(map, ray, opos);

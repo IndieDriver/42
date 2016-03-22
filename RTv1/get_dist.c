@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/27 15:41:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 13:42:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:13:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ double	getdist_sph(t_sphere s, t_vec ray, t_vec opos)
 	double d;
 	double t;
 
-	a = vec_dotproduct(ray, ray);
-	b = 2.0 * (vec_dotproduct(ray, vec_sub(opos, s.pos)));
-	c = (vec_dotproduct(vec_sub(opos, s.pos), vec_sub(opos, s.pos)))
+	a = vec_dot(ray, ray);
+	b = 2.0 * (vec_dot(ray, vec_sub(opos, s.pos)));
+	c = (vec_dot(vec_sub(opos, s.pos), vec_sub(opos, s.pos)))
 		- s.radius * s.radius;
 	d = (b * b) - (4 * a * c);
 	if (d >= 0.0)

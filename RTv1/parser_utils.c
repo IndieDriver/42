@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 14:27:27 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 11:24:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:30:33 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,11 @@ double	ft_atoi_double(char *str)
 	return (in + ret);
 }
 
-int    ft_atoi_hex(char *line)
+int		ft_atoi_hex(char *line)
 {
-	int    nbr;
-	int    i;
-	int    add;
+	int		nbr;
+	int		i;
+	int		add;
 
 	i = -1;
 	nbr = 0;
@@ -67,7 +67,7 @@ int		contain(char *str, char *str2)
 			while (str[k] && str2[j])
 			{
 				if (str[k] != str2[j])
-					break;
+					break ;
 				j++;
 				k++;
 			}

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:18:33 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 16:02:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:37:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ t_vec	ray_viewplane(t_map *map, int x, int y)
 	vec_normalize(&ray);
 	return (ray);
 }
-

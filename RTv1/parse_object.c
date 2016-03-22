@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:13:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 11:19:33 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:16:42 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	init_count(int *sphere, int *plan, int *cylinder, int *cone)
 	*cone = 0;
 }
 
-int 	count_w(char **file, int line, char *word)
+int		count_w(char **file, int line, char *word)
 {
 	int count;
 
@@ -66,9 +66,9 @@ void	get_object(char **file, t_scene *scene, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "sphere:"))
-			scene->sphere[sphere++] = get_sphere(file, line);	
+			scene->sphere[sphere++] = get_sphere(file, line);
 		if (contain(file[line], "plan:"))
-			scene->plan[plan++] = get_plan(file, line);	
+			scene->plan[plan++] = get_plan(file, line);
 		if (contain(file[line], "cylinder:"))
 			scene->cylinder[cylinder++] = get_cylinder(file, line);
 		if (contain(file[line], "cone:"))

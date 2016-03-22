@@ -6,17 +6,17 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 14:16:51 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/21 14:50:02 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 16:06:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int        light_rgb(int rgb, double angle)
+int		light_rgb(int rgb, double angle)
 {
-	int    red;
-	int    green;
-	int    blue;
+	int		red;
+	int		green;
+	int		blue;
 
 	red = (rgb & 0xFF0000) >> 16;
 	green = (rgb & 0xFF00) >> 8;
@@ -33,19 +33,15 @@ int        light_rgb(int rgb, double angle)
 
 int		get_color(void *shape, t_vec inter, t_vec light, int color)
 {
-	t_vec	nor;
-	double	angle;
-	int		c;
-	t_sphere *sph;
+	t_vec		nor;
+	double		angle;
+	int			c;
+	t_sphere	*sph;
 
-	(void)inter;	
+	(void)inter;
 	sph = shape;
 	nor = sph->normal;
-	angle = vec_dotproduct(nor, light);
-	//printf("dot: %f\n", vec_dotproduct(nor, light));
-	//printf("angle: %f\n", angle);
-	//if (sph->type == 2)
-	//	angle *= 3.0;
+	angle = vec_dot(nor, light);
 	if (angle <= 0.0)
 		c = 0x000000;
 	else

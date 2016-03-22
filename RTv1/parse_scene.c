@@ -6,16 +6,16 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:39:08 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 11:27:42 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:11:16 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int 	is_line_split_valid(char **line_split, int nb)
+int		is_line_split_valid(char **line_split, int nb)
 {
 	int i;
-	
+
 	i = 0;
 	while (line_split[i])
 		i++;
@@ -25,7 +25,7 @@ int 	is_line_split_valid(char **line_split, int nb)
 void	process_scene(char **line_split, int type, t_scene *scene, int line)
 {
 	int i;
-	
+
 	if (!is_line_split_valid(line_split, type == 1 ? 3 : 2))
 		type == 1 ? ft_parse_error(3, line) : ft_parse_error(4, line);
 	if (type == 1)
@@ -37,7 +37,7 @@ void	process_scene(char **line_split, int type, t_scene *scene, int line)
 	else
 	{
 		scene->w = ft_atoi(line_split[0]);
-		scene->h = ft_atoi(line_split[1]);	
+		scene->h = ft_atoi(line_split[1]);
 	}
 	i = 0;
 	while (line_split[i])
@@ -50,7 +50,6 @@ void	process_scene(char **line_split, int type, t_scene *scene, int line)
 
 void	get_scene(char **file, t_scene *sc, int line)
 {
-
 	sc->w = 0;
 	sc->h = 0;
 	while (file[line])
@@ -70,7 +69,4 @@ void	get_scene(char **file, t_scene *sc, int line)
 		line++;
 	}
 	get_vec_list(sc, file, 0);
-	printf("camera| x: %f| y: %f| z: %f\n",sc->pos.x,
-			sc->pos.y, sc->pos.z);
-	printf("w: %d|h: %d\n", sc->w, sc->h);
 }

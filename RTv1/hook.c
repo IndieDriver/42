@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/24 10:30:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/10 15:06:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:44:21 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ int		expose_hook(t_map *map)
 	return (0);
 }
 
-int		loop_hook(t_map *map)
+int		red_cross(t_map *map)
 {
-	(void)map;
-	//move(map);
+	mlx_destroy_window(map->env.mlx, map->env.win);
+	exit(0);
 	return (0);
 }
 
@@ -51,6 +51,7 @@ int		key_press(int keycode, t_map *map)
 		map->key.left = 1;
 	return (0);
 }
+
 int		key_hook(int keycode, t_map *map)
 {
 	if (keycode == 53)

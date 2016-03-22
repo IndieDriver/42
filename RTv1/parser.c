@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:45:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 11:18:04 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 15:15:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	ft_parse_error(int type, int line)
 {
 	ft_putstr("Parse error on line: ");
 	ft_putnbr(line);
+	ft_putstr(" | type: ");
 	if (type == 1)
 		ft_putstr("malloc error\n");
 	if (type == 2)
@@ -75,9 +76,9 @@ char	**get_file(char *file_name)
 
 void	parse_file(t_map *map, char *file_name)
 {
-	char **file;
-	t_scene scene;
-	int i;
+	char	**file;
+	t_scene	scene;
+	int		i;
 
 	i = 0;
 	file = get_file(file_name);
@@ -89,8 +90,5 @@ void	parse_file(t_map *map, char *file_name)
 			get_object(file, &scene, i);
 		i++;
 	}
-	printf("sphere pos: x: %f| y: %f| z: %f|color: %#08x\n",
-		scene.sphere[0].pos.x, scene.sphere[0].pos.y, scene.sphere[0].pos.z,
-		scene.sphere[0].color);
 	map->scene = scene;
 }

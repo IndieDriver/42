@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 10:10:03 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 14:06:49 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 t_vec	get_normal_sphere(void *shape, t_vec inter)
 {
-	t_sphere *sph;
-	t_vec nor;
+	t_sphere	*sph;
+	t_vec		nor;
 
 	sph = shape;
 	nor.x = inter.x - sph->pos.x;
@@ -46,7 +46,7 @@ t_vec	get_normal_cone(void *shape)
 t_vec	get_normal_plan(void *shape)
 {
 	t_plan *plan;
-	
+
 	plan = shape;
 	vec_normalize(&plan->normal);
 	return (plan->normal);
@@ -54,8 +54,8 @@ t_vec	get_normal_plan(void *shape)
 
 t_vec	get_normal(void *shape, t_vec inter)
 {
-	t_sphere *tmp;
-	t_vec	vec;
+	t_sphere	*tmp;
+	t_vec		vec;
 
 	tmp = shape;
 	if (tmp->type == 1)
