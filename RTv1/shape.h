@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/18 12:15:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:11:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ typedef struct	s_vec
 	double		x;
 	double		y;
 	double		z;
-	double		dir;
 }				t_vec;
 
 typedef struct	s_plan

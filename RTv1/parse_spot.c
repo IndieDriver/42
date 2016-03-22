@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/16 14:24:40 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 16:00:50 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:28:21 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_vec	get_spot(char **file, int line)
 {
 	t_vec vec;
 
-	vec = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1);
+	vec = get_vec(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1, line);
 	printf("spot.x: %f|spot.y: %f|spot.z: %f\n",vec.x, vec.y, vec.z);
 	return (vec);
 }

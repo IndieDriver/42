@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/19 13:09:09 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:27:30 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,22 +116,23 @@ int				get_reflection(t_map *map, void *shape, t_vec light,
 				t_vec inter, int color);
 
 void			parse_file(t_map *map, char *file_name);
-void			process_scene(char **line_split, int type, t_scene *scene);
+void			process_scene(char **line_split, int type,
+					t_scene *scene, int line);
 
 void			get_scene(char **file, t_scene *scene, int line);
 void			get_object(char **file, t_scene *scene, int line);
 void			get_vec_list(t_scene *scene, char **file, int line);
 
 t_sphere		get_sphere(char **file, int line);
-t_plan			*get_plan(char **file, int line);
-t_cone			*get_cone(char **file, int line);
-t_cylinder		*get_cylinder(char **file, int line);
+t_plan			get_plan(char **file, int line);
+t_cone			get_cone(char **file, int line);
+t_cylinder		get_cylinder(char **file, int line);
 
-t_vec			get_vec(char **line_split, int type);
+t_vec			get_vec(char **line_split, int type, int line);
 char			**get_file(char *file_name);
 int				is_line_split_valid(char **line_split, int nb);
 int				ft_atoi_hex(char *line);
 double			ft_atoi_double(char *str);
 int				contain(char *str, char *str2);
-void			ft_parse_error(int type);
+void			ft_parse_error(int type, int line);
 #endif

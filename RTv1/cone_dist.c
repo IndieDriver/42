@@ -6,12 +6,11 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:04:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/21 15:00:29 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 10:08:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
 
 static t_vec	set_normal(t_cone s, t_vec ray, t_vec opos)
 {

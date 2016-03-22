@@ -6,20 +6,22 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:45:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 15:19:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:18:04 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	ft_parse_error(int type)
+void	ft_parse_error(int type, int line)
 {
+	ft_putstr("Parse error on line: ");
+	ft_putnbr(line);
 	if (type == 1)
 		ft_putstr("malloc error\n");
 	if (type == 2)
 		ft_putstr("invalid file\n");
 	if (type == 3)
-		ft_putstr("camera need 4 args (e.g: camera: 0.0 0.0 0.0 0.0)\n");
+		ft_putstr("vector need 3 args (e.g: pos: 0.0 0.0 0.0)\n");
 	if (type == 4)
 		ft_putstr("screen need 2 args (e.g: screen: 720 480)\n");
 	if (type == 5)

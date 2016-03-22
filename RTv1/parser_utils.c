@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 14:27:27 by amathias          #+#    #+#             */
-/*   Updated: 2016/02/27 14:39:56 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:24:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ double	ft_atoi_double(char *str)
 	double	ret;
 
 	in = ft_atoi(str);
+	if (!ft_strchr(str, '.'))
+		return (in);
 	str = ft_strchr(str, '.') + 1;
 	ret = ft_atoi(str);
 	while (ret >= 1.0)
@@ -38,7 +40,7 @@ int    ft_atoi_hex(char *line)
 		line[i] = ft_toupper(line[i]);
 	i = 0;
 	if (ft_strlen(line) == 0)
-		ft_parse_error(6);
+		ft_parse_error(6, -1);
 	while ((line[i] >= '0' && line[i] <= '9')
 			|| (line[i] >= 'A' && line[i] <= 'F'))
 	{

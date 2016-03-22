@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:39:08 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/16 15:53:39 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/22 11:27:42 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,17 @@ int 	is_line_split_valid(char **line_split, int nb)
 	return (i == nb);
 }
 
-void	process_scene(char **line_split, int type, t_scene *scene)
+void	process_scene(char **line_split, int type, t_scene *scene, int line)
 {
 	int i;
 	
-	if (!is_line_split_valid(line_split, type == 1 ? 4 : 2))
-		type == 1 ? ft_parse_error(3) : ft_parse_error(4);	
+	if (!is_line_split_valid(line_split, type == 1 ? 3 : 2))
+		type == 1 ? ft_parse_error(3, line) : ft_parse_error(4, line);
 	if (type == 1)
 	{
 		scene->pos.x = ft_atoi_double(line_split[0]);
 		scene->pos.y = ft_atoi_double(line_split[1]);
 		scene->pos.z = ft_atoi_double(line_split[2]);
-		scene->pos.dir = ft_atoi_double(line_split[3]);
 	}
 	else
 	{
@@ -57,21 +56,21 @@ void	get_scene(char **file, t_scene *sc, int line)
 	while (file[line])
 	{
 		if (contain(file[line], "camera:"))
-			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 1,
-				sc);
+			process_scene(ft_strsplit(
+					ft_strchr(file[line], ':') + 1, ' '), 1, sc, line);
 		if (contain(file[line], "screen:"))
 		{
-			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 0,
-				sc);
-			process_scene(ft_strsplit(ft_strchr(file[line], ':') + 1, ' '), 0,
-				sc);
+			process_scene(ft_strsplit(
+					ft_strchr(file[line], ':') + 1, ' '), 0, sc, line);
+			process_scene(ft_strsplit(
+					ft_strchr(file[line], ':') + 1, ' '), 0, sc, line);
 		}
 		if (sc->w != 0 && sc->h != 0)
 			break ;
 		line++;
 	}
 	get_vec_list(sc, file, 0);
-	printf("camera| x: %f| y: %f| z: %f| dir: %f\n",sc->pos.x,
-			sc->pos.y, sc->pos.z, sc->pos.dir);
+	printf("camera| x: %f| y: %f| z: %f\n",sc->pos.x,
+			sc->pos.y, sc->pos.z);
 	printf("w: %d|h: %d\n", sc->w, sc->h);
 }
