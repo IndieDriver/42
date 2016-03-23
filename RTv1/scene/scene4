@@ -20,6 +20,7 @@ object:
 	cylinder:
 		pos: 50.0 0.0 50.0
 		radius: 10.0
+		axis: 0.0 1.0 0.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 0.0 50.0
@@ -32,6 +33,7 @@ object:
 	cylinder:
 		pos: -50.0 0.0 50.0
 		radius: 10.0
+		axis: 0.0 1.0 0.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 0.0 50.0
@@ -44,6 +46,7 @@ object:
 	cylinder:
 		pos: 50.0 0.0 -100.0
 		radius: 10.0
+		axis: 0.0 1.0 0.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 0.0 -100.0
@@ -56,6 +59,7 @@ object:
 	cylinder:
 		pos: -50.0 0.0 -100.0
 		radius: 10.0
+		axis: 0.0 1.0 0.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 0.0 -100.0

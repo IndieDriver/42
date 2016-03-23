@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 11:52:14 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:27:06 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,10 @@ int		iter_spot(t_map *map, t_sphere *sh, t_sphere *light, t_vec inter)
 	{
 		if (sh == light)
 		{
-			if (get_distance(inter, *map->scene.light) - 0.5 <
-				get_distance(ray_inter(
-				ray_light(inter, *map->scene.light), *map->scene.light,
-				light->t), *map->scene.light))
-			{
-				color = get_color(sh, inter,
-					ray_invlight(inter, *map->scene.light), color);
-				if (sh->type != 2)
-					color = get_reflection(sh,
-					ray_light(inter, *map->scene.light), inter, color);
-			}
-			else
-				color = 0x000000;
+			color = get_diffuse(sh, ray_invlight(inter, *map->scene.light),
+				color);
+			color = get_reflection(sh, ray_invlight(inter, *map->scene.light),
+				vec_sub(map->scene.pos, inter), color);
 		}
 		else
 			color = get_shadow(map, sh, inter, color);
@@ -58,15 +49,16 @@ int		raytrace(t_map *map, t_vec ray)
 	int			acolor[map->scene.nb_spot];
 
 	i = 0;
-	sh = (t_sphere*)iter(map, ray, map->scene.pos);
+	sh = (t_sphere*)iter(map, ray, map->scene.pos, 1);
 	if (sh)
 	{
 		inter = ray_inter(ray, map->scene.pos, sh->t);
+		sh->normal = get_normal(sh, inter);
 		while (i < map->scene.nb_spot)
 		{
 			map->scene.light = &(map->scene.spot[i]);
 			light = (t_sphere*)iter(map, ray_light(inter, *map->scene.light),
-					*map->scene.light);
+					*map->scene.light, 0);
 			acolor[i] = iter_spot(map, sh, light, inter);
 			i++;
 		}

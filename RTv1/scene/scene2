@@ -1,5 +1,5 @@
 scene:
-	camera: 0.0 -20.0 150.0 0.0
+	camera: 0.0 -20.0 150.0
 	screen:	1000 800
 	spot: -200.0 -20.0 -100.0
 object:
@@ -9,5 +9,6 @@ object:
 		normal: 0.0 1.0 0.0
 	cylinder:
 		pos: 0.0 0.0 0.0
+		axis: 0.0 1.0 0.0
 		radius: 15.0
 		rgb: 0x0000FF

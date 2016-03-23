@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:04:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 16:29:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/23 16:06:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static t_vec	set_normal(t_cone s, t_vec ray, t_vec opos)
 	return (nor);
 }
 
-double			getdist_cone(t_cone *s, t_vec ray, t_vec opos)
+double			getdist_cone(t_cone *s, t_vec ray, t_vec opos, int normal)
 {
 	double	a;
 	double	b;
@@ -53,7 +53,8 @@ double			getdist_cone(t_cone *s, t_vec ray, t_vec opos)
 		s->t = (-b + sqrt(d)) / (2.0 * a);
 		if ((-b - sqrt(d)) / (2.0 * a) < s->t)
 			s->t = (-b - sqrt(d)) / (2.0 * a);
-		s->normal = set_normal(*s, ray, opos);
+		if (normal)
+			s->normal = set_normal(*s, ray, opos);
 	}
 	else
 		return (-1.0);

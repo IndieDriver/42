@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 11:49:55 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/23 17:30:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,18 +83,19 @@ void			raytracer(t_map *map);
 
 double			getdist_sph(t_sphere s, t_vec ray, t_vec opos);
 double			getdist_plan(t_plan p, t_vec ray, t_vec opos);
-double			getdist_cyl(t_cylinder *cyl, t_vec ray, t_vec opos);
-double			getdist_cone(t_cone *cone, t_vec ray, t_vec opos);
+double			getdist_cyl(t_cylinder *cyl, t_vec ray, t_vec opos, int n);
+double			getdist_cone(t_cone *cone, t_vec ray, t_vec opos, int n);
 
 t_vec			get_normal(void *shape, t_vec inter);
 
-void			*iter(t_map *map, t_vec ray, t_vec opos);
+void			*iter(t_map *map, t_vec ray, t_vec opos, int get_normal);
 
 void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
 					t_cone *cone);
 
-int				get_color(void *shape, t_vec inter, t_vec light, int color);
-int				light_rgb(int rgb, double angle);
+int				get_diffuse(void *shape, t_vec light, int color);
+int				get_reflection(void *shape, t_vec light, t_vec eye, int color);
+
 int				average_rgb(int *rgb, int len);
 
 t_vec			ray_viewplane(t_map *map, int x, int y);
@@ -110,11 +111,12 @@ t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_multbyscalar(t_vec vec, double sca);
 t_vec			vec_project(t_vec v1, t_vec v2);
 
+int				col_mul(int c1, double mul);
+int				col_add_mul(int c1, int c2, double mul);
+
 int				get_shadow_color(int color, int nb);
 int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
 
-int				get_reflection(void *shape, t_vec light,
-				t_vec inter, int color);
 
 void			parse_file(t_map *map, char *file_name);
 void			process_scene(char **line_split, int type,

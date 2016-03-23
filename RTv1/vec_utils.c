@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:15:30 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 16:29:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/23 15:31:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	vec_normalize(t_vec *vec)
 {
 	double tmp;
 
-	tmp = 1.0 / sqrt(vec_dot(*vec, *vec));
+	tmp = 1.0 / sqrt((vec->x * vec->x + vec->y * vec->y + vec->z * vec->z));
 	vec->x *= tmp;
 	vec->y *= tmp;
 	vec->z *= tmp;

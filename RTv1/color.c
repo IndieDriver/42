@@ -6,11 +6,43 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 16:02:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 11:48:46 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/23 18:23:48 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+int		col_mul(int c1, double mul)
+{
+	int red;
+	int green;
+	int blue;
+
+	red = ((c1 & 0xFF0000) >> 16) * mul;
+	green = ((c1 & 0xFF00) >> 8) * mul;
+	blue = (c1 & 0xFF) * mul;
+	red = red > 0xFF ? 0xFF : red;
+	green = green > 0xFF ? 0xFF : green;
+	blue = blue > 0xFF ? 0xFF : blue;
+	return (red << 16 | green << 8 | blue);
+}
+
+int		col_add_mul(int c1, int c2, double mul)
+{
+	int	red;
+	int green;
+	int blue;
+
+	//c1 = col_mul(c1, mul);
+	c2 = col_mul(c2, mul);
+	red = ((c1 & 0xFF0000) >> 16) + ((c2 & 0xFF0000) >> 16);
+	green = ((c1 & 0xFF00) >> 8) + ((c2 & 0xFF00) >> 8);
+	blue = (c1 & 0xFF) + (c2 & 0xFF);
+	red = red > 0xFF ? 0xFF : red;
+	green = green > 0xFF ? 0xFF : green;
+	blue = blue > 0xFF ? 0xFF : blue;
+	return (red << 16 | green << 8 | blue);
+}
 
 int		average(int *n, int len)
 {
