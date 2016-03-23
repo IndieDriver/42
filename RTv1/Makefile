@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/03/16 14:42:49 by amathias         ###   ########.fr        #
+#    Updated: 2016/03/23 10:51:28 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC =	main.c			\
 		get_normal.c	\
 		get_ray.c		\
 		vec_utils.c		\
+		color.c			\
 		parser.c		\
 		move.c			\
 		parse_scene.c	\

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 16:01:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/23 11:49:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
 
 int				get_color(void *shape, t_vec inter, t_vec light, int color);
 int				light_rgb(int rgb, double angle);
+int				average_rgb(int *rgb, int len);
 
 t_vec			ray_viewplane(t_map *map, int x, int y);
 t_vec			ray_invlight(t_vec inter, t_vec light_pos);
@@ -112,7 +113,7 @@ t_vec			vec_project(t_vec v1, t_vec v2);
 int				get_shadow_color(int color, int nb);
 int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
 
-int				get_reflection(t_map *map, void *shape, t_vec light,
+int				get_reflection(void *shape, t_vec light,
 				t_vec inter, int color);
 
 void			parse_file(t_map *map, char *file_name);
