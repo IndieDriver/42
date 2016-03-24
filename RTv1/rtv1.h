@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 17:30:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:59:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,8 +93,8 @@ void			*iter(t_map *map, t_vec ray, t_vec opos, int get_normal);
 void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
 					t_cone *cone);
 
-int				get_diffuse(void *shape, t_vec light, int color);
-int				get_reflection(void *shape, t_vec light, t_vec eye, int color);
+double			get_diffuse(void *shape, t_vec light);
+double			get_spec(void *shape, t_vec light, t_vec eye);
 
 int				average_rgb(int *rgb, int len);
 
@@ -111,12 +111,14 @@ t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_multbyscalar(t_vec vec, double sca);
 t_vec			vec_project(t_vec v1, t_vec v2);
 
+int				col_add(int c1, int c2);
+int				col_add3(int c1, int c2, int c3);
+int				col_add_array(int ambient, int *c, int nb);
 int				col_mul(int c1, double mul);
 int				col_add_mul(int c1, int c2, double mul);
 
 int				get_shadow_color(int color, int nb);
 int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
-
 
 void			parse_file(t_map *map, char *file_name);
 void			process_scene(char **line_split, int type,

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 18:27:06 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:34:25 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,41 @@ double	get_distance(t_vec p1, t_vec p2)
 
 int		iter_spot(t_map *map, t_sphere *sh, t_sphere *light, t_vec inter)
 {
-	int color;
+	int ambient;
+	int diffuse;
+	int	specular;
+	int i;
+	int j;
+	int color_array[map->scene.nb_spot * 2];
 
-	color = sh->color;
-	if (light)
+	i = 0;
+	j = 0;
+	while (i < map->scene.nb_spot)
 	{
-		if (sh == light)
+		map->scene.light = &map->scene.spot[i];
+		light = (t_sphere*)iter(map, ray_light(inter, *map->scene.light),
+					*map->scene.light, 0);
+		if (light)
 		{
-			color = get_diffuse(sh, ray_invlight(inter, *map->scene.light),
-				color);
-			color = get_reflection(sh, ray_invlight(inter, *map->scene.light),
-				vec_sub(map->scene.pos, inter), color);
+			ambient = col_mul(sh->color, 0.2);
+			diffuse = col_mul(sh->color, 0.7 *
+				get_diffuse(sh, ray_invlight(inter, *map->scene.light)));
+			specular = col_mul(0xFFFFFF, 1.0 *
+				get_spec(sh, ray_invlight(inter, *map->scene.light),
+				vec_sub(map->scene.pos, inter)));
+			if (sh == light)
+			{
+				color_array[j] = diffuse;
+				color_array[++j] = specular;
+			}
+			else
+				color_array[j] = get_shadow(map, sh, inter,
+						col_add3(ambient, diffuse, specular));	
 		}
-		else
-			color = get_shadow(map, sh, inter, color);
+		j++;
+		i++;
 	}
-	return (color);
+	return (col_add_array(ambient, color_array, j));
 }
 
 int		raytrace(t_map *map, t_vec ray)
@@ -46,23 +65,24 @@ int		raytrace(t_map *map, t_vec ray)
 	t_sphere	*light;
 	t_vec		inter;
 	int			i;
-	int			acolor[map->scene.nb_spot];
+	//int			acolor[map->scene.nb_spot];
 
 	i = 0;
 	sh = (t_sphere*)iter(map, ray, map->scene.pos, 1);
+	light = NULL;
 	if (sh)
 	{
 		inter = ray_inter(ray, map->scene.pos, sh->t);
 		sh->normal = get_normal(sh, inter);
-		while (i < map->scene.nb_spot)
-		{
-			map->scene.light = &(map->scene.spot[i]);
-			light = (t_sphere*)iter(map, ray_light(inter, *map->scene.light),
-					*map->scene.light, 0);
-			acolor[i] = iter_spot(map, sh, light, inter);
-			i++;
-		}
-		return (average_rgb(acolor, i));
+		//while (i < map->scene.nb_spot)
+		//{
+		//	map->scene.light = &(map->scene.spot[i]);
+		//	light = (t_sphere*)iter(map, ray_light(inter, *map->scene.light),
+		//			*map->scene.light, 0);
+		//	acolor[i] = iter_spot(map, sh, light, inter);
+		//	i++;
+		//}
+		return (iter_spot(map, sh, light, inter));
 	}
 	return (0x000000);
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/07 10:23:44 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 16:39:34 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/24 17:34:17 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int		get_shadow_color(int color, int nb)
 	unsigned int	blue;
 	double			div;
 
-	div = (((nb) * (1.0 - 0.1)) / 256.0) + 0.1;
+	div = (((nb) * (1.0 - 0.3)) / 256.0) + 0.3;
 	red = (color & 0xFF0000) >> 16;
 	green = (color & 0xFF00) >> 8;
 	blue = color & 0xFF;
@@ -82,6 +82,5 @@ int		get_shadow(t_map *map, void *shape, t_vec inter, int color)
 				count++;
 		}
 	}
-	return (get_shadow_color(get_diffuse(shape,
-					ray_invlight(inter, *map->scene.light), color), count));
+	return (get_shadow_color(color, count));
 }

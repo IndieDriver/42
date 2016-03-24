@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 13:03:06 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 16:12:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/24 16:01:01 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ t_vec	get_normal(void *shape, t_vec inter)
 	t_vec		vec;
 
 	tmp = shape;
+	vec.x = 0.0;
 	if (tmp->type == 1)
 		return (get_normal_sphere(shape, inter));
 	else if (tmp->type == 2)
