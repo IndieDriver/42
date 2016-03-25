@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/03/24 14:45:40 by amathias         ###   ########.fr        #
+#    Updated: 2016/03/25 14:12:34 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC =	main.c			\
 		parse_shape.c	\
 		parser_utils.c	\
 		parse_spot.c	\
+		parser_init.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = rtv1

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 15:56:50 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/25 14:46:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_sphere	get_sphere(char **file, int line)
 	t_sphere sph;
 
 	line++;
-	sph.type = 1;
+	init_t_sphere(&sph);
 	while (file[line])
 	{
 		if (contain(file[line], "rgb:"))
@@ -49,7 +49,7 @@ t_sphere	get_sphere(char **file, int line)
 			sph.pos = get_vec(ft_strsplit(
 						ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "radius"))
-			sph.radius = ft_atoi(ft_strchr(file[line], ':') + 1);
+			sph.radius = ft_atoi_double(ft_strchr(file[line], ':') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;
@@ -62,7 +62,7 @@ t_plan		get_plan(char **file, int line)
 {
 	t_plan plan;
 
-	plan.type = 2;
+	init_t_plan(&plan);
 	line++;
 	while (file[line])
 	{
@@ -87,7 +87,7 @@ t_cylinder	get_cylinder(char **file, int line)
 	t_cylinder cyl;
 
 	line++;
-	cyl.type = 3;
+	init_t_cylinder(&cyl);
 	while (file[line])
 	{
 		if (contain(file[line], "pos:"))
@@ -99,7 +99,7 @@ t_cylinder	get_cylinder(char **file, int line)
 			cyl.axis = get_vec(ft_strsplit(
 					ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "radius:"))
-			cyl.radius = ft_atoi(ft_strchr(file[line], ':') + 1);
+			cyl.radius = ft_atoi_double(ft_strchr(file[line], ':') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;
@@ -113,7 +113,7 @@ t_cone		get_cone(char **file, int line)
 	t_cone cone;
 
 	line++;
-	cone.type = 4;
+	init_t_cone(&cone);
 	while (file[line])
 	{
 		if (contain(file[line], "pos:"))
@@ -124,6 +124,8 @@ t_cone		get_cone(char **file, int line)
 					ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "rgb:"))
 			cone.color = ft_atoi_hex(ft_strchr(file[line], 'x') + 1);
+		if (contain(file[line], "k:"))
+			cone.k = ft_atoi_double(ft_strchr(file[line], ':') + 1);
 		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
 			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
 			break ;

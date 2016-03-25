@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/28 14:16:51 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/24 17:34:22 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/25 12:53:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,6 @@ double		get_diffuse(void *shape, t_vec light)
 
 	sph = shape;
 	nor = sph->normal;
-	ldif = fmax(0.0, vec_dot(light, nor));;
+	ldif = fmax(0.0, vec_dot(light, nor));
 	return (ldif);
 }

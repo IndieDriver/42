@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/24 16:59:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/25 14:31:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,6 @@
 # include "libft.h"
 # define WIDTH 720
 # define HEIGHT 480
-# define RED  "\x1B[31m"
-# define WHT  "\x1B[37m"
-# define RST "\033[0m"
 
 typedef struct	s_env
 {
@@ -132,6 +129,11 @@ t_sphere		get_sphere(char **file, int line);
 t_plan			get_plan(char **file, int line);
 t_cone			get_cone(char **file, int line);
 t_cylinder		get_cylinder(char **file, int line);
+
+void			init_t_sphere(t_sphere *sph);
+void			init_t_plan(t_plan *plan);
+void			init_t_cylinder(t_cylinder *cyl);
+void			init_t_cone(t_cone *cone);
 
 t_vec			get_vec(char **line_split, int type, int line);
 char			**get_file(char *file_name);

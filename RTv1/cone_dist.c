@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/15 14:04:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/23 16:06:35 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/25 13:45:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,10 @@ double			getdist_cone(t_cone *s, t_vec ray, t_vec opos, int normal)
 	double	c;
 	double	d;
 
-	s->k = 0.5;
 	a = vec_dot(ray, ray) - (1.0 + (s->k * s->k)) *
 		(vec_dot(ray, s->axis) * vec_dot(ray, s->axis));
 	b = 2.0 * (vec_dot(ray, vec_sub(opos, s->pos))
-			- (1.0 + (s->k * s->k)) * (vec_dot(ray, s->axis)
+		- (1.0 + (s->k * s->k)) * (vec_dot(ray, s->axis)
 			* vec_dot(vec_sub(opos, s->pos), s->axis)));
 	c = vec_dot(vec_sub(opos, s->pos), vec_sub(opos, s->pos))
 		- (1.0 + (s->k * s->k)) * (vec_dot(vec_sub(opos, s->pos), s->axis)
