@@ -1,10 +1,10 @@
 scene:
-	camera: 0.0 -20.0 150.0
+	camera: 0.0 20.0 150.0
 	screen:	1000 800
-	spot: -200.0 -20.0 -100.0
+	spot: -200.0 50.0 -100.0
 object:
 	plan:
-		pos: 0.0 0.0 0.0
+		pos: 0.0 1.0 0.0
 		rgb: 0xFF0000
 		normal: 0.0 1.0 0.0
 	cylinder:

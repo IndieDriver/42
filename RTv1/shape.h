@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:48:23 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/25 14:09:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 15:22:29 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ typedef struct	s_cone
 typedef struct	s_scene
 {
 	t_vec		pos;
+	t_vec		rot;
 	int			w;
 	int			h;
 	int			nb_sph;

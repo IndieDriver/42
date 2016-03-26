@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:39:08 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/26 11:50:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 15:33:51 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,11 @@ void	get_scene(char **file, t_scene *sc, int line)
 			process_scene(ft_strsplit(
 					ft_strchr(file[line], ':') + 1, ' '), 1, sc, line);
 		if (contain(file[line], "screen:"))
-		{
 			process_scene(ft_strsplit(
 					ft_strchr(file[line], ':') + 1, ' '), 0, sc, line);
-			process_scene(ft_strsplit(
-					ft_strchr(file[line], ':') + 1, ' '), 0, sc, line);
-		}
+		if (contain(file[line], "rot:"))
+			sc->rot = get_vec(ft_strsplit(
+					ft_strchr(file[line], ':') + 1, ' '), 1, line);
 		if (contain(file[line], "object:"))
 			break ;
 		line++;

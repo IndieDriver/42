@@ -1,5 +1,5 @@
 scene:
-	camera: 0.0 150.0 300.0
+	camera: 0.0 20.0 300.0
 	screen:	1000 800
 	rot: -15.0 0.0 0.0
 	spot: -125.0 40.0 200.0
@@ -23,7 +23,7 @@ object:
 		rgb: 0x00FFFF
 	cylinder:
 		pos: -50.0 0.0 -50.0
-		axis: 0.0 1.0 0.0
+		axis: 0.0 1.0 1.0
 		radius: 15.0
 		rgb: 0x0000FF
 	cone:
