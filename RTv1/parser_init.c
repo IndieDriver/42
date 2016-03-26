@@ -6,14 +6,14 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/25 13:56:20 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/25 15:16:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 14:23:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 void	init_t_sphere(t_sphere *sph)
-{	
+{
 	sph->type = 1;
 	sph->color = 0xFF0000;
 	sph->pos.x = 0.0;
@@ -58,5 +58,4 @@ void	init_t_cone(t_cone *cone)
 	cone->axis.x = 0.0;
 	cone->axis.y = 1.0;
 	cone->axis.z = 0.0;
-
 }

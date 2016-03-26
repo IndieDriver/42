@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 15:13:41 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 14:22:44 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,13 @@ void	draw(t_map *map)
 	mlx_destroy_image(map->env.mlx, map->img.img);
 }
 
-void	init_map(t_map *map)
+void	ft_error(t_map *map, int w)
 {
-	init_key(map);
+	if (w)
+		mlx_destroy_window(map->env.mlx, map->env.win);
+	if (w < 0)
+		free(map);
+	exit(0);
 }
 
 int		main(int arc, char **arv)
@@ -34,13 +38,17 @@ int		main(int arc, char **arv)
 	t_map *map;
 
 	e.mlx = mlx_init();
-	map = (t_map*)malloc(sizeof(t_map));
-	init_map(map);
+	if (!(map = (t_map*)malloc(sizeof(t_map))))
+		ft_error(map, -1);
+	init_key(map);
 	if (arc == 2)
 		parse_file(map, arv[1]);
 	else
-		exit(0);
-	e.win = mlx_new_window(e.mlx, map->scene.w, map->scene.h, "RTv1");
+		ft_error(map, 0);
+	if (map->scene.h <= 0 || map->scene.w <= 0)
+		ft_error(map, 0);
+	if (!(e.win = mlx_new_window(e.mlx, map->scene.w, map->scene.h, "RTv1")))
+		ft_error(map, 0);
 	map->env = e;
 	mlx_key_hook(e.win, key_hook, map);
 	mlx_hook(e.win, 2, (1L << 0), key_press, map);

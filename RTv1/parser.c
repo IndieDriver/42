@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:45:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/22 15:15:14 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 14:21:43 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,10 @@ void	parse_file(t_map *map, char *file_name)
 
 	i = 0;
 	file = get_file(file_name);
+	if (!file)
+		ft_error(map, 0);
+	scene.w = 0;
+	scene.h = 0;
 	while (file[i] != NULL)
 	{
 		if (contain(file[i], "scene:"))

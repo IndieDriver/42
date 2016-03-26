@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 14:39:08 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/25 15:16:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 11:50:19 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,7 @@ void	get_scene(char **file, t_scene *sc, int line)
 			process_scene(ft_strsplit(
 					ft_strchr(file[line], ':') + 1, ' '), 0, sc, line);
 		}
-		if (contain(file[line], "sphere:") || contain(file[line], "plan:")
-			|| contain(file[line], "cylinder:") || contain(file[line], "cone"))
+		if (contain(file[line], "object:"))
 			break ;
 		line++;
 	}

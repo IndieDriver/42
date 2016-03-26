@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/25 14:31:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/26 13:05:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ void			init_t_plan(t_plan *plan);
 void			init_t_cylinder(t_cylinder *cyl);
 void			init_t_cone(t_cone *cone);
 
+void			ft_error(t_map *map, int w);
 t_vec			get_vec(char **line_split, int type, int line);
 char			**get_file(char *file_name);
 int				is_line_split_valid(char **line_split, int nb);
