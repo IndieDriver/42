@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/28 13:41:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 14:16:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@
 # include <fcntl.h>
 # include "shape.h"
 # include "libft.h"
-# define WIDTH 720
-# define HEIGHT 480
 
 typedef struct	s_env
 {
@@ -35,33 +33,22 @@ typedef struct	s_img
 	int			endian;
 }				t_img;
 
-typedef struct	s_pos
-{
-	int			x;
-	int			y;
-}				t_pos;
-
 typedef struct	s_map
 {
 	t_env		env;
 	t_scene		scene;
 	t_img		img;
-	t_vec		pos;
-	t_vec		dirvec;
-	t_vec		cvec;
 }				t_map;
 
 void			draw(t_map *map);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
-void			move(t_map *map);
 
 int				expose_hook(t_map *map);
 int				key_hook(int keycode, t_map *map);
 int				red_cross(t_map *map);
 
 void			raytracer(t_map *map);
-
 double			getdist_sph(t_sphere s, t_vec ray, t_vec opos);
 double			getdist_plan(t_plan p, t_vec ray, t_vec opos);
 double			getdist_cyl(t_cylinder *cyl, t_vec ray, t_vec opos, int n);
@@ -71,8 +58,7 @@ t_vec			get_normal(void *shape, t_vec inter);
 
 void			*iter(t_map *map, t_vec ray, t_vec opos, int get_normal);
 
-void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
-					t_cone *cone);
+void			*get_nearest(t_sphere *s, t_plan *p, t_cylinder *cy, t_cone *c);
 
 double			get_diffuse(void *shape, t_vec light);
 double			get_spec(void *shape, t_vec light, t_vec eye);
@@ -81,19 +67,14 @@ t_vec			ray_viewplane(t_map *map, int x, int y);
 t_vec			ray_invlight(t_vec inter, t_vec light_pos);
 t_vec			ray_light(t_vec inter, t_vec light_pos);
 t_vec			ray_inter(t_vec ray, t_vec opos, double t);
-t_vec			ray_shadow(t_map *map, t_vec inter, double offset_x,
-				double offset_y);
 
 void			vec_normalize(t_vec *vec);
 double			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
-t_vec			vec_multbyscalar(t_vec vec, double sca);
 
 int				col_add(int c1, int c2);
-int				col_add3(int c1, int c2, int c3);
 int				col_add_array(int ambient, int *c, int nb);
 int				col_mul(int c1, double mul);
-int				col_add_mul(int c1, int c2, double mul);
 
 int				get_shadow_color(int color, int nb);
 int				get_shadow(int color);

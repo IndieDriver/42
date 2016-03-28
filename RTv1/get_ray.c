@@ -6,22 +6,11 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/03/03 15:18:33 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/26 16:26:05 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 14:16:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-t_vec	ray_shadow(t_map *map, t_vec inter, double offset_x, double offset_y)
-{
-	t_vec sha;
-
-	sha.x = (inter.x - map->scene.light->x) - offset_x;
-	sha.y = (inter.y - map->scene.light->y) - offset_y;
-	sha.z = (inter.z - map->scene.light->z);
-	vec_normalize(&sha);
-	return (sha);
-}
 
 t_vec	ray_inter(t_vec ray, t_vec opos, double t)
 {
@@ -79,5 +68,6 @@ t_vec	ray_viewplane(t_map *map, int x, int y)
 		- tmp.x * sin(to_rad(map->scene.rot.y));
 	ray.x = tmp.z * sin(to_rad(map->scene.rot.y))
 		+ tmp.x * cos(to_rad(map->scene.rot.y));
+	vec_normalize(&ray);
 	return (ray);
 }
