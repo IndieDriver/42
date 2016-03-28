@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/25 20:52:26 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/26 15:20:08 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 13:42:35 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		iter_spot(t_map *map, t_sphere *sh, t_sphere *light, t_vec inter)
 		if (sh == light)
 			return (col_add(diffuse, specular));
 		else
-			return (get_shadow(map, sh, inter, col_add(diffuse, specular)));
+			return (get_shadow(col_add(diffuse, specular)));
 	}
 	return (col_mul(sh->color, 0.2));
 }

@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/28 13:36:39 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 13:41:08 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int				col_mul(int c1, double mul);
 int				col_add_mul(int c1, int c2, double mul);
 
 int				get_shadow_color(int color, int nb);
-int				get_shadow(t_map *map, void *shape, t_vec inter, int color);
+int				get_shadow(int color);
 
 void			parse_file(t_map *map, char *file_name);
 void			process_scene(char **line_split, int type,
