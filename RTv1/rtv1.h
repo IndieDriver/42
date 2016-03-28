@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 13:29:10 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/26 15:34:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 13:36:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 # include <mlx.h>
 # include <math.h>
 # include <fcntl.h>
-#include <stdio.h>
 # include "shape.h"
 # include "libft.h"
 # define WIDTH 720
@@ -40,40 +39,25 @@ typedef struct	s_pos
 {
 	int			x;
 	int			y;
-	int			color;
 }				t_pos;
-
-typedef struct	s_key
-{
-	int			up;
-	int			down;
-	int			left;
-	int			right;
-	int			mleft;
-	int			mright;
-}				t_key;
 
 typedef struct	s_map
 {
 	t_env		env;
 	t_scene		scene;
 	t_img		img;
-	t_key		key;
 	t_vec		pos;
 	t_vec		dirvec;
 	t_vec		cvec;
 }				t_map;
 
 void			draw(t_map *map);
-int				get_hex_color(t_map *map, int x, int y);
 void			draw_pixel_to_image(t_map *map, int x, int y, int color);
 void			init_image(t_map *map, int color);
 void			move(t_map *map);
 
 int				expose_hook(t_map *map);
-int				key_press(int keycode, t_map *map);
 int				key_hook(int keycode, t_map *map);
-void			init_key(t_map *map);
 int				red_cross(t_map *map);
 
 void			raytracer(t_map *map);
@@ -93,8 +77,6 @@ void			*get_nearest(t_sphere *sph, t_plan *plan, t_cylinder *cyl,
 double			get_diffuse(void *shape, t_vec light);
 double			get_spec(void *shape, t_vec light, t_vec eye);
 
-int				average_rgb(int *rgb, int len);
-
 t_vec			ray_viewplane(t_map *map, int x, int y);
 t_vec			ray_invlight(t_vec inter, t_vec light_pos);
 t_vec			ray_light(t_vec inter, t_vec light_pos);
@@ -106,7 +88,6 @@ void			vec_normalize(t_vec *vec);
 double			vec_dot(t_vec v1, t_vec v2);
 t_vec			vec_sub(t_vec v1, t_vec v2);
 t_vec			vec_multbyscalar(t_vec vec, double sca);
-t_vec			vec_project(t_vec v1, t_vec v2);
 
 int				col_add(int c1, int c2);
 int				col_add3(int c1, int c2, int c3);

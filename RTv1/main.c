@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/26 14:22:44 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 13:36:42 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int		main(int arc, char **arv)
 	e.mlx = mlx_init();
 	if (!(map = (t_map*)malloc(sizeof(t_map))))
 		ft_error(map, -1);
-	init_key(map);
 	if (arc == 2)
 		parse_file(map, arv[1]);
 	else
@@ -51,7 +50,6 @@ int		main(int arc, char **arv)
 		ft_error(map, 0);
 	map->env = e;
 	mlx_key_hook(e.win, key_hook, map);
-	mlx_hook(e.win, 2, (1L << 0), key_press, map);
 	mlx_hook(e.win, 17, (1L << 17), red_cross, map);
 	mlx_expose_hook(e.win, expose_hook, map);
 	mlx_loop(e.mlx);

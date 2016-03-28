@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/24 15:35:02 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/25 14:46:19 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/28 13:03:41 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_cylinder	get_cylinder(char **file, int line)
 			break ;
 		line++;
 	}
+	vec_normalize(&cyl.axis);
 	return (cyl);
 }
 
@@ -131,5 +132,6 @@ t_cone		get_cone(char **file, int line)
 			break ;
 		line++;
 	}
+	vec_normalize(&cone.axis);
 	return (cone);
 }
