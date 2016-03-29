@@ -1,9 +1,9 @@
 scene:
-	camera: 0.0 50.0 200.0
+	camera: 0.0 50.0 225.0
 	screen:	1000 800
 	rot: 0.0 0.0 0.0
-	spot: 200.0 80.0 200.0
-	spot: -200.0 80.0 200.0
+	spot: 130.0 50.0 210.0
+	spot: -130.0 50.0 210.0
 	
 object:
 	plan:
@@ -11,7 +11,7 @@ object:
 		normal: 0.0 1.0 0.0
 		rgb: 0xFF0000
 	plan:
-		pos: 0.0 0.0 -300.0
+		pos: 0.0 0.0 -190.0
 		normal: 0.0 0.0 1.0
 		rgb: 0x0000FF
 	plan:
@@ -25,11 +25,11 @@ object:
 		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 0.0 50.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 100.0 50.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	cylinder:
 		pos: -50.0 0.0 50.0
@@ -38,11 +38,11 @@ object:
 		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 0.0 50.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 100.0 50.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	cylinder:
 		pos: 50.0 0.0 -100.0
@@ -51,11 +51,11 @@ object:
 		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 0.0 -100.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: 50.0 100.0 -100.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	cylinder:
 		pos: -50.0 0.0 -100.0
@@ -64,9 +64,9 @@ object:
 		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 0.0 -100.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e
 	sphere:
 		pos: -50.0 100.0 -100.0
-		radius: 15.0
+		radius: 16.0
 		rgb: 0x6e6e6e

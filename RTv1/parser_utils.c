@@ -6,12 +6,14 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 14:27:27 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/28 13:28:31 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/29 16:22:12 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+
+#include <stdio.h>
 double	ft_atoi_double(char *str)
 {
 	double	in;
@@ -20,15 +22,19 @@ double	ft_atoi_double(char *str)
 
 	sign = 1.0;
 	in = ft_atoi(str);
-	if (contain(str, "-") && in == 0)
+	if (ft_strchr(str, '-'))
 		sign = -1.0;
+	in = fabs(in);
 	if (!ft_strchr(str, '.'))
 		return (in);
 	str = ft_strchr(str, '.') + 1;
 	ret = ft_atoi(str);
 	while (ret >= 1.0)
 		ret = ret / 10.0;
-	return (sign * (in + ret));
+	in = (sign * (in + ret));
+	if (in != in)
+		return (0.0);
+	return (in);
 }
 
 int		ft_atoi_hex(char *line)
