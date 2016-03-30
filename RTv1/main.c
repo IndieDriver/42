@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/01/19 12:58:25 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/29 16:22:10 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/30 15:57:27 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int		main(int arc, char **arv)
 		parse_file(map, arv[1]);
 	else
 		ft_error(map, 0);
-	if (map->scene.h <= 0 || map->scene.w <= 0)
+	if (map->scene.h <= 0 || map->scene.w <= 0
+			|| map->scene.w > 2400 || map->scene.h > 1200)
 		ft_error(map, 0);
 	if (!(e.win = mlx_new_window(e.mlx, map->scene.w, map->scene.h, "RTv1")))
 		ft_error(map, 0);

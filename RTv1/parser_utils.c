@@ -6,14 +6,12 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/23 14:27:27 by amathias          #+#    #+#             */
-/*   Updated: 2016/03/29 16:22:12 by amathias         ###   ########.fr       */
+/*   Updated: 2016/03/30 15:57:29 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-
-#include <stdio.h>
 double	ft_atoi_double(char *str)
 {
 	double	in;
