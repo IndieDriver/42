@@ -1,0 +1,10 @@
+rm -r ./private
+echo '\n'
+curl -d login=toto1 -d passwd=titi1 -d submit=OK 'localhost:8080/PHP/d04/ex01/create.php'
+echo '\n'
+cat ./private/passwd
+echo '\n'
+curl -d login=toto1 -d passwd=titi1 -d submit=OK 'localhost:8080/PHP/d04/ex01/create.php'
+echo '\n'
+curl -d login=toto2 -d passwd= -d submit=OK 'localhost:8080/PHP/d04/ex01/create.php'
+echo '\n'

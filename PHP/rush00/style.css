@@ -1,0 +1,186 @@
+body{
+    font-family:Arial;
+}
+
+.labell {
+    color: #FFAB4A;
+    font-size: 1vw;
+}
+
+.legendd {
+    color: #ff8a00;
+    font-size: 1.5vw;
+}
+
+a {
+    color: #dfdfdf;
+    text-decoration: none;
+}
+
+#header_log
+{
+	float: right;
+	color: #dfdfdf;
+	text-decoration: none;
+}
+
+.insc {
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.5vw;
+    margin-top: 1%;
+    float: left;
+
+}
+
+.headd {
+    /*margin-top: 13%; */
+    font-size: 2vw;
+    font-family: "Andale Mono";
+    margin-left: 25%;
+}
+
+h1 {
+    color: #ececec;
+}
+
+ul.menu li{
+    color: #dfdfdf;
+    display: none;
+    padding:1vw 1vw 1vw 1vw;
+    font-size: 1.6vw;
+}
+#monForm input[type="submit"]
+{
+    border: #DDEEFF 1% solid;
+    width: 27%;
+
+}
+
+.line1 {
+    /*height: 1px;*/
+    /*margin: -0.5em 0;*/
+    padding: 0;
+    color: darkorange;
+    background-color: darkorange;
+    border: 0;
+    border-radius: 100%;
+    box-shadow: 12px 12px 12px black inset;
+    margin-top:0%;
+   height: 15px;
+    width: 100%;
+}
+
+#monForm input
+{
+   margin-left: 1%;
+    /*width: 58%; */
+    background-color: #cccccc;
+    border: #dfdfdf 0.2vw solid;
+}
+
+p {
+    color: #dfdfdf;
+}
+
+body{
+    background:url('http://img1.gtsstatic.com/wallpapers/39dda651eaa7b88204c2abebc233cb9d_large.jpeg') repeat;
+}
+
+#monForm input:hover, #monForm select:hover, #monForm input:focus, #monForm select:focus
+{
+    border: #999 1% solid;
+    background-color: #DDEEFF;
+    font-size: 1%;
+}
+
+
+#monForm input[type="submit"]:hover
+{
+    background-color: #66CC33;
+    cursor: pointer;
+}
+
+.checkbox {
+    width: 10%;
+    background-color: #cccccc;
+}
+
+.imga {
+    margin: 0% 1%;
+    width: 70%;
+    /*float: left;*/
+    /*display: inline-block;*/
+    /*display: inline;*/
+
+}
+
+.line {
+    margin-top:5%;
+    font-size: 3vw;
+}
+
+.dvd {
+    margin: 1% 1%;
+    width: 20%;
+    height: 20%;
+    /*border: 2px solid black;*/
+    /*display: block;*/
+    /*float: left;*/
+    /*display: inline;*/
+    display: inline-block;
+
+}
+
+.basket{
+	width: 30px;
+	height: 30px;
+}
+
+.panier {
+	background-color: #FFF;
+	text-align: center;
+	margin-left: 15%;
+	width: 70%;
+	border: 2px solid white;
+}
+
+.panier .panier_item{
+	background-color: grey;
+	margin-left: 1%;
+	margin-top: 1%;
+	margin-bottom: 1%;
+	width: 98%;
+	height: 100px;
+}
+
+.panier_item img{
+	margin-top: 5px;
+	margin-left: 5px;
+	float: left;
+	height: 90px;
+	width: 60px;
+}
+
+.panier_item p{
+	margin-left: 40px;
+	margin-top: 40px;
+	float: left;
+}
+
+.panier_item input{
+	height: 30px;
+	width: 30px;
+	float: right;
+}
+
+table input
+{
+	width:20px;
+	height:20px;
+}
+table {
+	background-color: gray;
+	border-spacing: 0.5rem;
+	border-collapse: collapse;
+	border: 1px;
+}

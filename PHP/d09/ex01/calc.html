@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<style>
+			BODY {background-color:white;}
+		</style>
+	</head>
+	<body>
+		    <input id="input1" type="text" name="left">
+			<select id="sel">
+				<option value="+">+</option>
+				<option value="-">-</option>
+				<option value="*">*</option>
+				<option value="/">/</option>
+				<option value="%">%</option>
+			</select>
+			<input id="input2" type="text" name="right">
+			<input type="submit" name="right" value="Try me!" onclick="calc()">
+		<script>	
+			function isNumeric(value) {
+			    return /^\d+$/.test(value);
+			}
+		
+  			setInterval(function() {
+      			alert("Please, use me...");
+	    	}, 30000);
+
+			function useme()
+			{
+				alert("Please, use me...");
+			}
+			function calc()
+			{
+				var value1 = document.getElementById('input1').value;
+				var op = document.getElementById('sel').value;
+				var value2 = parseInt(document.getElementById('input2').value);
+				if (isNumeric(value1) && isNumeric(value2))
+				{
+					value1 = parseInt(value1);
+					value2 = parseInt(value2);
+					var res = 0;
+					if (op == "+")
+						res = value1 + value2;
+					else if (op == "-")
+						res = value1 - value2;
+					else if (op == "*")
+						res = value1 * value2;
+					else if (op == "/")
+					{
+						if (value2 == 0)
+						{
+							alert("It's over 9000!");
+							console.log("It's over 9000!")
+							return ;
+						}
+						res = value1 / value2;
+					}
+					else if (op == "%")
+					{
+						if (value2 == 0)
+						{
+							alert("It's over 9000!");
+							console.log("It's over 9000!");
+							return ;
+						}
+						res = value1 % value2;
+					}
+					else
+					{
+						alert("Error :(");
+						return ;
+					}
+					console.log(res);
+					alert(res);
+						
+				}
+				else
+					alert("Error :(");
+				
+			}	
+		</script>
+	</body>
+</html>

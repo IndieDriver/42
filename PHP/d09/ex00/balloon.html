@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<style>
+			BODY {background-color:white;}
+			#balloon {background-color: red; width:200px;height:200px;border-radius:50%}
+		</style>
+	</head>
+	<body>
+		<div id="balloon" onclick="gonfler()" onmouseout="degonfler()"></div>
+		<script>	
+			function gonfler()
+			{
+				var bal = document.getElementById("balloon");
+				var bal_css = window.getComputedStyle(bal);
+				var size = parseInt(bal_css.getPropertyValue('width')) + 10;
+				if (size > 420)
+					size = 200;
+				bal.style.width = size;
+				bal.style.height = size;
+				var bg_color = bal_css.getPropertyValue('background-color');
+				if (bg_color == "rgb(255, 0, 0)")
+					bal.style.background = "rgb(0, 255, 0)";
+				else if (bg_color == "rgb(0, 255, 0)")
+					bal.style.background = "rgb(0, 0, 255)";
+				else if (bg_color == "rgb(0, 0, 255)")
+					bal.style.background = "rgb(255, 0, 0)";
+			}
+			
+			function degonfler()
+			{
+				var bal = document.getElementById("balloon");
+				var bal_css = window.getComputedStyle(bal);
+				var size = parseInt(bal_css.getPropertyValue('width')) - 10;
+				if (size < 200)
+					size = 200;
+				bal.style.width = size;
+				bal.style.height = size;
+				var bg_color = bal_css.getPropertyValue('background-color');
+				if (bg_color == "rgb(255, 0, 0)")
+					bal.style.background = "rgb(0, 0, 255)";
+				else if (bg_color == "rgb(0, 255, 0)")
+					bal.style.background = "rgb(255, 0, 0)";
+				else if (bg_color == "rgb(0, 0, 255)")
+					bal.style.background = "rgb(0, 255, 0)";
+
+			}
+
+		</script>
+	</body>
+</html>

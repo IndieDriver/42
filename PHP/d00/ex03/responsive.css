@@ -1,0 +1,73 @@
+body{
+	font-family: Arial;
+}
+
+h1 {
+	text-align: center;
+	font-size: 4vmin;
+}
+
+td {
+	border-style: inherit;
+  	width: 3vw;
+  	height: 3vh;
+}
+
+.page {
+    margin: auto;
+}
+.element{text-align: center;font-weight: bold;font-size:2vmin;}
+.element2{text-align: center;font-weight: normal;font-size:1vmin;}
+.atomic{text-align: left;font-weight: bold;font-size:1vmin;}
+.size{text-align: right;font-size:1vmin;}
+.empty{width: 3vw;height: 3vh;}
+
+.yellow{
+	border-style: solid;
+	background-color: rgba(252, 252, 217, 0.5);
+}
+
+.orange{
+	border-style: solid;
+	background-color: rgba(255, 225, 180, 0.5);
+}
+
+.red{
+	border-style: solid;
+	background-color: rgba(234, 167, 189, 0.5);
+}
+
+.green{
+	border-style: solid;
+	background-color: rgba(203, 240, 214, 0.5);
+}
+
+.brown1{
+	border-style: solid;
+	background-color: rgba(211, 199, 192, 0.5);
+}
+
+.brown2{
+	border-style: solid;
+	background-color: rgba(245, 216, 207, 0.5);
+}
+
+.blue1{
+	border-style: solid;
+	background-color: rgba(135, 219, 251, 0.5);
+}
+
+.blue2{
+	border-style: solid;
+	background-color: rgba(187, 211, 238, 0.5);
+}
+
+.purple1{
+	border-style: solid;
+	background-color: rgba(218, 202, 235, 0.5);
+}
+
+.purple2{
+	border-style: solid;
+	background-color: rgba(225, 226, 248, 0.5);
+}

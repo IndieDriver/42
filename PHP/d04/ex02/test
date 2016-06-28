@@ -1,0 +1,12 @@
+rm ../htdocs/private/passwd
+echo '\n'
+curl -d login=x -d passwd=21 -d submit=OK 'localhost:8080/PHP/d04/ex01/create.php'
+echo '\n'
+curl -d login=x -d oldpw=21 -d newpw=42 -d submit=OK 'localhost:8080/PHP/d04/ex02/modif.php'
+echo '\n'
+more ../htdocs/private/passwd
+echo '\n'
+curl -d login=x -d oldpw=21 -d newpw=42 -d submit=OK 'localhost:8080/PHP/d04/ex02/modif.php'
+echo '\n'
+curl -d login=x -d oldpw=42 -d newpw= -d submit=OK 'localhost:8080/PHP/d04/ex02/modif.php'
+echo '\n'

@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<style>
+			BODY {background-color:white;}
+		</style>
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"
+			integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+			crossorigin="anonymous"></script>
+	</head>
+	<body>
+		<input id="input1" type="text" name="left">
+		<select id="sel">
+			<option value="+">+</option>
+			<option value="-">-</option>
+			<option value="*">*</option>
+			<option value="/">/</option>
+			<option value="%">%</option>
+		</select>
+		<input id="input2" type="text" name="right">
+		<input id="ok" type="submit" name="right" value="Try me!">
+		<script>	
+			$(document).ready(function(){
+				$('#ok').click(function(){
+					var value1 = $('#input1').val();
+					var op = $('#sel').val();
+					var value2 = $('#input2').val();
+					if (isNumeric(value1) && isNumeric(value2))
+					{
+						value1 = parseInt(value1);
+						value2 = parseInt(value2);
+						var res = 0;
+						if (op == "+")
+						res = value1 + value2;
+						else if (op == "-")
+						res = value1 - value2;
+						else if (op == "*")
+						res = value1 * value2;
+						else if (op == "/")
+						{
+							if (value2 == 0)
+							{
+								alert("It's over 9000!");
+								console.log("It's over 9000!")
+								return ;
+							}
+							res = value1 / value2;
+						}
+						else if (op == "%")
+						{
+							if (value2 == 0)
+							{
+								alert("It's over 9000!");
+								console.log("It's over 9000!");
+								return ;
+							}
+							res = value1 % value2;
+						}
+						else
+						{
+							alert("Error :(");
+							return ;
+						}
+						console.log(res);
+						alert(res);
+
+					}
+					else
+						alert("Error :(");
+				});
+
+			});
+			function isNumeric(value) {
+				return /^\d+$/.test(value);
+			}
+			setInterval(function() {
+				alert("Please, use me...");
+			}, 30000);
+		</script>
+	</body>
+</html>

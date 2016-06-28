@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Mendeleïev</title>
+		<style>
+			body{font-family: Arial;}
+        	h1 {text-align: center;}
+			.element{text-align: center;font-weight: bold;font-size: 20px;}
+			.element2{text-align: center;font-weight: normal;font-size: 15px;}
+			.atomic{text-align: left;font-weight: bold;font-size: 8px;}
+			.size{text-align: right;font-size: 8px;}
+			.empty{width: 50px;height: 50px;}
+			.table{border-style: solid;width: 50px;height: 50px;}
+			.yellow{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(252, 252, 217, 0.5);
+			}
+			.orange{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(255, 225, 180, 0.5);
+			}
+			.red{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(234, 167, 189, 0.5);
+			}
+			.green{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(203, 240, 214, 0.5);
+			}
+			.brown1{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(211, 199, 192, 0.5);
+			}
+			.brown2{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(245, 216, 207, 0.5);
+			}
+			.blue1{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(135, 219, 251, 0.5);
+			}
+			.blue2{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(187, 211, 238, 0.5);
+			}
+			.purple1{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(218, 202, 235, 0.5);
+			}
+			.purple2{
+				border-style: solid;
+				width: 50px;
+				height: 50px;
+				background-color: rgba(225, 226, 248, 0.5);
+			}
+    	</style>
+	</head>
+	<body background="http://wallpaperswide.com/download/light_background-wallpaper-2560x1440.jpg">
+		<table align=center>
+			<tr>
+				<td class="blue2">
+					<div class="size">1.008</div>
+					<div class="element">H</div>
+					<div class="atomic">1</div>
+				</td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="purple1">
+					<div class="size">4.003</div>
+					<div class="element">He</div>
+					<div class="atomic">2</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="red">
+					<div class="size">6.941</div>
+					<div class="element">Li</div>
+					<div class="atomic">3</div>
+				</td>
+				<td class="yellow">
+					<div class="size">9.012</div>
+					<div class="element">Be</div>
+					<div class="atomic">4</div>
+				</td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="blue1">
+					<div class="size">10.811</div>
+					<div class="element">B</div>
+					<div class="atomic">5</div>
+				</td>
+				<td class="blue2">
+					<div class="size">12.011</div>
+					<div class="element">C</div>
+					<div class="atomic">6</div>
+				</td>
+				<td class="blue2">
+					<div class="size">14.007</div>
+					<div class="element">N</div>
+					<div class="atomic">7</div>
+				</td>
+				<td class="blue2">
+					<div class="size">15.999</div>
+					<div class="element">O</div>
+					<div class="atomic">8</div>
+				</td>
+				<td class="purple2">
+					<div class="size">18.998</div>
+					<div class="element">F</div>
+					<div class="atomic">9</div>
+				</td>
+				<td class="purple1">
+					<div class="size">20.180</div>
+					<div class="element">Ne</div>
+					<div class="atomic">10</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="red">
+					<div class="size">22.990</div>
+					<div class="element">Na</div>
+					<div class="atomic">11</div>
+				</td>
+				<td class="orange">
+					<div class="size">24.305</div>
+					<div class="element">Mg</div>
+					<div class="atomic">12</div>
+				</td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="green">
+					<div class="size">26.982</div>
+					<div class="element">Al</div>
+					<div class="atomic">13</div>
+				</td>
+				<td class="blue1">
+					<div class="size">28.086</div>
+					<div class="element">Si</div>
+					<div class="atomic">14</div>
+				</td>
+				<td class="blue2">
+					<div class="size">30.974</div>
+					<div class="element">P</div>
+					<div class="atomic">15</div>
+				</td>
+				<td class="blue2">
+					<div class="size">32.066</div>
+					<div class="element">S</div>
+					<div class="atomic">16</div>
+				</td>
+				<td class="purple2">
+					<div class="size">35.453</div>
+					<div class="element">Cl</div>
+					<div class="atomic">17</div>
+				</td>
+				<td class="purple1">
+					<div class="size">39.948</div>
+					<div class="element">Ar</div>
+					<div class="atomic">18</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="red">
+					<div class="size">39.098</div>
+					<div class="element">K</div>
+					<div class="atomic">19</div>
+				</td>
+				<td class="orange">
+					<div class="size">40.078</div>
+					<div class="element">Ca</div>
+					<div class="atomic">20</div>
+				</td>
+				<td class="yellow">
+					<div class="size">44.956</div>
+					<div class="element">Sc</div>
+					<div class="atomic">21</div>
+				</td>
+				<td class="yellow">
+					<div class="size">47.867</div>
+					<div class="element">Ti</div>
+					<div class="atomic">22</div>
+				</td>
+				<td class="yellow">
+					<div class="size">50.942</div>
+					<div class="element">V</div>
+					<div class="atomic">23</div>
+				</td>
+				<td class="yellow">
+					<div class="size">51.996</div>
+					<div class="element">Cr</div>
+					<div class="atomic">24</div>
+				</td>
+				<td class="yellow">
+					<div class="size">54.938</div>
+					<div class="element">Mn</div>
+					<div class="atomic">25</div>
+				</td>
+				<td class="yellow">
+					<div class="size">55.845</div>
+					<div class="element">Fe</div>
+					<div class="atomic">26</div>
+				</td>
+				<td class="yellow">
+					<div class="size">58.933</div>
+					<div class="element">Co</div>
+					<div class="atomic">27</div>
+				</td>
+				<td class="yellow">
+					<div class="size">58.693</div>
+					<div class="element">Ni</div>
+					<div class="atomic">28</div>
+				</td>
+				<td class="yellow">
+					<div class="size">63.546</div>
+					<div class="element">Cu</div>
+					<div class="atomic">29</div>
+				</td>
+				<td class="yellow">
+					<div class="size">65.38</div>
+					<div class="element">Zn</div>
+					<div class="atomic">30</div>
+				</td>
+				<td class="green">
+					<div class="size">69.723</div>
+					<div class="element">Ga</div>
+					<div class="atomic">31</div>
+				</td>
+				<td class="blue1">
+					<div class="size">72.631</div>
+					<div class="element">Ge</div>
+					<div class="atomic">32</div>
+				</td>
+				<td class="blue1">
+					<div class="size">74.922</div>
+					<div class="element">As</div>
+					<div class="atomic">33</div>
+				</td>
+				<td class="blue2">
+					<div class="size">78.972</div>
+					<div class="element">Se</div>
+					<div class="atomic">34</div>
+				</td>
+				<td class="purple2">
+					<div class="size">79.904</div>
+					<div class="element">Br</div>
+					<div class="atomic">35</div>
+				</td>
+				<td class="purple1">
+					<div class="size">84.798</div>
+					<div class="element">Kr</div>
+					<div class="atomic">36</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="red">
+					<div class="size">85.468</div>
+					<div class="element">Rb</div>
+					<div class="atomic">37</div>
+				</td>
+				<td class="orange">
+					<div class="size">87.62</div>
+					<div class="element">Sr</div>
+					<div class="atomic">38</div>
+				</td>
+				<td class="yellow">
+					<div class="size">88.906</div>
+					<div class="element">Y</div>
+					<div class="atomic">39</div>
+				</td>
+				<td class="yellow">
+					<div class="size">91.224</div>
+					<div class="element">Zr</div>
+					<div class="atomic">40</div>
+				</td>
+				<td class="yellow">
+					<div class="size">92.906</div>
+					<div class="element">Nb</div>
+					<div class="atomic">41</div>
+				</td>
+				<td class="yellow">
+					<div class="size">95.95</div>
+					<div class="element">Mo</div>
+					<div class="atomic">42</div>
+				</td>
+				<td class="yellow">
+					<div class="size">98.907</div>
+					<div class="element">Tc</div>
+					<div class="atomic">43</div>
+				</td>
+				<td class="yellow">
+					<div class="size">101.07</div>
+					<div class="element">Ru</div>
+					<div class="atomic">44</div>
+				</td>
+				<td class="yellow">
+					<div class="size">102.906</div>
+					<div class="element">Rh</div>
+					<div class="atomic">45</div>
+				</td>
+				<td class="yellow">
+					<div class="size">106.42</div>
+					<div class="element">Pd</div>
+					<div class="atomic">46</div>
+				</td>
+				<td class="yellow">
+					<div class="size">107.868</div>
+					<div class="element">Ag</div>
+					<div class="atomic">47</div>
+				</td>
+				<td class="yellow">
+					<div class="size">112.411</div>
+					<div class="element">Cd</div>
+					<div class="atomic">48</div>
+				</td>
+				<td class="green">
+					<div class="size">114.818</div>
+					<div class="element">In</div>
+					<div class="atomic">49</div>
+				</td>
+				<td class="blue1">
+					<div class="size">118.711</div>
+					<div class="element">Sn</div>
+					<div class="atomic">50</div>
+				</td>
+				<td class="blue1">
+					<div class="size">121.760</div>
+					<div class="element">Sb</div>
+					<div class="atomic">51</div>
+				</td>
+				<td class="blue2">
+					<div class="size">127.6</div>
+					<div class="element">Te</div>
+					<div class="atomic">52</div>
+				</td>
+				<td class="purple2">
+					<div class="size">126.904</div>
+					<div class="element">I</div>
+					<div class="atomic">53</div>
+				</td>
+				<td class="purple1">
+					<div class="size">131.294</div>
+					<div class="element">Xe</div>
+					<div class="atomic">54</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="red">
+					<div class="size">132.905</div>
+					<div class="element">Cs</div>
+					<div class="atomic">55</div>
+				</td>
+				<td class="orange">
+					<div class="size">137.328</div>
+					<div class="element">Ba</div>
+					<div class="atomic">56</div>
+				</td>
+				<td class="brown1">
+					<div class="element2">57-71</div>
+				</td>
+				<td class="yellow">
+					<div class="size">178.49</div>
+					<div class="element">Hf</div>
+					<div class="atomic">72</div>
+				</td>
+				<td class="yellow">
+					<div class="size">180.948</div>
+					<div class="element">Ta</div>
+					<div class="atomic">73</div>
+				</td>
+				<td class="yellow">
+					<div class="size">183.84</div>
+					<div class="element">W</div>
+					<div class="atomic">74</div>
+				</td>
+				<td class="yellow">
+					<div class="size">186.207</div>
+					<div class="element">Re</div>
+					<div class="atomic">75</div>
+				</td>
+				<td class="yellow">
+					<div class="size">190.23</div>
+					<div class="element">Os</div>
+					<div class="atomic">76</div>
+				</td>
+				<td class="yellow">
+					<div class="size">192.217</div>
+					<div class="element">Ir</div>
+					<div class="atomic">77</div>
+				</td>
+				<td class="yellow">
+					<div class="size">195.085</div>
+					<div class="element">Pt</div>
+					<div class="atomic">78</div>
+				</td>
+				<td class="yellow">
+					<div class="size">196.967</div>
+					<div class="element">Au</div>
+					<div class="atomic">79</div>
+				</td>
+				<td class="yellow">
+					<div class="size">200.592</div>
+					<div class="element">Hg</div>
+					<div class="atomic">80</div>
+				</td>
+				<td class="green">
+					<div class="size">204.383</div>
+					<div class="element">Ti</div>
+					<div class="atomic">81</div>
+				</td>
+				<td class="green">
+					<div class="size">207.2</div>
+					<div class="element">Pb</div>
+					<div class="atomic">82</div>
+				</td>
+				<td class="green">
+					<div class="size">208.980</div>
+					<div class="element">Bi</div>
+					<div class="atomic">83</div>
+				</td>
+				<td class="blue1">
+					<div class="size">[208.982]</div>
+					<div class="element">Po</div>
+					<div class="atomic">84</div>
+				</td>
+				<td class="purple2">
+					<div class="size">209.987</div>
+					<div class="element">At</div>
+					<div class="atomic">85</div>
+				</td>
+				<td class="purple1">
+					<div class="size">222.018</div>
+					<div class="element">Rn</div>
+					<div class="atomic">86</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="red">
+					<div class="size">223.020</div>
+					<div class="element">Fr</div>
+					<div class="atomic">87</div>
+				</td>
+				<td class="orange">
+					<div class="size">226.025</div>
+					<div class="element">Ra</div>
+					<div class="atomic">88</div>
+				</td>
+				<td class="brown2">
+					<div class="element2">89-103</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[261]</div>
+					<div class="element">Rf</div>
+					<div class="atomic">104</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[262]</div>
+					<div class="element">Db</div>
+					<div class="atomic">105</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[266]</div>
+					<div class="element">Sg</div>
+					<div class="atomic">106</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[264]</div>
+					<div class="element">Bh</div>
+					<div class="atomic">107</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[269]</div>
+					<div class="element">Hs</div>
+					<div class="atomic">108</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[268]</div>
+					<div class="element">Mt</div>
+					<div class="atomic">109</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[269]</div>
+					<div class="element">Ds</div>
+					<div class="atomic">110</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[272]</div>
+					<div class="element">Rg</div>
+					<div class="atomic">111</div>
+				</td>
+				<td class="yellow">
+					<div class="size">[277]</div>
+					<div class="element">Cn</div>
+					<div class="atomic">112</div>
+				</td>
+				<td class="green">
+					<div class="size">unknown</div>
+					<div class="element">Uut</div>
+					<div class="atomic">113</div>
+				</td>
+				<td class="green">
+					<div class="size">[289]</div>
+					<div class="element">FI</div>
+					<div class="atomic">114</div>
+				</td>
+				<td class="green">
+					<div class="size">unknown</div>
+					<div class="element">Uup</div>
+					<div class="atomic">115</div>
+				</td>
+				<td class="green">
+					<div class="size">[298]</div>
+					<div class="element">Lv</div>
+					<div class="atomic">116</div>
+				</td>
+				<td class="purple2">
+					<div class="size">unknown</div>
+					<div class="element">Uus</div>
+					<div class="atomic">117</div>
+				</td>
+				<td class="purple1">
+					<div class="size">unknown</div>
+					<div class="element">Uuo</div>
+					<div class="atomic">118</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="empty"></td>
+			</tr>
+			<tr>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="brown1">
+					<div class="size">138.905</div>
+					<div class="element">La</div>
+					<div class="atomic">57</div>
+				</td>
+				<td class="brown1">
+					<div class="size">140.116</div>
+					<div class="element">Ce</div>
+					<div class="atomic">58</div>
+				</td>
+				<td class="brown1">
+					<div class="size">140.908</div>
+					<div class="element">Pr</div>
+					<div class="atomic">59</div>
+				</td>
+				<td class="brown1">
+					<div class="size">144.242</div>
+					<div class="element">Nd</div>
+					<div class="atomic">60</div>
+				</td>
+				<td class="brown1">
+					<div class="size">144.913</div>
+					<div class="element">Pm</div>
+					<div class="atomic">61</div>
+				</td>
+				<td class="brown1">
+					<div class="size">150.36</div>
+					<div class="element">Sm</div>
+					<div class="atomic">62</div>
+				</td>
+				<td class="brown1">
+					<div class="size">151.964</div>
+					<div class="element">Eu</div>
+					<div class="atomic">63</div>
+				</td>
+				<td class="brown1">
+					<div class="size">157.25</div>
+					<div class="element">Gd</div>
+					<div class="atomic">64</div>
+				</td>
+				<td class="brown1">
+					<div class="size">158.925</div>
+					<div class="element">Tb</div>
+					<div class="atomic">65</div>
+				</td>
+				<td class="brown1">
+					<div class="size">162.500</div>
+					<div class="element">Dy</div>
+					<div class="atomic">66</div>
+				</td>
+				<td class="brown1">
+					<div class="size">164.930</div>
+					<div class="element">Ho</div>
+					<div class="atomic">67</div>
+				</td>
+				<td class="brown1">
+					<div class="size">167.259</div>
+					<div class="element">Er</div>
+					<div class="atomic">68</div>
+				</td>
+				<td class="brown1">
+					<div class="size">168.934</div>
+					<div class="element">Tm</div>
+					<div class="atomic">69</div>
+				</td>
+				<td class="brown1">
+					<div class="size">173.055</div>
+					<div class="element">Yb</div>
+					<div class="atomic">70</div>
+				</td>
+				<td class="brown1">
+					<div class="size">174.967</div>
+					<div class="element">Lu</div>
+					<div class="atomic">71</div>
+				</td>
+			</tr>
+			<tr>
+				<td class="empty"></td>
+				<td class="empty"></td>
+				<td class="brown2">
+					<div class="size">227.028</div>
+					<div class="element">Ac</div>
+					<div class="atomic">89</div>
+				</td>
+				<td class="brown2">
+					<div class="size">232.038</div>
+					<div class="element">Th</div>
+					<div class="atomic">90</div>
+				</td>
+				<td class="brown2">
+					<div class="size">231.036</div>
+					<div class="element">Pa</div>
+					<div class="atomic">91</div>
+				</td>
+				<td class="brown2">
+					<div class="size">238.029</div>
+					<div class="element">U</div>
+					<div class="atomic">92</div>
+				</td>
+				<td class="brown2">
+					<div class="size">237.048</div>
+					<div class="element">Np</div>
+					<div class="atomic">93</div>
+				</td>
+				<td class="brown2">
+					<div class="size">244.064</div>
+					<div class="element">Pu</div>
+					<div class="atomic">94</div>
+				</td>
+				<td class="brown2">
+					<div class="size">243.061</div>
+					<div class="element">Am</div>
+					<div class="atomic">95</div>
+				</td>
+				<td class="brown2">
+					<div class="size">247.070</div>
+					<div class="element">Cm</div>
+					<div class="atomic">96</div>
+				</td>
+				<td class="brown2">
+					<div class="size">247.070</div>
+					<div class="element">Bk</div>
+					<div class="atomic">97</div>
+				</td>
+				<td class="brown2">
+					<div class="size">251.080</div>
+					<div class="element">Cf</div>
+					<div class="atomic">98</div>
+				</td>
+				<td class="brown2">
+					<div class="size">[254]</div>
+					<div class="element">Es</div>
+					<div class="atomic">99</div>
+				</td>
+				<td class="brown2">
+					<div class="size">257.095</div>
+					<div class="element">Fm</div>
+					<div class="atomic">100</div>
+				</td>
+				<td class="brown2">
+					<div class="size">258.1</div>
+					<div class="element">Md</div>
+					<div class="atomic">101</div>
+				</td>
+				<td class="brown2">
+					<div class="size">259.101</div>
+					<div class="element">No</div>
+					<div class="atomic">102</div>
+				</td>
+				<td class="brown2">
+					<div class="size">[262]</div>
+					<div class="element">Lr</div>
+					<div class="atomic">103</div>
+				</td>
+			</tr>
+		</table>
+
+	</body>
+</html>
