@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 15:55:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 18:55:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:53:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	add_tri(char *line, t_obj *obj)
 {
 	t_vec4 vec;
 
-	vec = get_vec_4(ft_strsplit(line, '/'));
+	vec = get_vec_4(ft_strsplit(line, ' '));
 	if (obj->tri)
-		ft_lstpushback((t_list**)&obj->tri,
+		ft_lstpushback(obj->tri,
 			ft_lstnew((void*)&vec, sizeof(t_vec4)));
 	else
-		obj->tri = ft_lstnew((void*)&vec, sizeof(t_vec4));
+		obj->tri = ft_lstnew(&vec, sizeof(t_vec4));
 }
 
 void	add_vertex(char *line, t_obj *obj)
@@ -29,14 +29,12 @@ void	add_vertex(char *line, t_obj *obj)
 	t_vec3	vec;
 	t_list	*elem;
 
-	printf("%s\n", line);
 	vec = get_vec(ft_strsplit(line, ' '));
 	if (obj->vertex)
-	{
-		elem = ft_lstnew((void*)&vec, sizeof(t_vec3));
-		printf("ft_lstnew\n");
+	{	
+		elem = ft_lstnew(&vec, sizeof(t_vec3));
 		if (elem)
-			ft_lstpushback((t_list**)&obj->vertex, elem);
+			ft_lstpushback(obj->vertex, elem);
 		else
 			ft_putstr("error creating element\n");
 	}
@@ -59,7 +57,7 @@ void	process_line(char *line, t_obj *obj)
 	}
 }
 
-t_obj	parse_obj_file(char *file_name)
+float	*parse_obj_file(char *file_name)
 {
 	char *line;
 	t_obj obj;
@@ -80,5 +78,6 @@ t_obj	parse_obj_file(char *file_name)
 		free(line);
 	}
 	close(fd);
-	return (obj);
+	obj_reconstruct(&obj);
+	return (NULL);
 }

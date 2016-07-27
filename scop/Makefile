@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/07/27 16:38:30 by amathias         ###   ########.fr        #
+#    Updated: 2016/07/27 19:42:08 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ INC = /
 SRC =	main.c			\
 		obj_parser.c	\
 		obj_utils.c		\
+		obj_reconstruct.c	\
 		draw.c			\
 		move.c			\
 		camera.c		\

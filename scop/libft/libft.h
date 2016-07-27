@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/11/24 15:04:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 17:31:40 by amathias         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:17:21 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,12 @@ void				ft_lstdel(t_list **alst, void (*del)(void *, size_t));
 void				ft_lstadd(t_list **alst, t_list *new);
 void				ft_lstiter(t_list *lst, void (*f)(t_list *elem));
 t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
-void				ft_lstpushback(t_list **begin, t_list *new);
+void				ft_lstpushback(t_list *begin, t_list *new);
 
 char				*ft_strjoinfree(char const *s1, char const *s2);
 t_list				*ft_lstat(t_list *begin, int index);
 char				*ft_strrev(char *str);
 int					ft_isblank(int c);
-
 
 int					get_next_line(int const fd, char **line);
 #endif

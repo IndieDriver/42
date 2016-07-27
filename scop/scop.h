@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:49:36 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 18:50:59 by amathias         ###   ########.fr       */
+/*   Updated: 2016/07/27 19:53:36 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef	struct	s_obj
 {
 	char		*name;
 	char		*mtllib;
-	void		*vertex;
-	void		*tri;
+	t_list		*vertex;
+	t_list		*tri;
 }				t_obj;
 
 typedef struct	s_cam
@@ -86,11 +86,12 @@ typedef struct 	s_map
 void			move(t_map *map);
 void			draw(t_map *map);
 //PARSE
-t_obj			parse_obj_file(char *file_name);
+float			*parse_obj_file(char *file_name);
 double			ft_atoi_double(char *str);
 t_vec3			get_vec(char **line_split);
 t_vec4			get_vec_4(char **line_split);
 int				is_split_valid(char **line_split, int size);
+float			*obj_reconstruct(t_obj *obj);
 //CAM
 void			get_projmatrix(t_mat4 mat, float fov, float ratio);
 void			get_viewmatrix(t_map *map, t_vec4 pos,
