@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:31:16 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 19:06:07 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/21 16:02:45 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,59 @@ void	init_cam(t_map *map)
 	get_projmatrix(map->projmat4, 45.0f, 1080.0f / 720.0f);
 	get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
 }
+
+t_vec4	get_normal_tri(t_vec4 pt1, t_vec4 pt2, t_vec4 pt3)
+{
+	t_vec4 nor;
+
+	nor = vec_cross(vec_sub(pt2, pt1), vec_sub(pt3, pt1));
+	vec_normalize(&nor);
+	return (nor);
+}
+
+void	store_nor(float *list, int index, t_vec4 nor)
+{
+	list[index + 0] = nor.x;
+	list[index + 1] = nor.y;
+	list[index + 2] = nor.z;
+	list[index + 3] = nor.x;
+	list[index + 4] = nor.y;
+	list[index + 5] = nor.z;
+	list[index + 6] = nor.x;
+	list[index + 7] = nor.y;
+	list[index + 8] = nor.z;
+}
+
+float	*get_normal_list(t_map *map)
+{
+	float	*list;
+	int		i;
+	t_vec4	pt1;
+	t_vec4	pt2;
+	t_vec4	pt3;
+
+	i = 0;
+	list = (float*)malloc(sizeof(float) * map->nb_tri * 3);
+	while (i < map->nb_tri * 3)
+	{
+		pt1.x = map->tri_list[i];
+		pt1.y = map->tri_list[i + 1];
+		pt1.z = map->tri_list[i + 2];
+		pt1.w = 0.0f;
+		pt2.x = map->tri_list[i + 3];
+		pt2.y = map->tri_list[i + 4];
+		pt2.z = map->tri_list[i + 5];
+		pt2.w = 0.0f;
+		pt3.x = map->tri_list[i + 6];
+		pt3.y = map->tri_list[i + 7];
+		pt3.z = map->tri_list[i + 8];
+		pt3.w = 0.0f;
+		store_nor(list, i, get_normal_tri(pt1, pt2, pt3));
+		i+= 9;
+	}
+	return (list);
+}
+
 int		main(int argc, char **argv)
 {
 	t_map map;
@@ -56,7 +109,8 @@ int		main(int argc, char **argv)
 	(void)argv;
 	if (argc != 2)
 		exit(0);
-	parse_obj_file(argv[1]);
+	map.tri_list = parse_obj_file(argv[1], &map);
+	map.normal_list = get_normal_list(&map);
 	map.pos.x = 0.0f;
 	map.pos.y = 0.0f;
 	map.pos.z = 30.0f;
@@ -72,6 +126,7 @@ int		main(int argc, char **argv)
 	map.program_id = load_shaders("tri_vs.glsl", "tri_fs.glsl");
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
+	glEnable(GL_CULL_FACE);
 
 	init_cam(&map);
 	init_key(&map);

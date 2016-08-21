@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 15:55:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 19:53:39 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/21 14:44:32 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	process_line(char *line, t_obj *obj)
 	}
 }
 
-float	*parse_obj_file(char *file_name)
+float	*parse_obj_file(char *file_name, t_map *map)
 {
 	char *line;
 	t_obj obj;
@@ -78,6 +78,5 @@ float	*parse_obj_file(char *file_name)
 		free(line);
 	}
 	close(fd);
-	obj_reconstruct(&obj);
-	return (NULL);
+	return (obj_reconstruct(&obj, map));
 }

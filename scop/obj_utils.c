@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 16:35:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 18:38:54 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/21 14:44:23 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int			is_split_valid(char **line_split, int size)
 	int i;
 
 	i = 0;
-	while(line_split[i])
+	while (line_split[i])
 		i++;
 	if (i == size)
 		return (1);
@@ -40,7 +40,8 @@ t_vec4		get_vec_4(char **line_split)
 		ft_putstr("Error: tri not well formated");
 		exit(0);
 	}
-	vec.w = is_split_valid(line_split, 4) ? ft_atoi_double(line_split[3]): 0.0f;
+	vec.w = is_split_valid(line_split, 4) ?
+		ft_atoi_double(line_split[3]): -1.0f;
 	i = 0;
 	while (line_split[i])
 	{
@@ -85,12 +86,17 @@ double		ft_atoi_double(char *str)
 	int        i;
 	double    ent;
 	double    dec;
+	double	sign;
 	int        j;
 
 	init_index(&i, &j);
+	sign = 1.0f;
 	while (str[i] && !(str[i] >= '0' && str[i] <= '9') && str[i] != '-')
 		i++;
+	if (str[i] == '-')
+		sign = -1.0f;
 	ent = ft_atoi(str + i);
+	ent = ent > 0.0 ? ent : -ent;
 	while (str[i] && str[i] != '.')
 		i++;
 	if (str[i] != '.')
@@ -106,5 +112,5 @@ double		ft_atoi_double(char *str)
 		dec /= 10;
 		j--;
 	}
-	return (dec + ent);
+	return (sign * (dec + ent));
 }

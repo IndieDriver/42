@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 14:47:58 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 15:41:00 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/21 16:02:47 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,61 +16,9 @@ void	draw(t_map *map)
 {
 	GLuint	color_vbo = 0;
 	GLuint	point_vbo = 0;
+	GLuint	normal_vbo = 0;
 	GLuint	vao = 0;
-	/*float points[] = {
-	  0.0f, 0.5f, 0.0f,
-	  0.5f, -0.5f, 0.0f,
-	  -0.5f, -0.5f, 0.0f,
-	  0.0f, 0.5f, 0.0f,
-	  -0.5, -0.5f, 0.0f,
-	  -1.0f, 0.5f, 0.0f,
-	  }; */
-
-	float points[] = {
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		-1.0f,-1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		-1.0f,-1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f,-1.0f,
-		1.0f,-1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f,-1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f,-1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f, 1.0f, 1.0f,
-		-1.0f, 1.0f, 1.0f,
-		1.0f,-1.0f, 1.0f
-	};
-
-	/*float color[] = {
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f
-	}; */
-
+	
 	float color[] = {
 		0.583f,  0.771f,  0.014f,
 		0.609f,  0.115f,  0.436f,
@@ -112,7 +60,13 @@ void	draw(t_map *map)
 
 	glGenBuffers(1, &point_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
-	glBufferData(GL_ARRAY_BUFFER, 108 * sizeof(float), points, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, (map->nb_tri * 3) * sizeof(float),
+		map->tri_list, GL_STATIC_DRAW);
+	
+	glGenBuffers(1, &normal_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, normal_vbo);
+	glBufferData(GL_ARRAY_BUFFER, (map->nb_tri * 3) * sizeof(float),
+		map->normal_list, GL_STATIC_DRAW);
 
 	glGenBuffers(1, &color_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
@@ -125,9 +79,12 @@ void	draw(t_map *map)
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, color_vbo);
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+	glBindBuffer(GL_ARRAY_BUFFER, normal_vbo);
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
+	glEnableVertexAttribArray(2);
 	map->mvpmat4_id = glGetUniformLocation(map->program_id, "MVP");
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -136,6 +93,6 @@ void	draw(t_map *map)
 	glUniformMatrix4fv(map->modelmat4_id, 1, GL_FALSE, map->mvpmat4);
 
 	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, 12 * 3);
+	glDrawArrays(GL_TRIANGLES, 0, map->nb_tri);
 	mlx_opengl_swap_buffers(map->win);
 }

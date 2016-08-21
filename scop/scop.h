@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:49:36 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 19:53:36 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/21 15:16:33 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ typedef struct 	s_map
 	t_key		key;
 	t_vec4		pos;
 	t_vec4		rot;
+	int			nb_tri;
+	float		*tri_list;
+	float		*normal_list;
 	GLuint		program_id;
 	t_mat4		modelmat4;
 	GLuint		modelmat4_id;
@@ -86,12 +89,12 @@ typedef struct 	s_map
 void			move(t_map *map);
 void			draw(t_map *map);
 //PARSE
-float			*parse_obj_file(char *file_name);
+float			*parse_obj_file(char *file_name, t_map *map);
 double			ft_atoi_double(char *str);
 t_vec3			get_vec(char **line_split);
 t_vec4			get_vec_4(char **line_split);
 int				is_split_valid(char **line_split, int size);
-float			*obj_reconstruct(t_obj *obj);
+float			*obj_reconstruct(t_obj *obj, t_map *map);
 //CAM
 void			get_projmatrix(t_mat4 mat, float fov, float ratio);
 void			get_viewmatrix(t_map *map, t_vec4 pos,
