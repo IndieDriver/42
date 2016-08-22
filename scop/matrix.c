@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/24 10:37:38 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 15:27:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/22 10:37:34 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ void	print_matrix(t_mat4 mat)
 		i++;
 	}
 	printf("\n");
+}
+
+void	cpy_mat4(t_mat4 src, t_mat4 dest)
+{
+	int i;
+
+	i = 0;
+	while (i < 16)
+	{
+		dest[i] = src[i];
+		i++;
+	}
 }
 
 void	mat4_mul(t_mat4 result, t_mat4 m1, t_mat4 m2)

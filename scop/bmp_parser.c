@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   bmp_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/24 16:04:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/22 14:49:53 by amathias         ###   ########.fr       */
+/*   Created: 2016/08/22 17:01:07 by amathias          #+#    #+#             */
+/*   Updated: 2016/08/22 17:28:38 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-t_vec4	get_vec4(float x, float y, float z, float w)
+void	read_header(int fd)
 {
-	t_vec4 vec;
-
-	vec.x = x;
-	vec.y = y;
-	vec.z = z;
-	vec.w = w;
-	return (vec);
+	unsigned char header[54];
+	
+	read(fd, &header, 54);
+	if (header[0] != 'B' || header[1] != 'M')
+		ft_putstr("Invalid BMP file");
 }
-
-int		is_vec4equal(t_vec4 v1, t_vec4 v2)
+char	*parse_bmp(char *filename)
 {
-	if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-		return (1);
-	return (0);
+	int fd;
+	
+	if ((fd = open(file_name, 0_RDONLY)) == -1)
+		return (NULL);
+	read_hearder(fd);
+	
 }

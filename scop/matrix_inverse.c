@@ -1,31 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   matrix_inverse.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/24 16:04:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/22 14:49:53 by amathias         ###   ########.fr       */
+/*   Created: 2016/08/22 10:37:44 by amathias          #+#    #+#             */
+/*   Updated: 2016/08/22 11:13:46 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-t_vec4	get_vec4(float x, float y, float z, float w)
+void	inverse(t_mat4 in)
 {
-	t_vec4 vec;
+	int p;
+	int d;
 
-	vec.x = x;
-	vec.y = y;
-	vec.z = z;
-	vec.w = w;
-	return (vec);
-}
-
-int		is_vec4equal(t_vec4 v1, t_vec4 v2)
-{
-	if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-		return (1);
-	return (0);
+	p = 0;
+	d = 0;
+	while (p <
 }

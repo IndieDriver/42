@@ -6,27 +6,28 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2016/07/27 19:42:08 by amathias         ###   ########.fr        #
+#    Updated: 2016/08/22 10:17:31 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
-SRC =	main.c			\
-		obj_parser.c	\
-		obj_utils.c		\
+SRC =	main.c				\
+		obj_parser.c		\
+		obj_utils.c			\
 		obj_reconstruct.c	\
-		draw.c			\
-		move.c			\
-		camera.c		\
-		get_shader.c	\
-		hook.c			\
-		vector.c		\
-		vec_math.c		\
-		vec_math2.c		\
-		matrix.c		\
-		matrix_trans.c	\
-		matrix_rot.c	\
+		draw.c				\
+		move.c				\
+		camera.c			\
+		get_shader.c		\
+		hook.c				\
+		vector.c			\
+		vec_math.c			\
+		vec_math2.c			\
+		matrix.c			\
+		matrix_trans.c		\
+		matrix_rot.c		\
+		matrix_transpose.c	\
 
 OBJ = $(SRC:.c=.o)
 NAME = scop

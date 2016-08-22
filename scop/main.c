@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:31:16 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/21 16:02:45 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/22 17:28:33 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,56 +47,61 @@ void	init_cam(t_map *map)
 			get_vec4(0.0f, 1.0f, 0.0f, 0.0f));
 	get_projmatrix(map->projmat4, 45.0f, 1080.0f / 720.0f);
 	get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
+	get_normalmat(map->normalmat4, map->modelmat4, map->viewmat4);
 }
 
 t_vec4	get_normal_tri(t_vec4 pt1, t_vec4 pt2, t_vec4 pt3)
 {
 	t_vec4 nor;
 
-	nor = vec_cross(vec_sub(pt2, pt1), vec_sub(pt3, pt1));
+	nor = vec_cross(vec_sub(pt2, pt1), vec_sub(pt3, pt1));	
 	vec_normalize(&nor);
 	return (nor);
 }
 
-void	store_nor(float *list, int index, t_vec4 nor)
+t_vec4	get_shared_normal(t_map *map, t_vec4 pt)
 {
-	list[index + 0] = nor.x;
-	list[index + 1] = nor.y;
-	list[index + 2] = nor.z;
-	list[index + 3] = nor.x;
-	list[index + 4] = nor.y;
-	list[index + 5] = nor.z;
-	list[index + 6] = nor.x;
-	list[index + 7] = nor.y;
-	list[index + 8] = nor.z;
+	int i;
+	t_vec4 pt1;
+	t_vec4 pt2;
+	t_vec4 pt3;
+	t_vec4 nor;
+
+	i = 0;
+	nor = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	while (i < map->nb_tri * 3)
+	{
+		pt1 = get_vec4(map->tri_list[i], map->tri_list[i + 1],
+			map->tri_list[i + 2], 0.0f);
+		pt2 = get_vec4(map->tri_list[i + 3], map->tri_list[i + 4],
+			map->tri_list[i + 5], 0.0f);
+		pt3 = get_vec4(map->tri_list[i + 6], map->tri_list[i + 7],
+			map->tri_list[i + 8], 0.0f);
+		if (is_vec4equal(pt, pt1) || is_vec4equal(pt, pt2)
+			|| is_vec4equal(pt, pt3))
+			nor = vec_add(nor, get_normal_tri(pt1, pt2, pt3));
+		i+=9;
+	}
+	return (nor);
 }
 
 float	*get_normal_list(t_map *map)
 {
 	float	*list;
 	int		i;
-	t_vec4	pt1;
-	t_vec4	pt2;
-	t_vec4	pt3;
+	t_vec4	nor;
 
 	i = 0;
 	list = (float*)malloc(sizeof(float) * map->nb_tri * 3);
 	while (i < map->nb_tri * 3)
 	{
-		pt1.x = map->tri_list[i];
-		pt1.y = map->tri_list[i + 1];
-		pt1.z = map->tri_list[i + 2];
-		pt1.w = 0.0f;
-		pt2.x = map->tri_list[i + 3];
-		pt2.y = map->tri_list[i + 4];
-		pt2.z = map->tri_list[i + 5];
-		pt2.w = 0.0f;
-		pt3.x = map->tri_list[i + 6];
-		pt3.y = map->tri_list[i + 7];
-		pt3.z = map->tri_list[i + 8];
-		pt3.w = 0.0f;
-		store_nor(list, i, get_normal_tri(pt1, pt2, pt3));
-		i+= 9;
+		nor = get_shared_normal(map, get_vec4(map->tri_list[i],
+			map->tri_list[i + 1], map->tri_list[i + 2], 0.0f));
+		vec_normalize(&nor);
+		list[i + 0] = nor.x;
+		list[i + 1] = nor.y;
+		list[i + 2] = nor.z;
+		i+= 3;
 	}
 	return (list);
 }

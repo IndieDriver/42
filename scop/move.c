@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/02/05 11:28:56 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 15:55:25 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/22 11:51:58 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	move(t_map *map)
 	{
 		apply_trans(map->modelmat4, map->pos, map->rot);
 		get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
+		get_normalmat(map->normalmat4, map->modelmat4, map->viewmat4);
 		draw(map);
 	}
 

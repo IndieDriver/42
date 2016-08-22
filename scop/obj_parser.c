@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 15:55:42 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/21 14:44:32 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/22 17:00:59 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	add_tri(char *line, t_obj *obj)
 {
 	t_vec4 vec;
 
+	printf("%s\n",line);
 	vec = get_vec_4(ft_strsplit(line, ' '));
 	if (obj->tri)
 		ft_lstpushback(obj->tri,

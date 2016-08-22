@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.c                                           :+:      :+:    :+:   */
+/*   matrix_transpose.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/07/24 16:04:55 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/22 14:49:53 by amathias         ###   ########.fr       */
+/*   Created: 2016/08/22 10:10:07 by amathias          #+#    #+#             */
+/*   Updated: 2016/08/22 10:23:03 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-t_vec4	get_vec4(float x, float y, float z, float w)
+void	transpose(t_mat4 out)
 {
-	t_vec4 vec;
+	float	tmp;
+	int		i;
+	int		j;
 
-	vec.x = x;
-	vec.y = y;
-	vec.z = z;
-	vec.w = w;
-	return (vec);
-}
-
-int		is_vec4equal(t_vec4 v1, t_vec4 v2)
-{
-	if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
-		return (1);
-	return (0);
+	i = 0;
+	while (i < 3)
+	{
+		j = i + 1;
+		while (j < 4)
+		{
+			tmp = out[i * 4 + j];
+			out[i * 4 + j] = out[j * 4 + i];
+			out[j * 4 + i] = tmp;
+			j++;
+		}
+		i++;
+	}
 }

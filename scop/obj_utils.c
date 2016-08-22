@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/27 16:35:52 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/21 14:44:23 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/22 15:39:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ t_vec4		get_vec_4(char **line_split)
 	}
 	else
 	{
-		ft_putstr("Error: tri not well formated");
+		ft_putstr("Error: tri not well formated\n");
 		exit(0);
 	}
 	vec.w = is_split_valid(line_split, 4) ?

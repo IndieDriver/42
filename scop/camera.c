@@ -6,11 +6,36 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/24 18:49:05 by amathias          #+#    #+#             */
-/*   Updated: 2016/07/27 16:00:02 by amathias         ###   ########.fr       */
+/*   Updated: 2016/08/22 11:42:48 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
+
+void	get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v)
+{
+	t_mat4	tmp;
+	int		i;
+	int		j;
+	
+	ft_bzero(tmp, sizeof(t_mat4));
+	ft_bzero(out, sizeof(t_mat4));
+	mat4_mul(tmp, m, v);
+	printf("mat\n");
+	print_matrix(tmp);
+	i = 0;
+	while (i < 3)
+	{
+		j = 0;
+		while (j < 3)
+		{
+			out[i * 4 + j] = tmp[i * 4 + j];
+			j++;
+		}
+		i++;
+	}
+	print_matrix(out);
+}
 
 void	get_mvp(t_mat4 out, t_mat4 m, t_mat4 v, t_mat4 p)
 {
