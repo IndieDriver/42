@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:31:16 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/22 17:28:33 by amathias         ###   ########.fr       */
+/*   Updated: 2016/09/15 13:31:54 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,10 +89,12 @@ float	*get_normal_list(t_map *map)
 {
 	float	*list;
 	int		i;
+	int 	j;
 	t_vec4	nor;
-
+	
 	i = 0;
 	list = (float*)malloc(sizeof(float) * map->nb_tri * 3);
+	map->uv_list = (float*)malloc(sizeof(float) * map->nb_tri * 4);
 	while (i < map->nb_tri * 3)
 	{
 		nor = get_shared_normal(map, get_vec4(map->tri_list[i],
@@ -101,15 +103,38 @@ float	*get_normal_list(t_map *map)
 		list[i + 0] = nor.x;
 		list[i + 1] = nor.y;
 		list[i + 2] = nor.z;
-		i+= 3;
+		i += 3;
+	}
+	i = 0;
+	j = 0;
+	while (i < map->nb_tri)
+	{
+		map->uv_list[j + 0] = 0.0f;
+		map->uv_list[j + 1] = 0.0f;
+		map->uv_list[j + 2] = 1.0f;
+		map->uv_list[j + 3] = 1.0f;
+		map->uv_list[j + 4] = 1.0f;
+		map->uv_list[j + 5] = 0.0f;
+		j += 5;
+		i++;
 	}
 	return (list);
 }
 
+void	init_texture(t_map *map, t_bmp bmp)
+{
+	glGenTextures(1, &map->texture_id);
+	glBindTexture(GL_TEXTURE_2D, map->texture_id);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bmp.width, bmp.height, 0, GL_BGR,
+		GL_UNSIGNED_BYTE, bmp.data);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+}
+
 int		main(int argc, char **argv)
 {
-	t_map map;
-
+	t_map	map;
+	t_bmp	bmp;
 	(void)argc;
 	(void)argv;
 	if (argc != 2)
@@ -132,7 +157,8 @@ int		main(int argc, char **argv)
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
-
+	bmp = parse_bmp("texture.bmp");
+	init_texture(&map, bmp);
 	init_cam(&map);
 	init_key(&map);
 	mlx_key_hook(map.win, key_hook, &map);

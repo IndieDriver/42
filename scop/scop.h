@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:49:36 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/22 13:26:13 by amathias         ###   ########.fr       */
+/*   Updated: 2016/09/15 13:31:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,15 @@ typedef struct	s_key
 	int			mright;
 }				t_key;
 
+typedef struct	s_bmp
+{
+	unsigned int	data_start;
+	unsigned int	img_size;
+	unsigned int	width;
+	unsigned int	height;
+	char			*data;
+}				t_bmp;
+
 typedef struct 	s_map
 {
 	void 		*mlx;
@@ -75,6 +84,7 @@ typedef struct 	s_map
 	int			nb_tri;
 	float		*tri_list;
 	float		*normal_list;
+	float		*uv_list;
 	GLuint		program_id;
 	t_mat4		modelmat4;
 	GLuint		modelmat4_id;
@@ -86,6 +96,7 @@ typedef struct 	s_map
 	GLuint		mvpmat4_id;
 	t_mat4		normalmat4;
 	GLuint		normalmat4_id;
+	GLuint		texture_id;
 }				t_map;
 
 void			move(t_map *map);
@@ -97,6 +108,8 @@ t_vec3			get_vec(char **line_split);
 t_vec4			get_vec_4(char **line_split);
 int				is_split_valid(char **line_split, int size);
 float			*obj_reconstruct(t_obj *obj, t_map *map);
+//PARSE BMP
+t_bmp			parse_bmp(char *filenmae);
 //CAM
 void			get_projmatrix(t_mat4 mat, float fov, float ratio);
 void			get_viewmatrix(t_map *map, t_vec4 pos,

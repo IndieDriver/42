@@ -6,26 +6,51 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/08/22 17:01:07 by amathias          #+#    #+#             */
-/*   Updated: 2016/08/22 17:28:38 by amathias         ###   ########.fr       */
+/*   Updated: 2016/09/15 13:31:55 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "scop.h"
 
-void	read_header(int fd)
+t_bmp	read_header(int fd)
 {
-	unsigned char header[54];
-	
-	read(fd, &header, 54);
+	unsigned char	header[54];
+	t_bmp bmp;
+
+	if (read(fd, &header, 54) != 54)
+	{
+		ft_putstr("Invalid header size");
+		exit(0);
+	}
 	if (header[0] != 'B' || header[1] != 'M')
+	{
 		ft_putstr("Invalid BMP file");
+		exit(0);
+	}
+	bmp.data_start = *(int*)&(header[0xA]);
+	bmp.img_size = *(int*)&(header[0x22]);
+	bmp.width = *(int*)&(header[0x12]);
+	bmp.height = *(int*)&(header[0x16]);
+	printf("img_size: %u\n", bmp.img_size);
+	bmp.data_start = bmp.data_start == 0 ? 54 : bmp.data_start;
+	bmp.img_size = bmp.img_size == 0 ? bmp.width * bmp.height * 3
+		: bmp.img_size;
+	bmp.data = malloc(sizeof(char) * bmp.img_size);
+	printf("data_start: %u\n", bmp.data_start);	
+	printf("w: %u\n", bmp.width);
+	printf("h: %u\n", bmp.height);
+	return (bmp);
 }
-char	*parse_bmp(char *filename)
+
+t_bmp	parse_bmp(char *filename)
 {
+	t_bmp bmp;
 	int fd;
 	
-	if ((fd = open(file_name, 0_RDONLY)) == -1)
-		return (NULL);
-	read_hearder(fd);
-	
+	if ((fd = open(filename, O_RDONLY)) == -1)
+		exit(0);
+	bmp = read_header(fd);
+	read(fd, bmp.data, bmp.img_size);
+	close(fd);	
+	return (bmp);
 }
