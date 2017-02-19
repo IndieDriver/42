@@ -20,7 +20,7 @@ typedef struct  s_alloc
 typedef struct  s_chunk
 {
     void        *start;
-    int         blocks[BLOCKS_MAX];
+    size_t      blocks[BLOCKS_MAX];
 }               t_chunk;
 
 typedef struct  s_malloc{
@@ -36,5 +36,6 @@ void            free(void *ptr);
 void            *malloc(size_t size);
 void            *realloc(void *ptr, size_t size);
 void            show_alloc_mem();
+char            *ft_sizet_to_hex(size_t);
 
 #endif

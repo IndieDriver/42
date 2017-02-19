@@ -12,10 +12,11 @@
 
 INC = /
 
-SRC_NAME =	free.c						\
-						malloc.c					\
-						realloc.c					\
-						show_alloc_mem.c	\
+SRC_NAME =  free.c              \
+            malloc.c		    \
+			realloc.c			\
+			show_alloc_mem.c	\
+            put_hex.c           \
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

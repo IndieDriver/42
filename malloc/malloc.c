@@ -15,12 +15,20 @@ void init_malloc()
     small_size = BLOCKS_MAX * SMALL_MAX;
     tiny.start = mmap(NULL, tiny_size, PROT_WRITE | PROT_EXEC | PROT_READ,
             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    printf("tiny.start: %p\n", tiny.start);
     small.start = mmap(NULL, small_size, PROT_WRITE | PROT_EXEC | PROT_READ,
             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    ft_memset(tiny.start, 0, sizeof(size_t) * BLOCKS_MAX);
-    ft_memset(small.start, 0, sizeof(size_t) * BLOCKS_MAX);
+    printf("small.start: %p\n", small.start);
+    ft_memset(&tiny.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
+    ft_memset(&small.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
+    int i = 0;
+    while (i < BLOCKS_MAX){
+        printf("%ld|", tiny.blocks[i]);
+        i++;
+    }
     smalloc.tiny = &tiny;
     smalloc.small = &small;
+
 }
 
 void    *malloc_small(t_chunk *chunk, size_t chunk_size, size_t malloc_size){
@@ -29,12 +37,9 @@ void    *malloc_small(t_chunk *chunk, size_t chunk_size, size_t malloc_size){
     i = 0;
     while (i < BLOCKS_MAX)
     {
-        ft_putstr("iter\n");
         if (chunk->blocks[i] == 0)
         { 
-            ft_putstr("after if\n");
             chunk->blocks[i] = malloc_size; 
-            ft_putstr("after chunk->blocks[i] = malloc_size\n");
             return (chunk->start + (i * chunk_size)); 
         }
         i++;
