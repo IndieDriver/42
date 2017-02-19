@@ -9,31 +9,32 @@
 
 # define TINY_MAX 512
 # define SMALL_MAX 4096
+# define BLOCKS_MAX 128
 
-typedef struct s_alloc
+typedef struct  s_alloc
 {
-  void         *ptr;
-  void         *next;
-}              t_alloc;
+    void        *ptr;
+    void        *next;
+}               t_alloc;
 
-typedef struct s_chunk
+typedef struct  s_chunk
 {
-  void         *start;
-  t_alloc      *ptr;
-}              t_chunk;
+    void        *start;
+    int         blocks[BLOCKS_MAX];
+}               t_chunk;
 
-typedef struct s_malloc{
-    t_chunk    *tiny;
-    t_chunk    *small;
-    t_alloc    *large;
-}              t_malloc;
+typedef struct  s_malloc{
+    t_chunk     *tiny;
+    t_chunk     *small;
+    t_alloc     *large;
+}               t_malloc;
 
 
-t_malloc       smalloc;
+t_malloc        smalloc;
 
-void free(void *ptr);
-void *malloc(size_t size);
-void *realloc(void *ptr, size_t size);
-void show_alloc_mem();
+void            free(void *ptr);
+void            *malloc(size_t size);
+void            *realloc(void *ptr, size_t size);
+void            show_alloc_mem();
 
 #endif
