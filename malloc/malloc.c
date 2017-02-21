@@ -50,10 +50,16 @@ void    *is_free_node(t_chunk *chunk, size_t chunk_size, size_t malloc_size)
     }
     return (NULL);
 }
+void    add_chunk_node(t_chunk **begin, t_chunk *new)
+{
+    new->next = *begin;
+    *begin = new;
+}
+
 
 void    *malloc_small(t_chunk **chunk, size_t chunk_size, size_t malloc_size)
 {
-    t_chunk *next;    
+    t_chunk *new_chunk;    
     void    *free_addr;
     
     free_addr = NULL;
@@ -65,25 +71,13 @@ void    *malloc_small(t_chunk **chunk, size_t chunk_size, size_t malloc_size)
     }
     while ((free_addr = is_free_node(*chunk, chunk_size, malloc_size)) == NULL)
     {
-        *chunk = mmap(NULL, chunk_size * BLOCKS_MAX + sizeof(t_chunk),
-                PROT_WRITE | PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        ft_memset(*chunk, 0, chunk_size * BLOCKS_MAX + sizeof(t_chunk));
+        printf("chunk before: %p\n", *chunk);
+        new_chunk = mmap(NULL, chunk_size * BLOCKS_MAX + sizeof(t_chunk),
+                PROT_WRITE | PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0); 
+        ft_memset(new_chunk, 0, chunk_size * BLOCKS_MAX + sizeof(t_chunk));
+        add_chunk_node(chunk, new_chunk);
     }
     return (free_addr);
-
-
-    if (!*chunk)
-    {
-        *chunk = mmap(NULL, chunk_size * BLOCKS_MAX + sizeof(t_chunk),
-                PROT_WRITE | PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        ft_memset(*chunk, 0, chunk_size * BLOCKS_MAX + sizeof(t_chunk));
-    }
-    next = *chunk; 
-    while (next){
-        is_free_node(next, chunk_size, malloc_size);
-        next = next->next;
-    }
-    return (NULL);
 }
 
 void    *malloc_big(t_alloc **begin, size_t malloc_size)

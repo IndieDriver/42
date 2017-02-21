@@ -19,24 +19,26 @@ void    print_block(void *ptr, size_t size){
 
 void    show_alloc_small(t_chunk *chunk, size_t chunk_size, char *name)
 {
+    t_chunk *temp;
     int     i;
 
-    i = 0;
+    temp = chunk;
     ft_putstr(name);
     print_memory_addr(chunk);
     ft_putstr("\n");
-    while (chunk)
+    while (temp)
     {
+        i = 0;
         while (i < BLOCKS_MAX)
         {
-            if (chunk->blocks[i] != 0)
+            if (temp->blocks[i] != 0)
             {
-                print_block((void*)chunk + sizeof(t_chunk) + (i * chunk_size), chunk->blocks[i]);
+                print_block((void*)temp + sizeof(t_chunk) + (i * chunk_size), temp->blocks[i]);
                 //0xA0020 - 0xA004A : 42 octets 
             }
             i++;            
         }
-        chunk = chunk->next;
+        temp = temp->next;
     }
 }
 
