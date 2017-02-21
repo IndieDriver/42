@@ -13,26 +13,28 @@ static int      size_hex(size_t n)
     return (i);                                                                                   
 }                                                                                                     
 
-char            *ft_sizet_to_hex(size_t n)                                                               
+void            ft_put_addr(size_t n)                                                               
 {                                                                                                   
-    char    *tmp;                                                                                 
-    int             ntmp;                                                                         
+    char            buf[64];                                                                                 
+    int             ntmp;                                                                       
+    int             len;
     int             i;                                                                            
 
-    i = 0;                                                                                        
-    if ((tmp = malloc(sizeof(char) * size_hex(n) + 1)) == NULL)                                   
-        return (NULL);                                                                        
-    if (n == 0)                                                                                   
-        tmp[i++] = '0';                                                                       
+    len = size_hex(n);
+    i = len - 1;
+    buf[i] = '\0';                                                                       
     while (n != 0)                                                                                
     {                                                                                             
         ntmp = (n % 16);                                                                      
-        tmp[i++] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';                                       
+        buf[i] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';                                       
         n = n / 16;                                                                           
+        i--;
     }                                                                                             
-    tmp[i] = '\0';                                                                                
-    return (ft_strrev(tmp));                                                                      
-}                                                                                                     
+    write(1, buf, len); 
+}
+
+
+
 /*
 static void    print_memory_addr(void *ptr)                                                                  
 {                                                                                                     

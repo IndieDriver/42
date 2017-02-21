@@ -4,39 +4,39 @@ void    print_memory_addr(void *ptr)
 {
     size_t addr = (size_t) ptr; 
     ft_putstr("0x");
-    ft_putstr(ft_sizet_to_hex(addr)); 
+    ft_put_addr(addr);
 }
 
 void    print_block(void *ptr, size_t size){
-    printf("%p\n", ptr);
+    ft_putstr("\t");
     print_memory_addr(ptr);
     ft_putstr(" - ");
     print_memory_addr(ptr + size);
     ft_putstr(" : ");
-    ft_putstr(ft_itoa((int)size));
+    ft_putnbr((int)size);
     ft_putstr(" octets\n");
 }
 
 void    show_alloc_small(t_chunk *chunk, size_t chunk_size, char *name)
 {
-    int i;
+    int     i;
 
     i = 0;
     ft_putstr(name);
-    printf("%p\n", (chunk->start));
-    print_memory_addr(chunk->start);
+    print_memory_addr(chunk);
     ft_putstr("\n");
-    while (i < BLOCKS_MAX)
+    while (chunk)
     {
-        if (chunk->blocks[i] != 0)
+        while (i < BLOCKS_MAX)
         {
-            printf("%ld|\n", chunk->blocks[i]);
-            printf("%p\n", (chunk->start));
-            print_block((void*)chunk->start + (i * chunk_size), chunk->blocks[i]);
-            //printf("%p\n", chunk->start);
-           //0xA0020 - 0xA004A : 42 octets 
+            if (chunk->blocks[i] != 0)
+            {
+                print_block((void*)chunk + sizeof(t_chunk) + (i * chunk_size), chunk->blocks[i]);
+                //0xA0020 - 0xA004A : 42 octets 
+            }
+            i++;            
         }
-        i++;            
+        chunk = chunk->next;
     }
 }
 
@@ -46,5 +46,5 @@ void    show_alloc_mem()
         return ;
     show_alloc_small(smalloc.tiny, TINY_MAX, "TINY : ");
     //show_alloc_small(smalloc.small, SMALL_MAX, "SMALL : ");
-    
+
 }

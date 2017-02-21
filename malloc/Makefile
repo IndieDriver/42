@@ -28,7 +28,7 @@ CC = gcc
 AR = ar rc
 RAN = ranlib
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 
 LIB_PATH = ./libft/
 LIB_NAME = -lft

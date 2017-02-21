@@ -6,6 +6,7 @@ SMALL: 513 at 4096 bytes (409600 bytes)
  */
 void init_malloc()
 {
+    /*
     t_chunk tiny;
     t_chunk small;
     size_t tiny_size;
@@ -13,25 +14,28 @@ void init_malloc()
     ft_putstr("init_malloc\n");
     tiny_size = BLOCKS_MAX * TINY_MAX;
     small_size = BLOCKS_MAX * SMALL_MAX;
+    printf("size_t sizeof: %ld\n", sizeof(size_t));
+    printf("tiny_size: %ld|sizeof: %ld\n", tiny_size, sizeof(t_chunk));
     tiny.start = mmap(NULL, tiny_size, PROT_WRITE | PROT_EXEC | PROT_READ,
             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     printf("tiny.start: %p\n", tiny.start);
     small.start = mmap(NULL, small_size, PROT_WRITE | PROT_EXEC | PROT_READ,
             MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     printf("small.start: %p\n", small.start);
-    ft_memset(&tiny.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
-    ft_memset(&small.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
+    //ft_memset(&tiny.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
+    //ft_memset(&small.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
     int i = 0;
     while (i < BLOCKS_MAX){
-        printf("%ld|", tiny.blocks[i]);
+        tiny.blocks[i] = 0;
+        small.blocks[i] = 0;
+        //printf("%ld|", tiny.blocks[i]);
         i++;
     }
     smalloc.tiny = &tiny;
-    smalloc.small = &small;
-
+    smalloc.small = &small; */
 }
-
-void    *malloc_small(t_chunk *chunk, size_t chunk_size, size_t malloc_size){
+void    *is_free_node(t_chunk *chunk, size_t chunk_size, size_t malloc_size)
+{
     int i;
 
     i = 0;
@@ -40,28 +44,79 @@ void    *malloc_small(t_chunk *chunk, size_t chunk_size, size_t malloc_size){
         if (chunk->blocks[i] == 0)
         { 
             chunk->blocks[i] = malloc_size; 
-            return (chunk->start + (i * chunk_size)); 
+            return (chunk->blocks + sizeof(t_chunk) + (i * chunk_size)); 
         }
         i++;
     }
     return (NULL);
 }
 
-void    *malloc(size_t size)
+void    *malloc_small(t_chunk **chunk, size_t chunk_size, size_t malloc_size)
 {
-    if (smalloc.tiny == NULL)
-        init_malloc();
-    if (size <= 0)
-        return (NULL);
-    else if (size < TINY_MAX)
-        return (malloc_small(smalloc.tiny, TINY_MAX, size));
-    else if (size < SMALL_MAX)
-        return (malloc_small(smalloc.small, SMALL_MAX, size));
-    else
+    t_chunk *next;    
+    void    *free_addr;
+    
+    free_addr = NULL;
+    if (!*chunk)
     {
-        void *ptr = mmap(NULL, size,PROT_WRITE | PROT_EXEC | PROT_READ,
-                MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-        return (ptr);
+        *chunk = mmap(NULL, chunk_size * BLOCKS_MAX + sizeof(t_chunk),
+                PROT_WRITE | PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        ft_memset(*chunk, 0, chunk_size * BLOCKS_MAX + sizeof(t_chunk));
+    }
+    while ((free_addr = is_free_node(*chunk, chunk_size, malloc_size)) == NULL)
+    {
+        *chunk = mmap(NULL, chunk_size * BLOCKS_MAX + sizeof(t_chunk),
+                PROT_WRITE | PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        ft_memset(*chunk, 0, chunk_size * BLOCKS_MAX + sizeof(t_chunk));
+    }
+    return (free_addr);
+
+
+    if (!*chunk)
+    {
+        *chunk = mmap(NULL, chunk_size * BLOCKS_MAX + sizeof(t_chunk),
+                PROT_WRITE | PROT_EXEC | PROT_READ, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        ft_memset(*chunk, 0, chunk_size * BLOCKS_MAX + sizeof(t_chunk));
+    }
+    next = *chunk; 
+    while (next){
+        is_free_node(next, chunk_size, malloc_size);
+        next = next->next;
     }
     return (NULL);
+}
+
+void    *malloc_big(t_alloc **begin, size_t malloc_size)
+{
+    t_alloc node;
+
+    node.ptr = mmap(NULL, malloc_size, PROT_WRITE | PROT_EXEC | PROT_READ,
+                MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    node.next = *begin;
+    *begin = &node;
+    return (node.next);
+}
+
+void    *malloc(size_t size)
+{
+    printf("call malloc: %ld\n", size);
+    void *ptr;
+    if (smalloc.tiny == NULL)
+    {
+        init_malloc();
+    }
+
+
+    ptr = NULL;
+
+    if (size <= 0)
+        ptr = NULL;
+    else if (size < TINY_MAX)
+        ptr = malloc_small(&smalloc.tiny, TINY_MAX, size);
+    else if (size < SMALL_MAX)
+        ptr = malloc_small(&smalloc.small, SMALL_MAX, size);
+    else
+        ptr = malloc_big(&smalloc.large, size);
+    //printf("returned ptr: %p\n", ptr);
+    return (ptr);
 }
