@@ -82,15 +82,16 @@ void    *malloc_small(t_chunk **chunk, size_t chunk_size, size_t malloc_size)
     return (free_addr);
 }
 
-void    *malloc_big(t_alloc **begin, size_t malloc_size)
+void    *malloc_large(t_alloc **begin, size_t malloc_size)
 {
-    t_alloc node;
-
-    node.ptr = mmap(NULL, malloc_size, PROT_WRITE | PROT_EXEC | PROT_READ,
+    t_alloc *node;
+    
+    node = mmap(NULL, malloc_size + sizeof(t_alloc), PROT_WRITE | PROT_EXEC | PROT_READ,
                 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    node.next = *begin;
-    *begin = &node;
-    return (node.next);
+    node->size = malloc_size;
+    node->next = *begin;
+    *begin = node;
+    return (node + sizeof(t_alloc));
 }
 
 void    *malloc(size_t size)
@@ -112,7 +113,7 @@ void    *malloc(size_t size)
     else if (size < SMALL_MAX)
         ptr = malloc_small(&smalloc.small, SMALL_MAX, size);
     else
-        ptr = malloc_big(&smalloc.large, size);
+        ptr = malloc_large(&smalloc.large, size);
     printf("returned ptr: %p\n", ptr);
     return (ptr);
 }

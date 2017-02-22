@@ -42,11 +42,26 @@ void    show_alloc_small(t_chunk *chunk, size_t chunk_size, char *name)
     }
 }
 
+void    show_alloc_large(t_alloc *alloc, char *name){
+    t_alloc *temp;
+    
+    temp = alloc;
+    ft_putstr(name);
+    print_memory_addr(alloc);
+    ft_putstr("\n");
+    while (temp)
+    {
+        print_block((void*)temp + sizeof(t_alloc), temp->size); 
+        temp = temp->next;
+    }
+}
+
 void    show_alloc_mem()
 {
-    if (smalloc.tiny == NULL)
-        return ;
-    show_alloc_small(smalloc.tiny, TINY_MAX, "TINY : ");
-    //show_alloc_small(smalloc.small, SMALL_MAX, "SMALL : ");
-
+    if (smalloc.tiny != NULL)
+        show_alloc_small(smalloc.tiny, TINY_MAX, "TINY : ");
+    if (smalloc.small != NULL)
+        show_alloc_small(smalloc.small, SMALL_MAX, "SMALL : ");
+    if (smalloc.large != NULL)
+        show_alloc_large(smalloc.large, "LARGE : ");
 }
