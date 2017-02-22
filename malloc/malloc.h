@@ -19,7 +19,7 @@ typedef struct  s_alloc
 
 typedef struct  s_chunk
 {
-    void        *next;
+    struct  s_chunk     *next;
     size_t      blocks[BLOCKS_MAX];
 }               t_chunk;
 
