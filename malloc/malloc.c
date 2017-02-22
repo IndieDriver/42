@@ -1,40 +1,5 @@
 #include "malloc.h"
 
-/*
-TINY: 1 at 512 bytes (65536 bytes)
-SMALL: 513 at 4096 bytes (409600 bytes)
- */
-void init_malloc()
-{
-    /*
-    t_chunk tiny;
-    t_chunk small;
-    size_t tiny_size;
-    size_t small_size;
-    ft_putstr("init_malloc\n");
-    tiny_size = BLOCKS_MAX * TINY_MAX;
-    small_size = BLOCKS_MAX * SMALL_MAX;
-    printf("size_t sizeof: %ld\n", sizeof(size_t));
-    printf("tiny_size: %ld|sizeof: %ld\n", tiny_size, sizeof(t_chunk));
-    tiny.start = mmap(NULL, tiny_size, PROT_WRITE | PROT_EXEC | PROT_READ,
-            MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    printf("tiny.start: %p\n", tiny.start);
-    small.start = mmap(NULL, small_size, PROT_WRITE | PROT_EXEC | PROT_READ,
-            MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
-    printf("small.start: %p\n", small.start);
-    //ft_memset(&tiny.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
-    //ft_memset(&small.blocks, 0, sizeof(size_t) * BLOCKS_MAX);
-    int i = 0;
-    while (i < BLOCKS_MAX){
-        tiny.blocks[i] = 0;
-        small.blocks[i] = 0;
-        //printf("%ld|", tiny.blocks[i]);
-        i++;
-    }
-    smalloc.tiny = &tiny;
-    smalloc.small = &small; */
-}
-
 void    *is_free_node(t_chunk *chunk, size_t chunk_size, size_t malloc_size)
 {
     int i;
@@ -57,7 +22,6 @@ void    add_chunk_node(t_chunk **begin, t_chunk *new)
     new->next = *begin;
     *begin = new;
 }
-
 
 void    *malloc_small(t_chunk **chunk, size_t chunk_size, size_t malloc_size)
 {
@@ -98,14 +62,8 @@ void    *malloc(size_t size)
 {
     printf("call malloc: %ld\n", size);
     void *ptr;
-    if (smalloc.tiny == NULL)
-    {
-        init_malloc();
-    }
-
 
     ptr = NULL;
-
     if (size <= 0)
         ptr = NULL;
     else if (size < TINY_MAX)
