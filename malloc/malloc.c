@@ -34,6 +34,7 @@ void init_malloc()
     smalloc.tiny = &tiny;
     smalloc.small = &small; */
 }
+
 void    *is_free_node(t_chunk *chunk, size_t chunk_size, size_t malloc_size)
 {
     int i;
@@ -44,12 +45,13 @@ void    *is_free_node(t_chunk *chunk, size_t chunk_size, size_t malloc_size)
         if (chunk->blocks[i] == 0)
         { 
             chunk->blocks[i] = malloc_size; 
-            return (chunk->blocks + sizeof(t_chunk) + (i * chunk_size)); 
+            return (chunk + sizeof(t_chunk) + (i * chunk_size)); 
         }
         i++;
     }
     return (NULL);
 }
+
 void    add_chunk_node(t_chunk **begin, t_chunk *new)
 {
     new->next = *begin;
@@ -111,6 +113,6 @@ void    *malloc(size_t size)
         ptr = malloc_small(&smalloc.small, SMALL_MAX, size);
     else
         ptr = malloc_big(&smalloc.large, size);
-    //printf("returned ptr: %p\n", ptr);
+    printf("returned ptr: %p\n", ptr);
     return (ptr);
 }
