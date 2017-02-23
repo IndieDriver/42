@@ -37,7 +37,6 @@ void    *realloc_large(t_alloc **alloc, void *ptr, size_t new_size)
         if (temp + sizeof(t_alloc) == ptr)
         {
             old_size = temp->size;
-            //TODO: if new_size smaller munmap remaining
             if (new_size < old_size){
                 munmap(ptr + new_size, old_size); 
                 temp->size = new_size;

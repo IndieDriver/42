@@ -2,22 +2,13 @@
 
 void    delete_alloc(t_alloc **start, t_alloc *to_delete) 
 {
-    t_alloc *begin;
     t_alloc *temp;
 
-    begin = *start;
-    if (begin == to_delete)
+    temp = *start;
+    if (temp == to_delete)
+        *start = temp->next;
+    else
     {
-        if (begin->next == NULL)
-        {
-            *start = NULL;
-            return ;
-        }
-        begin = begin->next;
-        to_delete = begin->next; 
-        begin->next = begin->next->next;
-    } else {
-       temp = *start;
        while (temp->next != NULL && temp->next != to_delete)
           temp = temp->next; 
        temp->next = temp->next->next;
@@ -27,22 +18,13 @@ void    delete_alloc(t_alloc **start, t_alloc *to_delete)
 
 void    delete_chunk(t_chunk **start, t_chunk *to_delete)
 {
-    t_chunk *begin;
     t_chunk *temp;
 
-    begin = *start;
-    if (begin == to_delete)
+    temp = *start;
+    if (temp == to_delete)
+        *start = temp->next;
+    else
     {
-        if (begin->next == NULL)
-        {
-            *start = NULL;
-            return ;
-        }
-        begin = begin->next;
-        to_delete = begin->next; 
-        begin->next = begin->next->next;
-    } else {
-       temp = *start;
        while (temp->next != NULL && temp->next != to_delete)
           temp = temp->next; 
        temp->next = temp->next->next;
@@ -74,7 +56,7 @@ int     free_alloc_small(t_chunk **chunk, size_t chunk_size, void *ptr)
         i = 0;
         while (i < BLOCKS_MAX)
         {
-            if (temp + sizeof(t_chunk) + (i * chunk_size) == ptr)
+            if ((void*)temp + sizeof(t_chunk) + (i * chunk_size) == ptr)
             {
                 temp->blocks[i] = 0;
                 if (is_chunk_free(temp))
@@ -98,10 +80,10 @@ int     free_alloc_large(t_alloc **alloc, void *ptr)
     temp = *alloc;
     while (temp)
     {
-        if (temp + sizeof(t_alloc) == ptr)
+        if ((void*)temp + sizeof(t_alloc) == ptr)
         {
             delete_alloc(alloc, temp);
-            munmap(temp, sizeof(t_chunk) + temp->size);
+            munmap(temp, sizeof(t_alloc) + temp->size);
             return (1);
         }
         temp = temp->next;
