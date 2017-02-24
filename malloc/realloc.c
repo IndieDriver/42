@@ -7,7 +7,7 @@ void    *copy_chunk(void *ptr, size_t old_size, size_t new_size)
     new_ptr = malloc(new_size);
     if (new_ptr)
     {
-        new_ptr = ft_memcpy((void*)new_ptr, (void*)ptr + sizeof(t_chunk), old_size);
+        new_ptr = ft_memcpy((void*)new_ptr, (void*)ptr, old_size);
         free(ptr);
         return (new_ptr);
     }
@@ -47,7 +47,7 @@ void    *copy_alloc(void *ptr, size_t old_size, size_t new_size)
     new_ptr = malloc(new_size);
     if (new_ptr)
     {
-        new_ptr = ft_memcpy((void*)new_ptr, (void*)ptr + sizeof(t_alloc), old_size);
+        new_ptr = ft_memcpy((void*)new_ptr, (void*)ptr, old_size);
         free(ptr); 
         return (new_ptr);
     }
