@@ -13,6 +13,7 @@
 INC = /
 
 SRC_NAME = ft_bzero.s		\
+		   ft_strcat.s		\
 		   ft_isalpha.s		\
 		   ft_isdigit.s		\
 		   ft_isalnum.s		\
@@ -20,6 +21,7 @@ SRC_NAME = ft_bzero.s		\
 		   ft_isprint.s		\
 		   ft_tolower.s		\
 		   ft_toupper.s		\
+		   ft_puts.s		\
 
 OBJ_NAME = $(SRC_NAME:.s=.o)
 NAME = libfts.a
