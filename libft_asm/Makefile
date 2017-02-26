@@ -22,6 +22,9 @@ SRC_NAME = ft_bzero.s		\
 		   ft_tolower.s		\
 		   ft_toupper.s		\
 		   ft_puts.s		\
+		   ft_strlen.s		\
+		   ft_memcpy.s		\
+		   ft_memset.s		\
 
 OBJ_NAME = $(SRC_NAME:.s=.o)
 NAME = libfts.a
@@ -40,10 +43,13 @@ $(NAME): $(OBJ_NAME)
 	$(RAN) $(NAME)
 
 %.o: %.s
-	$(CC_ASM) -g -f $(ARCH) $< -o $@
+	$(CC_ASM) -f $(ARCH) -F dwarf -g $< -o $@
+  
 
 test:
 	$(CC_C) -g main.c -I./ -L./ -lfts
+	./a.out
+	$(CC_C) -g main2.c -I./ -L./ -lfts
 	./a.out
 
 clean:
