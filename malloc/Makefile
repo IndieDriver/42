@@ -6,7 +6,7 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/11/26 14:24:02 by amathias          #+#    #+#              #
-#    Updated: 2015/12/02 16:39:36 by amathias         ###   ########.fr        #
+#    Updated: 2017/03/11 09:38:27 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,11 +44,11 @@ lib:
 	make -C ./libft
 
 $(NAME): $(OBJ_NAME)
-	$(CC) -shared $(OBJ_NAME) -o $(NAME) -Wl,-whole-archive ./libft/libft.a -Wl,-no-whole-archive
+	$(CC) -shared $(OBJ_NAME) -o $(NAME) ./libft/libft.a 
 	ln -s $(NAME) libft_malloc.so
 
 %.o: %.c
-	$(CC) $(INC) $(CFLAGS) $(LFLAGS) -fPIC -o $@ -c $<
+	$(CC) $(INC) $(CFLAGS) -fPIC -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ_NAME)
