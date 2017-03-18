@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 14:09:51 by amathias          #+#    #+#             */
-/*   Updated: 2017/03/18 15:20:06 by amathias         ###   ########.fr       */
+/*   Updated: 2017/03/18 16:46:00 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	dump_nlist_64(void *str_table, struct nlist_64 nlist64)
 	n_pext = nlist64.n_type & N_PEXT;
 	n_type = nlist64.n_type & N_TYPE;
 	n_ext = nlist64.n_type & N_EXT;
-	//printf("%u %u %u %u\n", n_stab, n_pext, n_type, n_ext);
 	if (n_type == N_UNDF)
 		printf("                 U");
 	else
@@ -95,6 +94,8 @@ void	nm(char *ptr)
 	magic_number = *(uint32_t*)ptr;
 	if (magic_number == MH_MAGIC_64)
 		handle_64(ptr);
+	else
+		archive(ptr);
 }
 
 int main(int argc, char **argv)

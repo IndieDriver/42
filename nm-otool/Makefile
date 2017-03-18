@@ -6,13 +6,14 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/03/18 14:46:27 by amathias         ###   ########.fr        #
+#    Updated: 2017/03/18 16:27:54 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
 SRC =	nm.c		\
+		archive.c	\
 		put_hex.c	\
 
 OBJ = $(SRC:.c=.o)
