@@ -6,21 +6,22 @@
 #    By: amathias <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2015/12/03 11:09:29 by amathias          #+#    #+#              #
-#    Updated: 2017/03/11 14:13:28 by amathias         ###   ########.fr        #
+#    Updated: 2017/03/18 14:46:27 by amathias         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 INC = /
 
 SRC =	nm.c		\
+		put_hex.c	\
 
 OBJ = $(SRC:.c=.o)
-NAME = ft_nm 
+NAME = ft_nm
 CC = gcc
 RM = rm -f
 CFLAGS = -Wall -Werror -Wextra
 
-LIB_PATH = ./libft/ 
+LIB_PATH = ./libft/
 LIB_NAME = -lft
 LIB = $(addprefix -L,$(LIB_PATH))
 LFLAGS = $(LIB) $(LIB_NAME)
