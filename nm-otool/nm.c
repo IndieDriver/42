@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 14:09:51 by amathias          #+#    #+#             */
-/*   Updated: 2017/03/18 16:46:00 by amathias         ###   ########.fr       */
+/*   Updated: 2017/03/19 11:44:40 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,15 @@ void	print_output(uint32_t nsyms, uint32_t symoff, uint32_t stroff,
 {
 	uint32_t		i;
 	void			*string_table;
-	struct nlist_64	*nlist;
+	struct nlist_64	*symlist;
 
-	nlist = (void*)ptr + symoff;
+	symlist = (void*)ptr + symoff;
 	string_table = (void*)ptr + stroff;
 	i = 0;
-	printf("nsyms: %d\n", nsyms);
 	while (i < nsyms)
 	{
 		//printf("%s\n", string_table + nlist[i].n_un.n_strx);
-		dump_nlist_64(string_table, nlist[i]);
+		dump_nlist_64(string_table, symlist[i]);
 		//TODO: Sort nlist by alpha
 		i++;
 	}
