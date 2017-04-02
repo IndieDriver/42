@@ -1,42 +1,78 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   libstatic.c                                        :+:      :+:    :+:   */
+/*   archive.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/18 15:38:19 by amathias          #+#    #+#             */
-/*   Updated: 2017/03/19 11:44:31 by amathias         ###   ########.fr       */
+/*   Created: 2017/04/01 16:54:42 by amathias          #+#    #+#             */
+/*   Updated: 2017/04/02 15:29:18 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nmotool.h"
 
+void	handle_symdef(void *data_start, uint32_t data_size)
+{
+	struct ranlib	*lib;
+	(void)			data_size;
+	uint32_t		i;
+
+	if (ft_strncmp((char*)data_start, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
+		data_start = (void*)data_start + ft_strlen(SYMDEF_SORTED);
+	else if (ft_strncmp((char*)data_start, SYMDEF, ft_strlen(SYMDEF)) == 0)
+		data_start = (void*)data_start + ft_strlen(SYMDEF);
+	else
+		return ;
+	i = 0;
+	lib = (struct ranlib*)data_start;
+	printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
+
+	/*
+	while ((void*)lib < (void*)data_start + data_size)
+	{
+		printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
+		lib = (void*)lib + sizeof(struct ranlib);
+		i++;
+	} */
+	char* str = (char*)data_start;
+	i = 0;
+	while (i < data_size)
+	{
+		printf("%c", str[i]);
+		i++;
+	}
+}
+
+
 void	handle_data(struct ar_hdr *header, void *data_start, uint32_t data_size)
 {
+	void *lib;
+	//uint32_t lib_size;
+
 	(void)header;
 	(void)data_start;
 	(void)data_size;
 	//TODO: read data from archive entry
-	//printf("handle_data");
+	lib = (void *)header + sizeof(struct ar_hdr);
+	if (ft_strncmp((char*)lib, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
+		lib = (void*)lib + ft_strlen(SYMDEF_SORTED);
+	else if (ft_strncmp((char*)lib, SYMDEF, ft_strlen(SYMDEF)) == 0)
+		lib = (void*)lib + ft_strlen(SYMDEF);
+	printf("%ld\n", (void*)lib - (void*)header);
 	/*
-		lib = (void *)header + sizeof(struct ar_hdr);
-		if (ft_strncmp((char*)lib, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
-			lib = (void*)lib + ft_strlen(SYMDEF_SORTED);
-		else if (ft_strncmp((char*)lib, SYMDEF, ft_strlen(SYMDEF)) == 0)
-			lib = (void*)lib + ft_strlen(SYMDEF);
-		lib_size = *(uint32_t*)lib;
-		lib = (void*)lib + sizeof(uint32_t);
-		i = 0;
-		ar_size = ft_atoi(header->ar_size);
-		printf("ran_strx: %d\n", lib->ran_un.ran_strx);
-		printf("ran_off: %d\n", lib->ran_off);
-		while (i < ar_size){
-			write(1, (void*)lib + lib->ran_off + i , 1);
-			i++;
-		}
-		lib = (void*)lib + sizeof(struct ranlib);
-		i += sizeof(struct ranlib); */
+	lib_size = *(uint32_t*)lib;
+	lib = (void*)lib + sizeof(uint32_t);
+	i = 0;
+	ar_size = ft_atoi(header->ar_size);
+	printf("ran_strx: %d\n", lib->ran_un.ran_strx);
+	printf("ran_off: %d\n", lib->ran_off);
+	while (i < ar_size){
+		write(1, (void*)lib + lib->ran_off + i , 1);
+		i++;
+	}
+	lib = (void*)lib + sizeof(struct ranlib);
+	i += sizeof(struct ranlib); */
 }
 
 void	handle_ranlib(char *ptr)
@@ -51,7 +87,8 @@ void	handle_ranlib(char *ptr)
 		header = (struct ar_hdr*)((void*)archive_ptr);
 		if (ft_strncmp(header->ar_fmag, ARFMAG, 2) == 0){
 			ar_size = ft_atoi(header->ar_size);
-			handle_data(header, (void *)header + sizeof(struct ar_hdr), ar_size);
+			//handle_data(header, (void *)header + sizeof(struct ar_hdr), ar_size);
+			handle_symdef((void*)header + sizeof(struct ar_hdr), ar_size);
 			archive_ptr = (void*)header + sizeof(struct ar_hdr) + ar_size;
 		} else
 			archive_ptr = NULL;

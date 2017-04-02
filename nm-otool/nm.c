@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/11 14:09:51 by amathias          #+#    #+#             */
-/*   Updated: 2017/03/19 11:44:40 by amathias         ###   ########.fr       */
+/*   Updated: 2017/04/02 15:29:28 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	dump_nlist_64(void *str_table, struct nlist_64 nlist64)
 	unsigned char n_pext;
 	unsigned char n_type;
 	unsigned char n_ext;
-
 
 	n_stab = nlist64.n_type & N_STAB;
 	n_pext = nlist64.n_type & N_PEXT;
@@ -34,10 +33,8 @@ void	dump_nlist_64(void *str_table, struct nlist_64 nlist64)
 	printf(" ");
 	printf("%s\n", str_table + nlist64.n_un.n_strx);
 
-
 	/*
-	printf("nlist64!!!!!!!!!!!!\nn_un: %d\nn_type: %d\nn_sect: %d\nn_desc: %d\nn_value: %lld\n",
-			nlist64.n_un.n_strx, nlist64.n_type, nlist64.n_sect,
+	printf("nlist64!!!!!!!!!!!!\nn_un: %d\nn_type: %d\nn_sect: %d\nn_desc: %d\nn_value: %lld\n", nlist64.n_un.n_strx, nlist64.n_type, nlist64.n_sect,
 			nlist64.n_desc, nlist64.n_value); */
 }
 
