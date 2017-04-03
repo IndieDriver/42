@@ -6,28 +6,44 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/04/01 16:54:42 by amathias          #+#    #+#             */
-/*   Updated: 2017/04/02 15:29:18 by amathias         ###   ########.fr       */
+/*   Updated: 2017/04/03 09:32:14 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "nmotool.h"
 
-void	handle_symdef(void *data_start, uint32_t data_size)
+void 	dump_data(void *data, uint32_t data_size)
+{
+	char		*str;
+	uint32_t	i;
+
+	i = 0;
+	str = (char*)data;
+	printf("\n######## data_size: %u\n", data_size);
+	while (i < data_size)
+	{
+		printf("%c", str[i]);
+		i++;
+	}
+}
+
+void	handle_symdef(void *ptr, uint32_t data_size)
 {
 	struct ranlib	*lib;
+	void			*data_start;
 	(void)			data_size;
-	uint32_t		i;
 
-	if (ft_strncmp((char*)data_start, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
-		data_start = (void*)data_start + ft_strlen(SYMDEF_SORTED);
-	else if (ft_strncmp((char*)data_start, SYMDEF, ft_strlen(SYMDEF)) == 0)
-		data_start = (void*)data_start + ft_strlen(SYMDEF);
+	if (ft_strncmp((char*)ptr, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
+		data_start = (void*)ptr + ft_strlen(SYMDEF_SORTED);
+	else if (ft_strncmp((char*)ptr, SYMDEF, ft_strlen(SYMDEF)) == 0)
+		data_start = (void*)ptr + ft_strlen(SYMDEF);
 	else
 		return ;
-	i = 0;
+	dump_data(ptr, data_size);
 	lib = (struct ranlib*)data_start;
 	printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
-
+	lib = (void*)data_start + sizeof(struct ranlib);
+	printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
 	/*
 	while ((void*)lib < (void*)data_start + data_size)
 	{
@@ -35,13 +51,7 @@ void	handle_symdef(void *data_start, uint32_t data_size)
 		lib = (void*)lib + sizeof(struct ranlib);
 		i++;
 	} */
-	char* str = (char*)data_start;
-	i = 0;
-	while (i < data_size)
-	{
-		printf("%c", str[i]);
-		i++;
-	}
+	lib = (void*)lib + sizeof(struct ranlib);
 }
 
 
