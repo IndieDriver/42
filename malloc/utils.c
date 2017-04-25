@@ -12,6 +12,20 @@
 
 #include "malloc.h"
 
+int				is_chunk_free(t_chunk *chunk)
+{
+	int i;
+
+	i = 0;
+	while (i < BLOCKS_MAX)
+	{
+		if (chunk->blocks[i] != 0)
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
 static int		size_hex(size_t n)
 {
 	int i;

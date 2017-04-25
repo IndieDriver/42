@@ -45,8 +45,8 @@ char		*ft_itoa_base(int n, int base)
 	while (n != 0)
 	{
 		ntmp = ABS((n % base));
-        tmp[i++] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';
-		n = n / base; 
+		tmp[i++] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';
+		n = n / base;
 	}
 	if (neg)
 		tmp[i++] = '-';

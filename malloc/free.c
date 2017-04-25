@@ -42,20 +42,6 @@ void	delete_chunk(t_chunk **start, t_chunk *to_delete)
 	}
 }
 
-int		is_chunk_free(t_chunk *chunk)
-{
-	int i;
-
-	i = 0;
-	while (i < BLOCKS_MAX)
-	{
-		if (chunk->blocks[i] != 0)
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 int		free_alloc_small(t_chunk **chunk, size_t chunk_size, void *ptr)
 {
 	t_chunk	*temp;

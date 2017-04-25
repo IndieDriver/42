@@ -35,7 +35,8 @@ typedef struct		s_chunk
 	size_t			blocks[BLOCKS_MAX];
 }					t_chunk;
 
-typedef struct		s_malloc{
+typedef struct		s_malloc
+{
 	t_chunk			*tiny;
 	t_chunk			*small;
 	t_alloc			*large;
@@ -47,6 +48,7 @@ void				free(void *ptr);
 void				*malloc(size_t size);
 void				*realloc(void *ptr, size_t size);
 void				show_alloc_mem();
+int					is_chunk_free(t_chunk *chunk);
 void				ft_put_addr(size_t size);
 
 #endif

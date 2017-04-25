@@ -16,7 +16,7 @@ SRC_NAME =  free.c              \
             malloc.c		    \
 			realloc.c			\
 			show_alloc_mem.c	\
-            put_hex.c           \
+            utils.c				\
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
@@ -44,7 +44,7 @@ lib:
 	make -C ./libft
 
 $(NAME): $(OBJ_NAME)
-	$(CC) -shared $(OBJ_NAME) -o $(NAME) ./libft/libft.a 
+	$(CC) -shared $(OBJ_NAME) -o $(NAME) ./libft/libft.a
 	ln -s $(NAME) libft_malloc.so
 
 %.o: %.c
