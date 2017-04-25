@@ -84,7 +84,7 @@ GLuint	get_fragment_shader(char *file_name)
 	if (!buffer)
 		ft_putstr("Invalid file_name\n");
 	fs = glCreateShader(GL_FRAGMENT_SHADER);
-	glShaderSource(fs, 1,(const char**)&buffer, NULL);
+	glShaderSource(fs, 1, (const char**)&buffer, NULL);
 	glCompileShader(fs);
 	glGetShaderiv(fs, GL_COMPILE_STATUS, &error);
 	if (GL_TRUE != error)
@@ -111,7 +111,7 @@ void	print_link_error(GLuint program, char *vfn, char *ffn)
 	exit(0);
 }
 
-GLuint load_shaders(char *vertex_file_name, char *fragment_file_name)
+GLuint	load_shaders(char *vertex_file_name, char *fragment_file_name)
 {
 	GLuint	program;
 	int		error;

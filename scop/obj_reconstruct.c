@@ -15,7 +15,7 @@
 int		count_tri(t_list *elem, int max_vertex)
 {
 	t_vec4	*vec;
-	int i;
+	int		i;
 
 	i = 0;
 	while (elem)
@@ -51,9 +51,9 @@ void	add_vertex_in_list(float *tri_list, int *index, t_vec3 *vertex)
 	tri_list[*index] = vertex->x;
 	*index += 1;
 	tri_list[*index] = vertex->y;
-	*index+= 1;
+	*index += 1;
 	tri_list[*index] = vertex->z;
-	*index+= 1;
+	*index += 1;
 }
 
 void	insert_quad(t_obj *obj, t_vec4 *vec, float *tri_list, int *index)
@@ -61,7 +61,6 @@ void	insert_quad(t_obj *obj, t_vec4 *vec, float *tri_list, int *index)
 	t_list	*lst_vertex;
 	t_vec3	*vertex;
 
-	//printf("%d %d %d %d\n", (int)vec->x, (int)vec->y, (int)vec->z, (int)vec->w);
 	lst_vertex = ft_lstat(obj->vertex, (int)vec->x - 1);
 	vertex = (t_vec3*)lst_vertex->content;
 	add_vertex_in_list(tri_list, index, vertex);
@@ -117,6 +116,7 @@ float	*obj_reconstruct(t_obj *obj, t_map *map)
 	float	*tri_list;
 	int		max_vertex;
 	int		nb_tri;
+	int		i;
 
 	max_vertex = count_vertex(obj->vertex);
 	nb_tri = count_tri(obj->tri, max_vertex);
@@ -124,7 +124,6 @@ float	*obj_reconstruct(t_obj *obj, t_map *map)
 	printf("f %d\n", nb_tri);
 	tri_list = (float*)malloc(sizeof(float) * (nb_tri * 3));
 	build_list(obj, tri_list);
-	int i;
 	i = -1;
 	/*while (i < nb_tri * 3)
 	{

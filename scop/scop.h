@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:49:36 by amathias          #+#    #+#             */
-/*   Updated: 2016/09/15 13:31:52 by amathias         ###   ########.fr       */
+/*   Updated: 2016/09/15 18:03:52 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct	s_bmp
 	char			*data;
 }				t_bmp;
 
-typedef struct 	s_map
+typedef struct	s_map
 {
 	void 		*mlx;
 	void		*win;

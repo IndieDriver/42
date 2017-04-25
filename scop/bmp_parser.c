@@ -15,7 +15,7 @@
 t_bmp	read_header(int fd)
 {
 	unsigned char	header[54];
-	t_bmp bmp;
+	t_bmp			bmp;
 
 	if (read(fd, &header, 54) != 54)
 	{
@@ -31,26 +31,22 @@ t_bmp	read_header(int fd)
 	bmp.img_size = *(int*)&(header[0x22]);
 	bmp.width = *(int*)&(header[0x12]);
 	bmp.height = *(int*)&(header[0x16]);
-	printf("img_size: %u\n", bmp.img_size);
 	bmp.data_start = bmp.data_start == 0 ? 54 : bmp.data_start;
 	bmp.img_size = bmp.img_size == 0 ? bmp.width * bmp.height * 3
 		: bmp.img_size;
 	bmp.data = malloc(sizeof(char) * bmp.img_size);
-	printf("data_start: %u\n", bmp.data_start);	
-	printf("w: %u\n", bmp.width);
-	printf("h: %u\n", bmp.height);
 	return (bmp);
 }
 
 t_bmp	parse_bmp(char *filename)
 {
-	t_bmp bmp;
-	int fd;
-	
+	t_bmp	bmp;
+	int		fd;
+
 	if ((fd = open(filename, O_RDONLY)) == -1)
 		exit(0);
 	bmp = read_header(fd);
 	read(fd, bmp.data, bmp.img_size);
-	close(fd);	
+	close(fd);
 	return (bmp);
 }

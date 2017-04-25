@@ -41,7 +41,7 @@ t_vec4		get_vec_4(char **line_split)
 		exit(0);
 	}
 	vec.w = is_split_valid(line_split, 4) ?
-		ft_atoi_double(line_split[3]): -1.0f;
+		ft_atoi_double(line_split[3]) : -1.0f;
 	i = 0;
 	while (line_split[i])
 	{
@@ -83,11 +83,11 @@ void		init_index(int *i, int *j)
 
 double		ft_atoi_double(char *str)
 {
-	int        i;
-	double    ent;
-	double    dec;
-	double	sign;
-	int        j;
+	int			i;
+	double		ent;
+	double		dec;
+	double		sign;
+	int			j;
 
 	init_index(&i, &j);
 	sign = 1.0f;

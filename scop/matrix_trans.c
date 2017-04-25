@@ -27,7 +27,7 @@ void	get_translation_matrix(t_mat4 mat, float x, float y, float z)
 t_vec4	trans_matrix_vec4(t_vec4 pos, t_vec4 trans)
 {
 	t_mat4	mat;
-	
+
 	get_translation_matrix(mat, trans.x, trans.y, trans.z);
 	pos = mul_matrix4_vec4(mat, pos);
 	return (pos);

@@ -16,7 +16,7 @@ void	add_tri(char *line, t_obj *obj)
 {
 	t_vec4 vec;
 
-	printf("%s\n",line);
+	printf("%s\n", line);
 	vec = get_vec_4(ft_strsplit(line, ' '));
 	if (obj->tri)
 		ft_lstpushback(obj->tri,
@@ -32,7 +32,7 @@ void	add_vertex(char *line, t_obj *obj)
 
 	vec = get_vec(ft_strsplit(line, ' '));
 	if (obj->vertex)
-	{	
+	{
 		elem = ft_lstnew(&vec, sizeof(t_vec3));
 		if (elem)
 			ft_lstpushback(obj->vertex, elem);
@@ -60,9 +60,9 @@ void	process_line(char *line, t_obj *obj)
 
 float	*parse_obj_file(char *file_name, t_map *map)
 {
-	char *line;
-	t_obj obj;
-	int fd;
+	char	*line;
+	t_obj	obj;
+	int		fd;
 
 	obj.name = NULL;
 	obj.mtllib = NULL;

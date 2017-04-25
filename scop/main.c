@@ -6,7 +6,7 @@
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/07/23 13:31:16 by amathias          #+#    #+#             */
-/*   Updated: 2016/09/15 13:31:54 by amathias         ###   ########.fr       */
+/*   Updated: 2016/09/30 13:33:39 by amathias         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	test(t_map *map)
 
 void	init_cam(t_map *map)
 {
-	apply_trans(map->modelmat4, map->pos, map->rot);	
+	apply_trans(map->modelmat4, map->pos, map->rot);
 	get_viewmatrix(map,
 			get_vec4(0.0f, 0.0f, -1.0f, 0.0f),
 			get_vec4(0.0f, 0.0f, 0.0f, 0.0f),
@@ -54,18 +54,18 @@ t_vec4	get_normal_tri(t_vec4 pt1, t_vec4 pt2, t_vec4 pt3)
 {
 	t_vec4 nor;
 
-	nor = vec_cross(vec_sub(pt2, pt1), vec_sub(pt3, pt1));	
+	nor = vec_cross(vec_sub(pt2, pt1), vec_sub(pt3, pt1));
 	vec_normalize(&nor);
 	return (nor);
 }
 
 t_vec4	get_shared_normal(t_map *map, t_vec4 pt)
 {
-	int i;
-	t_vec4 pt1;
-	t_vec4 pt2;
-	t_vec4 pt3;
-	t_vec4 nor;
+	int		i;
+	t_vec4	pt1;
+	t_vec4	pt2;
+	t_vec4	pt3;
+	t_vec4	nor;
 
 	i = 0;
 	nor = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
@@ -80,7 +80,7 @@ t_vec4	get_shared_normal(t_map *map, t_vec4 pt)
 		if (is_vec4equal(pt, pt1) || is_vec4equal(pt, pt2)
 			|| is_vec4equal(pt, pt3))
 			nor = vec_add(nor, get_normal_tri(pt1, pt2, pt3));
-		i+=9;
+		i += 9;
 	}
 	return (nor);
 }
@@ -89,12 +89,12 @@ float	*get_normal_list(t_map *map)
 {
 	float	*list;
 	int		i;
-	int 	j;
+	int		j;
 	t_vec4	nor;
-	
+
 	i = 0;
 	list = (float*)malloc(sizeof(float) * map->nb_tri * 3);
-	map->uv_list = (float*)malloc(sizeof(float) * map->nb_tri * 4);
+	map->uv_list = (float*)malloc(sizeof(float) * map->nb_tri * 5);
 	while (i < map->nb_tri * 3)
 	{
 		nor = get_shared_normal(map, get_vec4(map->tri_list[i],
@@ -135,8 +135,7 @@ int		main(int argc, char **argv)
 {
 	t_map	map;
 	t_bmp	bmp;
-	(void)argc;
-	(void)argv;
+
 	if (argc != 2)
 		exit(0);
 	map.tri_list = parse_obj_file(argv[1], &map);
@@ -145,13 +144,12 @@ int		main(int argc, char **argv)
 	map.pos.y = 0.0f;
 	map.pos.z = 30.0f;
 	map.pos.w = 0.0f;
-
 	map.rot.x = 0.0f;
 	map.rot.y = 0.0f;
 	map.rot.z = 0.0f;
 	map.rot.w = 0.0f;
 	map.mlx = mlx_init();
-	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");	
+	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");
 	mlx_opengl_window_set_context(map.win);
 	map.program_id = load_shaders("tri_vs.glsl", "tri_fs.glsl");
 	glEnable(GL_DEPTH_TEST);
@@ -164,7 +162,7 @@ int		main(int argc, char **argv)
 	mlx_key_hook(map.win, key_hook, &map);
 	mlx_hook(map.win, 2, (1L << 0), key_press, &map);
 	mlx_hook(map.win, 17, (1L << 17), red_cross, &map);
-	mlx_expose_hook(map.win, expose_hook, &map);	
+	mlx_expose_hook(map.win, expose_hook, &map);
 	mlx_loop_hook(map.mlx, loop_hook, &map);
 	mlx_loop(map.mlx);
 }

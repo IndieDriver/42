@@ -17,7 +17,7 @@ void	get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v)
 	t_mat4	tmp;
 	int		i;
 	int		j;
-	
+
 	ft_bzero(tmp, sizeof(t_mat4));
 	ft_bzero(out, sizeof(t_mat4));
 	mat4_mul(tmp, m, v);
@@ -40,7 +40,7 @@ void	get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v)
 void	get_mvp(t_mat4 out, t_mat4 m, t_mat4 v, t_mat4 p)
 {
 	t_mat4 tmp;
-	
+
 	ft_bzero(tmp, sizeof(t_mat4));
 	mat4_mul(tmp, m, v);
 	mat4_mul(out, tmp, p);
@@ -50,13 +50,13 @@ void	apply_trans(t_mat4 in, t_vec4 pos, t_vec4 rot)
 {
 	t_mat4	mtran;
 	t_mat4	mrot;
-	
+
 	ft_bzero(in, sizeof(t_mat4));
 	ft_bzero(mtran, sizeof(t_mat4));
 	ft_bzero(mrot, sizeof(t_mat4));
 	get_rot_matrix(mrot, fmod(rot.x, 360.0f), fmod(rot.y, 360.0f),
 		fmod(rot.z, 360.0f));
-	get_translation_matrix(mtran, pos.x, pos.y, pos.z);	
+	get_translation_matrix(mtran, pos.x, pos.y, pos.z);
 	mat4_mul(in, mrot, mtran);
 }
 
@@ -72,14 +72,13 @@ void	get_projmatrix(t_mat4 mat, float fov, float ratio)
 	frustum = near - far;
 	oneover = 1.0f / frustum;
 	get_identity_mat4(mat);
-	
 	mat[5] = 1.0f / tan(fov * (M_PI / 360.0f));
-	mat[0] = (1.0f / tan(fov * (M_PI / 360.0f))) / ratio;	
+	mat[0] = (1.0f / tan(fov * (M_PI / 360.0f))) / ratio;
 	mat[10] = (far + near) / frustum;
 	mat[14] = -1.0f;
 	mat[11] = 2.0f * (far * near) / frustum;
 	mat[15] = 0.0f;
-	print_matrix(mat);	
+	print_matrix(mat);
 }
 
 void	get_viewmatrix(t_map *map, t_vec4 pos, t_vec4 center, t_vec4 up)
@@ -107,4 +106,3 @@ void	get_viewmatrix(t_map *map, t_vec4 pos, t_vec4 center, t_vec4 up)
 	map->viewmat4[7] = -dot(u, pos);
 	map->viewmat4[11] = -dot(map->cam.dir, pos);
 }
-

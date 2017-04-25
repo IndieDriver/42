@@ -45,7 +45,6 @@ int		key_press(int keycode, t_map *map)
 	return (0);
 }
 
-
 int		expose_hook(t_map *map)
 {
 	draw(map);
