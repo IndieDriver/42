@@ -58,7 +58,7 @@ void	process_line(char *line, t_obj *obj)
 	}
 }
 
-float	*parse_obj_file(char *file_name, t_map *map)
+void	parse_obj_file(char *file_name, t_map *map)
 {
 	char	*line;
 	t_obj	obj;
@@ -79,5 +79,5 @@ float	*parse_obj_file(char *file_name, t_map *map)
 		free(line);
 	}
 	close(fd);
-	return (obj_reconstruct(&obj, map));
+	obj_reconstruct(&obj, map);
 }

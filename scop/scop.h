@@ -81,6 +81,10 @@ typedef struct	s_map
 	t_key		key;
 	t_vec4		pos;
 	t_vec4		rot;
+	int			nb_vertex;
+	float		*vertex_array;
+	int			nb_indice;
+	unsigned int *indice_array;
 	int			nb_tri;
 	float		*tri_list;
 	float		*normal_list;
@@ -102,12 +106,12 @@ typedef struct	s_map
 void			move(t_map *map);
 void			draw(t_map *map);
 //PARSE
-float			*parse_obj_file(char *file_name, t_map *map);
+void			parse_obj_file(char *file_name, t_map *map);
 double			ft_atoi_double(char *str);
 t_vec3			get_vec(char **line_split);
 t_vec4			get_vec_4(char **line_split);
 int				is_split_valid(char **line_split, int size);
-float			*obj_reconstruct(t_obj *obj, t_map *map);
+void			obj_reconstruct(t_obj *obj, t_map *map);
 //PARSE BMP
 t_bmp			parse_bmp(char *filenmae);
 //CAM

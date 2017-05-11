@@ -110,7 +110,7 @@ int		main(int argc, char **argv)
 
 	if (argc != 2)
 		exit(0);
-	map.tri_list = parse_obj_file(argv[1], &map);
+	parse_obj_file(argv[1], &map);
 	map.normal_list = get_normal_list(&map);
 	map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
 	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);

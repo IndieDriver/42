@@ -46,92 +46,77 @@ int		count_vertex(t_list *elem)
 	return (i);
 }
 
-void	add_vertex_in_list(float *tri_list, int *index, t_vec3 *vertex)
+void 	copy_vertex_list(t_obj *obj, float *vertex_array)
 {
-	tri_list[*index] = vertex->x;
-	*index += 1;
-	tri_list[*index] = vertex->y;
-	*index += 1;
-	tri_list[*index] = vertex->z;
-	*index += 1;
-}
-
-void	insert_quad(t_obj *obj, t_vec4 *vec, float *tri_list, int *index)
-{
-	t_list	*lst_vertex;
-	t_vec3	*vertex;
-
-	lst_vertex = ft_lstat(obj->vertex, (int)vec->x - 1);
-	vertex = (t_vec3*)lst_vertex->content;
-	add_vertex_in_list(tri_list, index, vertex);
-	lst_vertex = ft_lstat(obj->vertex, (int)vec->z - 1);
-	vertex = (t_vec3*)lst_vertex->content;
-	add_vertex_in_list(tri_list, index, vertex);
-	lst_vertex = ft_lstat(obj->vertex, (int)vec->w - 1);
-	vertex = (t_vec3*)lst_vertex->content;
-	add_vertex_in_list(tri_list, index, vertex);
-}
-
-void	insert_vertex(t_obj *obj, t_vec4 *vec, float *tri_list, int *index)
-{
-	t_list	*lst_vertex;
-	t_vec3	*vertex;
-
-	//check for quad there
-	//printf("%d %d %d %d\n", (int)vec->x, (int)vec->y, (int)vec->z,
-	//	(int)vec->w);
-	lst_vertex = ft_lstat(obj->vertex, (int)vec->x - 1);
-	vertex = (t_vec3*)lst_vertex->content;
-	//printf("%f %f %f\n", vertex->x, vertex->y, vertex->z);
-	//printf("%d\n", *index);
-	add_vertex_in_list(tri_list, index, vertex);
-	lst_vertex = ft_lstat(obj->vertex, (int)vec->y - 1);
-	vertex = (t_vec3*)lst_vertex->content;
-	add_vertex_in_list(tri_list, index, vertex);
-	lst_vertex = ft_lstat(obj->vertex, (int)vec->z - 1);
-	vertex = (t_vec3*)lst_vertex->content;
-	add_vertex_in_list(tri_list, index, vertex);
-	if ((int)vec->w != -1)
-		insert_quad(obj, vec, tri_list, index);
-}
-
-void	build_list(t_obj *obj, float *tri_list)
-{
-	t_list	*lst_tri;
-	t_vec4	*vec;
+	t_list	*vertex_lst;
+	t_vec4	*vertex;
 	int		i;
 
 	i = 0;
-	lst_tri = obj->tri;
-	while (lst_tri)
+	vertex_lst = obj->vertex;
+	while (vertex_lst)
 	{
-		vec = (t_vec4*)lst_tri->content;
-		insert_vertex(obj, vec, tri_list, &i);
-		lst_tri = lst_tri->next;
+		vertex = vertex_lst->content;
+		vertex_array[i] = vertex->x;
+		i++;
+		vertex_array[i] = vertex->y;
+		i++;
+		vertex_array[i] = vertex->z;
+		i++;
+		vertex_lst = vertex_lst->next;
 	}
 }
 
-float	*obj_reconstruct(t_obj *obj, t_map *map)
+void	add_quad_indices(t_vec4 *indice, unsigned int *indice_array, int *index)
 {
-	float	*tri_list;
-	int		max_vertex;
-	int		nb_tri;
+	indice_array[*index] = indice->x - 1;
+	*index += 1;
+	indice_array[*index] = indice->z - 1;
+	*index += 1;
+	indice_array[*index] = indice->w - 1;
+	*index += 1;
+}
+
+void	copy_indice_list(t_obj *obj, unsigned int *indice_array)
+{
+	t_list	*indice_lst;
+	t_vec4	*indice;
 	int		i;
 
-	max_vertex = count_vertex(obj->vertex);
-	nb_tri = count_tri(obj->tri, max_vertex);
-	printf("v %d\n", max_vertex);
-	printf("f %d\n", nb_tri);
-	tri_list = (float*)malloc(sizeof(float) * (nb_tri * 3));
-	build_list(obj, tri_list);
-	i = -1;
-	/*while (i < nb_tri * 3)
+	i = 0;
+	indice_lst = obj->tri;
+	while (indice_lst)
 	{
-		printf("%f ", tri_list[i]);
-		if ((i + 1) % 3 == 0)
-			printf("\n");
+		indice = indice_lst->content;
+		indice_array[i] = indice->x - 1;
 		i++;
-	} */
-	map->nb_tri = nb_tri;
-	return (tri_list);
+		indice_array[i] = indice->y - 1;
+		i++;
+		indice_array[i] = indice->z - 1;
+		i++;
+		if ((int)indice->w != -1)
+			add_quad_indices(indice, indice_array, &i);
+		indice_lst = indice_lst->next;
+	}
+}
+
+void	obj_reconstruct(t_obj *obj, t_map *map)
+{
+	float			*vertex_array;
+	unsigned int	*indice_array;
+	int				nb_vertex;
+	int				nb_tri;
+
+	nb_vertex = count_vertex(obj->vertex);
+	nb_tri = count_tri(obj->tri, nb_vertex);
+	printf("v %d\n", nb_vertex);
+	printf("f %d\n", nb_tri);
+	vertex_array = (float*)malloc(sizeof(float) * (nb_vertex * 3));
+	copy_vertex_list(obj, vertex_array);
+	indice_array = (unsigned int*)malloc(sizeof(float) * nb_tri);
+	copy_indice_list(obj, indice_array);
+	map->nb_vertex = nb_vertex;
+	map->vertex_array = vertex_array;
+	map->nb_indice = nb_tri;
+	map->indice_array = indice_array;
 }

@@ -17,6 +17,7 @@ void	draw(t_map *map)
 	GLuint	point_vbo = 0;
 	GLuint	normal_vbo = 0;
 	GLuint	uv_vbo = 0;
+	GLuint	indice_vbo = 0;
 	GLuint	vao = 0;
 
 	glGenBuffers(1, &point_vbo);
@@ -34,6 +35,11 @@ void	draw(t_map *map)
 	glBufferData(GL_ARRAY_BUFFER, (map->nb_tri * 2) * sizeof(float),
 		map->uv_list, GL_STATIC_DRAW);
 
+	glGenBuffers(1, &indice_vbo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (map->nb_indice) * sizeof(unsigned int),
+			map->indice_array, GL_STATIC_DRAW);
+
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
@@ -43,6 +49,7 @@ void	draw(t_map *map)
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
 
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
@@ -57,6 +64,6 @@ void	draw(t_map *map)
 	glUniformMatrix4fv(map->normalmat4_id, 1, GL_FALSE, map->normalmat4);
 
 	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, map->nb_tri);
+	glDrawElements(GL_TRIANGLES, map->nb_indice, GL_UNSIGNED_INT, NULL);
 	mlx_opengl_swap_buffers(map->win);
 }
