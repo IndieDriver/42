@@ -94,6 +94,22 @@ float	*get_normal_list(t_map *map)
 	return (list);
 } */
 
+void	get_normal_array(t_map *map)
+{
+	float	*normal_array;
+	int		i;
+
+	i = 0;
+	normal_array = (float*)malloc(sizeof(float) * map->nb_vertex * 3);
+	while (i < map->nb_vertex) {
+		normal_array[i + 0] = 1.0f;
+		normal_array[i + 1] = 0.0f;
+		normal_array[i + 2] = 0.0f;
+		i += 3;
+	}
+	map->normal_list = normal_array;
+}
+
 void	init_texture(t_map *map, t_bmp bmp)
 {
 	glGenTextures(1, &map->texture_id);
@@ -112,6 +128,7 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		exit(0);
 	parse_obj_file(argv[1], &map);
+	get_normal_array(&map);
 	//map.normal_list = get_normal_list(&map);
 	map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
 	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
