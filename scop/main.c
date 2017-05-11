@@ -32,6 +32,7 @@ t_vec4	get_normal_tri(t_vec4 pt1, t_vec4 pt2, t_vec4 pt3)
 	return (nor);
 }
 
+/*
 t_vec4	get_shared_normal(t_map *map, t_vec4 pt)
 {
 	int		i;
@@ -91,7 +92,7 @@ float	*get_normal_list(t_map *map)
 		i++;
 	}
 	return (list);
-}
+} */
 
 void	init_texture(t_map *map, t_bmp bmp)
 {
@@ -111,7 +112,7 @@ int		main(int argc, char **argv)
 	if (argc != 2)
 		exit(0);
 	parse_obj_file(argv[1], &map);
-	map.normal_list = get_normal_list(&map);
+	//map.normal_list = get_normal_list(&map);
 	map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
 	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	map.mlx = mlx_init();

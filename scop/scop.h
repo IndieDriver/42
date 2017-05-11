@@ -85,8 +85,6 @@ typedef struct	s_map
 	float		*vertex_array;
 	int			nb_indice;
 	unsigned int *indice_array;
-	int			nb_tri;
-	float		*tri_list;
 	float		*normal_list;
 	float		*uv_list;
 	GLuint		program_id;
