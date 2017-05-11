@@ -21,8 +21,6 @@ void	get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v)
 	ft_bzero(tmp, sizeof(t_mat4));
 	ft_bzero(out, sizeof(t_mat4));
 	mat4_mul(tmp, m, v);
-	printf("mat\n");
-	print_matrix(tmp);
 	i = 0;
 	while (i < 3)
 	{
@@ -34,7 +32,6 @@ void	get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v)
 		}
 		i++;
 	}
-	print_matrix(out);
 }
 
 void	get_mvp(t_mat4 out, t_mat4 m, t_mat4 v, t_mat4 p)
@@ -78,7 +75,6 @@ void	get_projmatrix(t_mat4 mat, float fov, float ratio)
 	mat[14] = -1.0f;
 	mat[11] = 2.0f * (far * near) / frustum;
 	mat[15] = 0.0f;
-	print_matrix(mat);
 }
 
 void	get_viewmatrix(t_map *map, t_vec4 pos, t_vec4 center, t_vec4 up)

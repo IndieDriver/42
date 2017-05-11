@@ -119,7 +119,7 @@ void			get_mvp(t_mat4 out, t_mat4 m, t_mat4 v, t_mat4 p);
 void			get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v);
 //VECTOR
 t_vec4			get_vec4(float x, float y, float z, float w);
-int				is_vec4equal(t_vec4 v1, t_vec4 v2);
+int				vec4cmp(t_vec4 v1, t_vec4 v2);
 t_vec4			vec_cross(t_vec4 v1, t_vec4 v2);
 void			vec_normalize(t_vec4 *v1);
 double			vec_len(t_vec4 vec);

@@ -12,39 +12,12 @@
 
 #include "scop.h"
 
-/*
-void	test(t_map *map)
-{
-	GLuint vbo = 0;
-	GLuint vao = 0;
-	float points[] = {
-		0.0f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f
-	};
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, 9 * sizeof(float), points, GL_STATIC_DRAW);
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glUseProgram(map->program_id);
-	glBindVertexArray(vao);
-	glDrawArrays(GL_TRIANGLES, 0, 3);
-	mlx_opengl_swap_buffers(map->win);
-} */
-
 void	init_cam(t_map *map)
 {
 	apply_trans(map->modelmat4, map->pos, map->rot);
-	get_viewmatrix(map,
-			get_vec4(0.0f, 0.0f, -1.0f, 0.0f),
-			get_vec4(0.0f, 0.0f, 0.0f, 0.0f),
-			get_vec4(0.0f, 1.0f, 0.0f, 0.0f));
+	get_viewmatrix(map, get_vec4(0.0f, 0.0f, -1.0f, 0.0f),
+						get_vec4(0.0f, 0.0f, 0.0f, 0.0f),
+						get_vec4(0.0f, 1.0f, 0.0f, 0.0f));
 	get_projmatrix(map->projmat4, 45.0f, 1080.0f / 720.0f);
 	get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
 	get_normalmat(map->normalmat4, map->modelmat4, map->viewmat4);
@@ -77,8 +50,7 @@ t_vec4	get_shared_normal(t_map *map, t_vec4 pt)
 			map->tri_list[i + 5], 0.0f);
 		pt3 = get_vec4(map->tri_list[i + 6], map->tri_list[i + 7],
 			map->tri_list[i + 8], 0.0f);
-		if (is_vec4equal(pt, pt1) || is_vec4equal(pt, pt2)
-			|| is_vec4equal(pt, pt3))
+		if (vec4cmp(pt, pt1) || vec4cmp(pt, pt2) || vec4cmp(pt, pt3))
 			nor = vec_add(nor, get_normal_tri(pt1, pt2, pt3));
 		i += 9;
 	}
@@ -140,14 +112,8 @@ int		main(int argc, char **argv)
 		exit(0);
 	map.tri_list = parse_obj_file(argv[1], &map);
 	map.normal_list = get_normal_list(&map);
-	map.pos.x = 0.0f;
-	map.pos.y = 0.0f;
-	map.pos.z = 30.0f;
-	map.pos.w = 0.0f;
-	map.rot.x = 0.0f;
-	map.rot.y = 0.0f;
-	map.rot.z = 0.0f;
-	map.rot.w = 0.0f;
+	map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
+	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	map.mlx = mlx_init();
 	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");
 	mlx_opengl_window_set_context(map.win);

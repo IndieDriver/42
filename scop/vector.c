@@ -23,7 +23,7 @@ t_vec4	get_vec4(float x, float y, float z, float w)
 	return (vec);
 }
 
-int		is_vec4equal(t_vec4 v1, t_vec4 v2)
+int		vec4cmp(t_vec4 v1, t_vec4 v2)
 {
 	if (v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
 		return (1);

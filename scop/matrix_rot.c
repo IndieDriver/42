@@ -45,7 +45,6 @@ t_vec4	rot_matrix_vec4(t_vec4 pos, t_vec4 trans)
 
 	ft_bzero(mat, sizeof(t_mat4));
 	get_rot_matrix(mat, trans.x, trans.y, trans.z);
-	print_matrix(mat);
 	pos = mul_matrix4_vec4(mat, pos);
 	return (pos);
 }
