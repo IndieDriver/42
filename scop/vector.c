@@ -22,6 +22,17 @@ t_vec3	get_vec3(float x, float y, float z)
 	return (vec);
 }
 
+t_vec4	vec3tovec4(t_vec3 vec3)
+{
+	t_vec4 vec;
+
+	vec.x = vec3.x;
+	vec.y = vec3.y;
+	vec.z = vec3.z;
+	vec.w = 0.0f;
+	return (vec);
+}
+
 t_vec4	get_vec4(float x, float y, float z, float w)
 {
 	t_vec4 vec;

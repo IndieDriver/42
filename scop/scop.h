@@ -128,6 +128,7 @@ void			get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v);
 //VECTOR
 t_vec3			get_vec3(float x, float y, float z);
 t_vec4			get_vec4(float x, float y, float z, float w);
+t_vec4			vec3tovec4(t_vec3 vec3);
 int				vec4cmp(t_vec4 v1, t_vec4 v2);
 t_vec4			vec_cross(t_vec4 v1, t_vec4 v2);
 void			vec_normalize(t_vec4 *v1);
