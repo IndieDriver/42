@@ -32,82 +32,82 @@ t_vec4	get_normal_tri(t_vec4 pt1, t_vec4 pt2, t_vec4 pt3)
 	return (nor);
 }
 
-/*
-t_vec4	get_shared_normal(t_map *map, t_vec4 pt)
+void	add_normal(t_map *map, t_vec4 normal, int indice_index)
 {
-	int		i;
-	t_vec4	pt1;
-	t_vec4	pt2;
-	t_vec4	pt3;
-	t_vec4	nor;
+	t_vec4 tmp;
+
+	vec_normalize(&normal);
+	tmp = get_vec4(map->normal_array[map->indice_array[indice_index]].x,
+					map->normal_array[map->indice_array[indice_index]].y,
+					map->normal_array[map->indice_array[indice_index]].z, 0.0f);
+	tmp = vec_add(normal, tmp);
+	//vec_normalize(&tmp);
+	map->normal_array[map->indice_array[indice_index]].x = tmp.x;
+	map->normal_array[map->indice_array[indice_index]].y = tmp.y;
+	map->normal_array[map->indice_array[indice_index]].z = tmp.z;
+}
+
+
+t_vec4	get_normal(t_map *map, int indice_index)
+{
+	t_vec4 pt1;
+	t_vec4 pt2;
+	t_vec4 pt3;
+	t_vec4 normal;
+
+	pt1 = get_vec4(map->vertex_array[map->indice_array[indice_index]].x,
+					map->vertex_array[map->indice_array[indice_index]].y,
+					map->vertex_array[map->indice_array[indice_index]].z, 0.0f);
+	pt2 = get_vec4(map->vertex_array[map->indice_array[indice_index + 1]].x,
+					map->vertex_array[map->indice_array[indice_index + 1]].y,
+					map->vertex_array[map->indice_array[indice_index + 1]].z, 0.0f);
+	pt3 = get_vec4(map->vertex_array[map->indice_array[indice_index + 2]].x,
+					map->vertex_array[map->indice_array[indice_index + 2]].y,
+					map->vertex_array[map->indice_array[indice_index + 2]].z, 0.0f);
+	normal = get_normal_tri(pt1, pt2, pt3);
+	return (normal);
+}
+
+void	get_shared_normal(t_map *map)
+{
+	t_vec4 nor;
+	int i;
 
 	i = 0;
 	nor = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
-	while (i < map->nb_tri * 3)
+	while (i < map->nb_indice)
 	{
-		pt1 = get_vec4(map->tri_list[i], map->tri_list[i + 1],
-			map->tri_list[i + 2], 0.0f);
-		pt2 = get_vec4(map->tri_list[i + 3], map->tri_list[i + 4],
-			map->tri_list[i + 5], 0.0f);
-		pt3 = get_vec4(map->tri_list[i + 6], map->tri_list[i + 7],
-			map->tri_list[i + 8], 0.0f);
-		if (vec4cmp(pt, pt1) || vec4cmp(pt, pt2) || vec4cmp(pt, pt3))
-			nor = vec_add(nor, get_normal_tri(pt1, pt2, pt3));
-		i += 9;
-	}
-	return (nor);
-}
-
-float	*get_normal_list(t_map *map)
-{
-	float	*list;
-	int		i;
-	int		j;
-	t_vec4	nor;
-
-	i = 0;
-	list = (float*)malloc(sizeof(float) * map->nb_tri * 3);
-	map->uv_list = (float*)malloc(sizeof(float) * map->nb_tri * 5);
-	while (i < map->nb_tri * 3)
-	{
-		nor = get_shared_normal(map, get_vec4(map->tri_list[i],
-			map->tri_list[i + 1], map->tri_list[i + 2], 0.0f));
+		nor = get_normal(map, i);
 		vec_normalize(&nor);
-		list[i + 0] = nor.x;
-		list[i + 1] = nor.y;
-		list[i + 2] = nor.z;
+		add_normal(map, nor, i);
+		add_normal(map, nor, i + 1);
+		add_normal(map, nor, i + 2);
 		i += 3;
 	}
-	i = 0;
-	j = 0;
-	while (i < map->nb_tri)
-	{
-		map->uv_list[j + 0] = 0.0f;
-		map->uv_list[j + 1] = 0.0f;
-		map->uv_list[j + 2] = 1.0f;
-		map->uv_list[j + 3] = 1.0f;
-		map->uv_list[j + 4] = 1.0f;
-		map->uv_list[j + 5] = 0.0f;
-		j += 5;
-		i++;
-	}
-	return (list);
-} */
+	printf("i: %d\n", i);
+}
 
 void	get_normal_array(t_map *map)
 {
-	float	*normal_array;
+	t_vec3	*normal_array;
+	t_vec2	*uv_array;
 	int		i;
 
 	i = 0;
-	normal_array = (float*)malloc(sizeof(float) * map->nb_vertex * 3);
-	while (i < map->nb_vertex) {
-		normal_array[i + 0] = 1.0f;
-		normal_array[i + 1] = 0.0f;
-		normal_array[i + 2] = 0.0f;
-		i += 3;
+	normal_array = (t_vec3*)malloc(sizeof(t_vec3) * map->nb_vertex);
+	uv_array = (t_vec2*)malloc(sizeof(t_vec2) * map->nb_vertex);
+	while (i < map->nb_vertex / 3)
+	{
+		normal_array[i].x = 0.0f;
+		normal_array[i].y = 0.0f;
+		normal_array[i].z = 0.0f;
+		uv_array[i].x = 0.0f;
+		uv_array[i].y = 0.0f;
+		i++;
 	}
-	map->normal_list = normal_array;
+	map->normal_array = normal_array;
+	map->uv_array = uv_array;
+	get_shared_normal(map);
 }
 
 void	init_texture(t_map *map, t_bmp bmp)
@@ -129,7 +129,6 @@ int		main(int argc, char **argv)
 		exit(0);
 	parse_obj_file(argv[1], &map);
 	get_normal_array(&map);
-	//map.normal_list = get_normal_list(&map);
 	map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
 	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	map.mlx = mlx_init();

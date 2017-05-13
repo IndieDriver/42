@@ -12,6 +12,16 @@
 
 #include "scop.h"
 
+t_vec3	get_vec3(float x, float y, float z)
+{
+	t_vec3 vec;
+
+	vec.x = x;
+	vec.y = y;
+	vec.z = z;
+	return (vec);
+}
+
 t_vec4	get_vec4(float x, float y, float z, float w)
 {
 	t_vec4 vec;

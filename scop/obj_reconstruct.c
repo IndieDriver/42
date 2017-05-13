@@ -46,7 +46,7 @@ int		count_vertex(t_list *elem)
 	return (i);
 }
 
-void 	copy_vertex_list(t_obj *obj, float *vertex_array)
+void 	copy_vertex_list(t_obj *obj, t_vec3 *vertex_array)
 {
 	t_list	*vertex_lst;
 	t_vec4	*vertex;
@@ -57,23 +57,21 @@ void 	copy_vertex_list(t_obj *obj, float *vertex_array)
 	while (vertex_lst)
 	{
 		vertex = vertex_lst->content;
-		vertex_array[i] = vertex->x;
-		i++;
-		vertex_array[i] = vertex->y;
-		i++;
-		vertex_array[i] = vertex->z;
-		i++;
+		vertex_array[i].x = vertex->x;
+		vertex_array[i].y = vertex->y;
+		vertex_array[i].z = vertex->z;
 		vertex_lst = vertex_lst->next;
+		i++;
 	}
 }
 
 void	add_quad_indices(t_vec4 *indice, unsigned int *indice_array, int *index)
 {
-	indice_array[*index] = indice->x - 1;
+	indice_array[*index] = (unsigned int)indice->x - 1;
 	*index += 1;
-	indice_array[*index] = indice->z - 1;
+	indice_array[*index] = (unsigned int)indice->z - 1;
 	*index += 1;
-	indice_array[*index] = indice->w - 1;
+	indice_array[*index] = (unsigned int)indice->w - 1;
 	*index += 1;
 }
 
@@ -88,11 +86,11 @@ void	copy_indice_list(t_obj *obj, unsigned int *indice_array)
 	while (indice_lst)
 	{
 		indice = indice_lst->content;
-		indice_array[i] = indice->x - 1;
+		indice_array[i] = (unsigned int)indice->x - 1;
 		i++;
-		indice_array[i] = indice->y - 1;
+		indice_array[i] = (unsigned int)indice->y - 1;
 		i++;
-		indice_array[i] = indice->z - 1;
+		indice_array[i] = (unsigned int)indice->z - 1;
 		i++;
 		if ((int)indice->w != -1)
 			add_quad_indices(indice, indice_array, &i);
@@ -102,7 +100,7 @@ void	copy_indice_list(t_obj *obj, unsigned int *indice_array)
 
 void	obj_reconstruct(t_obj *obj, t_map *map)
 {
-	float			*vertex_array;
+	t_vec3			*vertex_array;
 	unsigned int	*indice_array;
 	int				nb_vertex;
 	int				nb_tri;
@@ -111,7 +109,7 @@ void	obj_reconstruct(t_obj *obj, t_map *map)
 	nb_tri = count_tri(obj->tri, nb_vertex);
 	printf("v %d\n", nb_vertex);
 	printf("f %d\n", nb_tri);
-	vertex_array = (float*)malloc(sizeof(float) * (nb_vertex * 3));
+	vertex_array = (t_vec3*)malloc(sizeof(t_vec3) * (nb_vertex));
 	copy_vertex_list(obj, vertex_array);
 	indice_array = (unsigned int*)malloc(sizeof(float) * nb_tri);
 	copy_indice_list(obj, indice_array);

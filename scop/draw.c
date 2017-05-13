@@ -28,12 +28,12 @@ void	draw(t_map *map)
 	glGenBuffers(1, &normal_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, normal_vbo);
 	glBufferData(GL_ARRAY_BUFFER, (map->nb_vertex * 3) * sizeof(float),
-		map->normal_list, GL_STATIC_DRAW);
+		map->normal_array, GL_STATIC_DRAW);
 
 	glGenBuffers(1, &uv_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);
 	glBufferData(GL_ARRAY_BUFFER, (map->nb_vertex * 2) * sizeof(float),
-		map->uv_list, GL_STATIC_DRAW);
+		map->uv_array, GL_STATIC_DRAW);
 
 	glGenBuffers(1, &indice_vbo);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);

@@ -24,6 +24,12 @@
 
 typedef float	t_mat4[16];
 
+typedef struct	s_vec2
+{
+	float		x;
+	float		y;
+}				t_vec2;
+
 typedef struct	s_vec3
 {
 	float		x;
@@ -82,11 +88,11 @@ typedef struct	s_map
 	t_vec4		pos;
 	t_vec4		rot;
 	int			nb_vertex;
-	float		*vertex_array;
+	t_vec3		*vertex_array;
 	int			nb_indice;
 	unsigned int *indice_array;
-	float		*normal_list;
-	float		*uv_list;
+	t_vec3		*normal_array;
+	t_vec2		*uv_array;
 	GLuint		program_id;
 	t_mat4		modelmat4;
 	GLuint		modelmat4_id;
@@ -120,6 +126,7 @@ void			apply_trans(t_mat4 in, t_vec4 trans, t_vec4 rot);
 void			get_mvp(t_mat4 out, t_mat4 m, t_mat4 v, t_mat4 p);
 void			get_normalmat(t_mat4 out, t_mat4 m, t_mat4 v);
 //VECTOR
+t_vec3			get_vec3(float x, float y, float z);
 t_vec4			get_vec4(float x, float y, float z, float w);
 int				vec4cmp(t_vec4 v1, t_vec4 v2);
 t_vec4			vec_cross(t_vec4 v1, t_vec4 v2);
