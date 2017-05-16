@@ -132,6 +132,7 @@ t_vec3			get_vec3(float x, float y, float z);
 t_vec4			get_vec4(float x, float y, float z, float w);
 t_vec4			vec3tovec4(t_vec3 vec3);
 int				vec4cmp(t_vec4 v1, t_vec4 v2);
+t_vec4			neg_vec4(t_vec4 vec);
 t_vec4			vec_cross(t_vec4 v1, t_vec4 v2);
 void			vec_normalize(t_vec4 *v1);
 double			vec_len(t_vec4 vec);

@@ -102,6 +102,27 @@ void	get_normal_array(t_map *map)
 	get_shared_normal(map);
 }
 
+t_vec3	get_offset(t_map *map)
+{
+	t_vec3	offset;
+	int		i;
+
+	i = 0;
+	offset = get_vec3(0.0f, 0.0f, 0.0f);
+	while (i < map->nb_vertex / 3)
+	{
+		offset.x += map->vertex_array[i].x;
+		offset.y += map->vertex_array[i].y;
+		offset.z += map->vertex_array[i].z;
+		i++;
+	}
+	offset.x = offset.x / (map->nb_vertex / 3);
+	offset.y = offset.y / (map->nb_vertex / 3);
+	offset.z = offset.z / (map->nb_vertex / 3);
+	printf("offset: %f %f %f\n", offset.x, offset.y, offset.z);
+	return (offset);
+}
+
 void	init_texture(t_map *map, t_bmp bmp)
 {
 	map->has_texture = 1;
@@ -117,12 +138,16 @@ int		main(int argc, char **argv)
 {
 	t_map	map;
 	t_bmp	bmp;
+	t_vec3	offset;
 
 	if (argc != 2)
 		exit(0);
 	parse_obj_file(argv[1], &map);
 	get_normal_array(&map);
-	map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
+	offset = get_offset(&map);
+	map.pos = neg_vec4(vec3tovec4(offset));
+	map.pos.z += 30.0f;
+	//map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
 	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
 	map.mlx = mlx_init();
 	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");
