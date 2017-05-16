@@ -6,13 +6,17 @@ in mat4 mv;
 in vec2 UV;
 out vec4 frag_color;
 uniform sampler2D textures;
+uniform int	hasTexture;
 void main () {
 	vec3 nor_mv = normalize((normal * transpose(inverse(mv))).xyz);
 	vec3 eye_pos = vec3(0.0f, 0.0f, -1.0f);
 	vec3 light_dir = normalize(vec3(0.5f, 0.0f, 0.5f));
 	vec3 light_col = vec3(1.0f, 1.0f, 1.0f);
-	//vec3 obj_col = vec3(1.0f, 0.0f, 0.0f);
-	vec4 obj_col = texture(textures, UV);
+	vec4 obj_col;
+	if (hasTexture == 0)
+		obj_col = vec4(1.0f, 0.0f, 0.0f, 1.0f);
+	else
+		obj_col = texture(textures, UV);
 	float kspec = 0.0;
 
 	float kdiffuse = clamp(dot(nor_mv, light_dir),0,1);

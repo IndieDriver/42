@@ -68,6 +68,7 @@ typedef struct	s_key
 	int			right;
 	int			mleft;
 	int			mright;
+	int			kspace;
 }				t_key;
 
 typedef struct	s_bmp
@@ -87,6 +88,7 @@ typedef struct	s_map
 	t_key		key;
 	t_vec4		pos;
 	t_vec4		rot;
+	int			has_texture;
 	int			nb_vertex;
 	t_vec3		*vertex_array;
 	int			nb_indice;

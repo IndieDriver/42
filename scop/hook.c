@@ -20,6 +20,7 @@ void	init_key(t_map *map)
 	map->key.right = 0;
 	map->key.mleft = 0;
 	map->key.mright = 0;
+	map->key.kspace = 0;
 }
 
 int		loop_hook(t_map *map)
@@ -42,6 +43,8 @@ int		key_press(int keycode, t_map *map)
 		map->key.right = 1;
 	if (keycode == 2)
 		map->key.left = 1;
+	if (keycode == 49)
+		map->key.kspace = 1;
 	return (0);
 }
 
@@ -77,5 +80,7 @@ int		key_hook(int keycode, t_map *map)
 		map->key.right = 0;
 	if (keycode == 2)
 		map->key.left = 0;
+	if (keycode == 49)
+		map->key.kspace = 0;
 	return (0);
 }

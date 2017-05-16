@@ -12,13 +12,13 @@
 
 #include "scop.h"
 
-void	draw(t_map *map)
+GLuint	bind_vao(t_map *map)
 {
-	GLuint	point_vbo = 0;
-	GLuint	normal_vbo = 0;
-	GLuint	uv_vbo = 0;
-	GLuint	indice_vbo = 0;
-	GLuint	vao = 0;
+	GLuint	point_vbo;
+	GLuint	normal_vbo;
+	GLuint	uv_vbo;
+	GLuint	indice_vbo;
+	GLuint	vao;
 
 	glGenBuffers(1, &point_vbo);
 	glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
@@ -42,7 +42,6 @@ void	draw(t_map *map)
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-
 	glBindBuffer(GL_ARRAY_BUFFER, point_vbo);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, normal_vbo);
@@ -50,18 +49,28 @@ void	draw(t_map *map)
 	glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
+	return (vao);
+}
 
+void	draw(t_map *map)
+{
+	GLuint vao;
+	GLuint texture;
+
+	vao = bind_vao(map);
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glEnableVertexAttribArray(2);
 	map->mvpmat4_id = glGetUniformLocation(map->program_id, "MVP");
 	map->normalmat4_id = glGetUniformLocation(map->program_id, "MV");
+	texture = glGetUniformLocation(map->program_id, "hasTexture");
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(map->program_id);
 
 	glUniformMatrix4fv(map->mvpmat4_id, 1, GL_FALSE, map->mvpmat4);
 	glUniformMatrix4fv(map->normalmat4_id, 1, GL_FALSE, map->normalmat4);
+	glUniform1i(texture, map->has_texture);
 
 	glBindVertexArray(vao);
 	glDrawElements(GL_TRIANGLES, map->nb_indice, GL_UNSIGNED_INT, NULL);

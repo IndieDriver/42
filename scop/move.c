@@ -22,7 +22,10 @@ void	move(t_map *map)
 		map->rot.y = map->rot.y + (0.1f);
 	if (map->key.left == 1)
 		map->rot.y = map->rot.y - (0.1f);
-	if (map->key.left || map->key.right || map->key.up || map->key.down)
+	if (map->key.kspace == 1)
+		map->has_texture = !map->has_texture;
+	if (map->key.left || map->key.right || map->key.up || map->key.down
+			|| map->key.kspace)
 	{
 		apply_trans(map->modelmat4, map->pos, map->rot);
 		get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
