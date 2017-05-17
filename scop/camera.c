@@ -69,12 +69,15 @@ void	get_projmatrix(t_mat4 mat, float fov, float ratio)
 	frustum = near - far;
 	tan_half_fov = tanf(fov / 2.0f);
 	get_identity_mat4(mat);
-	mat[0] = 1.0f / (ratio / tan_half_fov);
+	mat[0] = 1.0f / (ratio * tan_half_fov);
 	mat[5] = 1.0f / tan_half_fov;
 	mat[10] = (far + near) / frustum;
 	mat[11] = -1.0f;
 	mat[14] = 2.0f * (far * near) / frustum;
 	mat[15] = 0.0f;
+
+
+
 }
 
 void	get_viewmatrix(t_map *map, t_vec4 pos, t_vec4 center, t_vec4 up)

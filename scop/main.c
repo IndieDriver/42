@@ -145,10 +145,10 @@ int		main(int argc, char **argv)
 	parse_obj_file(argv[1], &map);
 	get_normal_array(&map);
 	offset = get_offset(&map);
-	map.pos = neg_vec4(vec3tovec4(offset));
-	map.pos.z += 30.0f;
-	//map.pos = get_vec4(0.0f, 0.0f, 30.0f, 0.0f);
-	map.rot = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	//map.pos = neg_vec4(vec3tovec4(offset));
+	map.pos = get_vec4(0.0f, 0.0f, 5.0f, 0.0f);
+	//map.pos = vec3tovec4(offset);
+	//map.pos.z += 4.0f;
 	map.mlx = mlx_init();
 	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");
 	mlx_opengl_window_set_context(map.win);
