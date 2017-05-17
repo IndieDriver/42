@@ -52,9 +52,9 @@ void	apply_trans(t_mat4 in, t_vec4 pos, t_vec4 rot)
 	ft_bzero(mtran, sizeof(t_mat4));
 	ft_bzero(mrot, sizeof(t_mat4));
 	get_rot_matrix(mrot, fmod(rot.x, 360.0f), fmod(rot.y, 360.0f),
-		fmod(rot.z, 360.0f));
+			fmod(rot.z, 360.0f));
 	get_translation_matrix(mtran, pos.x, pos.y, pos.z);
-	mat4_mul(in, mrot, mtran);
+	mat4_mul(in, mtran, mrot);
 }
 
 void	get_projmatrix(t_mat4 mat, float fov, float ratio)

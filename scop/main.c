@@ -15,7 +15,7 @@
 void	init_cam(t_map *map)
 {
 	apply_trans(map->modelmat4, map->pos, map->rot);
-	get_viewmatrix(map, get_vec4(0.0f, 0.0f, -1.0f, 0.0f),
+	get_viewmatrix(map, get_vec4(5.0f, 0.0f, 0.0f, 0.0f),
 						get_vec4(0.0f, 0.0f, 0.0f, 0.0f),
 						get_vec4(0.0f, 1.0f, 0.0f, 0.0f));
 	get_projmatrix(map->projmat4, 45.0f, 1080.0f / 720.0f);
@@ -88,7 +88,7 @@ void	get_normal_array(t_map *map)
 	i = 0;
 	normal_array = (t_vec3*)malloc(sizeof(t_vec3) * map->nb_vertex);
 	uv_array = (t_vec2*)malloc(sizeof(t_vec2) * map->nb_vertex);
-	while (i < map->nb_vertex / 3)
+	while (i < map->nb_vertex)
 	{
 		normal_array[i].x = 0.0f;
 		normal_array[i].y = 0.0f;
@@ -109,16 +109,16 @@ t_vec3	get_offset(t_map *map)
 
 	i = 0;
 	offset = get_vec3(0.0f, 0.0f, 0.0f);
-	while (i < map->nb_vertex / 3)
+	while (i < map->nb_vertex)
 	{
 		offset.x += map->vertex_array[i].x;
 		offset.y += map->vertex_array[i].y;
 		offset.z += map->vertex_array[i].z;
 		i++;
 	}
-	offset.x = offset.x / (map->nb_vertex / 3);
-	offset.y = offset.y / (map->nb_vertex / 3);
-	offset.z = offset.z / (map->nb_vertex / 3);
+	offset.x = offset.x / (map->nb_vertex);
+	offset.y = offset.y / (map->nb_vertex);
+	offset.z = offset.z / (map->nb_vertex);
 	printf("offset: %f %f %f\n", offset.x, offset.y, offset.z);
 	return (offset);
 }
@@ -145,10 +145,7 @@ int		main(int argc, char **argv)
 	parse_obj_file(argv[1], &map);
 	get_normal_array(&map);
 	offset = get_offset(&map);
-	//map.pos = neg_vec4(vec3tovec4(offset));
-	map.pos = get_vec4(0.0f, 0.0f, 5.0f, 0.0f);
-	//map.pos = vec3tovec4(offset);
-	//map.pos.z += 4.0f;
+	map.pos = neg_vec4(vec3tovec4(offset));
 	map.mlx = mlx_init();
 	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");
 	mlx_opengl_window_set_context(map.win);
