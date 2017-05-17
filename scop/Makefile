@@ -22,6 +22,7 @@ SRC =	main.c				\
 		camera.c			\
 		get_shader.c		\
 		hook.c				\
+		normal.c			\
 		vector.c			\
 		vec_math.c			\
 		vec_math2.c			\

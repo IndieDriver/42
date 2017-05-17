@@ -153,11 +153,11 @@ void			get_translation_matrix(t_mat4 mat, float x, float y, float z);
 void			get_rot_matrix(t_mat4 m, float rot_x, float rot_y, float rot_z);
 void			transpose(t_mat4 out);
 
-void			init_key(t_map *map);
 int				loop_hook(t_map *map);
 int				expose_hook(t_map *map);
 int				red_cross(t_map *map);
 int				key_hook(int keycode, t_map *map);
 int				key_press(int keycode, t_map *map);
 GLuint			load_shaders(char *vertex_file_name, char *fragment_file_name);
+void			set_normal_array(t_map *map);
 #endif

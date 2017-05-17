@@ -20,7 +20,6 @@ void	get_rot_matrix(t_mat4 mat, float rot_x, float rot_y, float rot_z)
 	float d;
 	float e;
 
-	//ft_bzero(mat, sizeof(t_mat4));
 	get_identity_mat4(mat);
 	a = cos(rot_x);
 	b = sin(rot_x);

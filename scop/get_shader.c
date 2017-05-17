@@ -92,25 +92,6 @@ GLuint	get_fragment_shader(char *file_name)
 	return (fs);
 }
 
-void	print_link_error(GLuint program, char *vfn, char *ffn)
-{
-	char	log[2048];
-	int		max_length;
-	int		index;
-
-	max_length = 2048;
-	index = 0;
-	glGetProgramInfoLog(program, max_length, &index, log);
-	glGetShaderInfoLog(program, max_length, &index, log);
-	ft_putstr("Cannot link shaders: ");
-	ft_putstr(vfn);
-	ft_putstr(" and ");
-	ft_putstr(ffn);
-	ft_putstr("\n");
-	ft_putstr(log);
-	exit(0);
-}
-
 GLuint	load_shaders(char *vertex_file_name, char *fragment_file_name)
 {
 	GLuint	program;
@@ -126,7 +107,5 @@ GLuint	load_shaders(char *vertex_file_name, char *fragment_file_name)
 	glAttachShader(program, vs);
 	glLinkProgram(program);
 	glGetProgramiv(program, GL_LINK_STATUS, &error);
-	if (GL_TRUE != error)
-		print_link_error(program, vertex_file_name, fragment_file_name);
 	return (program);
 }

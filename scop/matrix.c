@@ -41,10 +41,10 @@ void	cpy_mat4(t_mat4 src, t_mat4 dest)
 
 void	mat4_mul(t_mat4 result, t_mat4 m1, t_mat4 m2)
 {
-	float sum;
-	int i;
-	int	j;
-	int k;
+	float	sum;
+	int		i;
+	int		j;
+	int		k;
 
 	i = 0;
 	while (i < 4)

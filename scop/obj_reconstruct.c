@@ -46,7 +46,7 @@ int		count_vertex(t_list *elem)
 	return (i);
 }
 
-void 	copy_vertex_list(t_obj *obj, t_vec3 *vertex_array)
+void	copy_vertex_list(t_obj *obj, t_vec3 *vertex_array)
 {
 	t_list	*vertex_lst;
 	t_vec4	*vertex;
@@ -107,8 +107,6 @@ void	obj_reconstruct(t_obj *obj, t_map *map)
 
 	nb_vertex = count_vertex(obj->vertex);
 	nb_tri = count_tri(obj->tri, nb_vertex);
-	printf("v %d\n", nb_vertex);
-	printf("f %d\n", nb_tri);
 	vertex_array = (t_vec3*)malloc(sizeof(t_vec3) * (nb_vertex));
 	copy_vertex_list(obj, vertex_array);
 	indice_array = (unsigned int*)malloc(sizeof(float) * nb_tri);

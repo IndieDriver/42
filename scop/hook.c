@@ -12,17 +12,6 @@
 
 #include "scop.h"
 
-void	init_key(t_map *map)
-{
-	map->key.up = 0;
-	map->key.down = 0;
-	map->key.left = 0;
-	map->key.right = 0;
-	map->key.mleft = 0;
-	map->key.mright = 0;
-	map->key.kspace = 0;
-}
-
 int		loop_hook(t_map *map)
 {
 	move(map);

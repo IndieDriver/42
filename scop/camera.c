@@ -75,9 +75,6 @@ void	get_projmatrix(t_mat4 mat, float fov, float ratio)
 	mat[11] = -1.0f;
 	mat[14] = 2.0f * (far * near) / frustum;
 	mat[15] = 0.0f;
-
-
-
 }
 
 void	get_viewmatrix(t_map *map, t_vec4 pos, t_vec4 center, t_vec4 up)

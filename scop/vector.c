@@ -53,9 +53,9 @@ int		vec4cmp(t_vec4 v1, t_vec4 v2)
 
 t_vec4	neg_vec4(t_vec4 vec)
 {
-    vec.x *= -1;
-    vec.y *= -1;
-    vec.z *= -1;
-    vec.w *= -1;
-    return (vec);
+	vec.x *= -1;
+	vec.y *= -1;
+	vec.z *= -1;
+	vec.w *= -1;
+	return (vec);
 }
