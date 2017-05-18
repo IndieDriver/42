@@ -62,7 +62,7 @@ void	obj_reconstruct(t_map *map)
 {
 	t_vec3			*vertex_array;
 
-	vertex_array = (t_vec3*)malloc(sizeof(t_vec3) * (map->nb_indice);
+	vertex_array = (t_vec3*)malloc(sizeof(t_vec3) * (map->nb_indice));
 	duplicate_vertex_list(map, vertex_array);
 	map->nb_vertex = map->nb_indice;
 	map->vertex_array = vertex_array;

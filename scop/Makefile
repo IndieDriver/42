@@ -24,6 +24,7 @@ SRC =	main.c				\
 		get_shader.c		\
 		hook.c				\
 		normal.c			\
+		texture.c			\
 		vector.c			\
 		vec_math.c			\
 		vec_math2.c			\

@@ -163,4 +163,5 @@ int				key_hook(int keycode, t_map *map);
 int				key_press(int keycode, t_map *map);
 GLuint			load_shaders(char *vertex_file_name, char *fragment_file_name);
 void			set_normal_array(t_map *map);
+void			set_uv_array(t_map *map);
 #endif

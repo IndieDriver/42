@@ -81,25 +81,17 @@ void	get_unique_normal(t_map *map)
 void	set_normal_array(t_map *map)
 {
 	t_vec3	*normal_array;
-	t_vec2	*uv_array;
 	int		i;
 
 	i = 0;
 	normal_array = (t_vec3*)malloc(sizeof(t_vec3) * map->nb_vertex);
-	uv_array = (t_vec2*)malloc(sizeof(t_vec2) * map->nb_vertex);
 	while (i < map->nb_vertex)
 	{
 		normal_array[i].x = 0.0f;
 		normal_array[i].y = 0.0f;
 		normal_array[i].z = 0.0f;
-		uv_array[i].x = 0.0f;
-		uv_array[i].y = 0.0f;
 		i++;
 	}
 	map->normal_array = normal_array;
-	map->uv_array = uv_array;
 	map->nb_indice != -1 ? get_shared_normal(map) : get_unique_normal(map);
-	//get_shared_normal(map);
-	//get_unique_normal(map);
-	printf("vertex: %d\n", map->nb_vertex);
 }

@@ -46,7 +46,7 @@ void	init_key(t_map *map)
 
 void	init_texture(t_map *map, t_bmp bmp)
 {
-	map->has_texture = 0;
+	map->has_texture = 1;
 	glGenTextures(1, &map->texture_id);
 	glBindTexture(GL_TEXTURE_2D, map->texture_id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bmp.width, bmp.height, 0, GL_BGR,
@@ -75,6 +75,7 @@ int		main(int argc, char **argv)
 		exit(0);
 	parse_obj_file(argv[1], &map);
 	set_normal_array(&map);
+	set_uv_array(&map);
 	map.pos = neg_vec4(vec3tovec4(get_offset(&map)));
 	map.mlx = mlx_init();
 	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");

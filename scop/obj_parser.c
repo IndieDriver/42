@@ -58,6 +58,18 @@ void	process_line(char *line, t_obj *obj)
 	}
 }
 
+void	free_obj(t_obj *obj)
+{
+	if (obj->name != NULL)
+		free(obj->name);
+	if (obj->mtllib != NULL)
+		free(obj->mtllib);
+	if (obj->vertex != NULL)
+		free(obj->vertex);
+	if (obj->tri != NULL)
+		free(obj->tri);
+}
+
 void	parse_obj_file(char *file_name, t_map *map)
 {
 	char	*line;
@@ -81,4 +93,5 @@ void	parse_obj_file(char *file_name, t_map *map)
 	close(fd);
 	obj_reconstruct_indice(&obj, map);
 	obj_reconstruct(map);
+	free_obj(&obj);
 }
