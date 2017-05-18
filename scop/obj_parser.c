@@ -79,5 +79,6 @@ void	parse_obj_file(char *file_name, t_map *map)
 		free(line);
 	}
 	close(fd);
-	obj_reconstruct(&obj, map);
+	obj_reconstruct_indice(&obj, map);
+	obj_reconstruct(map);
 }

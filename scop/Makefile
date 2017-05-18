@@ -16,6 +16,7 @@ SRC =	main.c				\
 		obj_parser.c		\
 		obj_utils.c			\
 		obj_reconstruct.c	\
+		obj_reconstruct_indice.c	\
 		bmp_parser.c		\
 		draw.c				\
 		move.c				\

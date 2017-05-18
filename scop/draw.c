@@ -35,10 +35,13 @@ GLuint	bind_vao(t_map *map)
 	glBufferData(GL_ARRAY_BUFFER, (map->nb_vertex * 2) * sizeof(float),
 		map->uv_array, GL_STATIC_DRAW);
 
-	glGenBuffers(1, &indice_vbo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, (map->nb_indice) * sizeof(unsigned int),
-			map->indice_array, GL_STATIC_DRAW);
+	if (map->nb_indice != -1)
+	{
+		glGenBuffers(1, &indice_vbo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, (map->nb_indice)
+			* sizeof(unsigned int), map->indice_array, GL_STATIC_DRAW);
+	}
 
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
@@ -48,14 +51,17 @@ GLuint	bind_vao(t_map *map)
 	glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, uv_vbo);
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 0, NULL);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
+	if (map->nb_indice != -1)
+	{
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indice_vbo);
+	}
 	return (vao);
 }
 
 void	draw(t_map *map)
 {
 	GLuint vao;
-	GLuint texture;
+	GLuint texture_id;
 
 	vao = bind_vao(map);
 	glEnableVertexAttribArray(0);
@@ -63,16 +69,19 @@ void	draw(t_map *map)
 	glEnableVertexAttribArray(2);
 	map->mvpmat4_id = glGetUniformLocation(map->program_id, "MVP");
 	map->normalmat4_id = glGetUniformLocation(map->program_id, "MV");
-	texture = glGetUniformLocation(map->program_id, "hasTexture");
+	texture_id = glGetUniformLocation(map->program_id, "hasTexture");
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glUseProgram(map->program_id);
 
 	glUniformMatrix4fv(map->mvpmat4_id, 1, GL_FALSE, map->mvpmat4);
 	glUniformMatrix4fv(map->normalmat4_id, 1, GL_FALSE, map->normalmat4);
-	glUniform1i(texture, map->has_texture);
+	glUniform1i(texture_id, map->has_texture);
 
 	glBindVertexArray(vao);
-	glDrawElements(GL_TRIANGLES, map->nb_indice, GL_UNSIGNED_INT, NULL);
+	if (map->nb_indice != -1)
+		glDrawElements(GL_TRIANGLES, map->nb_indice, GL_UNSIGNED_INT, NULL);
+	else
+		glDrawArrays(GL_TRIANGLES, 0, map->nb_vertex);
 	mlx_opengl_swap_buffers(map->win);
 }

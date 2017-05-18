@@ -91,10 +91,10 @@ typedef struct	s_map
 	int			has_texture;
 	int			nb_vertex;
 	t_vec3		*vertex_array;
-	int			nb_indice;
-	unsigned int *indice_array;
 	t_vec3		*normal_array;
 	t_vec2		*uv_array;
+	int			nb_indice;
+	unsigned int *indice_array;
 	GLuint		program_id;
 	t_mat4		modelmat4;
 	GLuint		modelmat4_id;
@@ -117,9 +117,12 @@ double			ft_atoi_double(char *str);
 t_vec3			get_vec(char **line_split);
 t_vec4			get_vec_4(char **line_split);
 int				is_split_valid(char **line_split, int size);
-void			obj_reconstruct(t_obj *obj, t_map *map);
+void			obj_reconstruct(t_map *map);
+void			obj_reconstruct_indice(t_obj *obj, t_map *map);
+int				count_tri(t_list *elem, int max_vertex);
+int				count_vertex(t_list *elem);
 //PARSE BMP
-t_bmp			parse_bmp(char *filenmae);
+t_bmp			parse_bmp(char *filename);
 //CAM
 void			get_projmatrix(t_mat4 mat, float fov, float ratio);
 void			get_viewmatrix(t_map *map, t_vec4 pos,

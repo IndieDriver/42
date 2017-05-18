@@ -12,15 +12,6 @@
 
 #include "scop.h"
 
-t_vec4	get_normal_tri(t_vec4 pt1, t_vec4 pt2, t_vec4 pt3)
-{
-	t_vec4 nor;
-
-	nor = vec_cross(vec_sub(pt2, pt1), vec_sub(pt3, pt1));
-	vec_normalize(&nor);
-	return (nor);
-}
-
 void	add_normal(t_map *map, t_vec4 normal, int indice_index)
 {
 	t_vec4 tmp;
@@ -44,7 +35,9 @@ t_vec4	get_normal(t_map *map, int indice_index)
 	pt1 = map->vertex_array[map->indice_array[indice_index]];
 	pt2 = map->vertex_array[map->indice_array[indice_index + 1]];
 	pt3 = map->vertex_array[map->indice_array[indice_index + 2]];
-	normal = get_normal_tri(vec3tovec4(pt1), vec3tovec4(pt2), vec3tovec4(pt3));
+	normal = vec_cross(vec_sub(vec3tovec4(pt2), vec3tovec4(pt1)),
+						vec_sub(vec3tovec4(pt3), vec3tovec4(pt1)));
+	vec_normalize(&normal);
 	return (normal);
 }
 
@@ -64,7 +57,25 @@ void	get_shared_normal(t_map *map)
 		add_normal(map, nor, i + 2);
 		i += 3;
 	}
-	printf("i: %d\n", i);
+}
+
+void	get_unique_normal(t_map *map)
+{
+	t_vec4	nor;
+	int i;
+
+	i = 0;
+	nor = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);
+	while (i < map->nb_vertex)
+	{
+		nor = vec_cross(vec_sub(vec3tovec4(map->vertex_array[i + 1]),
+					vec3tovec4(map->vertex_array[i])),
+				vec_sub(vec3tovec4(map->vertex_array[i + 2]),
+					vec3tovec4(map->vertex_array[i])));
+		vec_normalize(&nor);
+		map->normal_array[i] = get_vec3(nor.x, nor.y, nor.z);
+		i += 3;
+	}
 }
 
 void	set_normal_array(t_map *map)
@@ -87,5 +98,8 @@ void	set_normal_array(t_map *map)
 	}
 	map->normal_array = normal_array;
 	map->uv_array = uv_array;
-	get_shared_normal(map);
+	map->nb_indice != -1 ? get_shared_normal(map) : get_unique_normal(map);
+	//get_shared_normal(map);
+	//get_unique_normal(map);
+	printf("vertex: %d\n", map->nb_vertex);
 }
