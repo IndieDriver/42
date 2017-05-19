@@ -44,7 +44,10 @@ t_bmp	parse_bmp(char *filename)
 	int		fd;
 
 	if ((fd = open(filename, O_RDONLY)) == -1)
+	{
+		ft_putstr("Cannot open BMP file");
 		exit(0);
+	}
 	bmp = read_header(fd);
 	read(fd, bmp.data, bmp.img_size);
 	close(fd);
