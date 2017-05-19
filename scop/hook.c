@@ -47,7 +47,6 @@ int		expose_hook(t_map *map)
 
 int		red_cross(t_map *map)
 {
-	glDeleteTextures(1, &map->texture_id);
 	mlx_destroy_window(map->mlx, map->win);
 	if (map->vertex_array)
 		free(map->vertex_array);

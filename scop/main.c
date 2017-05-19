@@ -48,7 +48,7 @@ void	init_texture(t_map *map)
 	t_bmp	bmp;
 
 	bmp = parse_bmp("texture.bmp");
-	map->has_texture = 1;
+	map->has_texture = 0;
 	glGenTextures(1, &map->texture_id);
 	glBindTexture(GL_TEXTURE_2D, map->texture_id);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, bmp.width, bmp.height, 0, GL_BGR,
