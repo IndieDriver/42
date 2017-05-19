@@ -21,8 +21,8 @@ int		count_tri(t_list *elem, int max_vertex)
 	while (elem)
 	{
 		vec = (t_vec4*)elem->content;
-		if ((int)vec->x > max_vertex
-			|| (int)vec->y > max_vertex || (int)vec->z > max_vertex)
+		if ((int)vec->x > max_vertex || (int)vec->y > max_vertex
+			|| (int)vec->z > max_vertex || (int)vec->w > max_vertex)
 		{
 			ft_putstr("Invalid f value (value > max_vertex)\n");
 			exit(0);

@@ -29,7 +29,6 @@ t_vec3	get_offset(t_map *map)
 	offset.x = offset.x / (map->nb_vertex);
 	offset.y = offset.y / (map->nb_vertex);
 	offset.z = offset.z / (map->nb_vertex);
-	printf("offset: %f %f %f\n", offset.x, offset.y, offset.z);
 	return (offset);
 }
 
@@ -39,13 +38,16 @@ void	init_key(t_map *map)
 	map->key.down = 0;
 	map->key.left = 0;
 	map->key.right = 0;
-	map->key.mleft = 0;
-	map->key.mright = 0;
+	map->key.rup = 0;
+	map->key.rdown = 0;
 	map->key.kspace = 0;
 }
 
-void	init_texture(t_map *map, t_bmp bmp)
+void	init_texture(t_map *map)
 {
+	t_bmp	bmp;
+
+	bmp = parse_bmp("texture.bmp");
 	map->has_texture = 1;
 	glGenTextures(1, &map->texture_id);
 	glBindTexture(GL_TEXTURE_2D, map->texture_id);
@@ -53,6 +55,7 @@ void	init_texture(t_map *map, t_bmp bmp)
 		GL_UNSIGNED_BYTE, bmp.data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	free(bmp.data);
 }
 
 void	init_cam(t_map *map)
@@ -69,7 +72,6 @@ void	init_cam(t_map *map)
 int		main(int argc, char **argv)
 {
 	t_map	map;
-	t_bmp	bmp;
 
 	if (argc != 2)
 		exit(0);
@@ -84,8 +86,7 @@ int		main(int argc, char **argv)
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glEnable(GL_CULL_FACE);
-	bmp = parse_bmp("texture.bmp");
-	init_texture(&map, bmp);
+	init_texture(&map);
 	init_cam(&map);
 	init_key(&map);
 	mlx_key_hook(map.win, key_hook, &map);

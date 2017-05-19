@@ -70,6 +70,7 @@ GLuint	get_vertex_shader(char *file_name)
 	glGetShaderiv(vs, GL_COMPILE_STATUS, &error);
 	if (GL_TRUE != error)
 		print_shader_error(vs, file_name);
+	free(buffer);
 	return (vs);
 }
 
@@ -89,6 +90,7 @@ GLuint	get_fragment_shader(char *file_name)
 	glGetShaderiv(fs, GL_COMPILE_STATUS, &error);
 	if (GL_TRUE != error)
 		print_shader_error(fs, file_name);
+	free(buffer);
 	return (fs);
 }
 

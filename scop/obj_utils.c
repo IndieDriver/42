@@ -75,10 +75,13 @@ t_vec3		get_vec(char **line_split)
 	return (vec);
 }
 
-void		init_index(int *i, int *j)
+void		init_index(char *str, int *i, int *j, double *sign)
 {
 	*i = 0;
 	*j = 0;
+	while (str[*i] && !(str[*i] >= '0' && str[*i] <= '9') && str[*i] != '-')
+		*i += 1;
+	*sign = str[*i] == '-' ? -1.0f : 1.0f;
 }
 
 double		ft_atoi_double(char *str)
@@ -89,12 +92,7 @@ double		ft_atoi_double(char *str)
 	double		sign;
 	int			j;
 
-	init_index(&i, &j);
-	sign = 1.0f;
-	while (str[i] && !(str[i] >= '0' && str[i] <= '9') && str[i] != '-')
-		i++;
-	if (str[i] == '-')
-		sign = -1.0f;
+	init_index(str, &i, &j, &sign);
 	ent = ft_atoi(str + i);
 	ent = ent > 0.0 ? ent : -ent;
 	while (str[i] && str[i] != '.')

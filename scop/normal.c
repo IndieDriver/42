@@ -62,7 +62,7 @@ void	get_shared_normal(t_map *map)
 void	get_unique_normal(t_map *map)
 {
 	t_vec4	nor;
-	int i;
+	int		i;
 
 	i = 0;
 	nor = get_vec4(0.0f, 0.0f, 0.0f, 0.0f);

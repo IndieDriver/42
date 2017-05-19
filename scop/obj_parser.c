@@ -16,7 +16,6 @@ void	add_tri(char *line, t_obj *obj)
 {
 	t_vec4 vec;
 
-	printf("%s\n", line);
 	vec = get_vec_4(ft_strsplit(line, ' '));
 	if (obj->tri)
 		ft_lstpushback(obj->tri,
@@ -47,10 +46,6 @@ void	process_line(char *line, t_obj *obj)
 {
 	if (!ft_strchr(line, '#'))
 	{
-		if (ft_strstr(line, "mtllib "))
-			obj->mtllib = ft_strdup(ft_strchr(line, ' ') + 1);
-		if (ft_strstr(line, "o "))
-			obj->name = ft_strdup(ft_strchr(line, ' ') + 1);
 		if (ft_strstr(line, "v "))
 			add_vertex(ft_strchr(line, ' ') + 1, obj);
 		if (ft_strstr(line, "f "))
@@ -60,10 +55,8 @@ void	process_line(char *line, t_obj *obj)
 
 void	free_obj(t_obj *obj)
 {
-	if (obj->name != NULL)
-		free(obj->name);
-	if (obj->mtllib != NULL)
-		free(obj->mtllib);
+	ft_lstdel(&obj->vertex, obj_delete_link);
+	ft_lstdel(&obj->tri, obj_delete_link);
 	if (obj->vertex != NULL)
 		free(obj->vertex);
 	if (obj->tri != NULL)
@@ -76,8 +69,6 @@ void	parse_obj_file(char *file_name, t_map *map)
 	t_obj	obj;
 	int		fd;
 
-	obj.name = NULL;
-	obj.mtllib = NULL;
 	obj.vertex = NULL;
 	obj.tri = NULL;
 	if ((fd = open(file_name, O_RDONLY)) == -1)

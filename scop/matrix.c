@@ -12,21 +12,6 @@
 
 #include "scop.h"
 
-void	print_matrix(t_mat4 mat)
-{
-	int i;
-
-	i = 0;
-	while (i < 16)
-	{
-		printf("%f ", mat[i]);
-		if ((i + 1) % 4 == 0)
-			printf("\n");
-		i++;
-	}
-	printf("\n");
-}
-
 void	cpy_mat4(t_mat4 src, t_mat4 dest)
 {
 	int i;

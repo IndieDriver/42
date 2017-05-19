@@ -12,6 +12,12 @@
 
 #include "scop.h"
 
+void		obj_delete_link(void *ptr, size_t size)
+{
+	(void)size;
+	free(ptr);
+}
+
 static void	copy_vertex_list(t_obj *obj, t_vec3 *vertex_array)
 {
 	t_list	*vertex_lst;
@@ -31,7 +37,8 @@ static void	copy_vertex_list(t_obj *obj, t_vec3 *vertex_array)
 	}
 }
 
-static void	add_quad_indices(t_vec4 *indice, unsigned int *indice_array, int *index)
+static void	add_quad_indices(t_vec4 *indice, unsigned int *indice_array,
+		int *index)
 {
 	indice_array[*index] = (unsigned int)indice->x - 1;
 	*index += 1;
