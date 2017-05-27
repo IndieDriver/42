@@ -12,22 +12,23 @@
 
 #include "scop.h"
 
-int		count_tri(t_list *elem, int max_vertex)
+int		count_tri(t_list *elem, int max_ver)
 {
-	t_vec4	*vec;
+	t_vec4	*v;
 	int		i;
 
 	i = 0;
 	while (elem)
 	{
-		vec = (t_vec4*)elem->content;
-		if ((int)vec->x > max_vertex || (int)vec->y > max_vertex
-			|| (int)vec->z > max_vertex || (int)vec->w > max_vertex)
+		v = (t_vec4*)elem->content;
+		if ((int)v->x > max_ver || (int)v->y > max_ver || (int)v->z > max_ver ||
+				(int)v->w > max_ver || (int)v->x <= 0 || (int)v->y <= 0
+				|| (int)v->z <= 0 || (int)v->w <= 0)
 		{
-			ft_putstr("Invalid f value (value > max_vertex)\n");
+			ft_putstr("Invalid f value (value > max_vertex or value <= 0)\n");
 			exit(0);
 		}
-		i = vec->w != -1.0f ? i + 6 : i + 3;
+		i = v->w != -1.0f ? i + 6 : i + 3;
 		elem = elem->next;
 	}
 	return (i);
