@@ -77,6 +77,7 @@ void	*malloc(size_t size)
 	void *ptr;
 
 	ptr = NULL;
+	ft_putstr("malloc() call\n");
 	if (size <= 0)
 		ptr = NULL;
 	else if (size < TINY_MAX)
@@ -85,6 +86,5 @@ void	*malloc(size_t size)
 		ptr = malloc_small(&g_malloc.small, SMALL_MAX, size);
 	else
 		ptr = malloc_large(&g_malloc.large, size);
-	printf("returned ptr: %p\n", ptr);
 	return (ptr);
 }

@@ -29,7 +29,7 @@ AR = ar rc
 RAN = ranlib
 RM = rm -f
 #CFLAGS = -Wall -Werror -Wextra -fPIC
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -fPIC
 
 LIB_PATH = ./libft/
 LIB_NAME = -lft
