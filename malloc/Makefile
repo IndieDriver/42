@@ -28,7 +28,8 @@ CC = gcc
 AR = ar rc
 RAN = ranlib
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -g
+#CFLAGS = -Wall -Werror -Wextra -fPIC
+CFLAGS = -Wall -Werror -Wextra
 
 LIB_PATH = ./libft/
 LIB_NAME = -lft
@@ -44,11 +45,11 @@ lib:
 	make -C ./libft
 
 $(NAME): $(OBJ_NAME)
-	$(CC) -shared $(OBJ_NAME) -o $(NAME) ./libft/libft.a
+	$(CC) -shared $(OBJ_NAME) -o $(NAME) $(LFLAGS)
 	ln -s $(NAME) libft_malloc.so
 
 %.o: %.c
-	$(CC) $(INC) $(CFLAGS) -fPIC -o $@ -c $<
+	$(CC) $(INC) $(CFLAGS) -o $@ -c $<
 
 clean:
 	$(RM) $(OBJ_NAME)

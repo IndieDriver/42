@@ -83,7 +83,7 @@ CC = gcc
 AR = ar rc
 RAN = ranlib
 RM = rm -f
-CFLAGS = -fPIC -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra
 
 all: $(NAME)
 
