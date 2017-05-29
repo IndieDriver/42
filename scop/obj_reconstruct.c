@@ -23,7 +23,7 @@ int		count_tri(t_list *elem, int max_ver)
 		v = (t_vec4*)elem->content;
 		if ((int)v->x > max_ver || (int)v->y > max_ver || (int)v->z > max_ver ||
 				(int)v->w > max_ver || (int)v->x <= 0 || (int)v->y <= 0
-				|| (int)v->z <= 0 || (int)v->w <= 0)
+				|| (int)v->z <= 0 || ((int)v->w != -1.0f && (int)v->w <= 0))
 		{
 			ft_putstr("Invalid f value (value > max_vertex or value <= 0)\n");
 			exit(0);

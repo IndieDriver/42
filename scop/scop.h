@@ -63,8 +63,14 @@ typedef struct		s_key
 	int				down;
 	int				left;
 	int				right;
+	int				q;
+	int				e;
 	int				rup;
 	int				rdown;
+	int				rleft;
+	int				rright;
+	int				rshift;
+	int				rcontrol;
 	int				kspace;
 }					t_key;
 
