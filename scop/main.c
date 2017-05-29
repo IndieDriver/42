@@ -79,6 +79,7 @@ int		main(int argc, char **argv)
 	set_normal_array(&map);
 	set_uv_array(&map);
 	map.pos = neg_vec4(vec3tovec4(get_offset(&map)));
+	map.init_pos = map.pos;
 	map.mlx = mlx_init();
 	map.win = mlx_new_opengl_window(map.mlx, 1080, 720, "scop");
 	mlx_opengl_window_set_context(map.win);

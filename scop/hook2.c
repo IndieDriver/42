@@ -26,6 +26,8 @@ void	key_hook2(int keycode, t_map *map)
 		map->key.q = 0;
 	if (keycode == 14)
 		map->key.e = 0;
+	if (keycode == 15)
+		map->key.r = 0;
 }
 
 int		key_hook(int keycode, t_map *map)

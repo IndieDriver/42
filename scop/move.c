@@ -12,7 +12,7 @@
 
 #include "scop.h"
 
-void	move2(t_map *map)
+int		move2(t_map *map)
 {
 	if (map->key.rup == 1)
 		map->pos.x = map->pos.x + (0.1f);
@@ -30,12 +30,8 @@ void	move2(t_map *map)
 		map->has_texture = !map->has_texture;
 	if (map->key.rleft || map->key.rright || map->key.rup || map->key.rcontrol
 			|| map->key.rshift || map->key.rdown || map->key.kspace == 1)
-	{
-		apply_trans(map->modelmat4, map->pos, map->rot);
-		get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
-		get_normalmat(map->normalmat4, map->modelmat4, map->viewmat4);
-		draw(map);
-	}
+		return (1);
+	return (0);
 }
 
 void	move(t_map *map)
@@ -52,13 +48,14 @@ void	move(t_map *map)
 		map->rot.z = map->rot.z - (0.1f);
 	if (map->key.e == 1)
 		map->rot.z = map->rot.z + (0.1f);
+	map->pos = map->key.r == 1 ? map->init_pos : map->pos;
+	map->rot = map->key.r == 1 ? get_vec4(0.0f, 0.0f, 0.0f, 0.0f) : map->rot;
 	if (map->key.left || map->key.right || map->key.up || map->key.down
-		|| map->key.q || map->key.e)
+		|| map->key.q || map->key.e || map->key.r || move2(map))
 	{
 		apply_trans(map->modelmat4, map->pos, map->rot);
 		get_mvp(map->mvpmat4, map->modelmat4, map->viewmat4, map->projmat4);
 		get_normalmat(map->normalmat4, map->modelmat4, map->viewmat4);
 		draw(map);
 	}
-	move2(map);
 }

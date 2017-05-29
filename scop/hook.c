@@ -36,6 +36,8 @@ void	key_press2(int keycode, t_map *map)
 		map->key.e = 1;
 	if (keycode == 49)
 		map->key.kspace = 60;
+	if (keycode == 15)
+		map->key.r = 1;
 }
 
 int		key_press(int keycode, t_map *map)

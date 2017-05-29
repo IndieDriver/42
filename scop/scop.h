@@ -72,6 +72,7 @@ typedef struct		s_key
 	int				rshift;
 	int				rcontrol;
 	int				kspace;
+	int				r;
 }					t_key;
 
 typedef struct		s_bmp
@@ -90,6 +91,7 @@ typedef struct		s_map
 	t_cam			cam;
 	t_key			key;
 	t_vec4			pos;
+	t_vec4			init_pos;
 	t_vec4			rot;
 	int				has_texture;
 	int				nb_vertex;

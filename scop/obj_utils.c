@@ -98,7 +98,7 @@ double		ft_atoi_double(char *str)
 	while (str[i] && str[i] != '.')
 		i++;
 	if (str[i] != '.')
-		return (ent);
+		return (ent * sign);
 	i++;
 	while (str[i + j] == '0')
 		j++;
