@@ -17,7 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/mman.h>
-# include "libft/libft.h"
+# include "libft.h"
 
 # define TINY_MAX 512
 # define SMALL_MAX 4096

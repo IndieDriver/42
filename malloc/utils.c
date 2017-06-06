@@ -47,7 +47,7 @@ void			ft_put_addr(size_t n)
 	int			i;
 
 	len = size_hex(n);
-	i = len - 1;
+	i = len;
 	buf[i] = '\0';
 	while (n != 0)
 	{
