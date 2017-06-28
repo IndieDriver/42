@@ -55,7 +55,8 @@ class Operand : public IOperand {
 			return (_value);
 		}
 	private:
-		std::string _value;
+		std::string		_value;
+		eOperandType	_opType;
 };
 
 #endif

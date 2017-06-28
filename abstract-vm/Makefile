@@ -12,8 +12,9 @@
 
 INC = /
 
-SRC =	main.cpp	\
-		Factory.cpp \
+SRC =	main.cpp			\
+		Factory.cpp 		\
+		Instruction.cpp		\
 
 OBJ = $(SRC:.cpp=.o)
 NAME = avm
