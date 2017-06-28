@@ -17,18 +17,35 @@ enum eInstruction {
 	Exit
 };
 
+/* Should always follow eInstruction enum */
+const std::string instructionStr[] {
+	"push",
+	"pop",
+	"dump",
+	"assert",
+	"add",
+	"sub",
+	"mul",
+	"div",
+	"mod",
+	"print",
+	"exit"
+};
+
 class Instruction {
 	public:
-		Instruction (eInstruction instruction, IOperand *operand = nullptr);
+		Instruction (eInstruction instruction, const IOperand *operand = nullptr);
 		virtual ~Instruction (void);
 		Instruction  & operator=(Instruction  const & rhs);
 
-		void exec();
+		void			exec();
+		eInstruction	getInstruction();
+		void 			setOperand(IOperand const *operand);
 	private:
 		Instruction (void);
 		Instruction (Instruction  const & src);
 		eInstruction	_instruction;
-		IOperand		*_operand = nullptr;
+		const IOperand		*_operand = nullptr;
 
 };
 

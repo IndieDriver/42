@@ -10,6 +10,14 @@ enum eOperandType {
 	Double
 };
 
+const std::string operandStr[] {
+	"Int8",
+	"Int16",
+	"Int32",
+	"Float",
+	"Double"
+};
+
 class IOperand {
 	public:
 		virtual int getPrecision(void) const = 0; // Precision of the type of the instance

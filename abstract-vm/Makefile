@@ -15,6 +15,8 @@ INC = /
 SRC =	main.cpp			\
 		Factory.cpp 		\
 		Instruction.cpp		\
+		Lexer.cpp			\
+		Parser.cpp			\
 
 OBJ = $(SRC:.cpp=.o)
 NAME = avm

@@ -41,3 +41,11 @@ void Instruction::exec() {
 		case eInstruction::Exit : std::cout << "exit" << std::endl; break;
 	}
 }
+
+eInstruction Instruction::getInstruction() {
+	return (this->_instruction);
+}
+
+void Instruction::setOperand(IOperand *operand) {
+	this->_operand = operand;
+}
