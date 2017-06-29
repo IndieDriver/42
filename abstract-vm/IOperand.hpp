@@ -11,11 +11,11 @@ enum eOperandType {
 };
 
 const std::string operandStr[] {
-	"Int8",
-	"Int16",
-	"Int32",
-	"Float",
-	"Double"
+	"int8",
+	"int16",
+	"int32",
+	"float",
+	"double"
 };
 
 class IOperand {

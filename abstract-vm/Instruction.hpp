@@ -1,7 +1,8 @@
 #ifndef INSTRUCTION_HPP
 # define INSTRUCTION_HPP
+# include "avm.hpp"
 # include "Operand.hpp"
-# include <iostream>
+# include "Memory.hpp"
 
 enum eInstruction {
 	Push,
@@ -14,7 +15,8 @@ enum eInstruction {
 	Div,
 	Mod,
 	Print,
-	Exit
+	Exit,
+	Null
 };
 
 /* Should always follow eInstruction enum */
@@ -34,18 +36,29 @@ const std::string instructionStr[] {
 
 class Instruction {
 	public:
-		Instruction (eInstruction instruction, const IOperand *operand = nullptr);
+		Instruction (eInstruction instruction, const IOperand *operand);
 		virtual ~Instruction (void);
 		Instruction  & operator=(Instruction  const & rhs);
 
 		void			exec();
 		eInstruction	getInstruction();
-		void 			setOperand(IOperand const *operand);
 	private:
 		Instruction (void);
 		Instruction (Instruction  const & src);
 		eInstruction	_instruction;
-		const IOperand		*_operand = nullptr;
+		const IOperand	*_operand;
+		void push();
+		void pop();
+		void dump();
+		void assert();
+		void add();
+		void sub();
+		void mul();
+		void div();
+		void mod();
+		void print();
+		void exit();
+		void null();
 
 };
 

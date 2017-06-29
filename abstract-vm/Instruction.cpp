@@ -4,7 +4,7 @@ Instruction::Instruction(void) {
 
 }
 
-Instruction::Instruction (eInstruction instruction, IOperand *operand)
+Instruction::Instruction (eInstruction instruction, const IOperand *operand)
 	: _instruction(instruction),
 		_operand(operand) {
 
@@ -26,19 +26,19 @@ Instruction &	Instruction::operator=(Instruction const & rhs) {
 }
 
 void Instruction::exec() {
-	_operand = nullptr;
 	switch(this->_instruction) {
-		case eInstruction::Push : std::cout << "push" << std::endl; break;
-		case eInstruction::Pop : std::cout << "pop" << std::endl; break;
-		case eInstruction::Dump : std::cout << "dump" << std::endl; break;
-		case eInstruction::Assert : std::cout << "assert" << std::endl; break;
-		case eInstruction::Add : std::cout << "add" << std::endl; break;
-		case eInstruction::Sub : std::cout << "sub" << std::endl; break;
-		case eInstruction::Mul : std::cout << "mul" << std::endl; break;
-		case eInstruction::Div : std::cout << "div" << std::endl; break;
-		case eInstruction::Mod : std::cout << "mod" << std::endl; break;
-		case eInstruction::Print : std::cout << "print" << std::endl; break;
-		case eInstruction::Exit : std::cout << "exit" << std::endl; break;
+		case eInstruction::Push : push(); break;
+		case eInstruction::Pop : pop(); break;
+		case eInstruction::Dump : dump(); break;
+		case eInstruction::Assert : assert(); break;
+		case eInstruction::Add : add(); break;
+		case eInstruction::Sub : sub(); break;
+		case eInstruction::Mul : mul(); break;
+		case eInstruction::Div : div(); break;
+		case eInstruction::Mod : mod(); break;
+		case eInstruction::Print : print(); break;
+		case eInstruction::Exit : exit(); break;
+		case eInstruction::Null : std::cout << "null" << std::endl; break;
 	}
 }
 
@@ -46,6 +46,58 @@ eInstruction Instruction::getInstruction() {
 	return (this->_instruction);
 }
 
-void Instruction::setOperand(IOperand *operand) {
-	this->_operand = operand;
+void Instruction::push() {
+	if (this->_operand == nullptr) {
+		std::cout << "invalid operand in push" << std::endl;
+	}
+	Memory::getInstance().g_stack.push_front(this->_operand);
+}
+
+void Instruction::pop() {
+	Memory::getInstance().g_stack.pop_front();
+}
+
+void Instruction::dump() {
+	std::cout << "dump size: " << Memory::getInstance().g_stack.size() << std::endl;
+	for (const auto & elem : Memory::getInstance().g_stack) {
+		std::cout << elem->toString() << std::endl;
+	}
+}
+
+void Instruction::assert() {
+	if (this->_operand == nullptr) {
+		std::cout << "invalid operand in assert" << std::endl;
+	}
+	const IOperand *topStack = Memory::getInstance().g_stack.front();
+	if (this->_operand->toString() != topStack->_operand->toString()) {
+		std::cout << "assert failed" << std::endl;
+	}
+}
+
+void Instruction::add() {
+
+}
+
+void Instruction::sub() {
+
+}
+
+void Instruction::mul() {
+
+}
+
+void Instruction::div() {
+
+}
+
+void Instruction::mod() {
+
+}
+
+void Instruction::print() {
+
+}
+
+void Instruction::exit() {
+
 }

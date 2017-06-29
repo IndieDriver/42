@@ -22,7 +22,7 @@ OBJ = $(SRC:.cpp=.o)
 NAME = avm
 CC = clang++
 RM = rm -f
-CFLAGS = -Wall -Werror -Wextra -std=c++11
+CFLAGS = -Wall -Werror -Wextra -std=c++11 -g
 
 all: $(NAME)
 

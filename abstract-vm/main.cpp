@@ -18,10 +18,13 @@ std::string readFile(std::string filename) {
 }
 
 int main(int ac, char **av) {
-	/*
+/*
 	Factory factory;
-	factory.createOperand(eOperandType::Int8, "42");
+	const IOperand *operand1 = factory.createOperand(eOperandType::Int8, "42");
+	std::cout << operand1->toString() << std::endl; */
 
+
+	/*
 	Instruction push(eInstruction::Push);
 	Instruction pop(eInstruction::Pop);
 	push.exec();
@@ -32,12 +35,18 @@ int main(int ac, char **av) {
 		std::vector<std::string> tokens;
 		Lexer lexer(fileContent);
 		while (lexer.nextToken()) {
-			std::cout << lexer.getToken() << std::endl;
+			//std::cout << lexer.getToken() << std::endl;
 			tokens.push_back(lexer.getToken());
 		}
-		Parser parser(tokens);
-		while (parser.nextInstruction() != nullptr) {
 
+		std::vector<Instruction*> instructions;
+		Parser parser(tokens);
+		while (parser.nextInstruction()) {
+			instructions.push_back(parser.getInstruction());
+		}
+
+		for (auto & instr : instructions) {
+			instr->exec();
 		}
 	}
 }

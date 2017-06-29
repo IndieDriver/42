@@ -24,8 +24,8 @@ Parser &	Parser::operator=(Parser const & rhs) {
 	return (*this);
 }
 
-Instruction *Parser::readInstruction() {
-	Instruction *instruction = nullptr;
+eInstruction Parser::readInstruction() {
+	eInstruction instruction = eInstruction::Null;
 	while (_offset < _tokens.size() && _tokens.at(_offset).compare("\n") == 0) {
 		_offset++;
 	}
@@ -36,11 +36,11 @@ Instruction *Parser::readInstruction() {
 	for (int i = 0; i < 11; i++) {
 		if (!instr.compare(instructionStr[i])) {
 			std::cout << "instruction: " << instructionStr[i] << std::endl;
-			instruction = new Instruction(static_cast<eInstruction>(i));
+			instruction = static_cast<eInstruction>(i);
 		}
 	}
 	_offset++;
-	if (instruction == nullptr) {
+	if (instruction == eInstruction::Null) {
 		std::cout << "instruction " << instr << " not found" << std::endl;
 		//error wrong instruction
 	}
@@ -49,59 +49,52 @@ Instruction *Parser::readInstruction() {
 
 IOperand const *Parser::readOperand() {
 	IOperand *operand = nullptr;
-	std::string op = _tokens.at(_offset);
-	for (int i = 0; i < 5; i++) {
-		if (!op.compare(operandStr[i])) {
-			std::cout << "operand: " << operandStr[i] << std::endl;
-			_offset++;
-			if (_offset < _tokens.size()) {
-				std::string value = _tokens.at(_offset);
+	if (_offset + 3 < _tokens.size()){
+		std::string op = _tokens.at(_offset);
+		std::string open_parentheis = _tokens.at(_offset + 1);
+		std::string value = _tokens.at(_offset + 2);
+		std::string close_parentheis = _tokens.at(_offset + 3);
+
+		std::cout << "type " << op << std::endl;
+		std::cout << "value " << value << std::endl;
+		_offset += 4;
+
+		for (int i = 0; i < 5; i++) {
+			if (!op.compare(operandStr[i])) {
+				std::cout << "operand: " << operandStr[i] << std::endl;
+				if (open_parentheis.compare("(")) {
+					std::cout << "error missing open" << std::endl;
+				}
+				if (close_parentheis.compare(")")) {
+					std::cout << "error missing close" << std::endl;
+				}
 				Factory factory;
 				IOperand const *operand = factory.createOperand(static_cast<eOperandType>(i), value);
 				return (operand);
-				_offset++;
-
 			}
 		}
 	}
-
-
+	if (operand == nullptr) {
+		std::cout << "invalid operand" << std::endl;
+	}
 	return (operand);
 }
 
-
-Instruction * Parser::nextInstruction() {
-	Instruction * instruction = readInstruction();
-	if (instruction != nullptr
-			&& (instruction->getInstruction() == eInstruction::Push
-				|| instruction->getInstruction() == eInstruction::Assert)) {
-		instruction->setOperand(readOperand());
+bool Parser::nextInstruction() {
+	_instruction = nullptr;
+	eInstruction instructionType = readInstruction();
+	if (instructionType != eInstruction::Null
+			&& (instructionType == eInstruction::Push || instructionType == eInstruction::Assert)) {
+		const IOperand *operand = readOperand();
+		_instruction = new Instruction(instructionType, operand);
+		return (true);
+	} else if (instructionType != eInstruction::Null){
+		_instruction = new Instruction(instructionType, nullptr);
+		return (true);
 	}
-	return (readInstruction());
+	return (false);
 }
 
-
-
-/*
-bool Parser::nextToken() {
-	size_t begin = _string.find_first_of(_keyword, _offset);
-	if (std::string::npos != begin && begin == _offset) {
-		_token = _string.substr(begin, 1);
-		_offset = begin + 1;
-		return true;
-	}
-    begin = _string.find_first_not_of(_delimiters, _offset);
-    if (std::string::npos == begin) {
-        _offset = _string.length();
-        return false;
-    }
-    size_t end = _string.find_first_of(_delimiters, begin);
-    if (std::string::npos == end) {
-        _token = _string.substr(begin);
-        _offset = _string.length();
-        return true;
-    }
-   	_token = _string.substr(begin, end - begin);
-    _offset = end;
-    return true;
-} */
+Instruction *Parser::getInstruction() {
+	return (_instruction);
+}

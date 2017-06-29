@@ -12,7 +12,8 @@ class Parser {
 		virtual ~Parser (void);
 		Parser  & operator=(Parser  const & rhs);
 
-		Instruction *nextInstruction();
+		bool				nextInstruction();
+		Instruction			*getInstruction();
 
 	private:
 		Parser (void);
@@ -21,8 +22,9 @@ class Parser {
 		std::vector <std::string>	_tokens;
 		size_t						_offset;
 		std::string					_token;
-		Instruction *readInstruction();
-		IOperand const *readOperand();
+		eInstruction		readInstruction();
+		IOperand const 		*readOperand();
+		Instruction			*_instruction;
 };
 
 #endif

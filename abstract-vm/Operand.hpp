@@ -2,12 +2,15 @@
 # define OPERAND_HPP
 
 #include "IOperand.hpp"
+#include <iostream>
 
 template <class T>
 class Operand : public IOperand {
 	public:
 		//Operand(void);
-		//Operand(Operand const & src);
+		Operand(Operand const & src) {
+			*this = src;
+		}
 		Operand(std::string const & value) {
 			_value = value;
 		}
