@@ -5,6 +5,7 @@
 # include <fstream>
 # include <vector>
 # include <deque>
+# include "Exceptions.hpp"
 
 enum eOperandType {
 	Int8,

@@ -3,6 +3,7 @@
 # include "avm.hpp"
 # include "Operand.hpp"
 # include "Memory.hpp"
+# include "Exceptions.hpp"
 
 enum eInstruction {
 	Push,
@@ -59,6 +60,17 @@ class Instruction {
 		void print();
 		void exit();
 		void null();
+};
+
+class DivisionByZeroException : public std::exception {
+	public:
+  		virtual const char* what() const throw() {
+    		return "Division by zero";
+  		}
+		DivisionByZeroException(void);
+		//DivisionByZeroException(Exceptions const & src);
+		//virtual ~Exceptions(void);
+		//Exceptions & operator=(Exceptions const & rhs);
 };
 
 #endif

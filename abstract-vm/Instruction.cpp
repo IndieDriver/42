@@ -104,6 +104,9 @@ void Instruction::div() {
 	pop();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
 	pop();
+	if (std::stoi(v1->toString()) == 0) {
+		throw DivisionByZeroException();
+	}
 	Memory::getInstance().g_stack.push_front(*v2 / *v1);
 
 }
