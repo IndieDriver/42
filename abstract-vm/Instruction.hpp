@@ -59,7 +59,6 @@ class Instruction {
 		void print();
 		void exit();
 		void null();
-
 };
 
 #endif

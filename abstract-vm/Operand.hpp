@@ -1,8 +1,13 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
+# pragma once
 
 #include "IOperand.hpp"
+#include "Factory.hpp"
 #include <iostream>
+#include <sstream>
+
+static inline IOperand const * add(IOperand const & op1, IOperand const & op2);
 
 template <class T>
 class Operand : public IOperand {
@@ -12,17 +17,17 @@ class Operand : public IOperand {
 			*this = src;
 		}
 		Operand(std::string const & value) {
-			_value = value;
+			this->_value = std::stoi(value);
+			_stringValue = value;
+
 		}
 
 		virtual ~Operand(void) {
 
 		}
 
-		//Operand & operator=(Operand const & rhs);
-
 		int getPrecision(void) const {
-			return (0);
+			return (static_cast<int>(_opType));
 		}
 
 		eOperandType getType(void) const {
@@ -30,8 +35,7 @@ class Operand : public IOperand {
 		}
 
 		IOperand const * operator+(IOperand const & rhs) const {
-			(void)rhs;
-			return (this);
+			return (add(*this, rhs));
 		}
 
 		IOperand const * operator-(IOperand const & rhs) const {
@@ -55,11 +59,21 @@ class Operand : public IOperand {
 		}
 
 		std::string const & toString(void) const {
-			return (_value);
+			return (this->_stringValue);
 		}
 	private:
-		std::string		_value;
+		T				_value;
+		std::string		_stringValue;
 		eOperandType	_opType;
 };
+
+static inline IOperand const * add(IOperand const & op1, IOperand const & op2) {
+	std::ostringstream ss;
+	double op1Value = std::stoi(op1.toString());
+	double op2Value = std::stoi(op2.toString());
+	double res = op1Value + op2Value;
+	ss << res;
+	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+}
 
 #endif

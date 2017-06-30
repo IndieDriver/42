@@ -68,8 +68,7 @@ IOperand const *Parser::readOperand() {
 				if (close_parentheis.compare(")")) {
 					std::cout << "error missing close" << std::endl;
 				}
-				Factory factory;
-				IOperand const *operand = factory.createOperand(static_cast<eOperandType>(i), value);
+				IOperand const *operand = Factory::getInstance().createOperand(static_cast<eOperandType>(i), value);
 				return (operand);
 			}
 		}

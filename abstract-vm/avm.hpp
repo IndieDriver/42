@@ -5,6 +5,21 @@
 # include <fstream>
 # include <vector>
 # include <deque>
-# include "Operand.hpp"
+
+enum eOperandType {
+	Int8,
+	Int16,
+	Int32,
+	Float,
+	Double
+};
+
+const std::string operandStr[] {
+	"int8",
+	"int16",
+	"int32",
+	"float",
+	"double"
+};
 
 #endif

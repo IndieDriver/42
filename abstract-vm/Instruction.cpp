@@ -69,32 +69,59 @@ void Instruction::assert() {
 		std::cout << "invalid operand in assert" << std::endl;
 	}
 	const IOperand *topStack = Memory::getInstance().g_stack.front();
-	if (this->_operand->toString() != topStack->_operand->toString()) {
+	if (this->_operand->toString() != topStack->toString()) {
 		std::cout << "assert failed" << std::endl;
 	}
 }
 
 void Instruction::add() {
-
+	IOperand const *v1 = Memory::getInstance().g_stack.front();
+	pop();
+	IOperand const *v2 = Memory::getInstance().g_stack.front();
+	pop();
+	Memory::getInstance().g_stack.push_front(*v2 + *v1);
 }
 
 void Instruction::sub() {
-
+	const IOperand *v1 = Memory::getInstance().g_stack.front();
+	pop();
+	const IOperand *v2 = Memory::getInstance().g_stack.front();
+	pop();
+	Memory::getInstance().g_stack.push_front(*v2 - *v1);
 }
 
 void Instruction::mul() {
+	const IOperand *v1 = Memory::getInstance().g_stack.front();
+	pop();
+	const IOperand *v2 = Memory::getInstance().g_stack.front();
+	pop();
+	Memory::getInstance().g_stack.push_front(*v2 * *v1);
 
 }
 
 void Instruction::div() {
+	const IOperand *v1 = Memory::getInstance().g_stack.front();
+	pop();
+	const IOperand *v2 = Memory::getInstance().g_stack.front();
+	pop();
+	Memory::getInstance().g_stack.push_front(*v2 / *v1);
 
 }
 
 void Instruction::mod() {
+	const IOperand *v1 = Memory::getInstance().g_stack.front();
+	pop();
+	const IOperand *v2 = Memory::getInstance().g_stack.front();
+	pop();
+	Memory::getInstance().g_stack.push_front(*v2 + *v1);
 
 }
 
 void Instruction::print() {
+	const IOperand *v1 = Memory::getInstance().g_stack.front();
+	if (v1->getType() == eOperandType::Int8) {
+		std::cout << static_cast<char>(std::stoi(v1->toString())) << std::endl;
+	}
 
 }
 

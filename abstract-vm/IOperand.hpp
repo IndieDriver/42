@@ -1,22 +1,6 @@
 #ifndef IOPERAND_HPP
 # define IOPERAND_HPP
-# include <string>
-
-enum eOperandType {
-	Int8,
-	Int16,
-	Int32,
-	Float,
-	Double
-};
-
-const std::string operandStr[] {
-	"int8",
-	"int16",
-	"int32",
-	"float",
-	"double"
-};
+# include "avm.hpp"
 
 class IOperand {
 	public:

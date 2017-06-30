@@ -1,31 +1,8 @@
 #include "Factory.hpp"
-
-Factory::Factory(void) : _operands {
-							&Factory::createInt8,
-							&Factory::createInt16,
-							&Factory::createInt32,
-							&Factory::createFloat,
-							&Factory::createDouble }{
-
-}
-
-Factory::Factory(Factory const & src) {
-	*this = src;
-}
-
-Factory::~Factory(void) {
-
-}
-
-Factory &	Factory::operator=(Factory const & rhs) {
-	if (this != &rhs){
-
-	}
-	return (*this);
-}
+#include "Operand.hpp"
 
 IOperand const * Factory::createOperand(eOperandType type, std::string const & value) const {
-	int index = static_cast<eOperandType>(type);
+	int index = static_cast<int>(type);
 	return ((this->*(_operands[index]))(value));
 }
 
