@@ -5,6 +5,7 @@
 # include <vector>
 # include "Instruction.hpp"
 # include "Factory.hpp"
+# include "Exceptions.hpp"
 
 class Parser {
 	public:

@@ -25,12 +25,20 @@ int main(int ac, char **av) {
 			tokens.push_back(lexer.getToken());
 		}
 		std::vector<Instruction*> instructions;
-		Parser parser(tokens);
-		while (parser.nextInstruction()) {
-			instructions.push_back(parser.getInstruction());
+		try {
+			Parser parser(tokens);
+			while (parser.nextInstruction()) {
+				instructions.push_back(parser.getInstruction());
+			}
+		} catch (std::exception &e) {
+			std::cout << "[Parsing Exception] " << e.what() << std::endl;
 		}
-		for (auto & instr : instructions) {
-			instr->exec();
+		try {
+			for (auto & instr : instructions) {
+				instr->exec();
+			}
+		} catch (std::exception &e) {
+			std::cout << "[Exception] " << e.what() << std::endl;
 		}
 	} else {
 

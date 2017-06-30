@@ -92,10 +92,10 @@ IOperand const *Parser::readOperand() {
 				std::cout << "operand: " << operandStr[i] << std::endl;
 				std::cout << "value " << value << std::endl;
 				if (open_parentheis.compare("(")) {
-					std::cout << "error missing opening brace" << std::endl;
+					throw ParserException("missing opening brace");
 				}
 				if (close_parentheis.compare(")")) {
-					std::cout << "error missing closing brace" << std::endl;
+					throw ParserException("missing closing brace");
 				}
 				IOperand const *operand = Factory::getInstance().createOperand(static_cast<eOperandType>(i), value);
 				return (operand);
@@ -103,7 +103,7 @@ IOperand const *Parser::readOperand() {
 		}
 	}
 	if (operand == nullptr) {
-		std::cout << "invalid operand" << std::endl;
+		throw ParserException("unknown operand");
 	}
 	return (operand);
 }

@@ -54,6 +54,8 @@ void Instruction::push() {
 }
 
 void Instruction::pop() {
+	if (Memory::getInstance().g_stack.empty())
+		throw PopOnEmptyStack();
 	Memory::getInstance().g_stack.pop_front();
 }
 
@@ -75,6 +77,9 @@ void Instruction::assert() {
 }
 
 void Instruction::add() {
+	if (Memory::getInstance().g_stack.size() < 2) {
+		throw NotEnoughOperands();
+	}
 	IOperand const *v1 = Memory::getInstance().g_stack.front();
 	pop();
 	IOperand const *v2 = Memory::getInstance().g_stack.front();
@@ -83,6 +88,9 @@ void Instruction::add() {
 }
 
 void Instruction::sub() {
+	if (Memory::getInstance().g_stack.size() < 2) {
+		throw NotEnoughOperands();
+	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
 	pop();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
@@ -91,15 +99,20 @@ void Instruction::sub() {
 }
 
 void Instruction::mul() {
+	if (Memory::getInstance().g_stack.size() < 2) {
+		throw NotEnoughOperands();
+	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
 	pop();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
 	pop();
 	Memory::getInstance().g_stack.push_front(*v2 * *v1);
-
 }
 
 void Instruction::div() {
+	if (Memory::getInstance().g_stack.size() < 2) {
+		throw NotEnoughOperands();
+	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
 	pop();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
@@ -108,16 +121,20 @@ void Instruction::div() {
 		throw DivisionByZeroException();
 	}
 	Memory::getInstance().g_stack.push_front(*v2 / *v1);
-
 }
 
 void Instruction::mod() {
+	if (Memory::getInstance().g_stack.size() < 2) {
+		throw NotEnoughOperands();
+	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
 	pop();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
 	pop();
+	if (std::stoi(v1->toString()) == 0) {
+		throw ModuloByZeroException();
+	}
 	Memory::getInstance().g_stack.push_front(*v2 + *v1);
-
 }
 
 void Instruction::print() {
