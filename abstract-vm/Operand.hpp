@@ -8,6 +8,10 @@
 #include <sstream>
 
 static inline IOperand const * add(IOperand const & op1, IOperand const & op2);
+static inline IOperand const * sub(IOperand const & op1, IOperand const & op2);
+static inline IOperand const * mul(IOperand const & op1, IOperand const & op2);
+static inline IOperand const * div(IOperand const & op1, IOperand const & op2);
+static inline IOperand const * mod(IOperand const & op1, IOperand const & op2);
 
 template <class T>
 class Operand : public IOperand {
@@ -39,23 +43,19 @@ class Operand : public IOperand {
 		}
 
 		IOperand const * operator-(IOperand const & rhs) const {
-			(void)rhs;
-			return (this);
+			return (sub(*this, rhs));
 		}
 
 		IOperand const * operator*(IOperand const & rhs) const {
-			(void)rhs;
-			return (this);
+			return (mul(*this, rhs));
 		}
 
 		IOperand const * operator/(IOperand const & rhs) const  {
-			(void)rhs;
-			return (this);
+			return (div(*this, rhs));
 		}
 
 		IOperand const * operator%(IOperand const & rhs) const {
-			(void)rhs;
-			return (this);
+			return (mod(*this, rhs));
 		}
 
 		std::string const & toString(void) const {
@@ -76,4 +76,39 @@ static inline IOperand const * add(IOperand const & op1, IOperand const & op2) {
 	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
 }
 
+static inline IOperand const * sub(IOperand const & op1, IOperand const & op2) {
+	std::ostringstream ss;
+	double op1Value = std::stoi(op1.toString());
+	double op2Value = std::stoi(op2.toString());
+	double res = op1Value - op2Value;
+	ss << res;
+	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+}
+
+static inline IOperand const * mul(IOperand const & op1, IOperand const & op2) {
+	std::ostringstream ss;
+	double op1Value = std::stoi(op1.toString());
+	double op2Value = std::stoi(op2.toString());
+	double res = op1Value * op2Value;
+	ss << res;
+	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+}
+
+static inline IOperand const * div(IOperand const & op1, IOperand const & op2) {
+	std::ostringstream ss;
+	double op1Value = std::stoi(op1.toString());
+	double op2Value = std::stoi(op2.toString());
+	double res = op1Value / op2Value;
+	ss << res;
+	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+}
+
+static inline IOperand const * mod(IOperand const & op1, IOperand const & op2) {
+	std::ostringstream ss;
+	int op1Value = std::stoi(op1.toString());
+	int op2Value = std::stoi(op2.toString());
+	int res = op1Value % op2Value;
+	ss << res;
+	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+}
 #endif

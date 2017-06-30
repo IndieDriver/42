@@ -24,11 +24,42 @@ Parser &	Parser::operator=(Parser const & rhs) {
 	return (*this);
 }
 
-eInstruction Parser::readInstruction() {
-	eInstruction instruction = eInstruction::Null;
+bool Parser::isComment() {
+	if (_offset < _tokens.size()) {
+		std::string token(_tokens.at(_offset));
+		if (!token.empty() && token.size() > 0 && token[0] == ';') {
+			return (true);
+		}
+	}
+	return (false);
+}
+
+void Parser::discardComment() {
+	while (_offset < _tokens.size() && _tokens.at(_offset).compare("\n") != 0) {
+		_offset++;
+	}
+	/*
+	if (_offset < _tokens.size() && _tokens.at(_offset).compare("\n") == 0) {
+
+		isComment = false;
+	} */
 	while (_offset < _tokens.size() && _tokens.at(_offset).compare("\n") == 0) {
 		_offset++;
 	}
+	if (isComment()) {
+		discardComment();
+	}
+}
+
+eInstruction Parser::readInstruction() {
+	eInstruction instruction = eInstruction::Null;
+	if (isComment())
+		discardComment();
+	while (_offset < _tokens.size() && _tokens.at(_offset).compare("\n") == 0) {
+		_offset++;
+	}
+	if (isComment())
+		discardComment();
 	if (_offset >= _tokens.size()) {
 		return (instruction);
 	}
@@ -49,24 +80,22 @@ eInstruction Parser::readInstruction() {
 
 IOperand const *Parser::readOperand() {
 	IOperand *operand = nullptr;
-	if (_offset + 3 < _tokens.size()){
+	if (_offset + 4 < _tokens.size()){
 		std::string op = _tokens.at(_offset);
 		std::string open_parentheis = _tokens.at(_offset + 1);
 		std::string value = _tokens.at(_offset + 2);
 		std::string close_parentheis = _tokens.at(_offset + 3);
 
-		std::cout << "type " << op << std::endl;
-		std::cout << "value " << value << std::endl;
 		_offset += 4;
-
 		for (int i = 0; i < 5; i++) {
 			if (!op.compare(operandStr[i])) {
 				std::cout << "operand: " << operandStr[i] << std::endl;
+				std::cout << "value " << value << std::endl;
 				if (open_parentheis.compare("(")) {
-					std::cout << "error missing open" << std::endl;
+					std::cout << "error missing opening brace" << std::endl;
 				}
 				if (close_parentheis.compare(")")) {
-					std::cout << "error missing close" << std::endl;
+					std::cout << "error missing closing brace" << std::endl;
 				}
 				IOperand const *operand = Factory::getInstance().createOperand(static_cast<eOperandType>(i), value);
 				return (operand);

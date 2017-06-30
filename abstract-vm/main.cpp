@@ -32,5 +32,7 @@ int main(int ac, char **av) {
 		for (auto & instr : instructions) {
 			instr->exec();
 		}
+	} else {
+
 	}
 }

@@ -18,12 +18,14 @@ class Parser {
 	private:
 		Parser (void);
 		Parser (Parser  const & src);
-		const std::string	_string;
 		std::vector <std::string>	_tokens;
 		size_t						_offset;
 		std::string					_token;
 		eInstruction		readInstruction();
 		IOperand const 		*readOperand();
+		bool 				isComment();
+		void				discardComment();
+		std::string			nextToken();
 		Instruction			*_instruction;
 };
 
