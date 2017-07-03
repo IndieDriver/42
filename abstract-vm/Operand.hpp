@@ -1,11 +1,11 @@
 #ifndef OPERAND_HPP
 # define OPERAND_HPP
 # pragma once
-
-#include "IOperand.hpp"
-#include "Factory.hpp"
-#include <iostream>
-#include <sstream>
+# include "IOperand.hpp"
+# include "Factory.hpp"
+# include <iostream>
+# include <sstream>
+# include <limits>
 
 static inline IOperand const * add(IOperand const & op1, IOperand const & op2);
 static inline IOperand const * sub(IOperand const & op1, IOperand const & op2);
@@ -20,10 +20,15 @@ class Operand : public IOperand {
 		Operand(Operand const & src) {
 			*this = src;
 		}
-		Operand(std::string const & value) {
-			this->_value = std::stoi(value);
-			_stringValue = value;
-
+		Operand(std::string const & value, eOperandType type) {
+			double dvalue = std::stod(value);
+			if (dvalue < std::numeric_limits<T>::min())
+				throw UnderflowException();
+			if (dvalue > std::numeric_limits<T>::max())
+				throw OverflowException();
+			this->_value = static_cast<T>(dvalue);
+			this->_stringValue = value;
+			this->_opType = type;
 		}
 
 		virtual ~Operand(void) {
@@ -31,11 +36,11 @@ class Operand : public IOperand {
 		}
 
 		int getPrecision(void) const {
-			return (static_cast<int>(_opType));
+			return (static_cast<int>(this->_opType));
 		}
 
 		eOperandType getType(void) const {
-			return (eOperandType::Int8);
+			return (this->_opType);
 		}
 
 		IOperand const * operator+(IOperand const & rhs) const {
@@ -61,6 +66,7 @@ class Operand : public IOperand {
 		std::string const & toString(void) const {
 			return (this->_stringValue);
 		}
+
 	private:
 		T				_value;
 		std::string		_stringValue;
@@ -69,46 +75,56 @@ class Operand : public IOperand {
 
 static inline IOperand const * add(IOperand const & op1, IOperand const & op2) {
 	std::ostringstream ss;
-	double op1Value = std::stoi(op1.toString());
-	double op2Value = std::stoi(op2.toString());
+	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
+		op1.getType() : op2.getType();
+	double op1Value = std::stod(op1.toString());
+	double op2Value = std::stod(op2.toString());
 	double res = op1Value + op2Value;
 	ss << res;
-	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
 static inline IOperand const * sub(IOperand const & op1, IOperand const & op2) {
 	std::ostringstream ss;
-	double op1Value = std::stoi(op1.toString());
-	double op2Value = std::stoi(op2.toString());
+	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
+		op1.getType() : op2.getType();
+	double op1Value = std::stod(op1.toString());
+	double op2Value = std::stod(op2.toString());
 	double res = op1Value - op2Value;
 	ss << res;
-	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
 static inline IOperand const * mul(IOperand const & op1, IOperand const & op2) {
 	std::ostringstream ss;
-	double op1Value = std::stoi(op1.toString());
-	double op2Value = std::stoi(op2.toString());
+	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
+		op1.getType() : op2.getType();
+	double op1Value = std::stod(op1.toString());
+	double op2Value = std::stod(op2.toString());
 	double res = op1Value * op2Value;
 	ss << res;
-	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
 static inline IOperand const * div(IOperand const & op1, IOperand const & op2) {
 	std::ostringstream ss;
-	double op1Value = std::stoi(op1.toString());
-	double op2Value = std::stoi(op2.toString());
+	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
+		op1.getType() : op2.getType();
+	double op1Value = std::stod(op1.toString());
+	double op2Value = std::stod(op2.toString());
 	double res = op1Value / op2Value;
 	ss << res;
-	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
 static inline IOperand const * mod(IOperand const & op1, IOperand const & op2) {
 	std::ostringstream ss;
-	int op1Value = std::stoi(op1.toString());
-	int op2Value = std::stoi(op2.toString());
+	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
+		op1.getType() : op2.getType();
+	int op1Value = std::stod(op1.toString());
+	int op2Value = std::stod(op2.toString());
 	int res = op1Value % op2Value;
 	ss << res;
-	return (Factory::getInstance().createOperand(eOperandType::Int8, ss.str()));
+	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 #endif

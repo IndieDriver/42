@@ -1,5 +1,7 @@
 #ifndef EXCEPTIONS_HPP
 # define EXCEPTIONS_HPP
+# include <exception>
+# include <string>
 
 class ParserException : public std::exception {
 	public:
@@ -64,6 +66,13 @@ class PopOnEmptyStack : public std::exception {
 	public:
 		virtual const char* what() const throw() {
 			return "pop instruction on empty stack";
+		}
+};
+
+class NotPrintableOperand : public std::exception {
+	public:
+		virtual const char * what() const throw() {
+			return "Can't print operand other than int8";
 		}
 };
 

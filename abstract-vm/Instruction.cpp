@@ -60,10 +60,11 @@ void Instruction::pop() {
 }
 
 void Instruction::dump() {
-	std::cout << "dump size: " << Memory::getInstance().g_stack.size() << std::endl;
+	std::cout << "DUMP START:" << std::endl;
 	for (const auto & elem : Memory::getInstance().g_stack) {
 		std::cout << elem->toString() << std::endl;
 	}
+	std::cout << "DUMP END" << std::endl;
 }
 
 void Instruction::assert() {
@@ -72,7 +73,7 @@ void Instruction::assert() {
 	}
 	const IOperand *topStack = Memory::getInstance().g_stack.front();
 	if (this->_operand->toString() != topStack->toString()) {
-		std::cout << "assert failed" << std::endl;
+		throw AssertNotTrue();
 	}
 }
 
@@ -138,11 +139,15 @@ void Instruction::mod() {
 }
 
 void Instruction::print() {
+	if (Memory::getInstance().g_stack.size() < 1) {
+		throw NotEnoughOperands();
+	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
 	if (v1->getType() == eOperandType::Int8) {
 		std::cout << static_cast<char>(std::stoi(v1->toString())) << std::endl;
+	} else {
+		throw NotPrintableOperand();
 	}
-
 }
 
 void Instruction::exit() {
