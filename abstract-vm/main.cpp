@@ -16,31 +16,62 @@ std::string readFile(std::string filename) {
 	return (buffer);
 }
 
-int main(int ac, char **av) {
-	if (ac == 2) {
-		std::string fileContent = readFile(av[1]);
-		std::vector<std::string> tokens;
-		Lexer lexer(fileContent);
-		while (lexer.nextToken()) {
-			tokens.push_back(lexer.getToken());
-		}
-		std::vector<Instruction*> instructions;
-		try {
-			Parser parser(tokens);
-			while (parser.nextInstruction()) {
-				instructions.push_back(parser.getInstruction());
-			}
-		} catch (std::exception &e) {
-			std::cout << "[Parsing Exception] " << e.what() << std::endl;
-		}
-		try {
-			for (auto & instr : instructions) {
-				instr->exec();
-			}
-		} catch (std::exception &e) {
-			std::cout << "[Exception] " << e.what() << std::endl;
-		}
-	} else {
+std::vector<std::string> tokenize(std::string content) {
+	std::vector<std::string> tokens;
 
+	Lexer lexer(content);
+	while (lexer.nextToken()) {
+		tokens.push_back(lexer.getToken());
+
+	}
+	return (tokens);
+}
+
+std::vector<Instruction*>
+	parse(std::vector<std::string> tokens, bool hasExit){
+	std::vector<Instruction*> instructions;
+	Parser parser(tokens);
+	while (parser.nextInstruction()) {
+		instructions.push_back(parser.getInstruction());
+		if (parser.getInstruction()->getInstruction()
+				== eInstruction::Exit) {
+			hasExit = true;
+		}
+	}
+	if (!hasExit) {
+		throw MissingExitInstruction();
+	}
+	return (instructions);
+}
+
+void run(std::string content, bool shouldStopOnExit) {
+	std::vector<std::string> tokens;
+	std::vector<Instruction*> instructions;
+
+	tokens = tokenize(content);
+	try {
+		instructions = parse(tokens, !shouldStopOnExit);
+	} catch (std::exception &e) {
+		std::cout << "[Parsing Exception] " << e.what()
+			<< std::endl;
+	}
+	try {
+		for (auto & instr : instructions) {
+			instr->exec();
+		}
+	} catch (std::exception &e) {
+		std::cout << "[Exception] " << e.what() << std::endl;
+	}
+}
+
+int main(int ac, char **av) {
+	if (ac > 1) {
+		run (readFile(av[1]), true);
+	} else {
+		for (std::string line; std::getline(std::cin, line);) {
+			if (line.compare(";;") == 0)
+				break ;
+			run(line, false);
+    	}
 	}
 }

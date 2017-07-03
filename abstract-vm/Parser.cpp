@@ -66,21 +66,20 @@ eInstruction Parser::readInstruction() {
 	std::string instr = _tokens.at(_offset);
 	for (int i = 0; i < 11; i++) {
 		if (!instr.compare(instructionStr[i])) {
-			std::cout << "instruction: " << instructionStr[i] << std::endl;
+			//std::cout << "instruction: " << instructionStr[i] << std::endl;
 			instruction = static_cast<eInstruction>(i);
 		}
 	}
 	_offset++;
 	if (instruction == eInstruction::Null) {
-		std::cout << "instruction " << instr << " not found" << std::endl;
-		//error wrong instruction
+		throw ParserException("Invalid instruction");
 	}
 	return (instruction);
 }
 
 IOperand const *Parser::readOperand() {
 	IOperand *operand = nullptr;
-	if (_offset + 4 < _tokens.size()){
+	if (_offset + 3 < _tokens.size()){
 		std::string op = _tokens.at(_offset);
 		std::string open_parentheis = _tokens.at(_offset + 1);
 		std::string value = _tokens.at(_offset + 2);
@@ -89,8 +88,8 @@ IOperand const *Parser::readOperand() {
 		_offset += 4;
 		for (int i = 0; i < 5; i++) {
 			if (!op.compare(operandStr[i])) {
-				std::cout << "operand: " << operandStr[i] << std::endl;
-				std::cout << "value " << value << std::endl;
+				//std::cout << "operand: " << operandStr[i] << std::endl;
+				//std::cout << "value " << value << std::endl;
 				if (open_parentheis.compare("(")) {
 					throw ParserException("missing opening brace");
 				}
@@ -103,7 +102,7 @@ IOperand const *Parser::readOperand() {
 		}
 	}
 	if (operand == nullptr) {
-		throw ParserException("unknown operand");
+		throw ParserException("Missing/Invalid operand after instruction");
 	}
 	return (operand);
 }

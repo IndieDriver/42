@@ -76,4 +76,10 @@ class NotPrintableOperand : public std::exception {
 		}
 };
 
+class MissingExitInstruction : public std::exception {
+	public:
+		virtual const char * what() const throw() {
+			return "Missing exit instruction";
+		}
+};
 #endif
