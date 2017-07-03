@@ -62,7 +62,8 @@ void Instruction::pop() {
 void Instruction::dump() {
 	std::cout << "DUMP START:" << std::endl;
 	for (const auto & elem : Memory::getInstance().g_stack) {
-		std::cout << elem->toString() << std::endl;
+		//std::cout.precision(elem->getPrecision() + 1);
+		std::cout << std::fixed << elem->toString() << std::endl;
 	}
 	std::cout << "DUMP END" << std::endl;
 }

@@ -80,7 +80,7 @@ static inline IOperand const * add(IOperand const & op1, IOperand const & op2) {
 	double op1Value = std::stod(op1.toString());
 	double op2Value = std::stod(op2.toString());
 	double res = op1Value + op2Value;
-	ss << res;
+	ss << std::fixed << res;
 	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
@@ -91,7 +91,7 @@ static inline IOperand const * sub(IOperand const & op1, IOperand const & op2) {
 	double op1Value = std::stod(op1.toString());
 	double op2Value = std::stod(op2.toString());
 	double res = op1Value - op2Value;
-	ss << res;
+	ss << std::fixed << res;
 	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
@@ -102,7 +102,7 @@ static inline IOperand const * mul(IOperand const & op1, IOperand const & op2) {
 	double op1Value = std::stod(op1.toString());
 	double op2Value = std::stod(op2.toString());
 	double res = op1Value * op2Value;
-	ss << res;
+	ss << std::fixed << res;
 	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
@@ -113,7 +113,7 @@ static inline IOperand const * div(IOperand const & op1, IOperand const & op2) {
 	double op1Value = std::stod(op1.toString());
 	double op2Value = std::stod(op2.toString());
 	double res = op1Value / op2Value;
-	ss << res;
+	ss << std::fixed << res;
 	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 
@@ -125,6 +125,7 @@ static inline IOperand const * mod(IOperand const & op1, IOperand const & op2) {
 	int op2Value = std::stod(op2.toString());
 	int res = op1Value % op2Value;
 	ss << res;
+	ss << std::fixed << res;
 	return (Factory::getInstance().createOperand(newType, ss.str()));
 }
 #endif
