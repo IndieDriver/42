@@ -62,6 +62,12 @@ void run(std::string content, bool shouldStopOnExit) {
 	} catch (std::exception &e) {
 		std::cout << "[Exception] " << e.what() << std::endl;
 	}
+	for (auto & instr : instructions) {
+		delete instr;
+	}
+	if (shouldStopOnExit) {
+		Memory::getInstance().clean();
+	}
 }
 
 int main(int ac, char **av) {
@@ -73,5 +79,6 @@ int main(int ac, char **av) {
 				break ;
 			run(line, false);
     	}
+		Memory::getInstance().clean();
 	}
 }

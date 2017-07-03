@@ -108,15 +108,15 @@ IOperand const *Parser::readOperand() {
 }
 
 bool Parser::nextInstruction() {
-	_instruction = nullptr;
+	this->_instruction = nullptr;
 	eInstruction instructionType = readInstruction();
 	if (instructionType != eInstruction::Null
 			&& (instructionType == eInstruction::Push || instructionType == eInstruction::Assert)) {
 		const IOperand *operand = readOperand();
-		_instruction = new Instruction(instructionType, operand);
+		this->_instruction = new Instruction(instructionType, operand);
 		return (true);
 	} else if (instructionType != eInstruction::Null){
-		_instruction = new Instruction(instructionType, nullptr);
+		this->_instruction = new Instruction(instructionType, nullptr);
 		return (true);
 	}
 	return (false);

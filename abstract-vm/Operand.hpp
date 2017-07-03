@@ -124,7 +124,6 @@ static inline IOperand const * mod(IOperand const & op1, IOperand const & op2) {
 	int op1Value = std::stod(op1.toString());
 	int op2Value = std::stod(op2.toString());
 	int res = op1Value % op2Value;
-	ss << res;
 	ss << std::fixed << res;
 	return (Factory::getInstance().createOperand(newType, ss.str()));
 }

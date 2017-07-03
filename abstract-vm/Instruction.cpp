@@ -46,6 +46,9 @@ eInstruction Instruction::getInstruction() {
 	return (this->_instruction);
 }
 
+const IOperand *Instruction::getOperand() {
+	return (this->_operand);
+}
 void Instruction::push() {
 	if (this->_operand == nullptr) {
 		std::cout << "invalid operand in push" << std::endl;
@@ -60,12 +63,15 @@ void Instruction::pop() {
 }
 
 void Instruction::dump() {
-	std::cout << "DUMP START:" << std::endl;
 	for (const auto & elem : Memory::getInstance().g_stack) {
-		//std::cout.precision(elem->getPrecision() + 1);
-		std::cout << std::fixed << elem->toString() << std::endl;
+		if (elem->getPrecision() <= 2) {
+			std::cout.precision(0);
+			std::cout << std::fixed << elem->toString() << std::endl;
+		} else {
+			std::cout.precision(0);
+			std::cout << elem->toString() << std::endl;
+		}
 	}
-	std::cout << "DUMP END" << std::endl;
 }
 
 void Instruction::assert() {
@@ -76,6 +82,7 @@ void Instruction::assert() {
 	if (this->_operand->toString() != topStack->toString()) {
 		throw AssertNotTrue();
 	}
+	delete this->_operand;
 }
 
 void Instruction::add() {
@@ -87,6 +94,8 @@ void Instruction::add() {
 	IOperand const *v2 = Memory::getInstance().g_stack.front();
 	pop();
 	Memory::getInstance().g_stack.push_front(*v2 + *v1);
+	delete v1;
+	delete v2;
 }
 
 void Instruction::sub() {
@@ -98,6 +107,8 @@ void Instruction::sub() {
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
 	pop();
 	Memory::getInstance().g_stack.push_front(*v2 - *v1);
+	delete v1;
+	delete v2;
 }
 
 void Instruction::mul() {
@@ -109,6 +120,8 @@ void Instruction::mul() {
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
 	pop();
 	Memory::getInstance().g_stack.push_front(*v2 * *v1);
+	delete v1;
+	delete v2;
 }
 
 void Instruction::div() {
@@ -123,6 +136,8 @@ void Instruction::div() {
 		throw DivisionByZeroException();
 	}
 	Memory::getInstance().g_stack.push_front(*v2 / *v1);
+	delete v1;
+	delete v2;
 }
 
 void Instruction::mod() {
@@ -137,6 +152,8 @@ void Instruction::mod() {
 		throw ModuloByZeroException();
 	}
 	Memory::getInstance().g_stack.push_front(*v2 + *v1);
+	delete v1;
+	delete v2;
 }
 
 void Instruction::print() {

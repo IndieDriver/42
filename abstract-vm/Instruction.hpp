@@ -43,6 +43,7 @@ class Instruction {
 
 		void			exec();
 		eInstruction	getInstruction();
+		const IOperand *getOperand();
 	private:
 		Instruction (void);
 		Instruction (Instruction  const & src);
