@@ -59,7 +59,9 @@ void Instruction::push() {
 void Instruction::pop() {
 	if (Memory::getInstance().g_stack.empty())
 		throw PopOnEmptyStack();
+	const IOperand *op = Memory::getInstance().g_stack.front();
 	Memory::getInstance().g_stack.pop_front();
+	delete op;
 }
 
 void Instruction::dump() {
@@ -90,9 +92,9 @@ void Instruction::add() {
 		throw NotEnoughOperands();
 	}
 	IOperand const *v1 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	IOperand const *v2 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	Memory::getInstance().g_stack.push_front(*v2 + *v1);
 	delete v1;
 	delete v2;
@@ -103,9 +105,9 @@ void Instruction::sub() {
 		throw NotEnoughOperands();
 	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	Memory::getInstance().g_stack.push_front(*v2 - *v1);
 	delete v1;
 	delete v2;
@@ -116,9 +118,9 @@ void Instruction::mul() {
 		throw NotEnoughOperands();
 	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	Memory::getInstance().g_stack.push_front(*v2 * *v1);
 	delete v1;
 	delete v2;
@@ -129,9 +131,9 @@ void Instruction::div() {
 		throw NotEnoughOperands();
 	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	if (std::stoi(v1->toString()) == 0) {
 		throw DivisionByZeroException();
 	}
@@ -145,9 +147,9 @@ void Instruction::mod() {
 		throw NotEnoughOperands();
 	}
 	const IOperand *v1 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	const IOperand *v2 = Memory::getInstance().g_stack.front();
-	pop();
+	Memory::getInstance().g_stack.pop_front();
 	if (std::stoi(v1->toString()) == 0) {
 		throw ModuloByZeroException();
 	}
