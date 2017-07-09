@@ -15,6 +15,7 @@ INC = /
 SRC_NAME =  free.c              \
             malloc.c		    \
 			realloc.c			\
+			calloc.c			\
 			show_alloc_mem.c	\
             utils.c				\
 
