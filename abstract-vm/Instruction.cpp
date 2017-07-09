@@ -50,9 +50,6 @@ const IOperand *Instruction::getOperand() {
 	return (this->_operand);
 }
 void Instruction::push() {
-	if (this->_operand == nullptr) {
-		std::cout << "invalid operand in push" << std::endl;
-	}
 	Memory::getInstance().g_stack.push_front(this->_operand);
 }
 
@@ -77,9 +74,6 @@ void Instruction::dump() {
 }
 
 void Instruction::assert() {
-	if (this->_operand == nullptr) {
-		std::cout << "invalid operand in assert" << std::endl;
-	}
 	const IOperand *topStack = Memory::getInstance().g_stack.front();
 	if (this->_operand->toString() != topStack->toString()) {
 		throw AssertNotTrue();
