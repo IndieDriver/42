@@ -7,11 +7,6 @@
 # include <sstream>
 # include <limits>
 
-static inline IOperand const * add(IOperand const & op1, IOperand const & op2);
-static inline IOperand const * sub(IOperand const & op1, IOperand const & op2);
-static inline IOperand const * mul(IOperand const & op1, IOperand const & op2);
-static inline IOperand const * div(IOperand const & op1, IOperand const & op2);
-static inline IOperand const * mod(IOperand const & op1, IOperand const & op2);
 
 template <class T>
 class Operand : public IOperand {
@@ -44,23 +39,58 @@ class Operand : public IOperand {
 		}
 
 		IOperand const * operator+(IOperand const & rhs) const {
-			return (add(*this, rhs));
+			std::ostringstream ss;
+			eOperandType newType = this->getPrecision() >= rhs.getPrecision() ?
+				this->getType() : rhs.getType();
+			double op1Value = std::stod(this->toString());
+			double op2Value = std::stod(rhs.toString());
+			double res = op1Value + op2Value;
+			ss << res;
+			return (Factory::getInstance().createOperand(newType, ss.str()));
 		}
 
 		IOperand const * operator-(IOperand const & rhs) const {
-			return (sub(*this, rhs));
+			std::ostringstream ss;
+			eOperandType newType = this->getPrecision() >= rhs.getPrecision() ?
+				this->getType() : rhs.getType();
+			double op1Value = std::stod(this->toString());
+			double op2Value = std::stod(rhs.toString());
+			double res = op1Value - op2Value;
+			ss << res;
+			return (Factory::getInstance().createOperand(newType, ss.str()));
 		}
 
 		IOperand const * operator*(IOperand const & rhs) const {
-			return (mul(*this, rhs));
+			std::ostringstream ss;
+			eOperandType newType = this->getPrecision() >= rhs.getPrecision() ?
+				this->getType() : rhs.getType();
+			double op1Value = std::stod(this->toString());
+			double op2Value = std::stod(rhs.toString());
+			double res = op1Value * op2Value;
+			ss << res;
+			return (Factory::getInstance().createOperand(newType, ss.str()));
 		}
 
 		IOperand const * operator/(IOperand const & rhs) const  {
-			return (div(*this, rhs));
+			std::ostringstream ss;
+			eOperandType newType = this->getPrecision() >= rhs.getPrecision() ?
+				this->getType() : rhs.getType();
+			double op1Value = std::stod(this->toString());
+			double op2Value = std::stod(rhs.toString());
+			double res = op1Value / op2Value;
+			ss << res;
+			return (Factory::getInstance().createOperand(newType, ss.str()));
 		}
 
 		IOperand const * operator%(IOperand const & rhs) const {
-			return (mod(*this, rhs));
+			std::ostringstream ss;
+			eOperandType newType = this->getPrecision() >= rhs.getPrecision() ?
+				this->getType() : rhs.getType();
+			int op1Value = std::stod(this->toString());
+			int op2Value = std::stod(rhs.toString());
+			int res = op1Value % op2Value;
+			ss << res;
+			return (Factory::getInstance().createOperand(newType, ss.str()));
 		}
 
 		std::string const & toString(void) const {
@@ -73,58 +103,4 @@ class Operand : public IOperand {
 		eOperandType	_opType;
 };
 
-static inline IOperand const * add(IOperand const & op1, IOperand const & op2) {
-	std::ostringstream ss;
-	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
-		op1.getType() : op2.getType();
-	double op1Value = std::stod(op1.toString());
-	double op2Value = std::stod(op2.toString());
-	double res = op1Value + op2Value;
-	ss << std::fixed << res;
-	return (Factory::getInstance().createOperand(newType, ss.str()));
-}
-
-static inline IOperand const * sub(IOperand const & op1, IOperand const & op2) {
-	std::ostringstream ss;
-	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
-		op1.getType() : op2.getType();
-	double op1Value = std::stod(op1.toString());
-	double op2Value = std::stod(op2.toString());
-	double res = op1Value - op2Value;
-	ss << std::fixed << res;
-	return (Factory::getInstance().createOperand(newType, ss.str()));
-}
-
-static inline IOperand const * mul(IOperand const & op1, IOperand const & op2) {
-	std::ostringstream ss;
-	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
-		op1.getType() : op2.getType();
-	double op1Value = std::stod(op1.toString());
-	double op2Value = std::stod(op2.toString());
-	double res = op1Value * op2Value;
-	ss << std::fixed << res;
-	return (Factory::getInstance().createOperand(newType, ss.str()));
-}
-
-static inline IOperand const * div(IOperand const & op1, IOperand const & op2) {
-	std::ostringstream ss;
-	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
-		op1.getType() : op2.getType();
-	double op1Value = std::stod(op1.toString());
-	double op2Value = std::stod(op2.toString());
-	double res = op1Value / op2Value;
-	ss << std::fixed << res;
-	return (Factory::getInstance().createOperand(newType, ss.str()));
-}
-
-static inline IOperand const * mod(IOperand const & op1, IOperand const & op2) {
-	std::ostringstream ss;
-	eOperandType newType = op1.getPrecision() >= op2.getPrecision() ?
-		op1.getType() : op2.getType();
-	int op1Value = std::stod(op1.toString());
-	int op2Value = std::stod(op2.toString());
-	int res = op1Value % op2Value;
-	ss << std::fixed << res;
-	return (Factory::getInstance().createOperand(newType, ss.str()));
-}
 #endif
