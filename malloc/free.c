@@ -53,10 +53,10 @@ int		free_alloc_small(t_chunk **chunk, size_t chunk_size, void *ptr)
 		i = 0;
 		while (i < BLOCKS_MAX)
 		{
-			if ((void*)temp + sizeof(t_chunk) + (i * chunk_size) == ptr)
+			if ((char*)temp + sizeof(t_chunk) + (i * chunk_size) == ptr)
 			{
 				temp->blocks[i] = 0;
-				if (is_chunk_free(temp))
+				if (is_chunk_free(temp) && temp != *chunk)
 				{
 					delete_chunk(chunk, temp);
 					munmap(temp, BLOCKS_MAX * chunk_size + sizeof(t_chunk));
@@ -77,7 +77,7 @@ int		free_alloc_large(t_alloc **alloc, void *ptr)
 	temp = *alloc;
 	while (temp)
 	{
-		if ((void*)temp + sizeof(t_alloc) == ptr)
+		if ((char*)temp + sizeof(t_alloc) == ptr)
 		{
 			delete_alloc(alloc, temp);
 			munmap(temp, sizeof(t_alloc) + temp->size);

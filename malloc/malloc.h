@@ -17,9 +17,9 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <sys/mman.h>
-# include "libft.h"
+# include "libft/libft.h"
 
-# define TINY_MAX 512
+# define TINY_MAX 1024
 # define SMALL_MAX 4096
 # define BLOCKS_MAX 128
 
@@ -31,8 +31,8 @@ typedef struct		s_alloc
 
 typedef struct		s_chunk
 {
-	struct s_chunk	*next;
 	size_t			blocks[BLOCKS_MAX];
+	struct s_chunk	*next;
 }					t_chunk;
 
 typedef struct		s_malloc

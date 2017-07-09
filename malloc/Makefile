@@ -28,8 +28,7 @@ CC = gcc
 AR = ar rc
 RAN = ranlib
 RM = rm -f
-#CFLAGS = -Wall -Werror -Wextra -fPIC
-CFLAGS = -Wall -Werror -Wextra -fPIC
+CFLAGS = -Wall -Werror -Wextra -fPIC -g -pedantic
 
 LIB_PATH = ./libft/
 LIB_NAME = -lft
@@ -46,7 +45,7 @@ lib:
 
 $(NAME): $(OBJ_NAME)
 	$(CC) -shared $(OBJ_NAME) -o $(NAME) $(LFLAGS)
-	ln -s $(NAME) libft_malloc.so
+	ln -sf $(NAME) libft_malloc.so
 
 %.o: %.c
 	$(CC) $(INC) $(CFLAGS) -o $@ -c $<

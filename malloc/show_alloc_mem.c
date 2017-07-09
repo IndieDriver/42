@@ -26,7 +26,7 @@ void	print_block(void *ptr, size_t size)
 	ft_putstr("\t");
 	print_memory_addr(ptr);
 	ft_putstr(" - ");
-	print_memory_addr(ptr + size);
+	print_memory_addr((char*)ptr + size);
 	ft_putstr(" : ");
 	ft_putnbr((int)size);
 	ft_putstr(" octets\n");
@@ -48,7 +48,7 @@ void	show_alloc_small(t_chunk *chunk, size_t chunk_size, char *name)
 		{
 			if (temp->blocks[i] != 0)
 			{
-				print_block((void*)temp + sizeof(t_chunk) + (i * chunk_size),
+				print_block((char*)temp + sizeof(t_chunk) + (i * chunk_size),
 						temp->blocks[i]);
 			}
 			i++;
@@ -67,7 +67,7 @@ void	show_alloc_large(t_alloc *alloc, char *name)
 	ft_putstr("\n");
 	while (temp)
 	{
-		print_block((void*)temp + sizeof(t_alloc), temp->size);
+		print_block((char*)temp + sizeof(t_alloc), temp->size);
 		temp = temp->next;
 	}
 }
