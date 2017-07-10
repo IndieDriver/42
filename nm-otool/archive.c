@@ -19,89 +19,76 @@ void 	dump_data(void *data, uint32_t data_size)
 
 	i = 0;
 	str = (char*)data;
-	printf("\n######## data_size: %u\n", data_size);
+	printf("\ndata_size: %u\n", data_size);
 	while (i < data_size)
 	{
-		printf("%c", str[i]);
+		printf("%d: %c", i, str[i]);
 		i++;
 	}
+	printf("\nEND_DUMP\n");
 }
 
-void	handle_symdef(void *ptr, uint32_t data_size)
+void	handle_symbol_table(void *ptr, void *ptr_string, void *ptr_symbol) {
+	//printf("string_offset: %#010lx\n", ptr_string - ptr);
+	//printf("string: %s\n", ptr_string);
+	//printf("ptr_symbol: %#010lx\n", ptr_symbol- ptr);
+	(void) ptr_string;
+	handle_ar(ptr, ptr_symbol);
+}
+
+int		handle_symdef(void *ptr, void *symdef_start, uint32_t data_size)
 {
 	struct ranlib	*lib;
 	void			*data_start;
-	(void)			data_size;
+	void			*temp_ptr;
+	void			*string_table_start;
+	uint32_t		string_table_size;
 
-	if (ft_strncmp((char*)ptr, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
-		data_start = (void*)ptr + ft_strlen(SYMDEF_SORTED);
-	else if (ft_strncmp((char*)ptr, SYMDEF, ft_strlen(SYMDEF)) == 0)
-		data_start = (void*)ptr + ft_strlen(SYMDEF);
-	else
-		return ;
-	dump_data(ptr, data_size);
-	lib = (struct ranlib*)data_start;
-	printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
-	lib = (void*)data_start + sizeof(struct ranlib);
-	printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
-	/*
-	while ((void*)lib < (void*)data_start + data_size)
-	{
-		printf("%u %u\n", lib->ran_un.ran_strx, lib->ran_off);
-		lib = (void*)lib + sizeof(struct ranlib);
-		i++;
-	} */
-	lib = (void*)lib + sizeof(struct ranlib);
-}
-
-
-void	handle_data(struct ar_hdr *header, void *data_start, uint32_t data_size)
-{
-	void *lib;
-	//uint32_t lib_size;
-
-	(void)header;
-	(void)data_start;
 	(void)data_size;
-	//TODO: read data from archive entry
-	lib = (void *)header + sizeof(struct ar_hdr);
-	if (ft_strncmp((char*)lib, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
-		lib = (void*)lib + ft_strlen(SYMDEF_SORTED);
-	else if (ft_strncmp((char*)lib, SYMDEF, ft_strlen(SYMDEF)) == 0)
-		lib = (void*)lib + ft_strlen(SYMDEF);
-	printf("%ld\n", (void*)lib - (void*)header);
-	/*
-	lib_size = *(uint32_t*)lib;
-	lib = (void*)lib + sizeof(uint32_t);
-	i = 0;
-	ar_size = ft_atoi(header->ar_size);
-	printf("ran_strx: %d\n", lib->ran_un.ran_strx);
-	printf("ran_off: %d\n", lib->ran_off);
-	while (i < ar_size){
-		write(1, (void*)lib + lib->ran_off + i , 1);
-		i++;
+	if (ft_strncmp((char*)symdef_start, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
+		data_start = (void*)symdef_start + ft_strlen(SYMDEF_SORTED);
+	else if (ft_strncmp((char*)symdef_start, SYMDEF, ft_strlen(SYMDEF)) == 0)
+		data_start = (void*)symdef_start + ft_strlen(SYMDEF);
+	else
+		return (0);
+	lib = (struct ranlib*)data_start;
+	temp_ptr = (void*)data_start + sizeof(data_start);
+	string_table_start = (void*) temp_ptr + lib->ran_off;
+	string_table_size = (uint32_t)string_table_start;
+	string_table_start += sizeof(uint32_t);
+
+	while (temp_ptr + sizeof(struct ranlib) < string_table_start)
+	{
+		lib = (struct ranlib*)temp_ptr;
+		handle_symbol_table(ptr, string_table_start + lib->ran_un.ran_strx, ptr + lib->ran_off);
+		//printf("\nstrx: %u ran_off: %u\n", lib->ran_un.ran_strx, lib->ran_off);
+		temp_ptr += sizeof(struct ranlib);
 	}
 	lib = (void*)lib + sizeof(struct ranlib);
-	i += sizeof(struct ranlib); */
+	return (1);
 }
 
-void	handle_ranlib(char *ptr)
+void	handle_ar(void *file_ptr, void *ar_ptr)
 {
-	void			*archive_ptr;
-	struct ar_hdr	*header;
+	struct ar_hdr	*ar_header;
 	uint32_t		ar_size;
 
-	archive_ptr = ptr + SARMAG;
-	while (archive_ptr)
+	ar_header = (struct ar_hdr*)((void*)ar_ptr);
+	if (ft_strncmp(ar_header->ar_fmag, ARFMAG, 2) == 0)
 	{
-		header = (struct ar_hdr*)((void*)archive_ptr);
-		if (ft_strncmp(header->ar_fmag, ARFMAG, 2) == 0){
-			ar_size = ft_atoi(header->ar_size);
-			//handle_data(header, (void *)header + sizeof(struct ar_hdr), ar_size);
-			handle_symdef((void*)header + sizeof(struct ar_hdr), ar_size);
-			archive_ptr = (void*)header + sizeof(struct ar_hdr) + ar_size;
-		} else
-			archive_ptr = NULL;
+		ar_size = ft_atoi(ar_header->ar_size);
+
+		if (handle_symdef(file_ptr, (void*)ar_ptr + sizeof(struct ar_hdr), ar_size)) {
+
+		} else {
+			printf("%s\n", (void*)ar_ptr + sizeof(struct ar_hdr));
+			uint32_t magic_number;
+			ar_ptr += sizeof(struct ar_hdr);
+			magic_number = *(uint32_t*)ar_ptr;
+			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
+				ar_ptr++;
+			nm((void*)ar_ptr);
+		}
 	}
 }
 
@@ -112,6 +99,7 @@ void	archive(char *ptr)
 			|| ft_strncmp(ptr, (char*)OARMAG1, SARMAG) == 0
 			|| ft_strncmp(ptr, (char*)OARMAG2, SARMAG) == 0)
 	{
-		handle_ranlib(ptr);
+		handle_ar(ptr, ptr + SARMAG);
+		//handle_ranlib(ptr);
 	}
 }

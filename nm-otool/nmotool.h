@@ -22,9 +22,11 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <stdio.h>
-# include "libft.h"
+# include "libft/libft.h"
 
+void			nm(char *ptr);
 void			ft_put_addr(size_t n);
 void			archive(char *ptr);
+void			handle_ar(void *file_ptr, void *ar_ptr);
 
 #endif
