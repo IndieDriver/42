@@ -56,5 +56,5 @@ void			ft_put_addr(size_t n)
 		n = n / 16;
 		i--;
 	}
-	write(1, buf, len);
+	write(1, buf, len + 1);
 }
