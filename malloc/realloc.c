@@ -97,7 +97,7 @@ void	*realloc(void *ptr, size_t size)
 	void *new_ptr;
 
 	if (ptr == NULL || size <= 0)
-		new_ptr = malloc(size);
+		return (malloc(size));
 	new_ptr = realloc_small(&g_malloc.tiny, TINY_MAX, ptr, size);
 	if (new_ptr != NULL)
 		return (new_ptr);
@@ -106,5 +106,5 @@ void	*realloc(void *ptr, size_t size)
 		return (new_ptr);
 	if ((new_ptr = realloc_large(&g_malloc.large, ptr, size)) != NULL)
 		return (new_ptr);
-	return (malloc(size));
+	return (NULL);
 }
