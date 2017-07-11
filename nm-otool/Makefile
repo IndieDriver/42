@@ -15,6 +15,7 @@ INC = /
 SRC =	nm.c		\
 		archive.c	\
 		put_hex.c	\
+		utils.c		\
 
 OBJ = $(SRC:.c=.o)
 NAME = ft_nm

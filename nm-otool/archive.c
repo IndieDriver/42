@@ -28,22 +28,41 @@ void 	dump_data(void *data, uint32_t data_size)
 	printf("\nEND_DUMP\n");
 }
 
-void	handle_symbol_table(void *ptr, void *ptr_string, void *ptr_symbol) {
+void	handle_symbol_table(char *filename, void *ptr,
+				void *ptr_string, void *ptr_symbol)
+{
 	//printf("string_offset: %#010lx\n", ptr_string - ptr);
 	//printf("string: %s\n", ptr_string);
 	//printf("ptr_symbol: %#010lx\n", ptr_symbol- ptr);
 	(void) ptr_string;
-	handle_ar(ptr, ptr_symbol);
+	handle_ar(filename, ptr, ptr_symbol);
 }
 
-int		handle_symdef(void *ptr, void *symdef_start, uint32_t data_size)
+void	parse_symbols(char *filename, void *ptr, t_symbol *symbol, void *string_table_ptr)
+{
+	t_symbol	*temp;
+
+	temp = symbol;
+	(void)string_table_ptr;
+	while (temp)
+	{
+		printf("%s\n", filename);
+		handle_ar(filename, ptr, temp->symbol);
+		//printf("%s @ %#010lx (%ld)\n", temp->sym_name, temp->sym_name - string_table_ptr, (temp->sym_name - string_table_ptr));
+		temp = temp->next;
+	}
+}
+
+int		handle_symdef(char *filename, void *ptr, void *symdef_start, uint32_t data_size)
 {
 	struct ranlib	*lib;
 	void			*data_start;
 	void			*temp_ptr;
 	void			*string_table_start;
 	uint32_t		string_table_size;
+	t_symbol		*head;
 
+	head = NULL;
 	(void)data_size;
 	if (ft_strncmp((char*)symdef_start, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED)) == 0)
 		data_start = (void*)symdef_start + ft_strlen(SYMDEF_SORTED);
@@ -60,15 +79,21 @@ int		handle_symdef(void *ptr, void *symdef_start, uint32_t data_size)
 	while (temp_ptr + sizeof(struct ranlib) < string_table_start)
 	{
 		lib = (struct ranlib*)temp_ptr;
-		handle_symbol_table(ptr, string_table_start + lib->ran_un.ran_strx, ptr + lib->ran_off);
+		ft_lst_sorted_insert_addr(&head,
+				ft_new_symbol(string_table_start + lib->ran_un.ran_strx,
+				ptr + lib->ran_off), string_table_start);
+
+		//handle_symbol_table(ptr, string_table_start + lib->ran_un.ran_strx, ptr + lib->ran_off);
 		//printf("\nstrx: %u ran_off: %u\n", lib->ran_un.ran_strx, lib->ran_off);
 		temp_ptr += sizeof(struct ranlib);
 	}
+	parse_symbols(filename, ptr, head, string_table_start);
 	lib = (void*)lib + sizeof(struct ranlib);
 	return (1);
 }
 
-void	handle_ar(void *file_ptr, void *ar_ptr)
+
+void	handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 {
 	struct ar_hdr	*ar_header;
 	uint32_t		ar_size;
@@ -78,7 +103,7 @@ void	handle_ar(void *file_ptr, void *ar_ptr)
 	{
 		ar_size = ft_atoi(ar_header->ar_size);
 
-		if (handle_symdef(file_ptr, (void*)ar_ptr + sizeof(struct ar_hdr), ar_size)) {
+		if (handle_symdef(filename, file_ptr, (void*)ar_ptr + sizeof(struct ar_hdr), ar_size)) {
 
 		} else {
 			printf("%s\n", (void*)ar_ptr + sizeof(struct ar_hdr));
@@ -87,19 +112,19 @@ void	handle_ar(void *file_ptr, void *ar_ptr)
 			magic_number = *(uint32_t*)ar_ptr;
 			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
 				ar_ptr++;
-			nm((void*)ar_ptr);
+			nm(filename, (void*)ar_ptr);
 		}
 	}
 }
 
-void	archive(char *ptr)
+void	archive(char *filename, char *ptr)
 {
 	//TODO: Min size ? (to avoid sigv ?)
 	if (ft_strncmp(ptr, ARMAG, SARMAG) == 0
 			|| ft_strncmp(ptr, (char*)OARMAG1, SARMAG) == 0
 			|| ft_strncmp(ptr, (char*)OARMAG2, SARMAG) == 0)
 	{
-		handle_ar(ptr, ptr + SARMAG);
+		handle_ar(filename, ptr, ptr + SARMAG);
 		//handle_ranlib(ptr);
 	}
 }
