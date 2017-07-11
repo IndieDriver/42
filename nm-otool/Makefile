@@ -13,6 +13,7 @@
 INC = /
 
 SRC =	nm.c		\
+		fat.c		\
 		archive.c	\
 		put_hex.c	\
 		utils.c		\

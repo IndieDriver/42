@@ -12,6 +12,12 @@
 
 #include "nmotool.h"
 
+uint32_t	swap_byte32_t(uint32_t val)
+{
+	val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF);
+    return (val << 16) | (val >> 16);
+}
+
 t_symbol	*ft_new_symbol(void *name, void *symbolptr)
 {
 	t_symbol *symbol;
