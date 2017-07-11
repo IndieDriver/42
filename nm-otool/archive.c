@@ -46,6 +46,8 @@ void	parse_symbols(char *filename, void *ptr, t_symbol *symbol, void *string_tab
 	(void)string_table_ptr;
 	while (temp)
 	{
+		ft_putstr(filename);
+		ft_putstr("\n");
 		printf("%s\n", filename);
 		handle_ar(filename, ptr, temp->symbol);
 		//printf("%s @ %#010lx (%ld)\n", temp->sym_name, temp->sym_name - string_table_ptr, (temp->sym_name - string_table_ptr));

@@ -28,7 +28,7 @@ void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64)
 	if (n_stab)
 		return ;
 	if (n_type == N_UNDF)
-		printf("                 U");
+		ft_putstr("                 U");
 	else if (n_type == N_PBUD || n_type == N_ABS )
 		return ;
 	else
@@ -42,11 +42,14 @@ void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64)
 		if (ft_strlen(str_table + nlist64->n_un.n_strx) == 0)
 			return ;
 		ft_put_addr((size_t)nlist64->n_value);
-		printf(" T");
+		if (n_ext)
+			ft_putstr(" T");
+		else
+			ft_putstr(" t");
 	}
-	printf(" ");
-	printf("%s\n", str_table + nlist64->n_un.n_strx);
-
+	ft_putstr("");
+	ft_putstr(str_table + nlist64->n_un.n_strx);
+	ft_putstr("\n");
 }
 
 void	parse_nlist(t_symbol *head, void *str_table)
