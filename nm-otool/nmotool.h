@@ -34,7 +34,8 @@ typedef struct		s_symbol
 }					t_symbol;
 
 void			nm(char *filename, char *ptr);
-void			ft_put_addr(size_t n);
+void			ft_put_addr_64(size_t n);
+void			ft_put_addr_32(size_t n);
 void			archive(char *filename, char *ptr);
 void			handle_ar(char *filename, void *file_ptr, void *ar_ptr);
 void			fat(char *filename, void *ptr);

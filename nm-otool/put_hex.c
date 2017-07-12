@@ -12,23 +12,46 @@
 
 #include "nmotool.h"
 
-void			ft_put_addr(size_t n)
+void			ft_put_addr_64(size_t n)
 {
-	char		buf[17];
+	char		buf[64];
 	int			ntmp;
 	int			len;
 	int			i;
 
 	len = 16;
 	i = len - 1;
-	buf[16] = '\0';
-	ft_memset(buf, '0', 16);
+	buf[len] = '\0';
+	ft_memset(buf, '0', len);
 	while (n != 0)
 	{
-		ntmp = (n % 16);
+		ntmp = (n % len);
 		buf[i] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';
-		n = n / 16;
+		n = n / len;
 		i--;
 	}
-	write(1, buf, 16);
+	write(1, buf, len);
 }
+
+void			ft_put_addr_32(size_t n)
+{
+	char		buf[64];
+	int			ntmp;
+	int 		len;
+	int			i;
+
+
+	len = 16;
+	i = len - 1;
+	buf[len] = '\0';
+	ft_memset(buf, '0', len);
+	while (n != 0)
+	{
+		ntmp = (n % len);
+		buf[i] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';
+		n = n / len;
+		i--;
+	}
+	write(1, buf + 8, len / 2);
+}
+
