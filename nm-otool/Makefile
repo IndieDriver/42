@@ -12,14 +12,21 @@
 
 INC = /
 
-SRC =	nm.c		\
-		fat.c		\
-		nm_print.c	\
-		archive.c	\
-		put_hex.c	\
-		utils.c		\
+SRC_NM =	nm.c			\
+			fat.c			\
+			nm_print.c		\
+			archive.c		\
+			put_hex.c		\
+			utils.c			\
 
-OBJ = $(SRC:.c=.o)
+SRC_OT =	otool.c			\
+			fat_otool.c		\
+			archive_otool.c	\
+			utils.c			\
+			put_hex.c		\
+
+OBJ_NM = $(SRC_NM:.c=.o)
+OBJ_OT = $(SRC_OT:.c=.o)
 NAME = ft_nm
 CC = gcc
 RM = rm -f
@@ -33,13 +40,16 @@ LFLAGS = $(LIB) $(LIB_NAME)
 INC_PATH = ./libft/
 INC = $(addprefix -I,$(INC_PATH))
 
-all: lib $(NAME)
+all: lib ft_nm ft_otool
 
 lib:
 	make -C ./libft
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ) -o $@
+ft_nm: $(OBJ_NM)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ_NM) -o $@
+
+ft_otool: $(OBJ_OT)
+	$(CC) $(CFLAGS) $(LFLAGS) $(OBJ_OT) -o $@
 
 %.o: %.c
 	$(CC) $(INC) -o $@ -c $^ $(CFLAGS)

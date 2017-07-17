@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fat.c                                              :+:      :+:    :+:   */
+/*   fat_otool.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amathias <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,7 +14,6 @@
 
 void	dump_fat_arch(char *filename, struct fat_arch *arch)
 {
-	ft_putstr("\n");
 	ft_putstr(filename);
 	ft_putstr(" (for architecture ");
 	if (swap_byte32_t(arch->cputype) == CPU_TYPE_X86_64)
@@ -38,18 +37,18 @@ void	parse_fat_arch(void *ptr, char *filename, struct fat_header *fheader,
 	{
 		ft_putstr(filename);
 		ft_putstr(":\n");
-		nm(filename, ptr + swap_byte32_t(farch[i].offset));
+		otool(filename, ptr + swap_byte32_t(farch[i].offset));
 		return ;
 	}
 	while (i < swap_byte32_t(fheader->nfat_arch))
 	{
 		dump_fat_arch(filename, &farch[i]);
-		nm(filename, ptr + swap_byte32_t(farch[i].offset));
+		otool(filename, ptr + swap_byte32_t(farch[i].offset));
 		i++;
 	}
 }
 
-void	fat(char *filename, void *ptr)
+void	fat_otool(char *filename, void *ptr)
 {
 	struct fat_header	*fheader;
 	struct fat_arch		*farch;
@@ -66,7 +65,7 @@ void	fat(char *filename, void *ptr)
 		{
 			if (swap_byte32_t(farch[i].cputype) == CPU_TYPE_X86_64)
 			{
-				nm(filename, ptr + swap_byte32_t(farch[i].offset));
+				otool(filename, ptr + swap_byte32_t(farch[i].offset));
 				return ;
 			}
 			i++;

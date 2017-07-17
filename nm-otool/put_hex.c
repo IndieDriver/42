@@ -55,3 +55,25 @@ void			ft_put_addr_32(size_t n)
 	write(1, buf + 8, len / 2);
 }
 
+void	ft_put_hex(unsigned char n)
+{
+	char		buf[3];
+	int			ntmp;
+	int 		len;
+	int			i;
+
+
+	//printf("%d\n", n);
+	len = 2;
+	i = len - 1;
+	buf[len] = '\0';
+	ft_memset(buf, '0', len);
+	while (n != 0)
+	{
+		ntmp = (n % 16);
+		buf[i] = (ntmp > 9) ? (ntmp - 10) + 'a' : ntmp + '0';
+		n = n / 16;
+		i--;
+	}
+	write(1, buf, 2);
+}

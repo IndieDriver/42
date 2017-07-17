@@ -19,6 +19,8 @@ void	print_section_character_64(t_section64 *sec, int index,
 		return ;
 	if (n_type == N_ABS)
 		ft_putstr(" A ");
+	else if (n_type == N_INDR)
+		ft_putstr(" I ");
 	else if (ft_strcmp(sec[index].sec->segname, "__DATA") == 0)
 	{
 		if (ft_strcmp(sec[index].sec->sectname, "__data") == 0)
@@ -46,6 +48,8 @@ void	print_section_character_32(t_section32 *sec, int index,
 		return ;
 	if (n_type == N_ABS)
 		ft_putstr(" A ");
+	else if (n_type == N_INDR)
+		ft_putstr(" I ");
 	else if (ft_strcmp(sec[index].sec->segname, "__DATA") == 0)
 	{
 		if (ft_strcmp(sec[index].sec->sectname, "__data") == 0)

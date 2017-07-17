@@ -18,6 +18,22 @@ uint32_t	swap_byte32_t(uint32_t val)
     return (val << 16) | (val >> 16);
 }
 
+int			ft_contain_symbol(t_symbol **head, char *name)
+{
+	t_symbol *symbol;
+
+	symbol = *head;
+	if (symbol == NULL || name == NULL)
+		return (0);
+	while (symbol)
+	{
+		if (symbol->sym_name != NULL && ft_strcmp((char*)symbol->sym_name, name) == 0)
+			return (1);
+		symbol = symbol->next;
+	}
+	return (0);
+}
+
 t_symbol	*ft_new_symbol(void *name, void *symbolptr)
 {
 	t_symbol *symbol;
