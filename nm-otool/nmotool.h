@@ -26,12 +26,22 @@
 # include "libft/libft.h"
 #include <assert.h>
 
-typedef struct		s_symbol
+typedef struct			s_symbol
 {
-	void			*sym_name;
-	void			*symbol;
-	struct s_symbol	*next;
-}					t_symbol;
+	void				*sym_name;
+	void				*symbol;
+	struct s_symbol		*next;
+}						t_symbol;
+
+typedef struct			s_section32
+{
+	struct section		*sec;
+}						t_section32;
+
+typedef struct			s_section64
+{
+	struct section_64	*sec;
+}						t_section64;
 
 void			nm(char *filename, char *ptr);
 void			ft_put_addr_64(size_t n);
