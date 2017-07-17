@@ -49,6 +49,10 @@ void			ft_put_addr_32(size_t n);
 void			archive(char *filename, char *ptr);
 void			handle_ar(char *filename, void *file_ptr, void *ar_ptr);
 void			fat(char *filename, void *ptr);
+void			dump_nlist_32(void *str_table, struct nlist *nlist,
+					t_section32 *sec, int endian);
+void			dump_nlist_64(void *str_table, struct nlist_64 *nlist,
+					t_section64 *sec, int endian);
 
 uint32_t		swap_byte32_t(uint32_t val);
 void			print_symbol(t_symbol *symbol, void *string_table_ptr);

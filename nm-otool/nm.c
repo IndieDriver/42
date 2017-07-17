@@ -12,110 +12,6 @@
 
 #include "nmotool.h"
 
-void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64,
-			t_section64 *sec, int endian)
-{
-	unsigned char n_stab;
-	unsigned char n_pext;
-	unsigned char n_type;
-	unsigned char n_ext;
-
-	n_stab = nlist64->n_type & N_STAB;
-	n_pext = nlist64->n_type & N_PEXT;
-	n_type = nlist64->n_type & N_TYPE;
-	n_ext = nlist64->n_type & N_EXT;
-	/*
-	printf("nlist64!!!!!!!!!!!!\nn_un: %d\nn_type: %d\nn_sect: %d\nn_desc: %d\nn_value: %lld\n", nlist64->n_un.n_strx, nlist64->n_type, nlist64->n_sect, nlist64->n_desc, nlist64->n_value); */
-	(void) endian;
-	(void)sec;
-	if (ft_strlen(str_table + nlist64->n_un.n_strx) == 0)
-		return ;
-	if (n_stab)
-		return ;
-	if (n_type == N_UNDF)
-		ft_putstr("                 U ");
-	else
-	{
-		ft_put_addr_64((size_t)nlist64->n_value);
-		if (n_type == N_ABS)
-			ft_putstr(" A ");
-		else if (ft_strcmp(sec[nlist64->n_sect].sec->segname, "__DATA") == 0)
-		{
-			if (ft_strcmp(sec[nlist64->n_sect].sec->sectname, "__data") == 0)
-				n_ext ? ft_putstr(" D ") : ft_putstr(" d ");
-			else if (ft_strcmp(sec[nlist64->n_sect].sec->sectname, "__bss") == 0)
-				n_ext ? ft_putstr(" B ") : ft_putstr(" b ");
-			else
-				n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
-		}
-		else if (ft_strcmp(sec[nlist64->n_sect].sec->segname, "__TEXT") == 0)
-		{
-			if (ft_strcmp(sec[nlist64->n_sect].sec->sectname, "__text") == 0)
-				n_ext ? ft_putstr(" T ") : ft_putstr(" t ");
-			else
-				n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
-		}
-		else
-			n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
-	}
-	ft_putstr("");
-	ft_putstr(str_table + nlist64->n_un.n_strx);
-	ft_putstr("\n");
-}
-
-void	dump_nlist_32(void *str_table, struct nlist *nlist,
-			t_section32 *sec, int endian)
-{
-	unsigned char n_stab;
-	unsigned char n_pext;
-	unsigned char n_type;
-	unsigned char n_ext;
-
-
-	n_stab = nlist->n_type & N_STAB;
-	n_pext = nlist->n_type & N_PEXT;
-	n_type = nlist->n_type & N_TYPE;
-	n_ext = nlist->n_type & N_EXT;
-	/*
-	printf("nlist64!!!!!!!!!!!!\nn_un: %d\nn_type: %d\nn_sect: %d\nn_desc: %d\nn_value: %lld\n", nlist64->n_un.n_strx, nlist64->n_type, nlist64->n_sect, nlist64->n_desc, nlist64->n_value); */
-	if (ft_strlen(str_table +
-		(endian ? swap_byte32_t(nlist->n_un.n_strx) :
-			nlist->n_un.n_strx)) == 0)
-		return ;
-	if (n_stab)
-		return ;
-	if (n_type == N_UNDF)
-		ft_putstr("         U ");
-	else
-	{
-		ft_put_addr_32((size_t)(endian ?
-					swap_byte32_t(nlist->n_value) : nlist->n_value));
-
-		if (n_type == N_ABS)
-			ft_putstr(" A ");
-		else if (ft_strcmp(sec[nlist->n_sect].sec->segname, "__DATA") == 0)
-		{
-			if (ft_strcmp(sec[nlist->n_sect].sec->sectname, "__data") == 0)
-				n_ext ? ft_putstr(" D ") : ft_putstr(" d ");
-			else if (ft_strcmp(sec[nlist->n_sect].sec->sectname, "__bss") == 0)
-				n_ext ? ft_putstr(" B ") : ft_putstr(" b ");
-			else
-				n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
-		}
-		else if (ft_strcmp(sec[nlist->n_sect].sec->segname, "__TEXT") == 0)
-		{
-			if (ft_strcmp(sec[nlist->n_sect].sec->sectname, "__text") == 0)
-				n_ext ? ft_putstr(" T ") : ft_putstr(" t ");
-			else
-				n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
-		}
-		else
-			n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
-	}
-	ft_putstr(str_table +
-			(endian ? swap_byte32_t(nlist->n_un.n_strx) : nlist->n_un.n_strx));
-	ft_putstr("\n");
-}
 void	parse_nlist_64(t_symbol *head, void *str_table, t_section64 *sections,
 		int endian)
 {
@@ -126,7 +22,6 @@ void	parse_nlist_64(t_symbol *head, void *str_table, t_section64 *sections,
 	{
 		struct nlist_64 *nlist;
 		nlist = temp->symbol;
-		//printf("%s\n", str_table + nlist->n_un.n_strx);
 		dump_nlist_64(str_table, (struct nlist_64*)temp->symbol, sections, endian);
 		temp = temp->next;
 	}
@@ -142,7 +37,6 @@ void	parse_nlist_32(t_symbol *head, void *str_table, t_section32 *sections,
 	{
 		struct nlist *nlist;
 		nlist = temp->symbol;
-		//printf("%s\n", str_table + nlist->n_un.n_strx);
 		dump_nlist_32(str_table, (struct nlist*)temp->symbol, sections, endian);
 		temp = temp->next;
 	}
@@ -215,7 +109,6 @@ t_section64	*get_section64(struct load_command *lc, uint32_t ncmds)
 		if (lc->cmd == LC_SEGMENT_64)
 		{
 			seg_cmd = (struct segment_command_64*)lc;
-			//printf("%s\n", seg_cmd->segname);
 			j = 0;
 			while (j < seg_cmd->nsects)
 			{
@@ -251,7 +144,6 @@ t_section32	*get_section32(struct load_command *lc, uint32_t ncmds, int endian)
 		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SEGMENT)
 		{
 			seg_cmd = (struct segment_command*)lc;
-			//printf("%s\n", seg_cmd->segname);
 			j = 0;
 			while (j < (endian ?
 					swap_byte32_t(seg_cmd->nsects) : seg_cmd->nsects))

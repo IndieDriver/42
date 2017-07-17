@@ -14,6 +14,7 @@ INC = /
 
 SRC =	nm.c		\
 		fat.c		\
+		nm_print.c	\
 		archive.c	\
 		put_hex.c	\
 		utils.c		\

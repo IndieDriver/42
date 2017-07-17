@@ -14,20 +14,32 @@
 
 void	dump_fat_arch(char *filename, struct fat_arch *arch)
 {
-	(void)arch;
-
 	ft_putstr("\n");
 	ft_putstr(filename);
 	ft_putstr(" (for architecture ");
-	if (swap_byte32_t(arch->cputype == CPU_TYPE_X86_64))
+	if (swap_byte32_t(arch->cputype) == CPU_TYPE_X86_64)
 		ft_putstr("x86_64");
-	if (swap_byte32_t(arch->cputype) == CPU_TYPE_X86)
+	else if (swap_byte32_t(arch->cputype) == CPU_TYPE_X86)
 		ft_putstr("i386");
 	else if (swap_byte32_t(arch->cputype) == CPU_TYPE_POWERPC)
 		ft_putstr("ppc");
 	else
-		assert(0); //Arch non implemented
+		assert(0);
 	ft_putstr("):\n");
+}
+
+void	parse_fat_arch(void *ptr, char *filename, struct fat_header *fheader,
+			struct fat_arch *farch)
+{
+	uint32_t i;
+
+	i = 0;
+	while (i < swap_byte32_t(fheader->nfat_arch))
+	{
+		dump_fat_arch(filename, &farch[i]);
+		nm(filename, ptr + swap_byte32_t(farch[i].offset));
+		i++;
+	}
 }
 
 void	fat(char *filename, void *ptr)
@@ -52,16 +64,6 @@ void	fat(char *filename, void *ptr)
 			}
 			i++;
 		}
-		i = 0;
-		while (i < swap_byte32_t(fheader->nfat_arch))
-		{
-			dump_fat_arch(filename, &farch[i]);
-			/*printf("offset: %d\nsize: %d\nalign: %d\n",
-					swap_byte32_t(farch[i].offset),
-					swap_byte32_t(farch[i].size),
-					swap_byte32_t(farch[i].align)); */
-			nm(filename, ptr + swap_byte32_t(farch[i].offset));
-			i++;
-		}
+		parse_fat_arch(ptr, filename, fheader, farch);
 	}
 }
