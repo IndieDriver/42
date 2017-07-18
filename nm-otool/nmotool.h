@@ -53,7 +53,13 @@ void			dump_nlist_64(void *str_table, struct nlist_64 *nlist,
 					t_section64 *sec, int endian);
 
 void 			otool(char *fn, char *ptr);
+void			otool_nofilename(char *fn, char *ptr);
 void			fat_otool(char *filename, void *ptr);
+void			archive_otool(char *filename, char *ptr);
+void			read_section64(void *ptr, struct load_command *lc, uint32_t ncmds,
+					int endian);
+void			read_section32(void *ptr, struct load_command *lc, uint32_t ncmds,
+					int endian);
 
 void			ft_put_addr_64(size_t n);
 void			ft_put_addr_32(size_t n);

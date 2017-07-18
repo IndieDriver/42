@@ -95,17 +95,19 @@ void	handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 			magic_number = *(uint32_t*)ar_ptr;
 			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
 				ar_ptr++;
-			otool(filename, (void*)ar_ptr);
+			otool_nofilename(filename, (void*)ar_ptr);
 		}
 	}
 }
 
-void	archive(char *filename, char *ptr)
+void	archive_otool(char *filename, char *ptr)
 {
 	if (ft_strncmp(ptr, ARMAG, SARMAG) == 0
 			|| ft_strncmp(ptr, (char*)OARMAG1, SARMAG) == 0
 			|| ft_strncmp(ptr, (char*)OARMAG2, SARMAG) == 0)
 	{
+		ft_putstr("Archive: ");
+		ft_putstr(filename);
 		handle_ar(filename, ptr, ptr + SARMAG);
 	}
 }

@@ -21,6 +21,7 @@ SRC_NM =	nm.c			\
 
 SRC_OT =	otool.c			\
 			fat_otool.c		\
+			otool_print.c	\
 			archive_otool.c	\
 			utils.c			\
 			put_hex.c		\
