@@ -12,28 +12,25 @@
 
 #include "nmotool.h"
 
-void	handle_64(char *ptr, char *filename, int endian)
+void	handle_64(char *ptr, int endian)
 {
 	struct mach_header_64 	*header;
 	uint32_t				ncmds;
 	struct load_command		*lc;
 
-	(void)filename;
 	ft_putstr("Contents of (__TEXT,__text) section\n");
 	header = (struct mach_header_64 *)ptr;
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
 	lc = (void*)ptr + sizeof(struct mach_header_64);
 	read_section64(ptr, lc, ncmds, endian);
-
 }
 
-void	handle_32(char *ptr, char *filename, int endian)
+void	handle_32(char *ptr, int endian)
 {
 	struct mach_header		*header;
 	uint32_t				ncmds;
 	struct load_command		*lc;
 
-	(void)filename;
 	ft_putstr("Contents of (__TEXT,__text) section\n");
 	header = (struct mach_header*)ptr;
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
@@ -47,9 +44,9 @@ void	otool_nofilename(char *fn, char *ptr)
 
 	magic_number = *(uint32_t*)ptr;
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
-		magic_number == MH_MAGIC_64 ? handle_64(ptr, fn, 0) : handle_64(ptr, fn, 1);
+		magic_number == MH_MAGIC_64 ? handle_64(ptr, 0) : handle_64(ptr, 1);
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
-		magic_number == MH_MAGIC ? handle_32(ptr, fn,0) : handle_32(ptr, fn, 1);
+		magic_number == MH_MAGIC ? handle_32(ptr, 0) : handle_32(ptr, 1);
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		fat_otool(fn, ptr);
 	else
@@ -65,13 +62,13 @@ void 	otool(char *fn, char *ptr)
 	{
 		ft_putstr(fn);
 		ft_putstr(":\n");
-		magic_number == MH_MAGIC_64 ? handle_64(ptr, fn, 0) : handle_64(ptr, fn, 1);
+		magic_number == MH_MAGIC_64 ? handle_64(ptr, 0) : handle_64(ptr, 1);
 	}
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
 	{
 		ft_putstr(fn);
 		ft_putstr(":\n");
-		magic_number == MH_MAGIC ? handle_32(ptr, fn,0) : handle_32(ptr, fn, 1);
+		magic_number == MH_MAGIC ? handle_32(ptr, 0) : handle_32(ptr, 1);
 	}
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		fat_otool(fn, ptr);

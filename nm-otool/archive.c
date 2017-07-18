@@ -12,6 +12,18 @@
 
 #include "nmotool.h"
 
+int		is_symdef(void *symdef_start)
+{
+	if (ft_strncmp((char*)symdef_start, SYMDEF_SORTED,
+				ft_strlen(SYMDEF_SORTED)) == 0)
+		return (ft_strlen(SYMDEF_SORTED));
+	else if (ft_strncmp((char*)symdef_start, SYMDEF,
+				ft_strlen(SYMDEF)) == 0)
+		return (ft_strlen(SYMDEF));
+	else
+		return (0);
+}
+
 void	handle_symbol_table(char *filename, void *ptr,
 				void *ptr_string, void *ptr_symbol)
 {
@@ -22,11 +34,10 @@ void	handle_symbol_table(char *filename, void *ptr,
 void	parse_symbols(char *filename, void *ptr, t_symbol *symbol,
 			void *string_table_ptr)
 {
-	t_symbol	*temp;
+	t_symbol		*temp;
 
-	temp = symbol;
 	(void)string_table_ptr;
-	//print_symbol(symbol, string_table_ptr);
+	temp = symbol;
 	while (temp)
 	{
 		ft_putstr("\n");
@@ -49,13 +60,9 @@ int		handle_symdef(char *filename, void *ptr, void *symdef_start,
 
 	(void)data_size;
 	head = NULL;
-	if (ft_strncmp((char*)symdef_start, SYMDEF_SORTED, ft_strlen(SYMDEF_SORTED))
-			== 0)
-		data_start = (void*)symdef_start + ft_strlen(SYMDEF_SORTED);
-	else if (ft_strncmp((char*)symdef_start, SYMDEF, ft_strlen(SYMDEF)) == 0)
-		data_start = (void*)symdef_start + ft_strlen(SYMDEF);
-	else
+	if (!is_symdef(symdef_start))
 		return (0);
+	data_start = (void*)symdef_start + is_symdef(symdef_start);
 	lib = (struct ranlib*)data_start;
 	temp_ptr = (void*)data_start + sizeof(data_start);
 	string_table_start = (void*)temp_ptr + lib->ran_off;
@@ -64,7 +71,6 @@ int		handle_symdef(char *filename, void *ptr, void *symdef_start,
 	while (temp_ptr + sizeof(struct ranlib) < string_table_start)
 	{
 		lib = (struct ranlib*)temp_ptr;
-		//if (!ft_contain_symbol(&head, string_table_start + lib->ran_un.ran_strx))
 		ft_lst_sorted_insert_addr(&head,
 			ft_new_symbol(string_table_start + lib->ran_un.ran_strx,
 			ptr + lib->ran_off), string_table_start);

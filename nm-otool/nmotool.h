@@ -67,7 +67,7 @@ void			ft_put_hex(unsigned char n);
 uint32_t		swap_byte32_t(uint32_t val);
 void			print_symbol(t_symbol *symbol, void *string_table_ptr);
 t_symbol		*ft_new_symbol(void *name, void *symbolptr);
-int				ft_contain_symbol(t_symbol **head, char *name);
+int				ft_contain_symbol(t_symbol **head, t_symbol *sym);
 void			ft_lst_sorted_insert(t_symbol **head, t_symbol *sym);
 void			ft_lst_sorted_insert_addr(t_symbol **head, t_symbol *sym,
 					void *string_table_ptr);
