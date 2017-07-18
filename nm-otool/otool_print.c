@@ -68,7 +68,7 @@ void		dump_data32(void *ptr, void *vm_start, uint64_t size, int endian)
 }
 
 void		read_section64(void *ptr, struct load_command *lc, uint32_t ncmds,
-				int endian)
+				int en)
 {
 	struct segment_command_64	*cmd;
 	struct section_64			*sec;
@@ -78,27 +78,26 @@ void		read_section64(void *ptr, struct load_command *lc, uint32_t ncmds,
 	i = 0;
 	while (i < ncmds)
 	{
-		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SEGMENT_64)
+		if (!(j = 0) && (en ? swap_byte32_t(lc->cmd) : lc->cmd)
+				== LC_SEGMENT_64)
 		{
-			j = 0;
 			cmd = (struct segment_command_64*)lc;
-			while (j < (endian ? swap_byte32_t(cmd->nsects) : cmd->nsects))
+			while (j < (en ? swap_byte32_t(cmd->nsects) : cmd->nsects))
 			{
 				sec = (struct section_64*)(((void*)cmd +
-				sizeof(struct segment_command_64)) + (sizeof(struct section_64) * j));
-				if (!ft_strcmp(sec->segname, "__TEXT")
-						&& !ft_strcmp(sec->sectname, "__text"))
+sizeof(struct segment_command_64)) + (sizeof(struct section_64) * j));
+				if (is_text_section((struct section*)sec))
 					dump_data64(ptr + sec->offset, (void*)sec->addr, sec->size);
 				j++;
 			}
 		}
-		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
+		lc = (void*)lc + (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
 }
 
 void		read_section32(void *ptr, struct load_command *lc, uint32_t ncmds,
-				int endian)
+				int en)
 {
 	struct segment_command		*cmd;
 	struct section				*sec;
@@ -108,25 +107,21 @@ void		read_section32(void *ptr, struct load_command *lc, uint32_t ncmds,
 	i = 0;
 	while (i < ncmds)
 	{
-		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SEGMENT)
+		if (!(j = 0) && (en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SEGMENT)
 		{
-			j = 0;
 			cmd = (struct segment_command*)lc;
-			while (j < (endian ? swap_byte32_t(cmd->nsects) : cmd->nsects))
+			while (j < (en ? swap_byte32_t(cmd->nsects) : cmd->nsects))
 			{
 				sec = (struct section*)
-					(((void*)cmd + sizeof(struct segment_command))
-					+ (sizeof(struct section) * j));
-				if (ft_strcmp(sec->segname, "__TEXT") == 0
-						&& ft_strcmp(sec->sectname, "__text") == 0)
-					dump_data32(ptr + (endian ? swap_byte32_t(sec->offset) :
-						sec->offset), (void*)0 + (endian ? swap_byte32_t(sec->addr) : sec->addr),
-						(endian ? swap_byte32_t(sec->size) : sec->size),
-						endian);
+(((void*)cmd + sizeof(struct segment_command)) + (sizeof(struct section) * j));
+				if (is_text_section(sec))
+					dump_data32(ptr + (en ? swap_byte32_t(sec->offset) :
+sec->offset), (void*)0 + (en ? swap_byte32_t(sec->addr) : sec->addr),
+(en ? swap_byte32_t(sec->size) : sec->size), en);
 				j++;
 			}
 		}
-		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
+		lc = (void*)lc + (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
 }

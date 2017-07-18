@@ -14,7 +14,7 @@
 
 void	handle_64(char *ptr, int endian)
 {
-	struct mach_header_64 	*header;
+	struct mach_header_64	*header;
 	uint32_t				ncmds;
 	struct load_command		*lc;
 
@@ -53,7 +53,7 @@ void	otool_nofilename(char *fn, char *ptr)
 		archive_otool(fn, ptr);
 }
 
-void 	otool(char *fn, char *ptr)
+void	otool(char *fn, char *ptr)
 {
 	uint32_t magic_number;
 
@@ -76,11 +76,11 @@ void 	otool(char *fn, char *ptr)
 		archive_otool(fn, ptr);
 }
 
-int	main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int				fd;
 	char			*ptr;
-	struct	stat	buf;
+	struct stat		buf;
 
 	if (argc != 2)
 		return (EXIT_FAILURE);

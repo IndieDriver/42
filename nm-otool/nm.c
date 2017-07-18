@@ -90,6 +90,7 @@ void	print_output_32(struct symtab_command *symcmd, void *ptr,
 		i++;
 	}
 	parse_nlist_32(head, string_table, sections, endian);
+	ft_lstdelsymbol(&head);
 }
 
 t_section64	*get_section64(struct load_command *lc, uint32_t ncmds)
@@ -112,11 +113,8 @@ t_section64	*get_section64(struct load_command *lc, uint32_t ncmds)
 			j = 0;
 			while (j < seg_cmd->nsects)
 			{
-				section[k + j].sec = (struct section_64*)
-					(((void*)seg_cmd + sizeof(struct segment_command_64))
-					 + (sizeof(struct section_64) * j));
-			/*	printf("%d : %s|%s\n", k + j, section[k + j].section->sectname,
-						section[k + j].section->segname); */
+				section[k + j].sec = (struct section_64*)(((void*)seg_cmd +
+sizeof(struct segment_command_64)) + (sizeof(struct section_64) * j));
 				j++;
 			}
 			k += seg_cmd->nsects;
@@ -148,11 +146,8 @@ t_section32	*get_section32(struct load_command *lc, uint32_t ncmds, int endian)
 			while (j < (endian ?
 					swap_byte32_t(seg_cmd->nsects) : seg_cmd->nsects))
 			{
-				section[k + j].sec = (struct section*)
-					(((void*)seg_cmd + sizeof(struct segment_command))
-					 + (sizeof(struct section) * j));
-		/*		printf("%d : %s|%s\n", k + j, section[k + j].sec->sectname,
-						section[k + j].sec->segname); */
+				section[k + j].sec = (struct section*)(((void*)seg_cmd +
+sizeof(struct segment_command)) + (sizeof(struct section) * j));
 				j++;
 			}
 			k += (endian ? swap_byte32_t(seg_cmd->nsects) : seg_cmd->nsects);
@@ -193,6 +188,8 @@ void	handle_64(char *ptr, int endian)
 		void *string_table = (void*)ptr + symcmd->stroff;
 		parse_nlist_64(head, string_table, section, endian);
 	}
+	ft_lstdelsymbol(&head);
+	free(section);
 }
 
 void	handle_32(char *ptr, int endian)
@@ -220,6 +217,7 @@ void	handle_32(char *ptr, int endian)
 		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
+	free(sections);
 }
 
 void	nm(char *filename, char *ptr)
@@ -237,7 +235,7 @@ void	nm(char *filename, char *ptr)
 		archive(filename, ptr);
 }
 
-int main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	int				fd;
 	char			*ptr;

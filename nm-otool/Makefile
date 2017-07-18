@@ -18,13 +18,16 @@ SRC_NM =	nm.c			\
 			archive.c		\
 			put_hex.c		\
 			utils.c			\
+			utils2.c		\
+
 
 SRC_OT =	otool.c			\
 			fat_otool.c		\
 			otool_print.c	\
 			archive_otool.c	\
-			utils.c			\
 			put_hex.c		\
+			utils.c			\
+			utils2.c		\
 
 OBJ_NM = $(SRC_NM:.c=.o)
 OBJ_OT = $(SRC_OT:.c=.o)

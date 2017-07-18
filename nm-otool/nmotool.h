@@ -61,6 +61,9 @@ void			read_section64(void *ptr, struct load_command *lc, uint32_t ncmds,
 void			read_section32(void *ptr, struct load_command *lc, uint32_t ncmds,
 					int endian);
 
+int				is_ar(void *ar_start);
+int				is_symdef(void *symdef_start);
+int				is_text_section(struct section *sec);
 void			ft_put_addr_64(size_t n);
 void			ft_put_addr_32(size_t n);
 void			ft_put_hex(unsigned char n);
@@ -71,4 +74,5 @@ int				ft_contain_symbol(t_symbol **head, t_symbol *sym);
 void			ft_lst_sorted_insert(t_symbol **head, t_symbol *sym);
 void			ft_lst_sorted_insert_addr(t_symbol **head, t_symbol *sym,
 					void *string_table_ptr);
+void			ft_lstdelsymbol(t_symbol **alst);
 #endif

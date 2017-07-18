@@ -29,6 +29,7 @@ int			ft_contain_symbol(t_symbol **head, t_symbol *new)
 	{
 		if (symbol->symbol != NULL && new->symbol != NULL
 				&& symbol->symbol == new->symbol) {
+			free(new);
 			return (1);
 		}
 		symbol = symbol->next;
