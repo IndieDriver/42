@@ -35,7 +35,8 @@ void		dump_data64(void *ptr, void *vm_start, uint64_t size)
 		i += sizeof(unsigned char);
 		ptr += sizeof(unsigned char);
 	}
-	ft_putstr("\n");
+	if (size != 0)
+		ft_putstr("\n");
 }
 
 void		dump_data32(void *ptr, void *vm_start, uint64_t size, int endian)
@@ -62,7 +63,8 @@ void		dump_data32(void *ptr, void *vm_start, uint64_t size, int endian)
 		i += sizeof(unsigned char);
 		ptr += sizeof(unsigned char);
 	}
-	ft_putstr("\n");
+	if (size != 0)
+		ft_putstr("\n");
 }
 
 void		read_section64(void *ptr, struct load_command *lc, uint32_t ncmds,

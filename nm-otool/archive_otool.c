@@ -12,6 +12,19 @@
 
 #include "nmotool.h"
 
+int		is_ar(void *ar_start)
+{
+	struct ar_hdr	*ar_header;
+
+	ar_header = (struct ar_hdr*)((void*)ar_start);
+	if (ft_strlen(ar_header->ar_fmag)
+			&& ft_strncmp(ar_header->ar_fmag, ARFMAG, 2) == 0)
+	{
+		return (ft_atoi(ar_header->ar_size));
+	}
+	return (0);
+}
+
 void	handle_symbol_table(char *filename, void *ptr,
 				void *ptr_string, void *ptr_symbol)
 {
@@ -23,13 +36,28 @@ void	parse_symbols(char *filename, void *ptr, t_symbol *symbol,
 			void *string_table_ptr)
 {
 	t_symbol	*temp;
+	int				ret;
 
 	temp = symbol;
-	(void)string_table_ptr;
-	//print_symbol(symbol, string_table_ptr);
-	while (temp)
+	if (symbol == NULL)
 	{
 		ft_putstr("\n");
+		while (1)
+		{
+			if (!is_ar(string_table_ptr))
+				return ;
+			ft_putstr(filename);
+			ft_putstr("(");
+			ret = handle_ar(filename, ptr, string_table_ptr);
+			if (ret == 0)
+				return ;
+			string_table_ptr += (ret + sizeof(struct ar_hdr));
+		}
+	}
+	while (temp)
+	{
+		if (temp == symbol)
+			ft_putstr("\n");
 		ft_putstr(filename);
 		ft_putstr("(");
 		handle_ar(filename, ptr, temp->symbol);
@@ -64,7 +92,6 @@ int		handle_symdef(char *filename, void *ptr, void *symdef_start,
 	while (temp_ptr + sizeof(struct ranlib) < string_table_start)
 	{
 		lib = (struct ranlib*)temp_ptr;
-		//if (!ft_contain_symbol(&head, string_table_start + lib->ran_un.ran_strx))
 		ft_lst_sorted_insert_addr(&head,
 			ft_new_symbol(string_table_start + lib->ran_un.ran_strx,
 			ptr + lib->ran_off), string_table_start);
@@ -75,7 +102,7 @@ int		handle_symdef(char *filename, void *ptr, void *symdef_start,
 	return (1);
 }
 
-void	handle_ar(char *filename, void *file_ptr, void *ar_ptr)
+int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 {
 	struct ar_hdr	*ar_header;
 	uint32_t		ar_size;
@@ -96,8 +123,10 @@ void	handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
 				ar_ptr++;
 			otool_nofilename(filename, (void*)ar_ptr);
+			return (ar_size);
 		}
 	}
+	return (0);
 }
 
 void	archive_otool(char *filename, char *ptr)
@@ -106,7 +135,7 @@ void	archive_otool(char *filename, char *ptr)
 			|| ft_strncmp(ptr, (char*)OARMAG1, SARMAG) == 0
 			|| ft_strncmp(ptr, (char*)OARMAG2, SARMAG) == 0)
 	{
-		ft_putstr("Archive: ");
+		ft_putstr("Archive : ");
 		ft_putstr(filename);
 		handle_ar(filename, ptr, ptr + SARMAG);
 	}

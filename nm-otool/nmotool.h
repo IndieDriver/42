@@ -46,7 +46,7 @@ typedef struct			s_section64
 void			nm(char *filename, char *ptr);
 void			fat(char *filename, void *ptr);
 void			archive(char *filename, char *ptr);
-void			handle_ar(char *filename, void *file_ptr, void *ar_ptr);
+int				handle_ar(char *filename, void *file_ptr, void *ar_ptr);
 void			dump_nlist_32(void *str_table, struct nlist *nlist,
 					t_section32 *sec, int endian);
 void			dump_nlist_64(void *str_table, struct nlist_64 *nlist,

@@ -177,6 +177,7 @@ void	handle_64(char *ptr, int endian)
 	lc = (void*)ptr + sizeof(struct mach_header_64);
 	i = 0;
 	t_section64 *section = get_section64(lc, ncmds);
+	symcmd = NULL;
 	while (i < ncmds)
 	{
 		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SYMTAB)
@@ -188,9 +189,10 @@ void	handle_64(char *ptr, int endian)
 		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
-	void *string_table = (void*)ptr + symcmd->stroff;
-	parse_nlist_64(head, string_table, section, endian);
-
+	if (symcmd != NULL) {
+		void *string_table = (void*)ptr + symcmd->stroff;
+		parse_nlist_64(head, string_table, section, endian);
+	}
 }
 
 void	handle_32(char *ptr, int endian)

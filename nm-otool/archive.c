@@ -12,6 +12,19 @@
 
 #include "nmotool.h"
 
+int		is_ar(void *ar_start)
+{
+	struct ar_hdr	*ar_header;
+
+	ar_header = (struct ar_hdr*)((void*)ar_start);
+	if (ft_strlen(ar_header->ar_fmag)
+			&& ft_strncmp(ar_header->ar_fmag, ARFMAG, 2) == 0)
+	{
+		return (ft_atoi(ar_header->ar_size));
+	}
+	return (0);
+}
+
 int		is_symdef(void *symdef_start)
 {
 	if (ft_strncmp((char*)symdef_start, SYMDEF_SORTED,
@@ -35,9 +48,24 @@ void	parse_symbols(char *filename, void *ptr, t_symbol *symbol,
 			void *string_table_ptr)
 {
 	t_symbol		*temp;
+	int				ret;
 
-	(void)string_table_ptr;
 	temp = symbol;
+	if (symbol == NULL)
+	{
+		while (1)
+		{
+			if (!is_ar(string_table_ptr))
+				return ;
+			ft_putstr("\n");
+			ft_putstr(filename);
+			ft_putstr("(");
+			ret = handle_ar(filename, ptr, string_table_ptr);
+			if (ret == 0)
+				return ;
+			string_table_ptr += (ret + sizeof(struct ar_hdr));
+		}
+	}
 	while (temp)
 	{
 		ft_putstr("\n");
@@ -81,7 +109,7 @@ int		handle_symdef(char *filename, void *ptr, void *symdef_start,
 	return (1);
 }
 
-void	handle_ar(char *filename, void *file_ptr, void *ar_ptr)
+int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 {
 	struct ar_hdr	*ar_header;
 	uint32_t		ar_size;
@@ -102,8 +130,10 @@ void	handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
 				ar_ptr++;
 			nm(filename, (void*)ar_ptr);
+			return (ar_size);
 		}
 	}
+	return (0);
 }
 
 void	archive(char *filename, char *ptr)
