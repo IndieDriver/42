@@ -38,13 +38,14 @@ void	parse_fat_arch(void *ptr, char *filename, struct fat_header *fheader,
 	{
 		ft_putstr(filename);
 		ft_putstr(":\n");
-		nm(filename, ptr + swap_byte32_t(farch[i].offset));
+		nm(filename, ptr + swap_byte32_t(farch[i].offset), 0);
 		return ;
 	}
 	while (i < swap_byte32_t(fheader->nfat_arch))
 	{
 		dump_fat_arch(filename, &farch[i]);
-		nm(filename, ptr + swap_byte32_t(farch[i].offset));
+		sanity_check(ptr, swap_byte32_t(farch[i].offset));
+		nm(filename, ptr + swap_byte32_t(farch[i].offset), 0);
 		i++;
 	}
 }
@@ -66,7 +67,8 @@ void	fat(char *filename, void *ptr)
 		{
 			if (swap_byte32_t(farch[i].cputype) == CPU_TYPE_X86_64)
 			{
-				nm(filename, ptr + swap_byte32_t(farch[i].offset));
+				sanity_check(ptr, swap_byte32_t(farch[i].offset));
+				nm(filename, ptr + swap_byte32_t(farch[i].offset), 0);
 				return ;
 			}
 			i++;

@@ -42,25 +42,28 @@ void	parse_nlist_32(t_symbol *head, void *str_table, t_section32 *sections,
 	}
 }
 
-t_symbol	*print_output_64(struct symtab_command *symcmd, void *ptr, int endian)
+t_symbol	*print_output_64(struct symtab_command *symcmd, void *ptr, int en)
 {
 	uint32_t		i;
 	void			*string_table;
-	struct nlist_64	*symlist;
+	struct nlist_64	*nlist;
 	t_symbol		*head;
 
 	head = NULL;
-	symlist = (void*)ptr +
-		(endian ? swap_byte32_t(symcmd->symoff) : symcmd->symoff);
+	sanity_check(ptr, (en ? swap_byte32_t(symcmd->symoff) : symcmd->symoff));
+	nlist = (void*)ptr + (en ? swap_byte32_t(symcmd->symoff) : symcmd->symoff);
+	sanity_check(ptr, (en ? swap_byte32_t(symcmd->stroff) : symcmd->stroff));
 	string_table = (void*)ptr +
-		(endian ? swap_byte32_t(symcmd->stroff) : symcmd->stroff);
+		(en ? swap_byte32_t(symcmd->stroff) : symcmd->stroff);
 	i = 0;
-	while (i < (endian ? swap_byte32_t(symcmd->nsyms) : symcmd->nsyms))
+	while (i < (en ? swap_byte32_t(symcmd->nsyms) : symcmd->nsyms))
 	{
+		sanity_check(string_table, (en ? swap_byte32_t(nlist[i].n_un.n_strx) :
+					 nlist[i].n_un.n_strx));
 		ft_lst_sorted_insert(&head,
 			ft_new_symbol(string_table +
-				(endian ? swap_byte32_t(symlist[i].n_un.n_strx) :
-					 symlist[i].n_un.n_strx), &symlist[i]));
+				(en ? swap_byte32_t(nlist[i].n_un.n_strx) :
+					 nlist[i].n_un.n_strx), &nlist[i]));
 		i++;
 	}
 	//parse_nlist_64(head, string_table);
@@ -68,32 +71,34 @@ t_symbol	*print_output_64(struct symtab_command *symcmd, void *ptr, int endian)
 }
 
 void	print_output_32(struct symtab_command *symcmd, void *ptr,
-			t_section32 *sections, int endian)
+			t_section32 *sections, int en)
 {
 	uint32_t		i;
 	void			*string_table;
-	struct nlist	*symlist;
+	struct nlist	*nlist;
 	t_symbol		*head;
 
 	head = NULL;
-	symlist = (void*)ptr +
-		(endian ? swap_byte32_t(symcmd->symoff) : symcmd->symoff);
+	sanity_check(ptr, (en ? swap_byte32_t(symcmd->symoff) : symcmd->symoff));
+	nlist = (void*)ptr +
+		(en ? swap_byte32_t(symcmd->symoff) : symcmd->symoff);
+	sanity_check(ptr, (en ? swap_byte32_t(symcmd->stroff) : symcmd->stroff));
 	string_table = (void*)ptr +
-		(endian ? swap_byte32_t(symcmd->stroff) : symcmd->stroff);
+		(en ? swap_byte32_t(symcmd->stroff) : symcmd->stroff);
 	i = 0;
-	while (i < (endian ? swap_byte32_t(symcmd->nsyms) : symcmd->nsyms))
+	while (i < (en ? swap_byte32_t(symcmd->nsyms) : symcmd->nsyms))
 	{
 		ft_lst_sorted_insert(&head,
 			ft_new_symbol(string_table +
-				(endian ? swap_byte32_t(symlist[i].n_un.n_strx) :
-					 symlist[i].n_un.n_strx), &symlist[i]));
+				(en ? swap_byte32_t(nlist[i].n_un.n_strx) :
+					 nlist[i].n_un.n_strx), &nlist[i]));
 		i++;
 	}
-	parse_nlist_32(head, string_table, sections, endian);
+	parse_nlist_32(head, string_table, sections, en);
 	ft_lstdelsymbol(&head);
 }
 
-t_section64	*get_section64(struct load_command *lc, uint32_t ncmds)
+t_section64	*get_section64(struct load_command *lc, uint32_t ncmds, int endian)
 {
 	uint32_t					i;
 	uint32_t					j;
@@ -119,7 +124,8 @@ sizeof(struct segment_command_64)) + (sizeof(struct section_64) * j));
 			}
 			k += seg_cmd->nsects;
 		}
-		lc = (void*)lc + lc->cmdsize;
+		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
+		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
 	return (section);
@@ -152,6 +158,7 @@ sizeof(struct segment_command)) + (sizeof(struct section) * j));
 			}
 			k += (endian ? swap_byte32_t(seg_cmd->nsects) : seg_cmd->nsects);
 		}
+		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
 		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
@@ -171,7 +178,7 @@ void	handle_64(char *ptr, int endian)
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
 	lc = (void*)ptr + sizeof(struct mach_header_64);
 	i = 0;
-	t_section64 *section = get_section64(lc, ncmds);
+	t_section64 *section = get_section64(lc, ncmds, endian);
 	symcmd = NULL;
 	while (i < ncmds)
 	{
@@ -181,6 +188,7 @@ void	handle_64(char *ptr, int endian)
 			head = print_output_64(symcmd, ptr, endian);
 			//break ;
 		}
+		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
 		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
@@ -220,15 +228,29 @@ void	handle_32(char *ptr, int endian)
 	free(sections);
 }
 
-void	nm(char *filename, char *ptr)
+void	nm(char *filename, char *ptr, int should_print)
 {
 	uint32_t magic_number;
 
 	magic_number = *(uint32_t*)ptr;
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
+	{
+		if (should_print)
+		{
+			ft_putstr(filename);
+			ft_putstr(":\n");
+		}
 		magic_number == MH_MAGIC_64 ? handle_64(ptr, 0) : handle_64(ptr, 1);
+	}
 	else if (magic_number == MH_MAGIC || magic_number == MH_CIGAM)
+	{
+		if (should_print)
+		{
+			ft_putstr(filename);
+			ft_putstr(":\n");
+		}
 		magic_number == MH_MAGIC ? handle_32(ptr, 0) : handle_32(ptr, 1);
+	}
 	else if (magic_number == FAT_MAGIC || magic_number == FAT_CIGAM)
 		fat(filename, ptr);
 	else
@@ -240,18 +262,27 @@ int		main(int argc, char **argv)
 	int				fd;
 	char			*ptr;
 	struct	stat	buf;
+	int				i;
 
-	if (argc != 2)
+	i = 1;
+	if (argc < 2)
 		return (EXIT_FAILURE);
-	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		return (EXIT_FAILURE);
-	if (fstat(fd, &buf) < 0)
-		return (EXIT_FAILURE);
-	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
-			== MAP_FAILED)
-		return (EXIT_FAILURE);
-	nm(argv[1], ptr);
-	if (munmap(ptr, buf.st_size) < 0)
-		return (EXIT_FAILURE);
+	while (i < argc)
+	{
+		if ((fd = open(argv[i], O_RDONLY)) < 0)
+			return (EXIT_FAILURE);
+		if (fstat(fd, &buf) < 0)
+			return (EXIT_FAILURE);
+		if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
+				== MAP_FAILED)
+			return (EXIT_FAILURE);
+		g_filelimit = ptr + buf.st_size;
+		nm(argv[i], ptr, argc != 2);
+		if (munmap(ptr, buf.st_size) < 0)
+			return (EXIT_FAILURE);
+		i++;
+		if (i != argc)
+			ft_putstr("\n");
+	}
 	return (EXIT_SUCCESS);
 }

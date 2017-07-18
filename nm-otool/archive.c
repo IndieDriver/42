@@ -96,7 +96,7 @@ int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 			magic_number = *(uint32_t*)ar_ptr;
 			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
 				ar_ptr++;
-			nm(filename, (void*)ar_ptr);
+			nm(filename, (void*)ar_ptr, 0);
 			return (ar_size);
 		}
 	}

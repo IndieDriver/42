@@ -60,3 +60,12 @@ void	ft_lstdelsymbol(t_symbol **alst)
 	}
 	*alst = NULL;
 }
+
+void	sanity_check(void *ptr, size_t offset)
+{
+	if (ptr + offset >= g_filelimit)
+	{
+		ft_putstr("failed sanity_check\n");
+		exit(EXIT_FAILURE);
+	}
+}
