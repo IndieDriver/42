@@ -24,6 +24,7 @@ SRC_NAME = ft_bzero.s		\
 		   ft_strlen.s		\
 		   ft_memcpy.s		\
 		   ft_memset.s		\
+		   ft_puts.s		\
 
 OBJ_NAME = $(SRC_NAME:.s=.o)
 NAME = libfts.a
