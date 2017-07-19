@@ -12,8 +12,7 @@
 
 #include "nmotool.h"
 
-void	parse_nlist_64(t_symbol *head, void *str_table, t_section64 *sections,
-		int endian)
+void	parse_nlist_64(t_symbol *head, void *str_table, t_nm64 *nm, int endian)
 {
 	t_symbol		*temp;
 	struct n_list64	*nlist;
@@ -23,13 +22,12 @@ void	parse_nlist_64(t_symbol *head, void *str_table, t_section64 *sections,
 	{
 		nlist = temp->symbol;
 		dump_nlist_64(str_table, (struct nlist_64*)temp->symbol,
-				sections, endian);
+				nm, endian);
 		temp = temp->next;
 	}
 }
 
-void	parse_nlist_32(t_symbol *head, void *str_table, t_section32 *sections,
-		int endian)
+void	parse_nlist_32(t_symbol *head, void *str_table, t_nm32 *nm, int endian)
 {
 	t_symbol		*temp;
 	struct nlist	*nlist;
@@ -39,13 +37,13 @@ void	parse_nlist_32(t_symbol *head, void *str_table, t_section32 *sections,
 	{
 		nlist = temp->symbol;
 		dump_nlist_32(str_table, (struct nlist*)temp->symbol,
-				sections, endian);
+				nm, endian);
 		temp = temp->next;
 	}
 }
 
 void	print_output_64(struct symtab_command *symcmd, void *ptr,
-			t_section64 *sections, int en)
+			t_nm64 *nm, int en)
 {
 	uint32_t		i;
 	void			*string_table;
@@ -69,12 +67,12 @@ void	print_output_64(struct symtab_command *symcmd, void *ptr,
 				nlist[i].n_un.n_strx), &nlist[i]));
 		i++;
 	}
-	parse_nlist_64(head, string_table, sections, en);
+	parse_nlist_64(head, string_table, nm, en);
 	ft_lstdelsymbol(&head);
 }
 
 void	print_output_32(struct symtab_command *symcmd, void *ptr,
-			t_section32 *sections, int en)
+			t_nm32 *nm, int en)
 {
 	uint32_t		i;
 	void			*string_table;
@@ -97,7 +95,7 @@ void	print_output_32(struct symtab_command *symcmd, void *ptr,
 				nlist[i].n_un.n_strx), &nlist[i]));
 		i++;
 	}
-	parse_nlist_32(head, string_table, sections, en);
+	parse_nlist_32(head, string_table, nm, en);
 	ft_lstdelsymbol(&head);
 }
 

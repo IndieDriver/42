@@ -16,6 +16,7 @@ SRC_NM =	nm.c			\
 			fat.c			\
 			nm_print.c		\
 			nm_section.c	\
+			nm_dylib.c		\
 			nm_parse.c		\
 			archive.c		\
 			put_hex.c		\

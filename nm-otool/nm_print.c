@@ -70,8 +70,26 @@ void	print_section_character_32(t_section32 *sec, int index,
 		n_ext ? ft_putstr(" S ") : ft_putstr(" s ");
 }
 
-void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64,
-			t_section64 *sec, int endian)
+void	print_dylib_character(t_dylib *dylib, uint64_t n_value,
+			uint16_t n_desc, int endian)
+{
+	if (GET_LIBRARY_ORDINAL(n_desc) >= MAX_LIBRARY_ORDINAL
+			|| GET_LIBRARY_ORDINAL(n_desc) <= 0)
+	{
+		ft_putstr("                 U ");
+	}
+	else if (dylib[GET_LIBRARY_ORDINAL(n_desc)].is_lib == 0)
+	{
+		ft_put_addr_64((size_t)(endian ?
+				swap_byte32_t(n_value) : n_value));
+		ft_putstr(" C ");
+	}
+	else
+		ft_putstr("                 U ");
+}
+
+void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64, t_nm64 *nm,
+			int endian)
 {
 	unsigned char n_stab;
 	unsigned char n_type;
@@ -83,25 +101,24 @@ void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64,
 	sanity_check(str_table,
 		(endian ? swap_byte32_t(nlist64->n_un.n_strx) : nlist64->n_un.n_strx));
 	if (ft_strlen(str_table + (endian ? swap_byte32_t(nlist64->n_un.n_strx) :
-			nlist64->n_un.n_strx)) == 0)
-		return ;
-	if (n_stab)
+			nlist64->n_un.n_strx)) == 0 || n_stab)
 		return ;
 	if (n_type == N_UNDF)
-		ft_putstr("                 U ");
+		print_dylib_character(nm->dylib, nlist64->n_value,
+				nlist64->n_desc, endian);
 	else
 	{
 		ft_put_addr_64((size_t)(endian ?
 					swap_byte32_t(nlist64->n_value) : nlist64->n_value));
-		print_section_character_64(sec, nlist64->n_sect, n_type, n_ext);
+		print_section_character_64(nm->sec, nlist64->n_sect, n_type, n_ext);
 	}
 	ft_putstr("");
 	ft_putstr(str_table + nlist64->n_un.n_strx);
 	ft_putstr("\n");
 }
 
-void	dump_nlist_32(void *str_table, struct nlist *nlist,
-			t_section32 *sec, int endian)
+void	dump_nlist_32(void *str_table, struct nlist *nlist, t_nm32 *nm,
+			int endian)
 {
 	unsigned char n_stab;
 	unsigned char n_type;
@@ -113,9 +130,7 @@ void	dump_nlist_32(void *str_table, struct nlist *nlist,
 	sanity_check(str_table,
 			(endian ? swap_byte32_t(nlist->n_un.n_strx) : nlist->n_un.n_strx));
 	if (ft_strlen(str_table + (endian ? swap_byte32_t(nlist->n_un.n_strx) :
-			nlist->n_un.n_strx)) == 0)
-		return ;
-	if (n_stab)
+			nlist->n_un.n_strx)) == 0 || n_stab)
 		return ;
 	if (n_type == N_UNDF)
 		ft_putstr("         U ");
@@ -123,7 +138,7 @@ void	dump_nlist_32(void *str_table, struct nlist *nlist,
 	{
 		ft_put_addr_32((size_t)(endian ?
 					swap_byte32_t(nlist->n_value) : nlist->n_value));
-		print_section_character_32(sec, nlist->n_sect, n_type, n_ext);
+		print_section_character_32(nm->sec, nlist->n_sect, n_type, n_ext);
 	}
 	ft_putstr(str_table +
 			(endian ? swap_byte32_t(nlist->n_un.n_strx) : nlist->n_un.n_strx));

@@ -35,16 +35,18 @@ void					handle_64(char *ptr, int endian)
 	uint32_t				ncmds;
 	struct load_command		*lc;
 	struct symtab_command	*symcmd;
-	t_section64				*sections;
+	t_nm64					snm;
 
 	header = (struct mach_header_64 *)ptr;
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
 	lc = (void*)ptr + sizeof(struct mach_header_64);
-	sections = get_section64(lc, ncmds, endian);
+	snm.sec = get_section64(lc, ncmds, endian);
+	snm.dylib = get_dylib(lc, ncmds, endian);
 	symcmd = get_symtab_command(lc, ncmds, endian);
 	if (symcmd != NULL)
-		print_output_64(symcmd, ptr, sections, endian);
-	free(sections);
+		print_output_64(symcmd, ptr, &snm, endian);
+	free(snm.sec);
+	free(snm.dylib);
 }
 
 void					handle_32(char *ptr, int endian)
@@ -53,16 +55,18 @@ void					handle_32(char *ptr, int endian)
 	uint32_t				ncmds;
 	struct load_command		*lc;
 	struct symtab_command	*symcmd;
-	t_section32				*sections;
+	t_nm32					snm;
 
 	header = (struct mach_header*)ptr;
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
 	lc = (void*)ptr + sizeof(struct mach_header);
-	sections = get_section32(lc, ncmds, endian);
+	snm.sec = get_section32(lc, ncmds, endian);
+	snm.dylib = get_dylib(lc, ncmds, endian);
 	symcmd = get_symtab_command(lc, ncmds, endian);
 	if (symcmd != NULL)
-		print_output_32(symcmd, ptr, sections, endian);
-	free(sections);
+		print_output_32(symcmd, ptr, &snm, endian);
+	free(snm.sec);
+	free(snm.dylib);
 }
 
 void					nm(char *filename, char *ptr, int should_print)
@@ -110,6 +114,7 @@ int						main(int argc, char **argv)
 			return (EXIT_FAILURE);
 		g_filelimit = ptr + buf.st_size;
 		nm(argv[i], ptr, argc != 2);
+		close(fd);
 		if (munmap(ptr, buf.st_size) < 0)
 			return (EXIT_FAILURE);
 		i++;

@@ -42,24 +42,43 @@ typedef struct			s_section64
 	struct section_64	*sec;
 }						t_section64;
 
+typedef	struct			s_dylib
+{
+	int					is_lib;
+}						t_dylib;
+
+typedef struct			s_nm32
+{
+	t_section32			*sec;
+	t_dylib				*dylib;
+}						t_nm32;
+
+typedef struct			s_nm64
+{
+	t_section64			*sec;
+	t_dylib				*dylib;
+}						t_nm64;
+
 void					*g_filelimit;
 
 void					nm(char *filename, char *ptr, int should_print);
 void					fat(char *filename, void *ptr);
 void					archive(char *filename, char *ptr);
 int						handle_ar(char *filename, void *file_ptr, void *ar_ptr);
+t_dylib					*get_dylib(struct load_command *lc,
+							uint32_t ncmds, int endian);
 t_section32				*get_section32(struct load_command *lc,
 							uint32_t ncmds, int endian);
 t_section64				*get_section64(struct load_command *lc,
 							uint32_t ncmds, int endian);
 void					print_output_32(struct symtab_command *symcmd,
-							void *ptr, t_section32 *sections, int en);
+							void *ptr, t_nm32 *nm, int en);
 void					print_output_64(struct symtab_command *symcmd,
-							void *ptr, t_section64 *sections, int en);
+							void *ptr, t_nm64 *nm, int en);
 void					dump_nlist_32(void *str_table, struct nlist *nlist,
-							t_section32 *sec, int endian);
+							t_nm32 *nm, int endian);
 void					dump_nlist_64(void *str_table, struct nlist_64 *nlist,
-							t_section64 *sec, int endian);
+							t_nm64 *nm, int endian);
 
 void					otool(char *fn, char *ptr);
 void					otool_nofilename(char *fn, char *ptr);
