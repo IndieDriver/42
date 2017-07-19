@@ -27,10 +27,12 @@ int		is_ar(void *ar_start)
 
 int		is_symdef(void *symdef_start)
 {
-	if (ft_strncmp((char*)symdef_start, SYMDEF_SORTED,
+	if (sanity_check(symdef_start, ft_strlen(SYMDEF_SORTED))
+			&& ft_strncmp((char*)symdef_start, SYMDEF_SORTED,
 				ft_strlen(SYMDEF_SORTED)) == 0)
 		return (ft_strlen(SYMDEF_SORTED));
-	else if (ft_strncmp((char*)symdef_start, SYMDEF,
+	else if (sanity_check(symdef_start, ft_strlen(SYMDEF))
+			&& ft_strncmp((char*)symdef_start, SYMDEF,
 				ft_strlen(SYMDEF)) == 0)
 		return (ft_strlen(SYMDEF));
 	else
@@ -44,7 +46,6 @@ int		is_text_section(struct section *sec)
 		return (1);
 	return (0);
 }
-
 
 void	ft_lstdelsymbol(t_symbol **alst)
 {
@@ -61,11 +62,13 @@ void	ft_lstdelsymbol(t_symbol **alst)
 	*alst = NULL;
 }
 
-void	sanity_check(void *ptr, size_t offset)
+int		sanity_check(void *ptr, size_t offset)
 {
 	if (ptr + offset >= g_filelimit)
 	{
-		ft_putstr("failed sanity_check\n");
+		ft_putstr("Oops something's wrong with this binary file\n");
 		exit(EXIT_FAILURE);
+		return (0);
 	}
+	return (1);
 }

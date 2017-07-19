@@ -22,8 +22,6 @@ void	dump_fat_arch(char *filename, struct fat_arch *arch)
 		ft_putstr("i386");
 	else if (swap_byte32_t(arch->cputype) == CPU_TYPE_POWERPC)
 		ft_putstr("ppc");
-	else
-		assert(0);
 	ft_putstr("):\n");
 }
 

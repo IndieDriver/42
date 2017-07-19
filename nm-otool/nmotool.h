@@ -24,7 +24,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "libft/libft.h"
-#include <assert.h>
 
 typedef struct			s_symbol
 {
@@ -49,6 +48,14 @@ void					nm(char *filename, char *ptr, int should_print);
 void					fat(char *filename, void *ptr);
 void					archive(char *filename, char *ptr);
 int						handle_ar(char *filename, void *file_ptr, void *ar_ptr);
+t_section32				*get_section32(struct load_command *lc,
+							uint32_t ncmds, int endian);
+t_section64				*get_section64(struct load_command *lc,
+							uint32_t ncmds, int endian);
+void					print_output_32(struct symtab_command *symcmd,
+							void *ptr, t_section32 *sections, int en);
+void					print_output_64(struct symtab_command *symcmd,
+							void *ptr, t_section64 *sections, int en);
 void					dump_nlist_32(void *str_table, struct nlist *nlist,
 							t_section32 *sec, int endian);
 void					dump_nlist_64(void *str_table, struct nlist_64 *nlist,
@@ -63,10 +70,11 @@ void					read_section64(void *ptr, struct load_command *lc,
 void					read_section32(void *ptr, struct load_command *lc,
 							uint32_t ncmds, int endian);
 
-void					sanity_check(void *ptr, size_t offset);
+int						sanity_check(void *ptr, size_t offset);
 int						is_ar(void *ar_start);
 int						is_symdef(void *symdef_start);
 int						is_text_section(struct section *sec);
+void					print_filename(char *filename);
 void					ft_put_addr_64(size_t n);
 void					ft_put_addr_32(size_t n);
 void					ft_put_hex(unsigned char n);

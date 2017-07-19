@@ -81,18 +81,25 @@ int		main(int argc, char **argv)
 	int				fd;
 	char			*ptr;
 	struct stat		buf;
+	int				i;
 
+	i = 1;
 	if (argc != 2)
 		return (EXIT_FAILURE);
-	if ((fd = open(argv[1], O_RDONLY)) < 0)
-		return (EXIT_FAILURE);
-	if (fstat(fd, &buf) < 0)
-		return (EXIT_FAILURE);
-	if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
+	while (i < argc)
+	{
+		if ((fd = open(argv[1], O_RDONLY)) < 0)
+			return (EXIT_FAILURE);
+		if (fstat(fd, &buf) < 0)
+			return (EXIT_FAILURE);
+		if ((ptr = mmap(0, buf.st_size, PROT_READ, MAP_PRIVATE, fd, 0))
 			== MAP_FAILED)
-		return (EXIT_FAILURE);
-	otool(argv[1], ptr);
-	if (munmap(ptr, buf.st_size) < 0)
-		return (EXIT_FAILURE);
+			return (EXIT_FAILURE);
+		g_filelimit = ptr + buf.st_size;
+		otool(argv[1], ptr);
+		if (munmap(ptr, buf.st_size) < 0)
+			return (EXIT_FAILURE);
+		i++;
+	}
 	return (EXIT_SUCCESS);
 }

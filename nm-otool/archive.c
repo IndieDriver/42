@@ -12,28 +12,33 @@
 
 #include "nmotool.h"
 
+void	parse_empty(char *filename, void *ptr, void *string_table_ptr)
+{
+	int				ret;
+
+	while (1)
+	{
+		if (!is_ar(string_table_ptr))
+			return ;
+		ft_putstr("\n");
+		ft_putstr(filename);
+		ft_putstr("(");
+		ret = handle_ar(filename, ptr, string_table_ptr);
+		if (ret == 0)
+			return ;
+		sanity_check(string_table_ptr, ret + sizeof(struct ar_hdr));
+		string_table_ptr += (ret + sizeof(struct ar_hdr));
+	}
+}
+
 void	parse_symbols(char *filename, void *ptr, t_symbol *symbol,
 			void *string_table_ptr)
 {
 	t_symbol		*temp;
-	int				ret;
 
 	temp = symbol;
 	if (symbol == NULL)
-	{
-		while (1)
-		{
-			if (!is_ar(string_table_ptr))
-				return ;
-			ft_putstr("\n");
-			ft_putstr(filename);
-			ft_putstr("(");
-			ret = handle_ar(filename, ptr, string_table_ptr);
-			if (ret == 0)
-				return ;
-			string_table_ptr += (ret + sizeof(struct ar_hdr));
-		}
-	}
+		parse_empty(filename, ptr, string_table_ptr);
 	while (temp)
 	{
 		ft_putstr("\n");
@@ -44,8 +49,7 @@ void	parse_symbols(char *filename, void *ptr, t_symbol *symbol,
 	}
 }
 
-int		handle_symdef(char *filename, void *ptr, void *symdef_start,
-			uint32_t data_size)
+int		handle_symdef(char *filename, void *ptr, void *symdef_start)
 {
 	struct ranlib	*lib;
 	void			*data_start;
@@ -53,15 +57,13 @@ int		handle_symdef(char *filename, void *ptr, void *symdef_start,
 	void			*string_table_start;
 	t_symbol		*head;
 
-	(void)data_size;
 	head = NULL;
 	if (!is_symdef(symdef_start))
 		return (0);
 	data_start = (void*)symdef_start + is_symdef(symdef_start);
 	lib = (struct ranlib*)data_start;
 	temp_ptr = (void*)data_start + sizeof(data_start);
-	string_table_start = (void*)temp_ptr + lib->ran_off;
-	string_table_start += sizeof(uint32_t);
+	string_table_start = (void*)temp_ptr + (lib->ran_off + sizeof(uint32_t));
 	while (temp_ptr + sizeof(struct ranlib) < string_table_start)
 	{
 		lib = (struct ranlib*)temp_ptr;
@@ -87,14 +89,14 @@ int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 			&& ft_strncmp(ar_header->ar_fmag, ARFMAG, 2) == 0)
 	{
 		ar_size = ft_atoi(ar_header->ar_size);
+		sanity_check(ar_ptr, ar_size);
 		if (!handle_symdef(filename, file_ptr,
-				(void*)ar_ptr + sizeof(struct ar_hdr), ar_size))
+					(void*)ar_ptr + sizeof(struct ar_hdr)))
 		{
 			ft_putstr(ar_ptr + sizeof(struct ar_hdr));
 			ft_putstr("):\n");
 			ar_ptr += sizeof(struct ar_hdr);
-			magic_number = *(uint32_t*)ar_ptr;
-			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64) //TODO: seems weird, fix it ?
+			while ((magic_number = *(uint32_t*)ar_ptr) != MH_MAGIC_64)
 				ar_ptr++;
 			nm(filename, (void*)ar_ptr, 0);
 			return (ar_size);

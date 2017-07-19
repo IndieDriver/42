@@ -15,7 +15,7 @@
 uint32_t	swap_byte32_t(uint32_t val)
 {
 	val = ((val << 8) & 0xFF00FF00) | ((val >> 8) & 0xFF00FF);
-    return (val << 16) | (val >> 16);
+	return ((val << 16) | (val >> 16));
 }
 
 int			ft_contain_symbol(t_symbol **head, t_symbol *new)
@@ -28,7 +28,8 @@ int			ft_contain_symbol(t_symbol **head, t_symbol *new)
 	while (symbol)
 	{
 		if (symbol->symbol != NULL && new->symbol != NULL
-				&& symbol->symbol == new->symbol) {
+				&& symbol->symbol == new->symbol)
+		{
 			free(new);
 			return (1);
 		}
@@ -50,8 +51,8 @@ t_symbol	*ft_new_symbol(void *name, void *symbolptr)
 	return (symbol);
 }
 
-void	ft_lst_sorted_insert_addr(t_symbol **head, t_symbol *new,
-		void *string_table_ptr)
+void		ft_lst_sorted_insert_addr(t_symbol **head, t_symbol *new,
+				void *string_table_ptr)
 {
 	t_symbol *symbol;
 
@@ -77,7 +78,7 @@ void	ft_lst_sorted_insert_addr(t_symbol **head, t_symbol *new,
 	}
 }
 
-void	ft_lst_sorted_insert(t_symbol **head, t_symbol *new)
+void		ft_lst_sorted_insert(t_symbol **head, t_symbol *new)
 {
 	t_symbol *symbol;
 

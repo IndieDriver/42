@@ -12,7 +12,7 @@
 
 #include "nmotool.h"
 
-void			ft_put_addr_64(size_t n)
+void	ft_put_addr_64(size_t n)
 {
 	char		buf[64];
 	int			ntmp;
@@ -33,13 +33,12 @@ void			ft_put_addr_64(size_t n)
 	write(1, buf, len);
 }
 
-void			ft_put_addr_32(size_t n)
+void	ft_put_addr_32(size_t n)
 {
 	char		buf[64];
 	int			ntmp;
-	int 		len;
+	int			len;
 	int			i;
-
 
 	len = 16;
 	i = len - 1;
@@ -59,11 +58,9 @@ void	ft_put_hex(unsigned char n)
 {
 	char		buf[3];
 	int			ntmp;
-	int 		len;
+	int			len;
 	int			i;
 
-
-	//printf("%d\n", n);
 	len = 2;
 	i = len - 1;
 	buf[len] = '\0';
