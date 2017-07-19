@@ -1,9 +1,9 @@
-global ft_isalpha
+global _ft_isalpha
 
 section .text
 
-ft_isalpha:
-	cmp rdi, byte 'A' 
+_ft_isalpha:
+	cmp rdi, byte 'A'
 	jb false
 	cmp rdi, byte 'z'
 	ja false
@@ -17,5 +17,5 @@ false:
 	ret
 
 true:
-	mov rax, dword 0x1 
+	mov rax, dword 0x1
 	ret

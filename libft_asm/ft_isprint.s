@@ -1,8 +1,8 @@
-global ft_isprint
+global _ft_isprint
 
 section .text
 
-ft_isprint:
+_ft_isprint:
 	cmp rdi, byte 0x20
 	jb false
 	cmp rdi, byte 0x7e

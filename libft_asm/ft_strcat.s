@@ -1,21 +1,21 @@
-global ft_strcat
+global _ft_strcat
 
 section .text
 
-ft_strcat:
+_ft_strcat:
 	mov rax, rdi
-	
+
 loop:
 	cmp [rdi], byte 0
 	jz copy
-	inc rdi 
+	inc rdi
 	jmp loop
 
 copy:
 	cmp[rsi], byte 0
 	jz end
 	mov cx, [rsi]
-	mov [rdi], cx 
+	mov [rdi], cx
 	inc rsi
 	inc rdi
 	jmp copy

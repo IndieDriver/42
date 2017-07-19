@@ -1,8 +1,8 @@
-global ft_isascii
+global _ft_isascii
 
 section .text
 
-ft_isascii:
+_ft_isascii:
 	cmp rdi, byte 0x00
 	jb false
 	cmp rdi, byte 0x7f

@@ -1,9 +1,9 @@
-global ft_memset
+global _ft_memset
 
 section .text
 
-ft_memset:
-	mov rax, rdi	
+_ft_memset:
+	mov rax, rdi
 
 loop:
 	cmp rdx, 0

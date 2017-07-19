@@ -1,10 +1,10 @@
-global ft_strlen
+global _ft_strlen
 
 section .text
 
-ft_strlen:
+_ft_strlen:
 	mov rax, 0
-	
+
 loop:
 	cmp [rdi], byte 0
 	jz end
@@ -12,5 +12,5 @@ loop:
 	inc rax
 	jmp loop
 
-end:	
+end:
 	ret

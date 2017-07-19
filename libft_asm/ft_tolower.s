@@ -1,14 +1,14 @@
-global ft_tolower
+global _ft_tolower
 
 section .text
 
-ft_tolower:
+_ft_tolower:
 	mov rax, rdi
 	cmp rax, byte 'A'
 	jb same
 	cmp rax, byte 'Z'
 	ja same
-	sub rdi, 32
+	add rax, 32
 
 same:
 	ret

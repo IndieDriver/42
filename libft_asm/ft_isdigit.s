@@ -1,8 +1,8 @@
-global ft_isdigit
+global _ft_isdigit
 
 section .text
 
-ft_isdigit:
+_ft_isdigit:
 	cmp rdi, byte '0'
 	jb false
 	cmp rdi, byte '9'
