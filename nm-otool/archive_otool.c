@@ -105,9 +105,8 @@ int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 
 void	archive_otool(char *filename, char *ptr)
 {
-	if (ft_strncmp(ptr, ARMAG, SARMAG) == 0
-			|| ft_strncmp(ptr, (char*)OARMAG1, SARMAG) == 0
-			|| ft_strncmp(ptr, (char*)OARMAG2, SARMAG) == 0)
+	sanity_check(ptr, SARMAG);
+	if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
 	{
 		ft_putstr("Archive : ");
 		ft_putstr(filename);

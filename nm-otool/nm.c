@@ -237,6 +237,7 @@ void	nm(char *filename, char *ptr, int should_print)
 	{
 		if (should_print)
 		{
+			ft_putstr("\n");
 			ft_putstr(filename);
 			ft_putstr(":\n");
 		}
@@ -246,6 +247,7 @@ void	nm(char *filename, char *ptr, int should_print)
 	{
 		if (should_print)
 		{
+			ft_putstr("\n");
 			ft_putstr(filename);
 			ft_putstr(":\n");
 		}
@@ -267,6 +269,9 @@ int		main(int argc, char **argv)
 	i = 1;
 	if (argc < 2)
 		return (EXIT_FAILURE);
+	/*
+	if (argc != 2)
+		ft_putstr("\n"); */
 	while (i < argc)
 	{
 		if ((fd = open(argv[i], O_RDONLY)) < 0)
@@ -281,8 +286,9 @@ int		main(int argc, char **argv)
 		if (munmap(ptr, buf.st_size) < 0)
 			return (EXIT_FAILURE);
 		i++;
+		/*
 		if (i != argc)
-			ft_putstr("\n");
+			ft_putstr("\n"); */
 	}
 	return (EXIT_SUCCESS);
 }
