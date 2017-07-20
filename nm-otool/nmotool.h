@@ -22,7 +22,6 @@
 # include <sys/mman.h>
 # include <fcntl.h>
 # include <stdlib.h>
-# include <stdio.h>
 # include "libft/libft.h"
 
 typedef struct			s_symbol

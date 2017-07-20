@@ -41,6 +41,8 @@ void	parse_fat_arch(void *ptr, char *filename, struct fat_header *fheader,
 	while (i < swap_byte32_t(fheader->nfat_arch))
 	{
 		dump_fat_arch(filename, &farch[i]);
+		if (!sanity_check(ptr, swap_byte32_t(farch[i].offset)))
+			return ;
 		otool_nofilename(filename, ptr + swap_byte32_t(farch[i].offset));
 		i++;
 	}
@@ -63,6 +65,8 @@ void	fat_otool(char *filename, void *ptr)
 		{
 			if (swap_byte32_t(farch[i].cputype) == CPU_TYPE_X86_64)
 			{
+				if (!sanity_check(ptr, swap_byte32_t(farch[i].offset)))
+					return ;
 				otool(filename, ptr + swap_byte32_t(farch[i].offset));
 				return ;
 			}

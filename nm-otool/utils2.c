@@ -67,7 +67,6 @@ int		sanity_check(void *ptr, size_t offset)
 	if (ptr + offset >= g_filelimit)
 	{
 		ft_putstr("Oops something's wrong with this binary file\n");
-		exit(EXIT_FAILURE);
 		return (0);
 	}
 	return (1);

@@ -26,7 +26,8 @@ void	parse_empty(char *filename, void *ptr, void *string_table_ptr)
 		ret = handle_ar(filename, ptr, string_table_ptr);
 		if (ret == 0)
 			return ;
-		sanity_check(string_table_ptr, ret + sizeof(struct ar_hdr));
+		if (!sanity_check(string_table_ptr, ret + sizeof(struct ar_hdr)))
+			return ;
 		string_table_ptr += (ret + sizeof(struct ar_hdr));
 	}
 }
@@ -89,7 +90,8 @@ int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 			&& ft_strncmp(ar_header->ar_fmag, ARFMAG, 2) == 0)
 	{
 		ar_size = ft_atoi(ar_header->ar_size);
-		sanity_check(ar_ptr, ar_size);
+		if (!sanity_check(ar_ptr, ar_size))
+			return (0);
 		if (!handle_symdef(filename, file_ptr,
 					(void*)ar_ptr + sizeof(struct ar_hdr)))
 		{
@@ -107,7 +109,8 @@ int		handle_ar(char *filename, void *file_ptr, void *ar_ptr)
 
 void	archive(char *filename, char *ptr)
 {
-	sanity_check(ptr, SARMAG);
+	if (!sanity_check(ptr, SARMAG))
+		return ;
 	if (ft_strncmp(ptr, ARMAG, SARMAG) == 0)
 	{
 		handle_ar(filename, ptr, ptr + SARMAG);

@@ -98,8 +98,9 @@ void	dump_nlist_64(void *str_table, struct nlist_64 *nlist64, t_nm64 *nm,
 	n_stab = nlist64->n_type & N_STAB;
 	n_type = nlist64->n_type & N_TYPE;
 	n_ext = nlist64->n_type & N_EXT;
-	sanity_check(str_table,
-		(endian ? swap_byte32_t(nlist64->n_un.n_strx) : nlist64->n_un.n_strx));
+	if (!sanity_check(str_table,
+		(endian ? swap_byte32_t(nlist64->n_un.n_strx) : nlist64->n_un.n_strx)))
+		return ;
 	if (ft_strlen(str_table + (endian ? swap_byte32_t(nlist64->n_un.n_strx) :
 			nlist64->n_un.n_strx)) == 0 || n_stab)
 		return ;
@@ -127,8 +128,9 @@ void	dump_nlist_32(void *str_table, struct nlist *nlist, t_nm32 *nm,
 	n_stab = nlist->n_type & N_STAB;
 	n_type = nlist->n_type & N_TYPE;
 	n_ext = nlist->n_type & N_EXT;
-	sanity_check(str_table,
-			(endian ? swap_byte32_t(nlist->n_un.n_strx) : nlist->n_un.n_strx));
+	if (!sanity_check(str_table,
+			(endian ? swap_byte32_t(nlist->n_un.n_strx) : nlist->n_un.n_strx)))
+		return ;
 	if (ft_strlen(str_table + (endian ? swap_byte32_t(nlist->n_un.n_strx) :
 			nlist->n_un.n_strx)) == 0 || n_stab)
 		return ;

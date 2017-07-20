@@ -12,7 +12,7 @@
 
 #include "nmotool.h"
 
-t_dylib		*get_dylib(struct load_command *lc, uint32_t ncmds, int endian)
+t_dylib		*get_dylib(struct load_command *lc, uint32_t ncmds, int en)
 {
 	uint32_t					i;
 	uint32_t					k;
@@ -24,17 +24,18 @@ t_dylib		*get_dylib(struct load_command *lc, uint32_t ncmds, int endian)
 	ft_bzero(dylibs, sizeof(t_section32*) * MAX_LIBRARY_ORDINAL);
 	while (i < ncmds && k < MAX_LIBRARY_ORDINAL)
 	{
-		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LOAD_DYLIB
-	|| (endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LOAD_WEAK_DYLIB
-	|| (endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_REEXPORT_DYLIB
-	|| (endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LOAD_UPWARD_DYLIB
-	|| (endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LAZY_LOAD_DYLIB)
+		if ((en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LOAD_DYLIB
+	|| (en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LOAD_WEAK_DYLIB
+	|| (en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_REEXPORT_DYLIB
+	|| (en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LOAD_UPWARD_DYLIB
+	|| (en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_LAZY_LOAD_DYLIB)
 		{
 			dylibs[k].is_lib = 1;
 			k++;
 		}
-		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
-		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
+		if (!sanity_check(lc, (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize)))
+			return (NULL);
+		lc = (void*)lc + (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
 	return (dylibs);

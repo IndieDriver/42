@@ -29,7 +29,7 @@ t_section64	*get_subsection64(t_section64 *section,
 	return (section);
 }
 
-t_section64	*get_section64(struct load_command *lc, uint32_t ncmds, int endian)
+t_section64	*get_section64(struct load_command *lc, uint32_t ncmds, int en)
 {
 	uint32_t					i;
 	uint32_t					k;
@@ -45,10 +45,11 @@ t_section64	*get_section64(struct load_command *lc, uint32_t ncmds, int endian)
 		if (lc->cmd == LC_SEGMENT_64)
 		{
 			seg_cmd = (struct segment_command_64*)lc;
-			get_subsection64(sections, seg_cmd, &k, endian);
+			get_subsection64(sections, seg_cmd, &k, en);
 		}
-		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
-		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
+		if (!sanity_check(lc, (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize)))
+			return (NULL);
+		lc = (void*)lc + (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
 	return (sections);
@@ -71,7 +72,7 @@ t_section32	*get_subsection32(t_section32 *section,
 	return (section);
 }
 
-t_section32	*get_section32(struct load_command *lc, uint32_t ncmds, int endian)
+t_section32	*get_section32(struct load_command *lc, uint32_t ncmds, int en)
 {
 	uint32_t					i;
 	uint32_t					k;
@@ -84,13 +85,14 @@ t_section32	*get_section32(struct load_command *lc, uint32_t ncmds, int endian)
 	ft_bzero(sections, sizeof(t_section32*) * 256);
 	while (i < ncmds)
 	{
-		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SEGMENT)
+		if ((en ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SEGMENT)
 		{
 			seg_cmd = (struct segment_command*)lc;
-			get_subsection32(sections, seg_cmd, &k, endian);
+			get_subsection32(sections, seg_cmd, &k, en);
 		}
-		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
-		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
+		if (!sanity_check(lc, (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize)))
+			return (NULL);
+		lc = (void*)lc + (en ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
 	return (sections);

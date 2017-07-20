@@ -29,6 +29,8 @@ void		dump_data64(void *ptr, void *vm_start, uint64_t size)
 			ft_put_addr_64((size_t)vm_start + (ptr - ptr_start));
 			ft_putstr("\t");
 		}
+		if (!sanity_check(ptr, sizeof(unsigned char)))
+			return ;
 		c = *(unsigned char*)ptr;
 		ft_put_hex(c);
 		ft_putstr(" ");
@@ -56,10 +58,11 @@ void		dump_data32(void *ptr, void *vm_start, uint64_t size, int endian)
 			ft_put_addr_32((size_t)vm_start + (ptr - ptr_start));
 			ft_putstr("\t");
 		}
+		if (!sanity_check(ptr, sizeof(unsigned char)))
+			return ;
 		c = *(unsigned char*)ptr;
 		ft_put_hex(c);
-		if (!endian || (i + 1) % 4 == 0)
-			ft_putstr(" ");
+		!endian || (i + 1) % 4 == 0 ? ft_putstr(" ") : ft_putstr("");
 		i += sizeof(unsigned char);
 		ptr += sizeof(unsigned char);
 	}

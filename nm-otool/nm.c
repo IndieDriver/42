@@ -22,7 +22,9 @@ struct symtab_command	*get_symtab_command(struct load_command *lc,
 	{
 		if ((endian ? swap_byte32_t(lc->cmd) : lc->cmd) == LC_SYMTAB)
 			return ((struct symtab_command*)lc);
-		sanity_check(lc, (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize));
+		if (!sanity_check(lc,
+					(endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize)))
+			return (NULL);
 		lc = (void*)lc + (endian ? swap_byte32_t(lc->cmdsize) : lc->cmdsize);
 		i++;
 	}
@@ -40,8 +42,10 @@ void					handle_64(char *ptr, int endian)
 	header = (struct mach_header_64 *)ptr;
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
 	lc = (void*)ptr + sizeof(struct mach_header_64);
-	snm.sec = get_section64(lc, ncmds, endian);
-	snm.dylib = get_dylib(lc, ncmds, endian);
+	if ((snm.sec = get_section64(lc, ncmds, endian)) == NULL)
+		return ;
+	if ((snm.dylib = get_dylib(lc, ncmds, endian)) == NULL)
+		return ;
 	symcmd = get_symtab_command(lc, ncmds, endian);
 	if (symcmd != NULL)
 		print_output_64(symcmd, ptr, &snm, endian);
@@ -60,8 +64,10 @@ void					handle_32(char *ptr, int endian)
 	header = (struct mach_header*)ptr;
 	ncmds = endian ? swap_byte32_t(header->ncmds) : header->ncmds;
 	lc = (void*)ptr + sizeof(struct mach_header);
-	snm.sec = get_section32(lc, ncmds, endian);
-	snm.dylib = get_dylib(lc, ncmds, endian);
+	if ((snm.sec = get_section32(lc, ncmds, endian)) == NULL)
+		return ;
+	if ((snm.dylib = get_dylib(lc, ncmds, endian)) == NULL)
+		return ;
 	symcmd = get_symtab_command(lc, ncmds, endian);
 	if (symcmd != NULL)
 		print_output_32(symcmd, ptr, &snm, endian);
@@ -73,7 +79,8 @@ void					nm(char *filename, char *ptr, int should_print)
 {
 	uint32_t magic_number;
 
-	sanity_check(ptr, sizeof(uint32_t));
+	if (!sanity_check(ptr, sizeof(uint32_t)))
+		return ;
 	magic_number = *(uint32_t*)ptr;
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
 	{
