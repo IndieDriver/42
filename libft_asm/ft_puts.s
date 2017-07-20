@@ -5,32 +5,36 @@ section .data
 
 null:	db "(null)", 10
 .len:	equ	$ - null
+newline: db 10
 
 section .text
 
 _ft_puts:
-	mov	r11, rdi
+	cmp rdi, 0x0
+	je _null
+	mov	r12, rdi
 	call _ft_strlen
-	mov r12, rax
-	cmp r12, byte 0
-	je err
+	mov r13, rax
     mov rax, 0x2000004 	; write
 	mov rdi, 1			; fd
-	mov rsi, r11		; string
-	mov rdx, r12		; len
+	mov rsi, r12		; string
+	mov rdx, r13		; len
 	syscall
 
 end:
+    mov rax, 0x2000004 	; write
+	mov rdi, 1			; fd
+	mov rsi, newline	; string
+	mov rdx, 1			; len
+	syscall
 	mov rax, 10
 	ret
 
-err:
+_null:
     mov rax, 0x2000004 	; write
 	mov rdi, 1			; fd
 	mov rsi, null		; string
 	mov rdx, null.len	; len
 	syscall
-	mov rax, -1
+	mov rax, 10
 	ret
-
-
