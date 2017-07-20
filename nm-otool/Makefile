@@ -62,11 +62,13 @@ ft_otool: $(OBJ_OT)
 	$(CC) $(INC) -o $@ -c $^ $(CFLAGS)
 
 clean:
-	$(RM) $(OBJ)
+	$(RM) $(OBJ_NM)
+	$(RM) $(OBJ_OT)
 	make clean -C ./libft
 
 fclean: clean
-	$(RM) $(NAME)
+	$(RM) ft_nm
+	$(RM) ft_otool
 	make fclean -C ./libft
 
 re: fclean all

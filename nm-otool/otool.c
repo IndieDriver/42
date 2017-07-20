@@ -42,6 +42,8 @@ void	otool_nofilename(char *fn, char *ptr)
 {
 	uint32_t magic_number;
 
+	if (!sanity_check(ptr, sizeof(uint32_t)))
+		return ;
 	magic_number = *(uint32_t*)ptr;
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
 		magic_number == MH_MAGIC_64 ? handle_64(ptr, 0) : handle_64(ptr, 1);
@@ -57,6 +59,8 @@ void	otool(char *fn, char *ptr)
 {
 	uint32_t magic_number;
 
+	if (!sanity_check(ptr, sizeof(uint32_t)))
+		return ;
 	magic_number = *(uint32_t*)ptr;
 	if (magic_number == MH_MAGIC_64 || magic_number == MH_CIGAM_64)
 	{
@@ -84,11 +88,11 @@ int		main(int argc, char **argv)
 	int				i;
 
 	i = 1;
-	if (argc != 2)
+	if (argc < 2)
 		return (EXIT_FAILURE);
 	while (i < argc)
 	{
-		if ((fd = open(argv[1], O_RDONLY)) < 0)
+		if ((fd = open(argv[i], O_RDONLY)) < 0)
 			return (EXIT_FAILURE);
 		if (fstat(fd, &buf) < 0)
 			return (EXIT_FAILURE);
@@ -96,7 +100,8 @@ int		main(int argc, char **argv)
 			== MAP_FAILED)
 			return (EXIT_FAILURE);
 		g_filelimit = ptr + buf.st_size;
-		otool(argv[1], ptr);
+		otool(argv[i], ptr);
+		close(fd);
 		if (munmap(ptr, buf.st_size) < 0)
 			return (EXIT_FAILURE);
 		i++;
