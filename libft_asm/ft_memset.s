@@ -3,15 +3,9 @@ global _ft_memset
 section .text
 
 _ft_memset:
-	mov rax, rdi
-
-loop:
-	cmp rdx, 0
-	jz end
-	mov [rdi], sil
-	inc rdi
-	dec rdx
-	jmp loop
-
-end:
+	mov r10, rdi
+	mov rax, rsi ;char
+	mov rcx, rdx ;count
+	rep stosb
+	mov rax, r10
 	ret

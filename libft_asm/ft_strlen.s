@@ -1,16 +1,20 @@
 global _ft_strlen
 
+section	.data
+
+max_value equ 18446744073709551615
+
 section .text
 
 _ft_strlen:
-	mov rax, 0
-
-loop:
-	cmp [rdi], byte 0
+	xor rax, rax
+	mov rcx, max_value
+	repnz scasb
+	mov rax, max_value
+	sub rax, rcx
+	cmp rax, 0
 	jz end
-	inc rdi
-	inc rax
-	jmp loop
+	dec rax
 
 end:
 	ret

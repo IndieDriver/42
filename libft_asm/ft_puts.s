@@ -4,7 +4,7 @@ extern _ft_strlen
 section .data
 
 null:	db "(null)", 10
-.len:	equ	$ - null
+.len:	equ 17
 newline: db 10
 
 section .text
