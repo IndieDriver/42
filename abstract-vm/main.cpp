@@ -45,6 +45,7 @@ std::vector<Instruction*>
 }
 
 void run(std::string content, bool shouldStopOnExit) {
+	bool debug = true;
 	std::vector<std::string> tokens;
 	std::vector<Instruction*> instructions;
 
@@ -52,15 +53,25 @@ void run(std::string content, bool shouldStopOnExit) {
 	try {
 		instructions = parse(tokens, !shouldStopOnExit);
 	} catch (std::exception &e) {
-		std::cout << "[Parsing Exception] " << e.what()
-			<< std::endl;
+		std::cout << COL_RED << "[Parsing Exception] " << COL_RES << e.what() << std::endl;
 	}
-	try {
+	if (debug) {
 		for (auto & instr : instructions) {
-			instr->exec();
+			try {
+				instr->exec();
+			} catch (std::exception &e) {
+				std::cout << COL_RED << "[Exception] " << COL_RES << e.what() << std::endl;
+			}
+
 		}
-	} catch (std::exception &e) {
-		std::cout << "[Exception] " << e.what() << std::endl;
+	} else {
+		try {
+			for (auto & instr : instructions) {
+				instr->exec();
+			}
+		} catch (std::exception &e) {
+			std::cout << COL_RED << "[Exception] " << COL_RES << e.what() << std::endl;
+		}
 	}
 	for (auto & instr : instructions) {
 		delete instr;
@@ -71,8 +82,15 @@ void run(std::string content, bool shouldStopOnExit) {
 }
 
 int main(int ac, char **av) {
+	int i = 1;
+
 	if (ac > 1) {
-		run (readFile(av[1]), true);
+		while (i < ac)
+		{
+			run (readFile(av[i]), true);
+			i++;
+		}
+
 	} else {
 		for (std::string line; std::getline(std::cin, line);) {
 			if (line.compare(";;") == 0)

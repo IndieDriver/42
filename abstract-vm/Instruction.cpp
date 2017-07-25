@@ -62,7 +62,7 @@ void Instruction::pop() {
 }
 
 void Instruction::dump() {
-	for (const auto & elem : Memory::getInstance().g_stack) {
+	for (auto * elem : Memory::getInstance().g_stack) {
 		if (elem->getPrecision() <= 2) {
 			std::cout.precision(0);
 			std::cout << std::fixed << elem->toString() << std::endl;

@@ -17,6 +17,7 @@ class Memory {
 			for (auto & op : g_stack) {
 				delete op;
 			}
+			g_stack.clear();
 		}
 	private:
 		Memory(void) {};

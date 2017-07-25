@@ -1,5 +1,7 @@
 #ifndef AVM_HPP
 # define AVM_HPP
+# define COL_RES "\e[39m"
+# define COL_RED "\e[31m"
 # include <string>
 # include <iostream>
 # include <fstream>
