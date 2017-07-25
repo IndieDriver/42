@@ -10,7 +10,9 @@ _ft_strdup:
 	inc rax
 	mov r13, rax
 	mov rdi, rax
+	push rdi
 	call _malloc
+	pop rdi
 	mov r14, rax
 	mov r10, rdi
 	dec r13

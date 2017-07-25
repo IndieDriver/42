@@ -1,7 +1,7 @@
 global _ft_cat
 
 section .bss
-	buf resb 32
+	buf: resb 32
 
 section .text
 
@@ -10,27 +10,39 @@ _ft_cat:
 	cmp rdi, -1
 	jae end
 
-cat:
+read:
     mov rax, 0x2000003 	; read
 	mov rdi, r12
 	mov rsi, buf
 	mov rdx, 32
 	syscall
-	cmp rax, -1
-	je end
+	cmp rax, byte 0
+	jle end
+	xor r14, r14
+	mov rdi, buf
+
+eof:
+	cmp r14, 32
+	jae write
+	inc r14
+	cmp [rdi+r15], byte -1
+	jle end
+
+write:
 	mov rdx, rax
 	mov r13, rax
     mov rax, 0x2000004 	; write
 	mov rdi, 1
 	mov rsi, buf
 	syscall
+	jc end
 	cmp r13, 32
 	jnz stdfd
-	jmp cat
+	jmp read
 
 stdfd:
 	cmp r12, 3
-	jb cat
+	jb read
 
 end:
 	ret
