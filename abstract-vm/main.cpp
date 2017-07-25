@@ -12,7 +12,9 @@ std::string readFile(std::string filename) {
         while (getline(file, line))
             buffer += line + "\n";
         file.close();
-    }
+    } else {
+		std::cout << COL_RED << "Cannot open file " << filename << COL_RES << std::endl;
+	}
 	return (buffer);
 }
 
@@ -49,6 +51,8 @@ void run(std::string content, bool shouldStopOnExit) {
 	std::vector<std::string> tokens;
 	std::vector<Instruction*> instructions;
 
+	if (content.empty())
+		return ;
 	tokens = tokenize(content);
 	try {
 		instructions = parse(tokens, !shouldStopOnExit);
