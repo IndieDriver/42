@@ -1,7 +1,6 @@
 #ifndef MEMORY_HPP
 # define MEMORY_HPP
 # include <deque>
-# include <list>
 # include "Operand.hpp"
 
 class Memory {
@@ -10,7 +9,7 @@ class Memory {
             static Memory instance;
             return (instance);
         }
-		std::list<const IOperand*>	g_stack;
+		std::deque<const IOperand*>	g_stack;
 		Memory(Memory const&) = delete;
         void operator=(Memory const&) = delete;
 		void clean() {
