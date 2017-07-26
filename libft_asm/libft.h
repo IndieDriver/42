@@ -12,6 +12,23 @@
 
 #ifndef LIBFT_H
 # define LIBFT_H
+# include <unistd.h>
+
+
+typedef struct		s_vec4
+{
+	union {
+		float s[4];
+		struct {
+			float	x;
+			float	y;
+			float	z;
+			float	w;
+		};
+	};
+}				t_vec4;
+
+
 
 int					ft_puts(char const *s);
 void				ft_bzero(void *s, size_t n);
@@ -29,5 +46,10 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 
 void				ft_cat(int fd);
+
+float				ft_vec4len(t_vec4 vec);
+t_vec4				ft_vec4normalize(t_vec4 *vec);
+t_vec4				ft_vec4scale(t_vec4	vec, float scale);
+
 
 #endif
