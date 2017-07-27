@@ -1,5 +1,6 @@
 global _ft_vec4normalize
 extern _ft_vec4len
+extern _ft_vec4scale
 
 section .text
 
@@ -10,15 +11,12 @@ _ft_vec4normalize:
 	movaps xmm5, xmm1
 	call _ft_vec4len
 	mov eax, 1
-	cvtsi2ss xmm6, eax
-	divss xmm6, xmm0
-	mulss xmm4, xmm6
-	mulss r
-	mulss [xmm4+8], xmm6
-
+	cvtsi2ss xmm2, eax
+	divss xmm2, xmm0
 	movups xmm0, xmm4
 	movups xmm1, xmm5
-	;movups xmm0, xmm6
-	;addsd   xmm6,xmm0
+	call _ft_vec4scale
+	movups [rdi], xmm0
+	movups [rdi+8], xmm1
 	ret
 

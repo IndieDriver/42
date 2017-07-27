@@ -29,6 +29,8 @@ SRC_NAME = ft_bzero.s			\
 		   ft_cat.s				\
 		   ft_vec4len.s			\
 		   ft_vec4scale.s		\
+		   ft_vec4dot.s			\
+		   ft_vec4distance.s	\
 		   ft_vec4normalize.s	\
 
 

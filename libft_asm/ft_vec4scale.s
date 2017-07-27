@@ -6,7 +6,7 @@ section .bss
 section .text
 
 _ft_vec4scale:
-	movss [scalar], xmm2
-	movss [scalar+4], xmm2
-
-
+	shufps xmm2,xmm2, byte 0 ;populate xmm2 with scalar
+	mulps xmm0, xmm2
+	mulps xmm1, xmm2
+	ret

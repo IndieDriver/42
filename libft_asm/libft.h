@@ -48,8 +48,10 @@ int					ft_tolower(int c);
 void				ft_cat(int fd);
 
 float				ft_vec4len(t_vec4 vec);
-t_vec4				ft_vec4normalize(t_vec4 *vec);
+void				ft_vec4normalize(t_vec4 *vec);
 t_vec4				ft_vec4scale(t_vec4	vec, float scale);
+float				ft_vec4dot(t_vec4 vec1, t_vec4 vec2);
+float				ft_vec4distance(t_vec4 vec1, t_vec4 vec2);
 
 
 #endif
