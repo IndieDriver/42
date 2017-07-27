@@ -4,7 +4,6 @@ extern _ft_strlen
 section .data
 
 null:	db "(null)", 10
-.len:	equ 17
 newline: db 10
 
 section .text
@@ -24,7 +23,7 @@ _ft_puts:
 end:
     mov rax, 0x2000004 	; write
 	mov rdi, 1			; fd
-	mov rsi, newline	; string
+	lea rsi, [rel newline]
 	mov rdx, 1			; len
 	syscall
 	mov rax, 10
@@ -33,8 +32,8 @@ end:
 _null:
     mov rax, 0x2000004 	; write
 	mov rdi, 1			; fd
-	mov rsi, null		; string
-	mov rdx, null.len	; len
+	lea rsi, [rel null]
+	mov rdx, 7	; len
 	syscall
 	mov rax, 10
 	ret

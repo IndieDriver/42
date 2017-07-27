@@ -51,13 +51,11 @@ $(NAME): $(OBJ_NAME)
 	$(RAN) $(NAME)
 
 %.o: %.s
-	$(CC_ASM) -f $(ARCH) -F dwarf -g $< -o $@
-
+	$(CC_ASM) -f $(ARCH) $< -o $@
 
 test:
-	$(CC_C) -g main.c -I./ -L./ -lfts
-	gcc -Wextra -Wall -Werror tests/main_bonus.c libfts.a
-	./a.out
+	gcc -Wextra -Wall -Werror -o test_bonus tests/main_bonus.c libfts.a
+	./test_bonus
 
 clean:
 	$(RM) $(OBJ_NAME)

@@ -13,13 +13,13 @@ _ft_cat:
 read:
     mov rax, 0x2000003 	; read
 	mov rdi, r12
-	mov rsi, buf
+	lea rsi, [rel buf]
 	mov rdx, 32
 	syscall
 	cmp rax, byte 0
 	jle end
 	xor r14, r14
-	mov rdi, buf
+	lea rdi, [rel buf]
 
 eof:
 	cmp r14, 32
@@ -33,7 +33,7 @@ write:
 	mov r13, rax
     mov rax, 0x2000004 	; write
 	mov rdi, 1
-	mov rsi, buf
+	lea rsi, [rel buf]
 	syscall
 	jc end
 	cmp r13, 32

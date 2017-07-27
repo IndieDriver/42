@@ -12,4 +12,3 @@ _ft_vec4distance:
 	addss xmm0, xmm1
 	sqrtss xmm0, xmm0
 	ret
-
