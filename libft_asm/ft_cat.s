@@ -16,16 +16,9 @@ read:
 	lea rsi, [rel buf]
 	mov rdx, 32
 	syscall
-	cmp rax, byte 0
-	jle end
-	xor r14, r14
-	lea rdi, [rel buf]
-
-eof:
-	cmp r14, 32
+	cmp r12, 3
 	jae write
-	inc r14
-	cmp [rdi+r15], byte -1
+	cmp rax, byte 0 ;test eof
 	jle end
 
 write:
