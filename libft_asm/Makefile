@@ -56,6 +56,7 @@ $(NAME): $(OBJ_NAME)
 
 test:
 	$(CC_C) -g main.c -I./ -L./ -lfts
+	gcc -Wextra -Wall -Werror tests/main_bonus.c libfts.a
 	./a.out
 
 clean:

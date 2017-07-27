@@ -1,6 +1,6 @@
 #include <math.h>
 #include <stdio.h>
-#include "libft.h"
+#include "../libft.h"
 
 t_vec4  vec_scale(t_vec4 v1, float fact)
 {
