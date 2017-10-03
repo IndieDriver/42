@@ -1,22 +1,16 @@
 let repeat_x nb =
-    if nb <= -1 then
-        "Error"
-    else
-        begin
-        let rec loop n str=
-            if n < 0 then str
-            else
-                let accstr = str ^ "x" in
-                loop ((n - 1) accstr)
-        in
-        loop nb ""
-    end
+    let rec loop n str =
+        if n < 0 then "Error"
+        else if n = 0 then str
+        else loop (n - 1)(str ^ "x")
+    in
+    loop nb ""
 
 let main() =
-    repeat_x (-1);
-    repeat_x 0;
-    repeat_x 1;
-    repeat_x 2;
-    repeat_x 5
+    print_endline(repeat_x (-1));
+    print_endline(repeat_x 0);
+    print_endline(repeat_x 1);
+    print_endline(repeat_x 2);
+    print_endline(repeat_x 5)
 
 let () = main()
