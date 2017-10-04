@@ -15,8 +15,28 @@ let encode lst =
     rev (loop 0 [] lst)
 
 let main () =
-    let lst = ['a'; 'a'; 'a'; 'b'; 'b'; 'b';] in
-    encode lst;
+    let rec print_list lst =
+        let print_pair (a, b) =
+          print_string "(";
+          print_int a;
+          print_string ",";
+          print_char b;
+          print_string ")"
+        in
+        match lst with
+        | [] -> print_char '\n'
+        | e::l -> print_pair e ; print_string ";" ; print_list l
+    in
+    let lst = ['a';'a';'a';'b';'b';'b'] in
+    print_list (encode lst);
+    let lst = ['a';'b';'c'] in
+    print_list (encode lst);
+    let lst = ['a';'b';'b';'b';'b';'b';'b';'b';'a';'a';'b'] in
+    print_list (encode lst);
+    let lst = ['a'] in
+    print_list (encode lst);
+    let lst = [] in
+    print_list (encode lst);
     print_string ""
 
 let () = main ()
