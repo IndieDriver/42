@@ -33,8 +33,8 @@ let main () =
     let lst2 = ['c';'b';'a'] in
     print_list (crossover lst1 lst2);
 
-    let lst1 = ['a';'b';'c'] in
-    let lst2 = ['b';'c'] in
+    let lst1 = ['z';'b';'e';'g';'h';'i';'j'] in
+    let lst2 = ['a';'b';'c';'z';'h';'g';'e'] in
     print_list (crossover lst1 lst2);
 
     let lst1 = [] in
