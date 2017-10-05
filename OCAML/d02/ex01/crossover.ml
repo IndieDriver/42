@@ -1,18 +1,23 @@
 let crossover lst1 lst2 =
+  let rev lst =
+      let rec loop acc = function
+        | [] -> acc
+        | head::tail-> loop (head :: acc) tail in
+      loop [] lst
+  in
+  let rec loop2 tofind lst2 = match lst2 with
+    | [] -> false
+    | head :: tail -> if head = tofind then true
+                      else loop2 tofind tail
+  in
   let rec loop lst1 lst2 acclst = match lst1 with
-    | [] -> []
-    | head :: tail -> if head = tail then
-      begin
-        (*
-        let rec loop2 el lst2 = match lst2 with
-          | [] -> []
-          | head :: tail -> if head == el then head
-            else loop2 (el tail)
-        in
-        loop2 head lst2 *)
-      end
-    in
-    loop lst1 lst2 []
+    | [] -> acclst
+    | head :: tail -> if (loop2 head lst2) then
+      loop tail lst2 (head :: acclst)
+    else
+      acclst
+  in
+  rev (loop lst1 lst2 [])
 
 let main () =
     let rec print_list lst =
@@ -20,8 +25,28 @@ let main () =
         | [] -> print_char '\n'
         | e::l -> print_char e ; print_string ";" ; print_list l
     in
-    let lst1 = ['a';'a';'a';'b';'b';'b'] in
-    let lst1 = ['a';'b';'a';'b';'b';'b'] in
+    let lst1 = ['a';'b';'c'] in
+    let lst2 = ['a';'b'] in
+    print_list (crossover lst1 lst2);
+
+    let lst1 = ['a';'b';'c'] in
+    let lst2 = ['c';'b';'a'] in
+    print_list (crossover lst1 lst2);
+
+    let lst1 = ['a';'b';'c'] in
+    let lst2 = ['b';'c'] in
+    print_list (crossover lst1 lst2);
+
+    let lst1 = [] in
+    let lst2 = ['c';'b';'a'] in
+    print_list (crossover lst1 lst2);
+
+    let lst1 = ['a';'b';'c'] in
+    let lst2 = [] in
+    print_list (crossover lst1 lst2);
+
+    let lst1 = [] in
+    let lst2 = [] in
     print_list (crossover lst1 lst2);
     print_string ""
 
