@@ -3,18 +3,21 @@ module type PAIR = sig val pair : (int * int) end
 module type VAL = sig val x : int end
 
 module type MAKEPROJECTION =
-  functor (Val : VAL) -> PAIR
+  functor (Pair : PAIR) -> VAL
 
 module MakeFst : MAKEPROJECTION =
-  functor (Val : VAL) ->
+  functor (Pair : PAIR) ->
     struct
-      let pair = (Val.x, Val.x)
+      let x = fst Pair.pair
     end
 
-module Val : VAL =
-  struct
-    let x = 42
-  end
+module MakeSnd : MAKEPROJECTION =
+  functor (Pair : PAIR) ->
+    struct
+      let x = snd Pair.pair
+    end
+
+
 (* FIX ME !!! *)
 
 module Pair : PAIR = struct let pair = ( 21, 42 ) end
