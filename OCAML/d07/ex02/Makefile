@@ -1,7 +1,8 @@
-NAME = ex01
-SOURCES = people.ml	\
-		  doctor.ml	\
-		  main.ml	\
+NAME = ex02
+SOURCES =	people.ml	\
+			dalek.ml	\
+		  	doctor.ml	\
+		  	main.ml	\
 
 CAMLC = ocamlc
 CAMLOPT = ocamlopt
