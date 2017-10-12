@@ -1,6 +1,6 @@
-doctor.cmo : people.cmo
-doctor.cmx : people.cmx
-main.cmo : doctor.cmo
-main.cmx : doctor.cmx
+doctor.cmo :
+doctor.cmx :
+main.cmo : people.cmo doctor.cmo
+main.cmx : people.cmx doctor.cmx
 people.cmo :
 people.cmx :

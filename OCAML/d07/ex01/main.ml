@@ -1,5 +1,5 @@
 let main() =
-  let doctor = new Doctor.doctor "who" 20 in
+  let doctor = new Doctor.doctor "who" 20 (new People.people "sidekick generic name") in
   doctor#talk;
   doctor#use_sonic_screwdriver;
   print_endline (doctor#to_string);
