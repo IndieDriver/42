@@ -9,7 +9,7 @@ let main() =
   print_endline (human#to_string);
   print_string "\n\n";
 
-  let doctor = new Doctor.doctor "who" 20 in
+  let doctor = new Doctor.doctor "who" 20 (new People.people "sidekick1") in
   doctor#talk;
   print_endline (doctor#to_string);
   dalek#die

@@ -1,7 +1,7 @@
 dalek.cmo : people.cmo
 dalek.cmx : people.cmx
-doctor.cmo : people.cmo
-doctor.cmx : people.cmx
+doctor.cmo :
+doctor.cmx :
 main.cmo : people.cmo doctor.cmo dalek.cmo
 main.cmx : people.cmx doctor.cmx dalek.cmx
 people.cmo :
