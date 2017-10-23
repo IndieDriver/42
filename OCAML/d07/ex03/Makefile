@@ -1,6 +1,9 @@
-NAME = ex00
-SOURCES =	atom.ml		\
-			main.ml		\
+NAME = ex03
+SOURCES =	people.ml	\
+			dalek.ml	\
+		  	doctor.ml	\
+			army.ml		\
+		  	main.ml	\
 
 CAMLC = ocamlc
 CAMLOPT = ocamlopt
