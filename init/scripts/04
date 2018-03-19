@@ -1,0 +1,21 @@
+#!/bin/bash
+
+#file='/var/spool/cron/crontabs/root'
+file='/home/amathias/Documents/42/init/scripts/test'
+
+checksum=`md5sum ${file}` 
+
+check_checksum() {
+  newsum=`md5sum ${file}` 
+  if [[ $newsum == $checksum ]]; then
+    echo 'same checksum'
+  else
+    echo 'diff';
+    echo 'access' | mail -s 'alert' amathias63@gmail.com;
+    checksum=$newsum
+  fi
+}
+
+while sleep 1;
+do check_checksum
+done
