@@ -1,3 +1,2 @@
 #!/bin/sh
-tail -f /var/log/system.log &
-
+sudo tail -f /var/log/syslog &

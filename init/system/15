@@ -1,2 +1,2 @@
 #!/bin/sh
-pkill $(pgrep 'tail -f /var/log/system.log')
+sudo pkill -f 'tail -f /var/log/syslog'
