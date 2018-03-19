@@ -1,0 +1,2 @@
+#!/bin/sh
+host 42.fr | grep -m1 'has address' | cut -d' ' -f4;

@@ -1,0 +1,2 @@
+The link between the local network and the outside is the default gateway,
+this is the first ip adress on `traceroute slash16.org`

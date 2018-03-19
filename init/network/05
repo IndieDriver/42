@@ -1,0 +1,2 @@
+#!/bin/sh
+host -a slash16.org | grep 'from ' | cut -d' ' -f5
