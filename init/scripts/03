@@ -1,2 +1,2 @@
 #!/bin/sh
-who -a
+ls -lS $1
