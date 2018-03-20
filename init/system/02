@@ -1,2 +1,2 @@
 #!/bin/sh
-hostnamectl set-hostname myhostname;
+hostname
