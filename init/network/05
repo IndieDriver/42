@@ -1,2 +1,2 @@
 #!/bin/sh
-host -a slash16.org | grep 'from ' | cut -d' ' -f5
+nslookup slash16.org

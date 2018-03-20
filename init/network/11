@@ -1,2 +1,1 @@
-The link between the local network and the outside is the default gateway,
-this is the first ip adress on `traceroute slash16.org`
+The link between the LAN and the WAN is the NAT server `nat-1`
