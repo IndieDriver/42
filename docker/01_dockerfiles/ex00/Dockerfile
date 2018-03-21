@@ -1,3 +1,3 @@
 FROM alpine:latest
-RUN apk add --no-cache vim
-CMD vim
+RUN apk add --update vim
+ENTRYPOINT ["vim"]
